@@ -1,0 +1,6 @@
+*_bsp/*
+!*_bsp/settings.bsp
+
+*/obj
+
+*/.*
