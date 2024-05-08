@@ -89,3 +89,7 @@ PLLJ_PLLSPE_INFO.txt
 nios2_system/
 .qsys_edit/
 *.txt
+
+*.cdf
+
+simulation/

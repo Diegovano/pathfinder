@@ -1,24 +1,42 @@
 /*
- * "Hello World" example.
+ * main.c
  *
- * This example prints 'Hello from Nios II' to the STDOUT stream. It runs on
- * the Nios II 'standard', 'full_featured', 'fast', and 'low_cost' example
- * designs. It runs with or without the MicroC/OS-II RTOS and requires a STDOUT
- * device in your system's hardware.
- * The memory footprint of this hosted application is ~69 kbytes by default
- * using the standard reference design.
- *
- * For a reduced footprint version of this template, and an explanation of how
- * to reduce the memory footprint for a given application, see the
- * "small_hello_world" template.
- *
+ *  Created on: 6 May 2024
+ *      Author: andre
  */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-int main()
-{
-  printf("Hello from Nios II!\n");
+#define BUF_SIZE 50
 
-  return 0;
+int main() {
+	FILE* fp_ascii = NULL;
+	char buffer[BUF_SIZE];
+	int read_size, i;
+
+	fp_ascii = fopen("/mnt/host/input.txt", "r");
+	if (fp_ascii == NULL) {
+		printf("failed to open");
+		exit(1);
+	}
+
+	fgets(buffer, sizeof(buffer), fp_ascii);
+	printf("%s", buffer);
+	fclose(fp_ascii);
+
+	fp_ascii = fopen("/mnt/host/output.txt", "a");
+
+		if (fp_ascii == NULL) {
+		printf("failed to open");
+		exit(1);
+	}
+
+	fputs(buffer, fp_ascii);
+	fclose(fp_ascii);
+
+
+
+	return 0;
 }
