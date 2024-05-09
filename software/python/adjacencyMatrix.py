@@ -1,4 +1,5 @@
 import json
+import sys
 
 class Adjacency_Matrix:
     def __init__(self, V):
@@ -15,7 +16,7 @@ class Adjacency_Matrix:
 
     def print_matrix(self):
         str_arr = str(self.matrix).replace('[','{').replace(']','}')
-        print(f'int myArr[{self.V}][{self.V}] = {str_arr}\n')
+        print(f'int myArr[{self.V}][{self.V}] = {str_arr};\n')
 
     def to_json(self, fname):
         with open((fname+'.json'), 'w') as f:
@@ -27,7 +28,24 @@ class Adjacency_Matrix:
         str_arr = str(self.matrix).replace('[','{').replace(']','}')
 
         with open((fname+'.txt'), 'a') as f:
-            f.write(f'int myarr[{self.V}][{self.V}] = {str_arr}\n')
+            f.write(f'int myarr[{self.V}][{self.V}] = {str_arr};\n')
 
-graph = Adjacency_Matrix(4).print_matrix()
+if len(sys.argv) > 1:
+    size = int(sys.argv[1])
+else:
+    size = 4
+
+graph = Adjacency_Matrix(size)
+graph.print_matrix()
+
+while True:
+    start_id = int(input("Enter node id: "))
+    end_id = int(input("now the other one: "))
+    w = int(input("weight: "))
+
+    if start_id != end_id:
+        graph.matrix[min(max(start_id, 0), size - 1)][min(max(end_id, 0), size - 1)] = w
+        graph.matrix[min(max(end_id, 0), size - 1)][min(max(start_id, 0), size - 1)] = w
+
+    graph.print_matrix()
 
