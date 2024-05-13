@@ -80,7 +80,7 @@ def findPathAStar(nodes, dist_matrix, start, goal):
     pq.put((0,start))                                                          # start of the queue is the start node
     came_from = {start: None}                                                  # start a dictionary of where the node came from
     g_score   = {start: 0}                                                     # start a dictionary of the gscore of the node
-    f_score   = {start: heuristic(nodes[start], nodes[goal])} # start a dictionary of the fscore of the node
+    f_score   = {start: heuristic(nodes[start], nodes[goal])}                  # start a dictionary of the fscore of the node
     closed_set = set()                                                         # set of all the closed nodes 
 
     # whilst the queue is not empty 
@@ -236,8 +236,8 @@ def findPathALT(nodes, dist_matrix, start, goal, landmarks, lm_dist_matrix):
     print("No solution to the ALT Algorithm")
     return None 
 
-def plotGraph(showPath, figureId, algorithm, edges, nodes, solution, start, goal):
-    plt.figure(figureId, figsize=(6, 6))
+def plotGraph(showPath, figureId, algorithm, edges, nodes, solution, start, goal, time_taken):
+    plt.figure(figureId, figsize=(5, 5))
     plt.clf()
 
     for edge in edges:
@@ -263,7 +263,7 @@ def plotGraph(showPath, figureId, algorithm, edges, nodes, solution, start, goal
 
     plt.xlabel("X")
     plt.ylabel("Y")
-    plt.title(f"Graph of {algorithm} with {'path' if showPath else 'no path'}")
+    plt.title(f"Graph of {algorithm} with {'path' if showPath else 'no path'}\nTime taken: {time_taken:.10f} seconds")
     plt.legend()
     plt.show()
 
@@ -274,34 +274,45 @@ def alt_algo(nodes, dist_matrix, edges, start, goal):
     start_time = time.time()
     path = findPathALT(nodes, dist_matrix, start, goal, landmarks, lm_dist_matrix)
     end_time = time.time()
-    print(f"The ALT algorithm took {end_time-start_time}")
-    plotGraph(True, 1, "ALT", edges, nodes, path, start, goal)
+    time_taken = end_time - start_time
+    print(f"The ALT algorithm took {time_taken}")
+    plotGraph(True, 1, "ALT", edges, nodes, path, start, goal, time_taken)
     plt.show()
 
 def dijkstra(nodes, dist_matrix, edges, start, goal):
     start_time = time.time()
     path = findPathDijkstra(nodes, dist_matrix, start, goal)
     end_time = time.time()
-    print(f"The Dijkstra algorithm took {end_time-start_time}")
-    plotGraph(True, 3, "Dijkstra", edges, nodes, path, start, goal)
+    time_taken = end_time - start_time
+    print(f"The Dijkstra algorithm took {time_taken}")
+    plotGraph(True, 3, "Dijkstra", edges, nodes, path, start, goal, time_taken)
     plt.show()
 
 def a_star(nodes, dist_matrix, edges, start, goal):
     start_time = time.time()
     path = findPathAStar(nodes, dist_matrix, start, goal)
     end_time = time.time()
-    print(f"The A* algorithm took {end_time-start_time}")
-    plotGraph(True, 2, "A*", edges, nodes, path, start, goal)
+    time_taken = end_time - start_time
+    print(f"The A* algorithm took {time_taken}")
+    plotGraph(True, 2, "A*", edges, nodes, path, start, goal, time_taken)
     plt.show()
 
 try:
     graph_gen = False
+    proceed = False
     while True:
 
         if(graph_gen == False):
             num_nodes = int(input("How many nodes do you want (>10)? "))
-            nodes, dist_matrix, edges, start, goal = generateGraph(num_nodes)
-            graph_gen = True
+            while not proceed:
+                nodes, dist_matrix, edges, start, goal = generateGraph(num_nodes)
+                plotGraph(False, 4, "", edges, nodes, [], start, goal, 0)
+                if input("Do you want to proceed with the given map? (y - Yes, n - No): ") == 'y':
+                    proceed = True
+                else:
+                    plt.close()
+                    proceed = False
+                graph_gen = True
 
         print("\n Select an Algorithm to Test:")
         print("1. Dijkstra")
@@ -317,7 +328,9 @@ try:
         elif choice == 3:
             alt_algo(nodes, dist_matrix, edges, start, goal)
         else:
+            plt.close()
             break
 
 except KeyboardInterrupt:
+    plt.close()
     print("Program Stopped By User")
