@@ -1,5 +1,3 @@
-## Python Version of map generator from https://github.com/MerelyLogical/blog/blob/main/src/mapgen.js
-
 
 import matplotlib.pyplot as plt
 import random
@@ -13,6 +11,8 @@ import time
 #             current shortest distance to this node,
 #             index of the last node visited before this one
 
+plt.ion()
+
 class Node:
     def __init__(self, x, y, visited=False, search_dist=999, search_last=999, isLandmark=False):
         self.x = x
@@ -22,34 +22,13 @@ class Node:
         self.search_last = search_last
         self.isLandmark = isLandmark
 
-
-size = 99           # number of nodes in graph; has to be >= 10
-nodes = []          # contains the instances of Node
-edges = []          # holds pair of indicies representing the edges between two nodes 
-dist_matrix = []    # matrix of distances between every two pairs of nodes in the graph (dist_matrix[i][j] = dist between node i and node j)
-solution = []
-
-start = None        # index of the start node
-goal = None         # index of the goal node
-
-
-plt.ion()
-
-num_landmarks = 4   # number of landmarks can change this number to be whatever we want
-landmarks = []
-
-def setLandmarks():
-    for i in range(num_landmarks):
-        index = random.randint(0,len(nodes))
-        while(nodes[index].isLandmark == False):
-            if(nodes[index].isLandmark == True):
-                index = random.randint(0,len(nodes))
-            else:
-                nodes[index].isLandmark = True
-                landmarks.append(index)
-
-def generateGraph():
-    global start, goal
+def generateGraph(size):
+    
+    start = None
+    goal  = None
+    nodes = []
+    edges = []
+    dist_matrix = []
 
     # Generate the nodes of the graph, each with random coordinates between 0 and 1
     for i in range(0, size):
@@ -91,70 +70,27 @@ def generateGraph():
     goal = math.floor(random.uniform(0, 1) * (size - 1))
     if goal >= start:
         goal += 1
-
-# Dijkstra Algo Basic
-def findPath():
-    global start, goal  
-
-    # start from start node
-    visiting_node = start
-    visiting_dist = 0
-
-    # priority queue for 'dijkstra's' algorithm
-    # starting distances are set to infinity (999) except for the start node
-    search_prios = [999] * size
-    search_prios[start] = 0
-
-    #print(f"Start, Goal: {start}, {goal}") 
-
-    # iterate through all nodes to find the shortest path
-    for cnt in range(size):
-        # Find the node with the smallest distance that hasn't been visited
-        visiting_node = search_prios.index(min(search_prios))
-        visiting_dist = nodes[visiting_node].search_dist
-        #print(f"Visiting: {visiting_node}, {visiting_dist}")  
-
-        # if current visiting node is the goal or has already been visited, exit the loop
-        if visiting_node == goal or nodes[visiting_node].visited:
-            break
-
-        # loop through neighbours of the current visiting node
-        for i in range(size):
-            if not nodes[i].visited:
-                # calc the new distance to this neighbour
-                new_dist = visiting_dist + dist_matrix[visiting_node][i]
-                #print(f"Exploring: {i}, {new_dist}, {nodes[i].search_dist}") 
-
-                # if new distance shorter than the known distance update the distance and the path
-                if new_dist < nodes[i].search_dist:
-                    nodes[i].search_dist = new_dist
-                    search_prios[i] = new_dist
-                    nodes[i].search_last = visiting_node 
-
-        # mark current node as visited
-        nodes[visiting_node].visited = True
-        search_prios[visiting_node] = 999 # make sure not visited again
-
-    #print(nodes) 
+    return nodes, dist_matrix, edges, start, goal
 
 def heuristic(n1, n2):
     return math.sqrt(((n1.x - n2.x) ** 2) + ((n2.y - n1.y) ** 2))
 
-def findPathAStar():
-    # implement something similar to this https://www.redblobgames.com/pathfinding/a-star/introduction.html
-    global start, goal, nodes, dist_matrix, solution
-    pq = PriorityQueue()                                       # has the format of (f_score, node)
-    pq.put((0,start))                                          # start of the queue is the start node
-    came_from = {start: None}                                  # start a dictionary of where the node came from
-    g_score   = {start: 0}                                     # start a dictionary of the gscore of the node
-    f_score   = {start: heuristic(nodes[start], nodes[goal])}  # start a dictionary of the fscore of the node
-
-    closed_set = set()                                         # set of all the closed nodes 
+def findPathAStar(nodes, dist_matrix, start, goal):
+    pq = PriorityQueue()                                                       # has the format of (f_score, node)
+    pq.put((0,start))                                                          # start of the queue is the start node
+    came_from = {start: None}                                                  # start a dictionary of where the node came from
+    g_score   = {start: 0}                                                     # start a dictionary of the gscore of the node
+    f_score   = {start: heuristic(nodes[start], nodes[goal])} # start a dictionary of the fscore of the node
+    closed_set = set()                                                         # set of all the closed nodes 
 
     # whilst the queue is not empty 
     while not pq.empty():
-        _, current = pq.get()    # current is now the node with the lowest f score 
+        _, current = pq.get()        # current is now the node with the lowest f score 
         
+        if current in closed_set:    # if current has been explored already then skip and dequeue next
+            continue
+        closed_set.add(current)      # if current not explored since we are now exploring mark as explored
+
         # if current node is the goal then we have a solution 
         if current == goal:
             solution = []  
@@ -167,9 +103,7 @@ def findPathAStar():
             print(f"The result from A* is {solution}")
             return solution
 
-        closed_set.add(current)
-
-        for i in range(size):
+        for i in range(len(nodes)):
             if dist_matrix[current][i] == 999 or i in closed_set:
                 # if the neighbour is distance inf or neighbour already explored skip it
                 continue
@@ -180,121 +114,210 @@ def findPathAStar():
             # if the neighbour is not in the g_score dict or the calculated g_score is less than 
             # its current g_score 
             if i not in g_score or temp_g_score < g_score[i]: 
-                came_from[i] = current                                        # the neighbour came from current node
-                g_score[i]   = temp_g_score                                   # store g_score
-                f_score[i]   = temp_g_score + heuristic(nodes[i], nodes[goal])# calc and store f_score
-                if i not in closed_set:
-                    # if neighbour not in closed set (has not been fully explored)
-                    pq.put((f_score[i], i)) # add to priority queue to be explored 
+                came_from[i] = current                                # the neighbour came from current node
+                g_score[i]   = temp_g_score                           # store g_score
+                f_score[i]   = temp_g_score + heuristic(nodes[i], nodes[goal])   # calc and store f_score
+                pq.put((f_score[i], i))                               # add to priority queue to be explored 
     
-    print("No solution to A* Algorithm")
-    return [] 
+    print("No solution to the ALT Algorithm")
+    return None
 
-# A* Algorithm ALT Method - in progress
-def preprocess():
-    global landmarks
+def findPathDijkstra(nodes, dist_matrix, start, goal):
+    visiting_node = start
+    visiting_dist = 0
 
-    # matrix which stores the distance from the a node and the landmark 
-    # eg lm_dist_matrix[1,2] is the distance from the first node to the 2nd landmark 
-    lm_dist_matrix = [[0 for _ in range(num_landmarks)] for _ in range(size)]
+    size = len(nodes)
 
-    for i in range(size):
-        print(lm_dist_matrix[i])
+    search_prios = [999] * size
+    search_prios[start] = 0
 
-    # we need to loop through every node and calculate the distance to the landmark 
+    for _ in range(size):
+        visiting_node = search_prios.index(min(search_prios))
+        visiting_dist = nodes[visiting_node].search_dist
 
-def findPathALT():
-    global start, goal, nodes, dist_matrix, solution
-    pq = PriorityQueue()                                       # has the format of (f_score, node)
-    pq.put((0,start))                                          # start of the queue is the start node
-    came_from = {start: None}                                  # start a dictionary of where the node came from
-    g_score   = {start: 0}                                     # start a dictionary of the gscore of the node
-    f_score   = {start: heuristic(nodes[start], nodes[goal])}  # start a dictionary of the fscore of the node
+        if visiting_node == goal or nodes[visiting_node].visited:
+            break
 
-    closed_set = set()                                         # set of all the closed nodes 
+        for i in range(size):
+            if not nodes[i].visited:
+                new_dist = visiting_dist + dist_matrix[visiting_node][i] 
 
-    preprocess()
+                if new_dist < nodes[i].search_dist:
+                    nodes[i].search_dist = new_dist
+                    search_prios[i] = new_dist
+                    nodes[i].search_last = visiting_node
 
-    return 0 
-
-def connectPath():
-    global solution 
+        nodes[visiting_node].visited = True
+        search_prios[visiting_node] = 999
+    
+    solution = []
     current_node = goal
-
     while current_node != start and current_node != 999:
         prev_node = nodes[current_node].search_last
         solution.append([prev_node, current_node])
         current_node = prev_node
-    
+
     solution.reverse()
     print(f"The result from Dijkstra is {solution}")
+    return solution 
 
-def plotGraph(showPath=True, figureId=1):
-    # https://www.w3schools.com/python/matplotlib_plotting.asp
+# Set up the landmarks for the ALT algorithm - currently too basic
+def setLandmarks(nodes, num_landmarks):
+    landmarks = []
+    max_attempts = len(nodes) * 2 
+    attempts = 0
+    while len(landmarks) < num_landmarks and attempts < max_attempts:
+        index = random.randint(0, len(nodes) - 1)
+        if not nodes[index].isLandmark:
+            nodes[index].isLandmark = True
+            landmarks.append(index)
+        attempts += 1
+    return landmarks
 
-    plt.figure(figureId, figsize=(5, 5))
+def getDistanceToLandmarks(nodes, landmarks):
+    # matrix which stores the distance from the a node and the landmark 
+    # eg lm_dist_matrix[1,2] is the distance from the first node to the 2nd landmark 
+    # lm_dist_matrix = [[0 for _ in range(num_landmarks)] for _ in range(size)]
+    lm_dist_matrix = []
+    for node in nodes:
+        lm_distance_row = []
+        for landmark in landmarks:
+            lm_distance_row.append(math.sqrt((node.x - nodes[landmark].x) ** 2 + (node.y - nodes[landmark].y) ** 2))
+        lm_dist_matrix.append(lm_distance_row)
+    return lm_dist_matrix
+
+def altHeuristic(n_index, goal_index, lm_dist_matrix, landmarks):
+    h_estimate = 0
+    for l in range(len(landmarks)):
+        h_estimate = max(h_estimate, abs(lm_dist_matrix[goal_index][l] - lm_dist_matrix[n_index][l]))
+    return h_estimate
+
+def findPathALT(nodes, dist_matrix, start, goal, landmarks, lm_dist_matrix):
+    pq = PriorityQueue()
+    pq.put((0, start))
+    came_from = {start: None}
+    g_score   = {start: 0}
+    f_score   = {start: altHeuristic(start, goal, lm_dist_matrix, landmarks)}
+
+    closed_set = set()
+
+    while not pq.empty():
+        _, current = pq.get()
+
+        if current in closed_set:
+            continue
+        closed_set.add(current)
+
+        # if current node is the goal then we have a solution 
+        if current == goal:
+            solution = []  
+            while current in came_from:
+                prev = came_from[current]
+                if prev is not None:
+                    solution.append([prev, current])
+                current = prev
+            solution.reverse()
+            print(f"The result from ALT is {solution}")
+            return solution
+            
+        
+        for neighbour in range(len(nodes)):
+            if dist_matrix[current][neighbour] == 999 or neighbour in closed_set:
+                continue
+
+            temp_g_score = g_score[current] + dist_matrix[current][neighbour]
+
+            if neighbour not in g_score or temp_g_score < g_score[neighbour]:
+                came_from[neighbour] = current
+                g_score[neighbour]   = temp_g_score
+                f_score[neighbour]   = temp_g_score + altHeuristic(neighbour, goal, lm_dist_matrix, landmarks)
+                pq.put((f_score[neighbour], neighbour))
+    
+    print("No solution to the ALT Algorithm")
+    return None 
+
+def plotGraph(showPath, figureId, algorithm, edges, nodes, solution, start, goal):
+    plt.figure(figureId, figsize=(6, 6))
     plt.clf()
 
     for edge in edges:
-        # for every edge then plot the line
         x_values = [nodes[edge[0]].x, nodes[edge[1]].x]
         y_values = [nodes[edge[0]].y, nodes[edge[1]].y]
         plt.plot(x_values, y_values, 'gray', lw=0.5)
 
-    # loop through nodes and indices in nodes array
     for idx, node in enumerate(nodes):
         if idx == start:
-            # make green start
             plt.plot(node.x, node.y, 'go', markersize=8, label='Start')
         elif idx == goal:
-            # make red end
             plt.plot(node.x, node.y, 'ro', markersize=8, label='Goal')
         elif node.isLandmark:
-            plt.plot(node.x, node.y, 'ko')    # black is the landmark
+            plt.plot(node.x, node.y, 'ko', markersize=6, label='Landmark' if idx == 0 else "")
         else:
-            # other nodes are blue and smaller 
             plt.plot(node.x, node.y, 'bo', markersize=4)
 
     if showPath and solution:
         for path in solution:
-            # for each path in the solutuon then we plot the line
             x_values = [nodes[path[0]].x, nodes[path[1]].x]
             y_values = [nodes[path[0]].y, nodes[path[1]].y]
             plt.plot(x_values, y_values, 'cyan')
 
     plt.xlabel("X")
     plt.ylabel("Y")
-    plt.title("Graph with Path")
+    plt.title(f"Graph of {algorithm} with {'path' if showPath else 'no path'}")
     plt.legend()
-    plt.draw()
-    
-# Generate the graph and plot    
-generateGraph()
-setLandmarks()  # for ALT 
-print(f"The start node is {start} and the end node is {goal}\n")
-plotGraph(False, figureId = 1)
+    plt.show()
 
-# Dijkstra Algorithm and plot path
-start_time = time.time()
-findPath()
-end = time.time()
-print(f"Elapsed Time for Dijkstra is {end-start_time}\n")
-connectPath()
-plotGraph(True, figureId = 2)
+def alt_algo(nodes, dist_matrix, edges, start, goal):
+    num_landmarks = int(input("Please enter the number of landmarks: "))
+    landmarks = setLandmarks(nodes, num_landmarks)
+    lm_dist_matrix = getDistanceToLandmarks(nodes, landmarks)
+    start_time = time.time()
+    path = findPathALT(nodes, dist_matrix, start, goal, landmarks, lm_dist_matrix)
+    end_time = time.time()
+    print(f"The ALT algorithm took {end_time-start_time}")
+    plotGraph(True, 1, "ALT", edges, nodes, path, start, goal)
+    plt.show()
 
-# A* Algorithm and plot path
-start_time = time.time()
-findPathAStar()
-end = time.time()
-print(f"\nElapsed Time for A* is {end-start_time}\n")
-plotGraph(True, figureId = 3)
+def dijkstra(nodes, dist_matrix, edges, start, goal):
+    start_time = time.time()
+    path = findPathDijkstra(nodes, dist_matrix, start, goal)
+    end_time = time.time()
+    print(f"The Dijkstra algorithm took {end_time-start_time}")
+    plotGraph(True, 3, "Dijkstra", edges, nodes, path, start, goal)
+    plt.show()
 
-# ALT Algorithm and plot path
-start_time = time.time()
-findPathALT()
-end = time.time()
-print(f"\nElapsed Time for ALT is {end-start_time}\n")
-plotGraph(True, figureId=4)
+def a_star(nodes, dist_matrix, edges, start, goal):
+    start_time = time.time()
+    path = findPathAStar(nodes, dist_matrix, start, goal)
+    end_time = time.time()
+    print(f"The A* algorithm took {end_time-start_time}")
+    plotGraph(True, 2, "A*", edges, nodes, path, start, goal)
+    plt.show()
 
-# display all plots
-plt.show(block=True)
+try:
+    graph_gen = False
+    while True:
+
+        if(graph_gen == False):
+            num_nodes = int(input("How many nodes do you want (>10)? "))
+            nodes, dist_matrix, edges, start, goal = generateGraph(num_nodes)
+            graph_gen = True
+
+        print("\n Select an Algorithm to Test:")
+        print("1. Dijkstra")
+        print("2. A* Algorithm")
+        print("3. ALT Algorithm")
+        print("4. Exit\n")
+
+        choice = int(input("Please enter your choice (1-4): "))
+        if choice == 1:
+            dijkstra(nodes, dist_matrix, edges, start, goal)
+        elif choice == 2:
+            a_star(nodes, dist_matrix, edges, start, goal)
+        elif choice == 3:
+            alt_algo(nodes, dist_matrix, edges, start, goal)
+        else:
+            break
+
+except KeyboardInterrupt:
+    print("Program Stopped By User")
