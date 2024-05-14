@@ -1,9 +1,12 @@
 
+# required imports
 import matplotlib.pyplot as plt
 import random
 import math
 from queue import PriorityQueue 
 import time 
+
+plt.ion()
 
 # Node class with:
 #             co-ordinates,
@@ -11,8 +14,7 @@ import time
 #             current shortest distance to this node,
 #             index of the last node visited before this one
 
-plt.ion()
-
+# Node class 
 class Node:
     def __init__(self, x, y, visited=False, search_dist=999, search_last=999, isLandmark=False):
         self.x = x
@@ -22,6 +24,11 @@ class Node:
         self.search_last = search_last
         self.isLandmark = isLandmark
 
+    def distance_to(self, other):
+        return math.sqrt((self.x - other.x)**2 + (self.y - other.y)**2)
+
+
+# function to generate the graph 
 def generateGraph(size):
     
     start = None
@@ -70,11 +77,18 @@ def generateGraph(size):
     goal = math.floor(random.uniform(0, 1) * (size - 1))
     if goal >= start:
         goal += 1
+
+    print(f"The start node is node with index {start} and the goal node has index {goal}")
     return nodes, dist_matrix, edges, start, goal
 
+
+# function for heuristic calculation for A*
 def heuristic(n1, n2):
     return math.sqrt(((n1.x - n2.x) ** 2) + ((n2.y - n1.y) ** 2))
+    #return abs(n1.x - n2.x) + abs(n1.y - n2.y)
 
+
+# pathfinder for A* algorithm 
 def findPathAStar(nodes, dist_matrix, start, goal):
     pq = PriorityQueue()                                                       # has the format of (f_score, node)
     pq.put((0,start))                                                          # start of the queue is the start node
@@ -122,6 +136,8 @@ def findPathAStar(nodes, dist_matrix, start, goal):
     print("No solution to the ALT Algorithm")
     return None
 
+
+# pathefinder for Dijkstra algorithm 
 def findPathDijkstra(nodes, dist_matrix, start, goal):
     visiting_node = start
     visiting_dist = 0
@@ -161,8 +177,14 @@ def findPathDijkstra(nodes, dist_matrix, start, goal):
     print(f"The result from Dijkstra is {solution}")
     return solution 
 
-# Set up the landmarks for the ALT algorithm - currently too basic
-def setLandmarks(nodes, num_landmarks):
+
+# function to get distance (TODO: move to Node class) 
+def getDistance(n1, n2):
+    return math.sqrt(((n1.x - n2.x) ** 2) + ((n2.y - n1.y) ** 2)) 
+
+
+# function to set the landmarks (random method)
+def setLandmarksRandom(nodes, num_landmarks):
     landmarks = []
     max_attempts = len(nodes) * 2 
     attempts = 0
@@ -174,6 +196,36 @@ def setLandmarks(nodes, num_landmarks):
         attempts += 1
     return landmarks
 
+
+# function to set the landmarks (furthest away method)
+def setLandmarksFurthest(nodes, num_landmarks):
+    if num_landmarks > len(nodes):
+        raise ValueError("Number of landmarks cannot exceed number of nodes")
+
+    landmarks = []                                          # array holding the indices of the landmarks
+    initial_landmark = random.randint(0, len(nodes) - 1)
+    landmarks.append(initial_landmark)                      # select a random node to be the first node
+    nodes[initial_landmark].isLandmark = True
+
+    while len(landmarks) < num_landmarks:
+        max_dist = -1
+        best_candidate = None
+
+        for idx, node in enumerate(nodes):
+            if not node.isLandmark:
+                min_dist_to_landmarks = min(getDistance(node, nodes[landmarks[i]]) for i in range(len(landmarks)))
+                if min_dist_to_landmarks > max_dist:
+                    max_dist = min_dist_to_landmarks
+                    best_candidate = idx
+
+        if best_candidate is not None:
+            nodes[best_candidate].isLandmark = True
+            landmarks.append(best_candidate)
+
+    return landmarks
+
+
+# function to return a matrix of distances from nodes to landmarks           
 def getDistanceToLandmarks(nodes, landmarks):
     # matrix which stores the distance from the a node and the landmark 
     # eg lm_dist_matrix[1,2] is the distance from the first node to the 2nd landmark 
@@ -186,12 +238,16 @@ def getDistanceToLandmarks(nodes, landmarks):
         lm_dist_matrix.append(lm_distance_row)
     return lm_dist_matrix
 
+
+# function for Heuristic calculation for ALT algorithm 
 def altHeuristic(n_index, goal_index, lm_dist_matrix, landmarks):
     h_estimate = 0
     for l in range(len(landmarks)):
         h_estimate = max(h_estimate, abs(lm_dist_matrix[goal_index][l] - lm_dist_matrix[n_index][l]))
     return h_estimate
 
+
+# pathfinder for ALT algorithm 
 def findPathALT(nodes, dist_matrix, start, goal, landmarks, lm_dist_matrix):
     pq = PriorityQueue()
     pq.put((0, start))
@@ -236,6 +292,8 @@ def findPathALT(nodes, dist_matrix, start, goal, landmarks, lm_dist_matrix):
     print("No solution to the ALT Algorithm")
     return None 
 
+
+# function to ploth the graph
 def plotGraph(showPath, figureId, algorithm, edges, nodes, solution, start, goal, time_taken):
     plt.figure(figureId, figsize=(5, 5))
     plt.clf()
@@ -267,9 +325,19 @@ def plotGraph(showPath, figureId, algorithm, edges, nodes, solution, start, goal
     plt.legend()
     plt.show()
 
+
+# main function for alt algorithm 
 def alt_algo(nodes, dist_matrix, edges, start, goal):
+    resetLandmarks(nodes)
+    
     num_landmarks = int(input("Please enter the number of landmarks: "))
-    landmarks = setLandmarks(nodes, num_landmarks)
+    
+    landmark_selection = input("Which landmark selection do you want to try? (rand = random, far = furthest) ")
+    if landmark_selection == "rand":
+        landmarks = setLandmarksRandom(nodes, num_landmarks)
+    else:
+        landmarks = setLandmarksFurthest(nodes, num_landmarks)
+
     lm_dist_matrix = getDistanceToLandmarks(nodes, landmarks)
     start_time = time.time()
     path = findPathALT(nodes, dist_matrix, start, goal, landmarks, lm_dist_matrix)
@@ -279,6 +347,8 @@ def alt_algo(nodes, dist_matrix, edges, start, goal):
     plotGraph(True, 1, "ALT", edges, nodes, path, start, goal, time_taken)
     plt.show()
 
+
+# main function for Dijkstra algorithm 
 def dijkstra(nodes, dist_matrix, edges, start, goal):
     start_time = time.time()
     path = findPathDijkstra(nodes, dist_matrix, start, goal)
@@ -288,6 +358,8 @@ def dijkstra(nodes, dist_matrix, edges, start, goal):
     plotGraph(True, 3, "Dijkstra", edges, nodes, path, start, goal, time_taken)
     plt.show()
 
+
+# main function for A* algorithm
 def a_star(nodes, dist_matrix, edges, start, goal):
     start_time = time.time()
     path = findPathAStar(nodes, dist_matrix, start, goal)
@@ -297,6 +369,18 @@ def a_star(nodes, dist_matrix, edges, start, goal):
     plotGraph(True, 2, "A*", edges, nodes, path, start, goal, time_taken)
     plt.show()
 
+
+# main function for bidirectional A*
+def bidirect_a_star():
+    return 0
+
+
+# function to reset the landmarks (in case we want to change graph whilst program running)
+def resetLandmarks(nodes):
+    for node in nodes:
+        node.isLandmark = False
+
+# main call 
 try:
     graph_gen = False
     proceed = False
@@ -314,19 +398,24 @@ try:
                     proceed = False
                 graph_gen = True
 
-        print("\n Select an Algorithm to Test:")
+        print("\nSelect an Algorithm to Test:")
         print("1. Dijkstra")
         print("2. A* Algorithm")
         print("3. ALT Algorithm")
-        print("4. Exit\n")
+        print("4. New Graph")
+        print("5. Exit\n")
 
-        choice = int(input("Please enter your choice (1-4): "))
+        choice = int(input("Please enter your choice (1-5): "))
         if choice == 1:
             dijkstra(nodes, dist_matrix, edges, start, goal)
         elif choice == 2:
             a_star(nodes, dist_matrix, edges, start, goal)
         elif choice == 3:
             alt_algo(nodes, dist_matrix, edges, start, goal)
+        elif choice == 4:
+            graph_gen = False
+            proceed = False
+            continue
         else:
             plt.close()
             break
