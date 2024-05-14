@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <stdio.h>
+#include "altera_avalon_spi_regs.h"
 
 // dijkstra bottom left to top right
 
@@ -116,30 +117,62 @@ class Graph
   }
 };
 
+// /* begin copied code */
+// static void spi_rx_isr(void* isr_context){ 
+// IOWR_ALTERA_AVALON_SPI_STATUS(SPI_SLAVE_BASE, 0x0); 
+// } 
+
+// int ret; 
+// int status; 
+// alt_u16 rddata; 
+
+// //this registers slave IRQ with NIOS 
+
+// auto ret = alt_iic_isr_register(SPI_SLAVE_IRQ_INTERRUPT_CONTROLLER_ID,SPI_SLAVE_IRQ,spi_rx_isr,(void *)spi_command_string_tx,0x0); 
+
+// //check if slave status is good 
+
+// do{ 
+// status = IORD_ALTERA_AVALON_SPI_STATUS(SPI_SLAVE_BASE); 
+// } 
+// while ((status & ALTERA_AVALON_SPI_STATUS_RRDY_MSK) == 0); 
+
+// //copy received byte into rddata variable 
+// rddata = IORD_ALTERA_AVALON_SPI_RXDATA(SPI_SLAVE_BASE); 
+
+// //set slave IRQ to enable a new byte receiving 
+
+// IOWR_ALTERA_AVALON_SPI_CONTROL(SPI_SLAVE_BASE, ALTERA_AVALON_SPI_CONTROL_SSO_MSK | ALTERA_AVALON_SPI_CONTROL_IRRDY_MSK); 
+
+// /* end copied code */
+
 int main () 
 {
-  	// The following is used for timing
-	alt_u64 ticks;
-	alt_u64 freq = alt_timestamp_freq();
+  printf("%d", IORD_ALTERA_AVALON_SPI_RXDATA(0));
 
-  int myArr[9][9] = {{0, 1, -1, -1, -1, -1, -1, -1, -1}, {1, 0, 1, -1, -1, -1, -1, -1, -1}, {-1, 1, 0, -1, -1, 1, -1, -1, -1}, {-1, -1, -1, 0, 1, -1, 1, -1, -1}, {-1, -1, -1, 1, 0, 1, -1, -1, -1}, {-1, -1, 1, -1, 1, 0, -1, -1, -1}, {-1, -1, -1, 1, -1, -1, 0, 1, -1}, {-1, -1, -1, -1, -1, -1, 1, 0, 1}, {-1, -1, -1, -1, -1, -1, -1, 1, 0}};
+  // 	// The following is used for timing
+	// alt_u64 ticks;
+	// alt_u64 freq = alt_timestamp_freq();
 
-  Graph myGraph = Graph(myArr);
+  // int myArr[9][9] = {{0, 1, -1, -1, -1, -1, -1, -1, -1}, {1, 0, 1, -1, -1, -1, -1, -1, -1}, {-1, 1, 0, -1, -1, 1, -1, -1, -1}, {-1, -1, -1, 0, 1, -1, 1, -1, -1}, {-1, -1, -1, 1, 0, 1, -1, -1, -1}, {-1, -1, 1, -1, 1, 0, -1, -1, -1}, {-1, -1, -1, 1, -1, -1, 0, 1, -1}, {-1, -1, -1, -1, -1, -1, 1, 0, 1}, {-1, -1, -1, -1, -1, -1, -1, 1, 0}};
 
-	int T = 100;
+  // Graph myGraph = Graph(myArr);
 
-	// The code that you want to time goes here
-	alt_timestamp_start();
-	for (int i=0; i<T; i++)
-  {
-    myGraph.dijkstra();
-	}
-	ticks = alt_timestamp();
+	// int T = 100;
+
+	// // The code that you want to time goes here
+	// alt_timestamp_start();
+	// for (int i=0; i<T; i++)
+  // {
+  //   // myGraph.dijkstra();
+  //   usleep(1e5);
+	// }
+	// ticks = alt_timestamp();
 
 
-	int k = 50 * T; // ticks per ms
-	float proc_us = (float)ticks / (float)k;
-	printf("proc_ticks: %llu, proc_us: %f\n", ticks, proc_us);
+	// int k = 50 * T; // ticks per ms
+	// float proc_us = (float)ticks / (float)k;
+	// printf("proc_ticks: %llu, proc_us: %f\n", ticks, proc_us);
 
-  myGraph.print();
+  // myGraph.print();
 }
