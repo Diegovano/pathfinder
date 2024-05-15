@@ -45,7 +45,7 @@
    {
       datum baseAddress
       {
-         value = "16781464";
+         value = "16781480";
          type = "String";
       }
    }
@@ -74,6 +74,22 @@
       }
    }
    element pio.s1
+   {
+      datum baseAddress
+      {
+         value = "16781456";
+         type = "String";
+      }
+   }
+   element pio_debug
+   {
+      datum _sortIndex
+      {
+         value = "10";
+         type = "int";
+      }
+   }
+   element pio_debug.s1
    {
       datum baseAddress
       {
@@ -125,7 +141,7 @@
    {
       datum baseAddress
       {
-         value = "16781456";
+         value = "16781472";
          type = "String";
       }
    }
@@ -184,6 +200,11 @@
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
  <interface
+   name="pio_debug_external_connection"
+   internal="pio_debug.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
    name="pio_external_connection"
    internal="pio.external_connection"
    type="conduit"
@@ -221,7 +242,7 @@
   <parameter name="dataAddrWidth" value="25" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x800000' end='0x1000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='cpu.debug_mem_slave' start='0x1000800' end='0x1001000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='timestamp_timer.s1' start='0x1001000' end='0x1001040' type='altera_avalon_timer.s1' /><slave name='spi.spi_control_port' start='0x1001040' end='0x1001060' type='altera_avalon_spi.spi_control_port' /><slave name='timer.s1' start='0x1001060' end='0x1001080' type='altera_avalon_timer.s1' /><slave name='pio.s1' start='0x1001080' end='0x1001090' type='altera_avalon_pio.s1' /><slave name='sysid.control_slave' start='0x1001090' end='0x1001098' type='altera_avalon_sysid_qsys.control_slave' /><slave name='jtag_uart.avalon_jtag_slave' start='0x1001098' end='0x10010A0' type='altera_avalon_jtag_uart.avalon_jtag_slave' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x800000' end='0x1000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='cpu.debug_mem_slave' start='0x1000800' end='0x1001000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='timestamp_timer.s1' start='0x1001000' end='0x1001040' type='altera_avalon_timer.s1' /><slave name='spi.spi_control_port' start='0x1001040' end='0x1001060' type='altera_avalon_spi.spi_control_port' /><slave name='timer.s1' start='0x1001060' end='0x1001080' type='altera_avalon_timer.s1' /><slave name='pio_debug.s1' start='0x1001080' end='0x1001090' type='altera_avalon_pio.s1' /><slave name='pio.s1' start='0x1001090' end='0x10010A0' type='altera_avalon_pio.s1' /><slave name='sysid.control_slave' start='0x10010A0' end='0x10010A8' type='altera_avalon_sysid_qsys.control_slave' /><slave name='jtag_uart.avalon_jtag_slave' start='0x10010A8' end='0x10010B0' type='altera_avalon_jtag_uart.avalon_jtag_slave' /></address-map>]]></parameter>
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -267,7 +288,7 @@
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="2147581954" />
+  <parameter name="internalIrqMaskSystemInfo" value="2147581955" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -444,6 +465,20 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="8" />
  </module>
+ <module name="pio_debug" kind="altera_avalon_pio" version="20.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Input" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="true" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="8" />
+ </module>
  <module
    name="sdram"
    kind="altera_avalon_new_sdram_controller"
@@ -481,7 +516,7 @@
   <parameter name="disableAvalonFlowControl" value="false" />
   <parameter name="inputClockRate" value="50000000" />
   <parameter name="insertDelayBetweenSlaveSelectAndSClk" value="false" />
-  <parameter name="insertSync" value="false" />
+  <parameter name="insertSync" value="true" />
   <parameter name="lsbOrderedFirst" value="false" />
   <parameter name="masterSPI" value="false" />
   <parameter name="numberOfSlaves" value="1" />
@@ -530,7 +565,7 @@
    start="cpu.data_master"
    end="jtag_uart.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x01001098" />
+  <parameter name="baseAddress" value="0x010010a8" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -539,7 +574,7 @@
    start="cpu.data_master"
    end="sysid.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x01001090" />
+  <parameter name="baseAddress" value="0x010010a0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -567,7 +602,7 @@
  </connection>
  <connection kind="avalon" version="20.1" start="cpu.data_master" end="pio.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x01001080" />
+  <parameter name="baseAddress" value="0x01001090" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="avalon" version="20.1" start="cpu.data_master" end="sdram.s1">
@@ -582,6 +617,15 @@
    end="timestamp_timer.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x01001000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="20.1"
+   start="cpu.data_master"
+   end="pio_debug.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x01001080" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -632,6 +676,7 @@
    start="clk_0.clk"
    end="timestamp_timer.clk" />
  <connection kind="clock" version="20.1" start="clk_0.clk" end="spi.clk" />
+ <connection kind="clock" version="20.1" start="clk_0.clk" end="pio_debug.clk" />
  <connection
    kind="clock"
    version="20.1"
@@ -653,6 +698,9 @@
  <connection kind="interrupt" version="20.1" start="cpu.irq" end="spi.irq">
   <parameter name="irqNumber" value="15" />
  </connection>
+ <connection kind="interrupt" version="20.1" start="cpu.irq" end="pio_debug.irq">
+  <parameter name="irqNumber" value="0" />
+ </connection>
  <connection kind="reset" version="20.1" start="clk_0.clk_reset" end="cpu.reset" />
  <connection
    kind="reset"
@@ -669,6 +717,11 @@
    start="clk_0.clk_reset"
    end="timestamp_timer.reset" />
  <connection kind="reset" version="20.1" start="clk_0.clk_reset" end="spi.reset" />
+ <connection
+   kind="reset"
+   version="20.1"
+   start="clk_0.clk_reset"
+   end="pio_debug.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

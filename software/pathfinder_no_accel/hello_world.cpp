@@ -6,20 +6,18 @@
  * 
  * algos from geeksforgeeks
 */
+// #include "sys/alt_stdio.h" // for alt_printf
+// #include "system.h" // useful MACRO_DEFS
 
-#include <stdio.h>
-#include <io.h>
-#include <sys/alt_stdio.h>
-#include <sys/alt_alarm.h>
-#include <alt_types.h>
-#include <system.h>
-#include <unistd.h>
-#include <sys/alt_timestamp.h>
-#include <math.h>
-#include <stdlib.h>
-#include <iostream>
-#include <stdio.h>
-#include "altera_avalon_spi_regs.h"
+#include "alt_types.h" // for alt_* types
+#include "altera_avalon_spi_regs.h" // for IO**_SPI stuff
+#include "sys/alt_irq.h" // for alt_ic_isr_register
+
+#include "altera_avalon_pio_regs.h" // for IO**_PIO stuff
+
+#include <iostream> // for cout
+
+//This is the ISR that runs when the S
 
 // dijkstra bottom left to top right
 
@@ -146,9 +144,35 @@ class Graph
 
 // /* end copied code */
 
+
+//This is the ISR that runs when the SPI Slave receives data
+
+static void spi_rx_isr(void* isr_context)
+{
+  printf("ISR :) %d \n" , IORD_ALTERA_AVALON_SPI_RXDATA(SPI_BASE));
+  printf("Status: %d \n" , IORD_ALTERA_AVALON_SPI_STATUS(SPI_BASE));
+
+  IOWR_ALTERA_AVALON_SPI_TXDATA(SPI_BASE, 'S');
+
+  //This resets the IRQ flag. Otherwise the IRQ will continuously run.
+    
+  IOWR_ALTERA_AVALON_SPI_STATUS(SPI_BASE, 0x0);
+  printf("Status: %d \n" , IORD_ALTERA_AVALON_SPI_STATUS(SPI_BASE));
+}
+
 int main () 
 {
-  printf("%d", IORD_ALTERA_AVALON_SPI_RXDATA(0));
+  printf("Hello from Nios II!\n");
+
+  char spi_command_string_tx[10] = "CIAO";
+  int ret = alt_ic_isr_register(SPI_IRQ_INTERRUPT_CONTROLLER_ID, SPI_IRQ, spi_rx_isr, (void *)spi_command_string_tx, 0x0);
+  printf("IRQ register return %d \n", ret);
+
+  // //You need to enable the IRQ in the IP core control register as well.
+  IOWR_ALTERA_AVALON_SPI_CONTROL(SPI_BASE, ALTERA_AVALON_SPI_CONTROL_IRRDY_MSK);
+
+  // //Just calling the ISR to see if the function is OK.
+  // spi_rx_isr(NULL);
 
   // 	// The following is used for timing
 	// alt_u64 ticks;
@@ -175,4 +199,9 @@ int main ()
 	// printf("proc_ticks: %llu, proc_us: %f\n", ticks, proc_us);
 
   // myGraph.print();
+
+  while (true)
+  {
+  //   printf("spi: %d\n", IORD_ALTERA_AVALON_SPI_TXDATA(SPI_BASE));
+  }
 }

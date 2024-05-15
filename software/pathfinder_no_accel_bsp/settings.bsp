@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>13-May-2024 16:42:36</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1715614956816</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>15-May-2024 16:21:00</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1715786460961</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>./</BspGeneratedLocation>
         <BspSettingsFile>../pathfinder_no_accel_bsp/settings.bsp</BspSettingsFile>
         <SopcDesignFile>../../quartus/nios2_system.sopcinfo</SopcDesignFile>
@@ -923,20 +923,26 @@
                 <attributes>timer</attributes>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>pio</slaveDescriptor>
+                <slaveDescriptor>pio_debug</slaveDescriptor>
                 <addressRange>0x01001080 - 0x0100108F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>pio</slaveDescriptor>
+                <addressRange>0x01001090 - 0x0100109F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>sysid</slaveDescriptor>
-                <addressRange>0x01001090 - 0x01001097</addressRange>
+                <addressRange>0x010010A0 - 0x010010A7</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>jtag_uart</slaveDescriptor>
-                <addressRange>0x01001098 - 0x0100109F</addressRange>
+                <addressRange>0x010010A8 - 0x010010AF</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>
