@@ -16,6 +16,7 @@
 #include "altera_avalon_pio_regs.h" // for IO**_PIO stuff
 
 #include <iostream> // for cout
+#include <sstream> // for stringstream
 
 //This is the ISR that runs when the S
 
@@ -23,7 +24,32 @@
 
 const int NUM_VERTICES = 9;
 
-// int myArr[9][9] = 
+int hitcount = 0;
+
+std::string decToBinary(int n)
+{
+    // Array to store binary number
+    int binaryNum[10];
+ 
+    // Counter for binary array
+    int i = 0;
+    while (n > 0 && i < 10) {
+        // Storing remainder in binary
+        // array
+        binaryNum[i] = n % 2;
+        n = n / 2;
+        i++;
+    }
+ 
+    std::stringstream myStr;
+
+    // Printing binary array in reverse
+    // order
+    for (int j = i - 1; j >= 0; j--)
+        myStr << binaryNum[j];
+
+    return myStr.str();
+}
 
 class Graph
 {
@@ -149,15 +175,14 @@ class Graph
 
 static void spi_rx_isr(void* isr_context)
 {
-  printf("ISR :) %d \n" , IORD_ALTERA_AVALON_SPI_RXDATA(SPI_BASE));
-  printf("Status: %d \n" , IORD_ALTERA_AVALON_SPI_STATUS(SPI_BASE));
+  int data = IORD_ALTERA_AVALON_SPI_RXDATA(SPI_BASE);
+  int status = IORD_ALTERA_AVALON_SPI_STATUS(SPI_BASE);
+  printf("ISR iter %d, status %s, got: %x \n" , hitcount++, decToBinary(status).c_str(), data);
 
-  IOWR_ALTERA_AVALON_SPI_TXDATA(SPI_BASE, 'S');
+  IOWR_ALTERA_AVALON_SPI_TXDATA(SPI_BASE, data);
 
   //This resets the IRQ flag. Otherwise the IRQ will continuously run.
-    
   IOWR_ALTERA_AVALON_SPI_STATUS(SPI_BASE, 0x0);
-  printf("Status: %d \n" , IORD_ALTERA_AVALON_SPI_STATUS(SPI_BASE));
 }
 
 int main () 
@@ -169,7 +194,7 @@ int main ()
   printf("IRQ register return %d \n", ret);
 
   // //You need to enable the IRQ in the IP core control register as well.
-  IOWR_ALTERA_AVALON_SPI_CONTROL(SPI_BASE, ALTERA_AVALON_SPI_CONTROL_IRRDY_MSK);
+  IOWR_ALTERA_AVALON_SPI_CONTROL(SPI_BASE, ALTERA_AVALON_SPI_CONTROL_IRRDY_MSK); // trigger when is ready
 
   // //Just calling the ISR to see if the function is OK.
   // spi_rx_isr(NULL);

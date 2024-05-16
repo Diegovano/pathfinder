@@ -5,10 +5,10 @@
 #define SPI_SS D2
 
 
-const int NUM_CHARS = 3;
+const int NUM_CHARS = 4;
 
 char TX_BUF[NUM_CHARS];
-uint8_t RX_BUF[NUM_CHARS];
+char RX_BUF[NUM_CHARS];
 
 
 // put function declarations here:
@@ -25,8 +25,8 @@ void setup() {
 
   SPI.begin();
 
-  String myStr = "AM";
-  myStr.toCharArray(TX_BUF, NUM_CHARS + 1); // + 1 for \0 (null terminated)
+  String myStr = "ICL";
+  myStr.toCharArray(TX_BUF, NUM_CHARS); // + 1 for \0 (null terminated)
 
   // SPI.endTransaction();
 
@@ -38,21 +38,19 @@ void setup() {
 }
 
 void loop() {
-  char myChar = 'M';
+  char myChar = '?';
   // put your main code here, to run repeatedly:
   SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
 
   digitalWrite(SPI_SS, LOW);
-  // SPI.transferBytes(NULL, (uint8_t *)TX_BUF, NUM_CHARS);
+  // SPI.transferBytes(NULL, (uint8_t *)TX_BUF, NUM_CHARS + 1); // DOES NOT WORK
   // SPI.transferBytes((const uint8_t *)TX_BUF, NULL, NUM_CHARS + 1);
-    // SPI.transfer(TX_BUF, NUM_CHARS);
+  SPI.transferBytes((const uint8_t *)TX_BUF, (uint8_t*)RX_BUF, NUM_CHARS);
+  // SPI.transferBytes((const uint8_t *)RX_BUF, (uint8_t*)TX_BUF, NUM_CHARS + 1);
+  // SPI.transfer(TX_BUF, NUM_CHARS + 1);
+  // SPI.transfer(myChar);
 
-  SPI.transfer(myChar);
-  // SPI.transfer('p');
-  // SPI.transfer('\0');
-  // SPI.transfer('a');
-
-  // Serial.println((const char*)RX_BUF);
+  Serial.println((const char*)RX_BUF);
   digitalWrite(SPI_SS, HIGH);
   
   SPI.endTransaction();
