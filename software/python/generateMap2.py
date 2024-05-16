@@ -87,6 +87,39 @@ def heuristic(n1, n2):
     #return abs(n1.x - n2.x) + abs(n1.y - n2.y)
 
 
+# visualising step by step process of the algorithm
+def visualize_step_by_step(nodes, edges, solution, start, goal):
+    plt.figure(figsize=(8, 8))
+    plt.clf()
+
+    for edge in edges:
+        x_values = [nodes[edge[0]].x, nodes[edge[1]].x]
+        y_values = [nodes[edge[0]].y, nodes[edge[1]].y]
+        plt.plot(x_values, y_values, 'gray', lw=0.5)
+
+    for idx, node in enumerate(nodes):
+        if idx == start:
+            plt.plot(node.x, node.y, 'go', markersize=8, label='Start')
+        elif idx == goal:
+            plt.plot(node.x, node.y, 'ro', markersize=8, label='Goal')
+        else:
+            plt.plot(node.x, node.y, 'bo', markersize=4)
+
+        plt.text(node.x, node.y, str(idx), fontsize=8, verticalalignment='bottom', horizontalalignment='right')
+
+    if solution:
+        for path in solution:
+            x_values = [nodes[path[0]].x, nodes[path[1]].x]
+            y_values = [nodes[path[0]].y, nodes[path[1]].y]
+            plt.plot(x_values, y_values, 'cyan')
+
+    plt.xlabel("X")
+    plt.ylabel("Y")
+    plt.title("Algorithm Step-by-Step Visualization")
+    plt.legend()
+    plt.pause(0.1)
+
+
 # pathfinder for A* algorithm 
 def findPathAStar(nodes, dist_matrix, start, goal):
     pq = PriorityQueue()                                                       # has the format of (f_score, node)
@@ -136,7 +169,7 @@ def findPathAStar(nodes, dist_matrix, start, goal):
     return None
 
 
-# pathefinder for Dijkstra algorithm 
+# pathfinder for Dijkstra algorithm 
 def findPathDijkstra(nodes, dist_matrix, start, goal):
     visiting_node = start
     visiting_dist = 0
@@ -161,6 +194,9 @@ def findPathDijkstra(nodes, dist_matrix, start, goal):
                     nodes[i].search_dist = new_dist
                     search_prios[i] = new_dist
                     nodes[i].search_last = visiting_node
+
+                    # Visualize after each step
+                    visualize_step_by_step(nodes, edges, None, start, goal)
 
         nodes[visiting_node].visited = True
         search_prios[visiting_node] = 999
