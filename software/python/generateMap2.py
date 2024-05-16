@@ -95,7 +95,8 @@ def findPathAStar(nodes, dist_matrix, start, goal):
     g_score   = {start: 0}                                                     # start a dictionary of the gscore of the node
     f_score   = {start: heuristic(nodes[start], nodes[goal])}                  # start a dictionary of the fscore of the node
     closed_set = set()                                                         # set of all the closed nodes 
-
+    visited_nodes = set()                                                      # set of visited nodes
+    
     # whilst the queue is not empty 
     while not pq.empty():
         _, current = pq.get()        # current is now the node with the lowest f score 
@@ -103,7 +104,8 @@ def findPathAStar(nodes, dist_matrix, start, goal):
         if current in closed_set:    # if current has been explored already then skip and dequeue next
             continue
         closed_set.add(current)      # if current not explored since we are now exploring mark as explored
-
+        visited_nodes.add(current)   # add current node to visited nodes
+        
         # if current node is the goal then we have a solution 
         if current == goal:
             solution = []  
@@ -114,6 +116,7 @@ def findPathAStar(nodes, dist_matrix, start, goal):
                 current = prev
             solution.reverse()
             print(f"The result from A* is {solution}")
+            plotGraph(True, 2, "A*", edges, nodes, solution, start, goal, time_taken, visited_nodes)
             return solution
 
         for i in range(len(nodes)):
@@ -293,7 +296,7 @@ def findPathALT(nodes, dist_matrix, start, goal, landmarks, lm_dist_matrix):
 
 
 # function to ploth the graph
-def plotGraph(showPath, figureId, algorithm, edges, nodes, solution, start, goal, time_taken):
+def plotGraph(showPath, figureId, algorithm, edges, nodes, solution, start, goal, time_taken, visited_nodes=None):
     plt.figure(figureId, figsize=(5, 5))
     plt.clf()
 
@@ -312,6 +315,9 @@ def plotGraph(showPath, figureId, algorithm, edges, nodes, solution, start, goal
         else:
             plt.plot(node.x, node.y, 'bo', markersize=4)
 
+        if visited_nodes and idx in visited_nodes:
+            plt.plot(node.x, node.y, 'yo', markersize=6)
+        
         # Annotate the node with its index
         plt.text(node.x, node.y, str(idx), fontsize=8, verticalalignment='bottom', horizontalalignment='right')
         
