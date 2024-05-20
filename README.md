@@ -3,25 +3,17 @@ ARM Hardware Accelerated Pathfinder
 
 ## File Organisation (to be refined)
 
-### hdl
+### Hardware
 
-All HDL files written, the hardware code
+the hardware Verilog code, including associated testbenches and logic Modelsim simulation project
 
 ### Quartus
 
 The Quartus Project, mainly relating to synthesis
 
-### simulation
-
-logic simulation project of the hardware. Done in ModelSim
-
 ### Software
 
 All software files, this includes Python prototyping, and `C` code for execution on NIOS.
-
-### testbenches
-
-testbenches for the hdl files
 
 ## Commit Messages
 
