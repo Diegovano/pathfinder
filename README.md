@@ -3,13 +3,25 @@ ARM Hardware Accelerated Pathfinder
 
 ## File Organisation (to be refined)
 
+### hdl
+
+All HDL files written, the hardware code
+
+### Quartus
+
+The Quartus Project, mainly relating to synthesis
+
+### simulation
+
+logic simulation project of the hardware. Done in ModelSim
+
 ### Software
 
 All software files, this includes Python prototyping, and `C` code for execution on NIOS.
 
-### Quartus
+### testbenches
 
-All hardware related code, including all the Quartus mess
+testbenches for the hdl files
 
 ## Commit Messages
 
