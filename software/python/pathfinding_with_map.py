@@ -34,21 +34,22 @@ class Node:
         # Otherwise, return from custom attributes
         return None
     
-    def getDistanceTo(self, target):
-        return math.sqrt(((self.x - target.x) ** 2) + ((target.y - self.y) ** 2))
-
     # def getDistanceTo(self, target):
-    #     # Haversine formula to calculate distance between two latitude/longitude points
-    #     R = 6371000 
-    #     dLat = math.radians(target.y - self.y)
-    #     dLon = math.radians(target.x - self.x)
-    #     a = (
-    #         math.sin(dLat / 2) ** 2 +
-    #         math.cos(math.radians(self.y)) * math.cos(math.radians(target.y)) * math.sin(dLon / 2) ** 2
-    #     )
-    #     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-    #     distance = R * c  
-    #     return distance
+    #     return ox.distance.euclidean(self.y, self.x, target.y, target.x)
+        #return math.sqrt(((self.x - target.x) ** 2) + ((target.y - self.y) ** 2))
+
+    def getDistanceTo(self, target):
+        # Haversine formula to calculate distance between two latitude/longitude points
+        R = 6371000 
+        dLat = math.radians(target.y - self.y)
+        dLon = math.radians(target.x - self.x)
+        a = (
+            math.sin(dLat / 2) ** 2 +
+            math.cos(math.radians(self.y)) * math.cos(math.radians(target.y)) * math.sin(dLon / 2) ** 2
+        )
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+        distance = R * c  
+        return distance
 
     def __repr__(self):
         return f"Node(osmid={self.osmid}, x={self.x}, y={self.y}, neighbours={self.neighbours})"
@@ -94,7 +95,7 @@ def generateGraph(center, radius, network_type, filename):
     G = ox.graph_from_point(tuple(center), dist=radius, network_type=network_type, simplify=True)
 
     # convert multidigraph to node and edge GeoDataFrame
-    nodes, edges = ox.graph_to_gdfs(G, node_geometry=True, fill_edge_geometry=True) 
+    nodes, edges = ox.graph_to_gdfs(G, fill_edge_geometry=True) 
 
     folium.Circle(
         radius=radius,
@@ -238,44 +239,46 @@ def a_star(graph, source, target):
 
     start_time = time.time()
 
-    queue = []
-    heapq.heappush(queue, (0,source))
+    for _ in range(10):
 
-    while queue:
+        queue = []
+        heapq.heappush(queue, (0,source))
 
-        _, current_node = heapq.heappop(queue)
+        while queue:
 
-        if current_node in closed_nodes:
-            continue
+            _, current_node = heapq.heappop(queue)
 
-        if current_node == target:
-            break
-
-        closed_nodes.add(current_node) 
-
-        # for neighbour in node_dict[current_node].neighbours:
-        for neighbour in node_dict[current_node].neighbours:
-            if neighbour in closed_nodes:
+            if current_node in closed_nodes:
                 continue
-            edge = edge_dict.get((current_node, neighbour))
-            if edge is not None:
-                temp_g_score = g_value[current_node] + edge.length
-                if neighbour not in g_value or temp_g_score < g_value[neighbour]:
-                    came_from[neighbour] = current_node
-                    g_value[neighbour]   = temp_g_score
-                    f_value[neighbour]   = temp_g_score + node_dict[current_node].getDistanceTo(node_dict[target])
-                    heapq.heappush(queue, (f_value[neighbour], neighbour))
 
-    path = []
-    current_node = target
-    while came_from[current_node] is not None:
-        path.append(current_node)
-        current_node = came_from[current_node]
-    path.append(source)
-    path.reverse()
+            if current_node == target:
+                break
+
+            closed_nodes.add(current_node) 
+
+            # for neighbour in node_dict[current_node].neighbours:
+            for neighbour in node_dict[current_node].neighbours:
+                if neighbour in closed_nodes:
+                    continue
+                edge = edge_dict.get((current_node, neighbour))
+                if edge is not None:
+                    temp_g_score = g_value[current_node] + edge.length
+                    if neighbour not in g_value or temp_g_score < g_value[neighbour]:
+                        came_from[neighbour] = current_node
+                        g_value[neighbour]   = temp_g_score
+                        f_value[neighbour]   = temp_g_score + node_dict[current_node].getDistanceTo(node_dict[target])
+                        heapq.heappush(queue, (f_value[neighbour], neighbour))
+
+        path = []
+        current_node = target
+        while came_from[current_node] is not None:
+            path.append(current_node)
+            current_node = came_from[current_node]
+        path.append(source)
+        path.reverse()
     
     end_time = time.time()
-    return path, (end_time - start_time)
+    return path, (end_time - start_time)/10
 
 
 # function for Dijkstra algorithm 
@@ -285,38 +288,49 @@ def dijkstra(graph, source, target):
 
     start_time = time.time()
     
-    queue = []                                                     # priority queue to store not to be explored
-    heapq.heappush(queue, (0, source))                             # push to the queue the source node
-    distances = {node: float('inf') for node in node_dict}         # dictionary to store the shortest distance from source to each node 
-    distances[source] = 0
-    previous_nodes = {node: None for node in node_dict}            # dictionary to store the previous node in the optimal path for each node
+    for _ in range(10):
+        queue = []                                                     # priority queue to store not to be explored
+        heapq.heappush(queue, (0, source))                             # push to the queue the source node
+        distances = {node: float('inf') for node in node_dict}         # dictionary to store the shortest distance from source to each node 
+        distances[source] = 0
+        previous_nodes = {node: None for node in node_dict}            # dictionary to store the previous node in the optimal path for each node
 
-    while queue:                                                   # whilst the queue is not empty 
-        current_distance, current_node = heapq.heappop(queue)      # get the current distanec and the current node from queue 
+        while queue:                                                   # whilst the queue is not empty 
+            current_distance, current_node = heapq.heappop(queue)      # get the current distanec and the current node from queue 
 
-        if current_node == target:                                 # break if current is target (found)
-            break
+            if current_node == target:                                 # break if current is target (found)
+                break
 
-        for neighbour in node_dict[current_node].neighbours:       # for every neighbour of the current node
-            edge = edge_dict.get((current_node, neighbour))        # get the edge connecting the two
-            if edge is not None:                                   # if there is in fact an edge 
-                edge_length = edge.length                          # get the length of the edge 
-                distance = current_distance + edge_length          # calcualte the new distance from the source 
-                if distance < distances[neighbour]:                # if distance is less than current known distance from neighbour
-                    distances[neighbour] = distance                # update the distance 
-                    previous_nodes[neighbour] = current_node       # add to our optimal path previous nodes dict     
-                    heapq.heappush(queue, (distance, neighbour))   # push the neighbour to queue to be explored
+            for neighbour in node_dict[current_node].neighbours:       # for every neighbour of the current node
+                edge = edge_dict.get((current_node, neighbour))        # get the edge connecting the two
+                if edge is not None:                                   # if there is in fact an edge 
+                    edge_length = edge.length                          # get the length of the edge 
+                    distance = current_distance + edge_length          # calcualte the new distance from the source 
+                    if distance < distances[neighbour]:                # if distance is less than current known distance from neighbour
+                        distances[neighbour] = distance                # update the distance 
+                        previous_nodes[neighbour] = current_node       # add to our optimal path previous nodes dict     
+                        heapq.heappush(queue, (distance, neighbour))   # push the neighbour to queue to be explored
 
-    path = []                                                      # empty path 
-    current_node = target                                          # set current node to target
-    while previous_nodes[current_node] is not None:                # while there are still previous nodes
-        path.append(current_node)                                  # add the current node to the path 
-        current_node = previous_nodes[current_node]                # set the new current node to the next node
-    path.append(source)                                            # appened to the source to the path 
-    path.reverse()                                                 # reverse the list (source to target)
+        path = []                                                      # empty path 
+        current_node = target                                          # set current node to target
+        while previous_nodes[current_node] is not None:                # while there are still previous nodes
+            path.append(current_node)                                  # add the current node to the path 
+            current_node = previous_nodes[current_node]                # set the new current node to the next node
+        path.append(source)                                            # appened to the source to the path 
+        path.reverse()                                                 # reverse the list (source to target)
     
     end_time = time.time()
-    return path, (end_time - start_time)
+    return path, (end_time - start_time)/10
+
+
+# function to return the distance of the found path
+def returnDistance(path, graph):
+    _, edges_dict = createDict(graph)
+    distance = 0
+
+    for i in range(len(path)-1):
+        distance += edges_dict[((path[i], path[i+1]))].length
+    return distance 
 
 
 # function for the user to select an algorithm to test
@@ -326,8 +340,8 @@ def algorithmSelection(choice):
     edges = gpd.read_file('edges.geojson')
 
     # default source and target for now 
-    source_node = 657832
-    target_node = 17788866
+    source_node = 1697709073
+    target_node = 7998510389
 
     # ensure edges have a MultiIndex for (u, v, key)
     if not isinstance(edges.index, pd.MultiIndex):
@@ -347,6 +361,8 @@ def algorithmSelection(choice):
         # default to benchmark pathfinder
         path, time_elapsed = benchmarkAlgo(graph, source_node, target_node)
         print(f"Shortest path: {path}\nTime elapsed: {time_elapsed}")
+
+    print(f"The distance of the route is {returnDistance(path, graph)}m")
     
     # Load the previously generated map
     map = folium.Map(location=[nodes.iloc[0]['y'], nodes.iloc[0]['x']], zoom_start=13)
