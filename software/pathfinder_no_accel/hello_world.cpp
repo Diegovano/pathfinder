@@ -196,7 +196,7 @@ static void spi_rx_isr(void* isr_context)
 
   if(terminated)
   {
-    if (conStr != "") std::cout << conStr << std::endl << std::endl << std::endl;
+    if (conStr != "") std::cout << hitcount++ << ": " << conStr << std::endl << std::endl << std::endl;
   
 //     // delete conStr;
 

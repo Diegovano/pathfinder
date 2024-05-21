@@ -10,13 +10,16 @@
 using namespace ArduinoJson;
 
 const int NUM_CHARS = 4;
-const int BUF_LEN = 512;
+const int BUF_LEN = 4;
 
 int shift = 0;
 
-char TX_BUF[BUF_LEN];
+char TX_BUF[BUF_LEN + 1];
 char RX_BUF[BUF_LEN];
 
+std::string message;
+
+bool terminated = true;
 
 // std::array<std::array<int, 9>, 9> adjMatx = {{{0, 1, -1, -1, -1, -1, -1, -1, -1}, {1, 0, 1, -1, -1, -1, -1, -1, -1}, {-1, 1, 0, -1, -1, 1, -1, -1, -1}, {-1, -1, -1, 0, 1, -1, 1, -1, -1}, {-1, -1, -1, 1, 0, 1, -1, -1, -1}, {-1, -1, 1, -1, 1, 0, -1, -1, -1}, {-1, -1, -1, 1, -1, -1, 0, 1, -1}, {-1, -1, -1, -1, -1, -1, 1, 0, 1}, {-1, -1, -1, -1, -1, -1, -1, 1, 0}}};
 int adjMatx[9][9] = {{0, 1, -1, -1, -1, -1, -1, -1, -1}, {1, 0, 1, -1, -1, -1, -1, -1, -1}, {-1, 1, 0, -1, -1, 1, -1, -1, -1}, {-1, -1, -1, 0, 1, -1, 1, -1, -1}, {-1, -1, -1, 1, 0, 1, -1, -1, -1}, {-1, -1, 1, -1, 1, 0, -1, -1, -1}, {-1, -1, -1, 1, -1, -1, 0, 1, -1}, {-1, -1, -1, -1, -1, -1, 1, 0, 1}, {-1, -1, -1, -1, -1, -1, -1, 1, 0}};
@@ -29,6 +32,8 @@ void setup() {
   // put your setup code here, to run once:
 
   // uint8_t TX_BUF[NUM_CHARS] = {'p', '\0', 'a'};
+
+  TX_BUF[NUM_CHARS] = '\0'; // hacky to ensure null char at end to print easily
 
   Serial.begin(115200);
 
@@ -72,42 +77,49 @@ void setup() {
 
   // TX_BUF[511] = '\0';
 
-  serializeJson(doc, TX_BUF);
+  serializeJson(doc, message);
+
+  // message = "#include <string> #include <iostream> int main(){std::string str = \"hello\";char buf[3];buf[2] = \'\\0\';strncpy(buf, str.c_str() + 6, 2);std::cout << buf << std::endl;}";
+  message = "Est quasi autem blanditiis nesciunt magnam. Suscipit et ex qui enim velit dolores. Modi accusamus aliquam odit ex consequatur minus et sint. Et magnam vel distinctio et placeat perspiciatis. Error dolor quos aut. Et ullam ab accusantium asperiores nesciunt. Et voluptatibus voluptatem delectus. Aut quis ad fugiat pariatur eveniet rerum sed. In soluta sint dolore id dignissimos et. Consequatur rerum qui impedit blanditiis nihil rerum. Sint sapiente et consectetur eum labore officia est non. Quidem quia molestias ut provident et. Magnam corrupti ut cumque voluptatem nam rem deserunt. Ut velit aut ea voluptatem quisquam. Repellendus placeat repudiandae quidem rerum. Accusamus dignissimos non ea tempore consequatur tenetur libero omnis. Amet omnis quae repellat suscipit vero. Autem enim maiores omnis. Beatae reiciendis quod vero est natus veniam. A id reiciendis harum vero. Totam dolor voluptatum sunt soluta nihil dolorem repudiandae officia. Impedit assumenda sed illo provident illum.";
+
+
   SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
   SPI.transfer32(0);
   SPI.endTransaction();
 }
 
 void loop() {
-  if (shift % 128 == 0) SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
+  if (terminated)
+  {
+    terminated = false;
+    SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
+    shift = 0;
+  }
+
+  strncpy(TX_BUF, message.c_str() + shift, 4);
+  Serial.println(TX_BUF);
 
   digitalWrite(SPI_SS, LOW);
-  SPI.transferBytes((const uint8_t *)TX_BUF + 4 * (shift % 128), (uint8_t*)RX_BUF, NUM_CHARS);
+  SPI.transferBytes((const uint8_t *)TX_BUF, (uint8_t*)RX_BUF, NUM_CHARS);
   digitalWrite(SPI_SS, HIGH);
 
-  Serial.println(shift % 128);
-  // digitalWrite(SPI_SS, HIGH);
-  
+  Serial.println(shift);
 
-  shift++;
-  if (shift % 128 == 0) 
+  shift += NUM_CHARS;
+  if (shift > message.size()) 
   {
-    // SPI.endTransaction();
+    terminated = true;
 
-    // SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
     digitalWrite(SPI_SS, LOW);
-    SPI.transfer32((uint32_t)0x0);
+    SPI.transfer32(0);
     digitalWrite(SPI_SS, HIGH);
 
     SPI.endTransaction();
 
-    sleep(2);
-
+    // sleep(2);
   }
-  // SPI.endTransaction();
 
   usleep(1e3);
-  char hi = ' ';
 }
 
 // put function definitions here:
