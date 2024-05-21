@@ -16,7 +16,9 @@
 #include "altera_avalon_pio_regs.h" // for IO**_PIO stuff
 
 #include <iostream> // for cout
-#include <sstream> // for stringstream
+#include <string> // for stringstream
+
+#include <boost/archive/text_oarchive.hpp>
 
 //This is the ISR that runs when the S
 
@@ -25,6 +27,11 @@
 const int NUM_VERTICES = 9;
 
 int hitcount = 0;
+
+bool terminated = false;
+
+// std::string *conStr;
+std::string conStr = "";
 
 std::string decToBinary(int n)
 {
@@ -177,12 +184,46 @@ static void spi_rx_isr(void* isr_context)
 {
   int data = IORD_ALTERA_AVALON_SPI_RXDATA(SPI_BASE);
   int status = IORD_ALTERA_AVALON_SPI_STATUS(SPI_BASE);
-  printf("ISR iter %d, status %s, got: %x \n" , hitcount++, decToBinary(status).c_str(), data);
-
-  IOWR_ALTERA_AVALON_SPI_TXDATA(SPI_BASE, data);
+  // printf("ISR iter %d, status %s, got: %x: %c%c%c%c \n" , hitcount++, decToBinary(status).c_str(), data, 
+  //   ((data & 0xFF000000) >> 8 * 3), ((data & 0x00FF0000) >> 8 * 2), ((data & 0x0000FF00) >> 8 * 1), ((data & 0x000000FF) >> 8 * 0));
 
   //This resets the IRQ flag. Otherwise the IRQ will continuously run.
   IOWR_ALTERA_AVALON_SPI_STATUS(SPI_BASE, 0x0);
+
+  // printf("ISR iter %d, status %s, got: %x \n" , hitcount++, decToBinary(status).c_str(), data);
+  // printf("hit\n");
+  // IOWR_ALTERA_AVALON_SPI_TXDATA(SPI_BASE, data);
+
+  if(terminated)
+  {
+    if (conStr != "") std::cout << conStr << std::endl << std::endl << std::endl;
+  
+//     // delete conStr;
+
+//     // conStr = nullptr;
+
+//     // usleep(1e7);
+    conStr = "";
+    terminated = false;
+  }
+  else
+  {
+
+    for (int i = 0; i < 32; i += 8)
+    {
+      // std::cout << (char) ((data & (0xFF000000 >> i)) >> (24 - i));
+      // std::cout << data << " & " << (0xFF000000 >> i) << " >> " << 24 - i << " = " << (char) ((data & (0xFF000000 >> i)) >> (24 - i)) << std::endl;
+      if ( (char) ((data & (0xFF000000 >> i)) >> (24 - i)) == '\0')
+      {
+        terminated = true;
+        break;
+      }
+      else conStr += (char) ((data & (0xFF000000 >> i)) >> (24 - i)) ; 
+    }
+
+    // std::cout << "const in prgrs.. " << conStr << std::endl;
+  }
+
 }
 
 int main () 

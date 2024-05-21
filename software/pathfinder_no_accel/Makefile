@@ -4,7 +4,7 @@
 
 # List of include directories for -I compiler option (-I added when used).
 # Includes the BSP.
-ALT_INCLUDE_DIRS :=
+ALT_INCLUDE_DIRS := "/usr/include/boost"
 
 # List of library directories for -L linker option (-L added when used).
 # Includes the BSP.
@@ -89,8 +89,8 @@ ACDS_VERSION := 20.1
 ELF := pathfinder_no_accel.elf
 
 # Paths to C, C++, and assembly source files.
-C_SRCS := hello_world.c
-CXX_SRCS :=
+C_SRCS :=
+CXX_SRCS := hello_world.cpp
 ASM_SRCS :=
 
 
