@@ -20,13 +20,13 @@
 
 #include <boost/archive/text_oarchive.hpp>
 
-#define PRINT_DEBUG false
+#define DEBUG false
 
 //This is the ISR that runs when the S
 
 // dijkstra bottom left to top right
 
-const int NUM_BYTES = 1;
+const int NUM_BYTES = 4;
 
 const int NUM_VERTICES = 9;
 
@@ -208,7 +208,7 @@ static void spi_rx_isr(void* isr_context)
 
     for (int i = 32 - NUM_BYTES * 8; i < 32; i += 8)
     {
-      #if DEBUG_PRINT
+      #if DEBUG
         std::cout << (char) ((data & (0xFF000000 >> i)) >> (24 - i));
       #endif
 
