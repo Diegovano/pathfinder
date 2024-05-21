@@ -6,6 +6,7 @@ from folium.plugins import MarkerCluster, MiniMap
 import networkx as nx 
 import time
 import heapq
+import math
 
 # HOW TO USE AT THE MOMENT 
 # RUN THE CODE AND THEN GENERATE A MAP 
@@ -16,25 +17,41 @@ import heapq
 
 # CURRENTLY ONLY IMPLEMENTED DIJKSTRA (+ LIBRARY VERSION)
 
+
 # Node class 
 class Node:
-    def __init__(self, osmid, x, y, geometry, neighbours, isLandmark=False):
+    def __init__(self, osmid, x, y, neighbours, isLandmark=False):
         self.osmid = osmid
         self.x = x
         self.y = y
-        self.geometry = geometry
         self.neighbours = neighbours
         self.isLandmark = isLandmark
 
     def get(self, attr_name, default=None):
         # Check if the requested attribute is one of the basic attributes
-        if attr_name in ['osmid', 'x', 'y', 'geometry', 'neighbours']:
+        if attr_name in ['osmid', 'x', 'y', 'neighbours']:
             return getattr(self, attr_name, default)
         # Otherwise, return from custom attributes
         return None
+    
+    def getDistanceTo(self, target):
+        return math.sqrt(((self.x - target.x) ** 2) + ((target.y - self.y) ** 2))
+
+    # def getDistanceTo(self, target):
+    #     # Haversine formula to calculate distance between two latitude/longitude points
+    #     R = 6371000 
+    #     dLat = math.radians(target.y - self.y)
+    #     dLon = math.radians(target.x - self.x)
+    #     a = (
+    #         math.sin(dLat / 2) ** 2 +
+    #         math.cos(math.radians(self.y)) * math.cos(math.radians(target.y)) * math.sin(dLon / 2) ** 2
+    #     )
+    #     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    #     distance = R * c  
+    #     return distance
 
     def __repr__(self):
-        return f"Node(osmid={self.osmid}, x={self.x}, y={self.y}, geometry={self.geometry}, neighbours={self.neighbours})"
+        return f"Node(osmid={self.osmid}, x={self.x}, y={self.y}, neighbours={self.neighbours})"
 
 
 # Edge class
@@ -77,7 +94,7 @@ def generateGraph(center, radius, network_type, filename):
     G = ox.graph_from_point(tuple(center), dist=radius, network_type=network_type, simplify=True)
 
     # convert multidigraph to node and edge GeoDataFrame
-    nodes, edges = ox.graph_to_gdfs(G, fill_edge_geometry=True) 
+    nodes, edges = ox.graph_to_gdfs(G, node_geometry=True, fill_edge_geometry=True) 
 
     folium.Circle(
         radius=radius,
@@ -87,15 +104,15 @@ def generateGraph(center, radius, network_type, filename):
         fill_color='blue',
         fill_opacity=0.1
     ).add_to(map)
-
+   
     # Add nodes as markers
     for idx, node in nodes.iterrows():
         folium.Marker(
             location=[node['y'], node['x']],
-            popup=f"Node {idx}",
+            popup=f"Node {idx}\n",
             icon=folium.Icon(color='red', icon='info-sign')
         ).add_to(marker_cluster)
-
+    
     # Save the map to an HTML file
     map.save(filename)
 
@@ -108,31 +125,79 @@ def generateGraph(center, radius, network_type, filename):
     edges.to_file('edges.geojson', driver='GeoJSON')
 
 
+# function to add the path to the map 
+def add_path_to_map(map, graph, path, filename):
+
+    nodes_dict = createDict(graph)[0]
+
+    path_coordinates = [(nodes_dict[node_id].y, nodes_dict[node_id].x) for node_id in path]
+
+    folium.PolyLine(
+        path_coordinates, 
+        color="blue", 
+        weight=2.5, 
+        opacity=1
+    ).add_to(map)
+    
+    map.save(filename)
+
+
+# function for the heuristic used in the benchmark algo 
+def heuristic(node, target, node_dict):
+    # # Haversine formula to calculate the distance between two nodes
+    # R = 6371000 
+    # node_data = node_dict[node]
+    # target_data = node_dict[target]
+    
+    # dLat = math.radians(target_data.y - node_data.y)
+    # dLon = math.radians(target_data.x - node_data.x)
+    # a = (
+    #     math.sin(dLat / 2) ** 2 +
+    #     math.cos(math.radians(node_data.y)) * math.cos(math.radians(target_data.y)) * math.sin(dLon / 2) ** 2
+    # )
+    # c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    # distance = R * c  
+    # return distance
+    return math.sqrt(((node_dict[node].x - node_dict[target].x) ** 2) + ((node_dict[target].y - node_dict[node].y) ** 2))
+
+
 # uses networkx to find the shortest path 
 def benchmarkAlgo(graph, source, target):
     # graph is a MultiDiGraph which is needed for the nx.shortest_path
     # https://networkx.org/documentation/stable/reference/classes/multidigraph.html
-    start_time = time.time()
-    shortest_path = nx.shortest_path(graph, source=source, target=target, weight='length')
-    end_time = time.time()
+    node_dict = createDict(graph)[0]
+    selection = int(input("Would you like 1) Dijkstra or 2) A*? "))
+    if selection == 1:
+        start_time = time.time()
+        shortest_path = nx.shortest_path(graph, source=source, target=target, weight='length')
+        end_time = time.time()
+    elif selection == 2:
+        start_time = time.time()
+        shortest_path = nx.astar_path(graph, source=source, target=target, heuristic=lambda u, v: heuristic(u, v, node_dict), weight='length')
+        end_time = time.time()
     return shortest_path, (end_time - start_time)
 
 
-# function for Dijkstra algorithm 
-def dijkstra(graph, source, target):
+# function to create the dictionaries for the nodes and edges 
+# key of node dictionary is node number then info about node
+# key fo edge dictonary is (start node, end node) of the egde then info about the edge 
+def createDict(graph):
+    
     node_dict = {}
     edge_dict = {}
 
-    # create Node objects and append to the dictionary 
-    for node in graph.nodes:
-        current_node = graph.nodes[node]
-        x = current_node.get('x', None)
-        y = current_node.get('y', None)
-        geometry = current_node.get('geometry', None)
-        osmid = current_node.get('osmid', None)
-        neighbours = list(graph.neighbors(node))
-        node_obj = Node(osmid, x, y, geometry, neighbours)
-        node_dict[node] = node_obj
+    #create the node object and append to a node dictionary 
+    for _, node_data in graph.nodes(data=True):
+        if node_data:
+            osmid = node_data['osmid']
+            x = node_data['x']
+            y = node_data['y']
+            #neighbours = list(graph.neighbors(osmid))
+            neighbours = list(graph.successors(osmid))
+            node_obj = Node(osmid, x, y, neighbours)
+            node_dict[osmid] = node_obj
+        else:
+            continue
 
     # create Edge objects and append to the dictionary 
     for u, v, _, data in graph.edges(keys=True, data=True):
@@ -153,6 +218,70 @@ def dijkstra(graph, source, target):
         
         edge_obj = Edge(edge_nodes, osmid, name, maxspeed, highway, access, oneway, length, geometry)
         edge_dict[(u, v)] = edge_obj
+        if not oneway: 
+            edge_dict[(v, u)] = edge_obj
+
+    return node_dict, edge_dict
+
+
+# function for A* Algorithm 
+def a_star(graph, source, target):
+
+    node_dict, edge_dict = createDict(graph)
+
+    # dictionary to store the g value and f value of the node 
+    g_value   = {source: 0}
+    f_value   = {source: node_dict[source].getDistanceTo(node_dict[target])}
+    came_from = {source: None}
+
+    closed_nodes = set()
+
+    start_time = time.time()
+
+    queue = []
+    heapq.heappush(queue, (0,source))
+
+    while queue:
+
+        _, current_node = heapq.heappop(queue)
+
+        if current_node in closed_nodes:
+            continue
+
+        if current_node == target:
+            break
+
+        closed_nodes.add(current_node) 
+
+        # for neighbour in node_dict[current_node].neighbours:
+        for neighbour in node_dict[current_node].neighbours:
+            if neighbour in closed_nodes:
+                continue
+            edge = edge_dict.get((current_node, neighbour))
+            if edge is not None:
+                temp_g_score = g_value[current_node] + edge.length
+                if neighbour not in g_value or temp_g_score < g_value[neighbour]:
+                    came_from[neighbour] = current_node
+                    g_value[neighbour]   = temp_g_score
+                    f_value[neighbour]   = temp_g_score + node_dict[current_node].getDistanceTo(node_dict[target])
+                    heapq.heappush(queue, (f_value[neighbour], neighbour))
+
+    path = []
+    current_node = target
+    while came_from[current_node] is not None:
+        path.append(current_node)
+        current_node = came_from[current_node]
+    path.append(source)
+    path.reverse()
+    
+    end_time = time.time()
+    return path, (end_time - start_time)
+
+
+# function for Dijkstra algorithm 
+def dijkstra(graph, source, target):
+
+    node_dict, edge_dict = createDict(graph)
 
     start_time = time.time()
     
@@ -197,8 +326,8 @@ def algorithmSelection(choice):
     edges = gpd.read_file('edges.geojson')
 
     # default source and target for now 
-    source_node = 6682140872
-    target_node = 248926515
+    source_node = 657832
+    target_node = 17788866
 
     # ensure edges have a MultiIndex for (u, v, key)
     if not isinstance(edges.index, pd.MultiIndex):
@@ -210,14 +339,18 @@ def algorithmSelection(choice):
         path, time_elapsed = dijkstra(graph, source_node, target_node)
         print(f"Shortest path using Dijkstra: {path}\nTime Elapsed: {time_elapsed}")
     elif choice == 2:
-        pass
+        path, time_elapsed = a_star(graph, source_node, target_node)
+        print(f"Shortest path using A*: {path}\nTime Elapsed: {time_elapsed}")
     elif choice == 3:
         pass
     else:
         # default to benchmark pathfinder
-        shrt_path, time_elapsed = benchmarkAlgo(graph, source_node, target_node)
-        print(f"Shortest path: {shrt_path}\nTime elapsed: {time_elapsed}")
-
+        path, time_elapsed = benchmarkAlgo(graph, source_node, target_node)
+        print(f"Shortest path: {path}\nTime elapsed: {time_elapsed}")
+    
+    # Load the previously generated map
+    map = folium.Map(location=[nodes.iloc[0]['y'], nodes.iloc[0]['x']], zoom_start=13)
+    add_path_to_map(map, graph, path, 'map.html')
 
 # main loop
 while True:
@@ -231,6 +364,7 @@ while True:
         map_filename = 'map.html'
         generateGraph(mapCenter, radius, network_type, map_filename)
     elif choice == "alg":
+        
         print("\nAlgorithm Selection: ")
         print(" 1. Dijkstra")
         print(" 2. A* ")
