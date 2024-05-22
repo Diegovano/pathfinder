@@ -383,46 +383,47 @@ def resetLandmarks(nodes):
     for node in nodes:
         node.isLandmark = False
 
-# main call 
-try:
-    graph_gen = False
-    proceed = False
-    while True:
+# main call
+def main():
+    try:
+        graph_gen = False
+        proceed = False
+        while True:
 
-        if(graph_gen == False):
-            num_nodes = int(input("How many nodes do you want (>10)? "))
-            while not proceed:
-                nodes, dist_matrix, edges, start, goal = generateGraph(num_nodes)
-                plotGraph(False, 4, "", edges, nodes, [], start, goal, 0)
-                if input("Do you want to proceed with the given map? (y - Yes, n - No): ") == 'y':
-                    proceed = True
-                else:
-                    plt.close()
-                    proceed = False
-                graph_gen = True
+            if(graph_gen == False):
+                num_nodes = int(input("How many nodes do you want (>10)? "))
+                while not proceed:
+                    nodes, dist_matrix, edges, start, goal = generateGraph(num_nodes)
+                    plotGraph(False, 4, "", edges, nodes, [], start, goal, 0)
+                    if input("Do you want to proceed with the given map? (y - Yes, n - No): ") == 'y':
+                        proceed = True
+                    else:
+                        plt.close()
+                        proceed = False
+                    graph_gen = True
 
-        print("\nSelect an Algorithm to Test:")
-        print("1. Dijkstra")
-        print("2. A* Algorithm")
-        print("3. ALT Algorithm")
-        print("4. New Graph")
-        print("5. Exit\n")
+            print("\nSelect an Algorithm to Test:")
+            print("1. Dijkstra")
+            print("2. A* Algorithm")
+            print("3. ALT Algorithm")
+            print("4. New Graph")
+            print("5. Exit\n")
 
-        choice = int(input("Please enter your choice (1-5): "))
-        if choice == 1:
-            dijkstra(nodes, dist_matrix, edges, start, goal)
-        elif choice == 2:
-            a_star(nodes, dist_matrix, edges, start, goal)
-        elif choice == 3:
-            alt_algo(nodes, dist_matrix, edges, start, goal)
-        elif choice == 4:
-            graph_gen = False
-            proceed = False
-            continue
-        else:
-            plt.close()
-            break
+            choice = int(input("Please enter your choice (1-5): "))
+            if choice == 1:
+                dijkstra(nodes, dist_matrix, edges, start, goal)
+            elif choice == 2:
+                a_star(nodes, dist_matrix, edges, start, goal)
+            elif choice == 3:
+                alt_algo(nodes, dist_matrix, edges, start, goal)
+            elif choice == 4:
+                graph_gen = False
+                proceed = False
+                continue
+            else:
+                plt.close()
+                break
 
-except KeyboardInterrupt:
-    plt.close()
-    print("Program Stopped By User")
+    except KeyboardInterrupt:
+        plt.close()
+        print("Program Stopped By User")
