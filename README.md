@@ -3,13 +3,17 @@ ARM Hardware Accelerated Pathfinder
 
 ## File Organisation (to be refined)
 
-### Software
+### Hardware
 
-All software files, this includes Python prototyping, and `C` code for execution on NIOS.
+the hardware Verilog code, including associated testbenches and logic Modelsim simulation project
 
 ### Quartus
 
-All hardware related code, including all the Quartus mess
+The Quartus Project, mainly relating to synthesis
+
+### Software
+
+All software files, this includes Python prototyping, and `C` code for execution on NIOS.
 
 ## Commit Messages
 

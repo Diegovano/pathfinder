@@ -1,0 +1,51 @@
+C:/Users/runsh/Desktop/Main/IC/EIE3/summer/dijkstra_verilog-quartus/hdl/edge_cache.v {1 {vlog -work work -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/dijkstra_verilog-quartus/hdl/edge_cache.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module EdgeCache
+
+Top level modules:
+	EdgeCache
+
+} {} {}} C:/Users/runsh/Desktop/Main/IC/EIE3/summer/dijkstra_verilog-quartus/hdl/writer.sv {1 {vlog -work work -sv -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/dijkstra_verilog-quartus/hdl/writer.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module Writer
+
+Top level modules:
+	Writer
+
+} {} {}} C:/Users/runsh/Desktop/Main/IC/EIE3/summer/dijkstra_verilog-quartus/hdl/minheap.sv {1 {vlog -work work -sv -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/dijkstra_verilog-quartus/hdl/minheap.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module MinHeap
+
+Top level modules:
+	MinHeap
+
+} {} {}} C:/Users/runsh/Desktop/Main/IC/EIE3/summer/dijkstra_verilog-quartus/hdl/priority_queue.sv {1 {vlog -work work -sv -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/dijkstra_verilog-quartus/hdl/priority_queue.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module PriorityQueue
+
+Top level modules:
+	PriorityQueue
+
+} {} {}} C:/Users/runsh/Desktop/Main/IC/EIE3/summer/dijkstra_verilog-quartus/hdl/dijkstra_top.sv {1 {vlog -work work -sv -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/dijkstra_verilog-quartus/hdl/dijkstra_top.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module DijkstraTop
+
+Top level modules:
+	DijkstraTop
+
+} {} {}} C:/Users/runsh/Desktop/Main/IC/EIE3/summer/dijkstra_verilog-quartus/testbenches/block_ram.v {1 {vlog -work work -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/dijkstra_verilog-quartus/testbenches/block_ram.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module BlockRam
+
+Top level modules:
+	BlockRam
+
+} {} {}} C:/Users/runsh/Desktop/Main/IC/EIE3/summer/dijkstra_verilog-quartus/testbenches/top_tb.sv {1 {vlog -work work -sv -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/dijkstra_verilog-quartus/testbenches/top_tb.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling package top_tb_sv_unit
+-- Compiling module DijkstraTopTestbench
+
+Top level modules:
+	DijkstraTopTestbench
+
+} {} {}}

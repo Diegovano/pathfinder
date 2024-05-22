@@ -1,4 +1,3 @@
-
 # required imports
 import matplotlib.pyplot as plt
 import random
@@ -312,6 +311,10 @@ def plotGraph(showPath, figureId, algorithm, edges, nodes, solution, start, goal
             plt.plot(node.x, node.y, 'ko', markersize=6, label='Landmark' if idx == 0 else "")
         else:
             plt.plot(node.x, node.y, 'bo', markersize=4)
+
+        # Annotate the node with its index
+        plt.text(node.x, node.y, str(idx), fontsize=8, verticalalignment='bottom', horizontalalignment='right')
+        
 
     if showPath and solution:
         for path in solution:
