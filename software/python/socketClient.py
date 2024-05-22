@@ -1,15 +1,19 @@
 import socket
-import generateMap as mg
+import graph
+import time
 
-HOST = "172.20.10.9"
+HOST = "192.168.137.114"
 PORT = 80
 
-_, graph, _, _, _  = mg.generateGraph(10)
+while(True):
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.connect((HOST, PORT))
-    s.sendall(bytes(str(graph)+"\n\n", 'utf8'))
-    data = s.recv(1024)
-s.close()
+    g = graph.Graph(3)
+    graphSerial = g.to_json()
 
-print(f"Received {str(data)!r}")
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((HOST, PORT))
+        s.sendall(bytes(str(graphSerial)+"\n\n", 'ascii'))
+        data = s.recv(1024).decode('utf8')
+    s.close()
+
+    print(f"Received {data}")
