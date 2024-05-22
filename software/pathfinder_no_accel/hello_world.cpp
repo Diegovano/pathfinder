@@ -192,35 +192,27 @@ static void spi_rx_isr(void* isr_context)
   //This resets the IRQ flag. Otherwise the IRQ will continuously run.
   IOWR_ALTERA_AVALON_SPI_STATUS(SPI_BASE, 0x0);
 
-  // printf("ISR iter %d, status %s, got: %x \n" , hitcount++, decToBinary(status).c_str(), data);
+  // printf("\nISR iter %d, status %s, got: %x \n" , hitcount++, decToBinary(status).c_str(), data);
 
   // IOWR_ALTERA_AVALON_SPI_TXDATA(SPI_BASE, data);
 
-  if(terminated)
+  for (int i = 32 - NUM_BYTES * 8; i < 32; i += 8)
   {
-    if (conStr != "") std::cout << hitcount++ << ": " << conStr << std::endl << std::endl << std::endl;
+    #if DEBUG
+      std::cout << (char) ((data & (0xFF000000 >> i)) >> (24 - i));
+    #endif
 
-    conStr = "";
-    terminated = false;
-  }
-  else
-  {
-
-    for (int i = 32 - NUM_BYTES * 8; i < 32; i += 8)
+    if ( (char) ((data & (0xFF000000 >> i)) >> (24 - i)) == '\0')
     {
-      #if DEBUG
-        std::cout << (char) ((data & (0xFF000000 >> i)) >> (24 - i));
+      #if !DEBUG
+        if (conStr != "") std::cout << hitcount++ << ": " << conStr << std::endl << std::endl << std::endl;
       #endif
 
-      if ( (char) ((data & (0xFF000000 >> i)) >> (24 - i)) == '\0')
-      {
-        terminated = true;
-        break;
-      }
-      else conStr += (char) ((data & (0xFF000000 >> i)) >> (24 - i)) ; 
+      conStr = "";
+      break;
     }
+    else conStr += (char) ((data & (0xFF000000 >> i)) >> (24 - i)) ; 
   }
-
 }
 
 int main () 

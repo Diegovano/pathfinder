@@ -9,7 +9,7 @@
 
 using namespace ArduinoJson;
 
-const int BUF_LEN = 1;
+const int BUF_LEN = 4;
 
 int shift = 0;
 
@@ -78,9 +78,12 @@ void setup() {
 
   // message = "#include <string> #include <iostream> int main(){std::string str = \"hello\";char buf[3];buf[2] = \'\\0\';strncpy(buf, str.c_str() + 6, 2);std::cout << buf << std::endl;}";
   message = "Est quasi autem blanditiis nesciunt magnam. Suscipit et ex qui enim velit dolores. Modi accusamus aliquam odit ex consequatur minus et sint. Et magnam vel distinctio et placeat perspiciatis. Error dolor quos aut. Et ullam ab accusantium asperiores nesciunt. Et voluptatibus voluptatem delectus. Aut quis ad fugiat pariatur eveniet rerum sed. In soluta sint dolore id dignissimos et. Consequatur rerum qui impedit blanditiis nihil rerum. Sint sapiente et consectetur eum labore officia est non. Quidem quia molestias ut provident et. Magnam corrupti ut cumque voluptatem nam rem deserunt. Ut velit aut ea voluptatem quisquam. Repellendus placeat repudiandae quidem rerum. Accusamus dignissimos non ea tempore consequatur tenetur libero omnis. Amet omnis quae repellat suscipit vero. Autem enim maiores omnis. Beatae reiciendis quod vero est natus veniam. A id reiciendis harum vero. Totam dolor voluptatum sunt soluta nihil dolorem repudiandae officia. Impedit assumenda sed illo provident illum.";
+  // message = "Est quasi autem blanditiis nesciunt magnam.";
 
   SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
+  digitalWrite(SPI_SS, LOW);
   SPI.transfer32(0);
+  digitalWrite(SPI_SS, HIGH);
   SPI.endTransaction();
 }
 
