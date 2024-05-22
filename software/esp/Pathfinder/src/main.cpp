@@ -9,6 +9,7 @@
 const int SPI_CS = D2; // Slave select is active-low
 
 // WPA2 Personal Authentication
+
 const char *PER_SSID = "LAPTOP-GLC7SFN7-8537";
 const char *PER_PASSWORD = "U00#10s0";
 
@@ -108,8 +109,8 @@ void loop()
           {
             Graph graph(request);
             FPGA.spi_tx_string(graph.to_json().c_str());
-            //std::string response = FPGA.spi_rx_string();
-            //client.println(response.c_str());
+            std::string response = FPGA.spi_rx_string();
+            client.println(response.c_str());
 
             break;
           }
