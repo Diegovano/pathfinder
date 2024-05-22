@@ -7,6 +7,7 @@ import networkx as nx
 import time
 import heapq
 import math
+import random
 
 # HOW TO USE AT THE MOMENT 
 # RUN THE CODE AND THEN GENERATE A MAP 
@@ -14,9 +15,6 @@ import math
 # OPEN THE map.html FILE (GO LIVE ON VSCODE) AND CLICK ON ANY TWO NODES 
 # COPY THE NODE ID INTO EITHER SOURCE OR TARGET 
 # RERUN THE SCRIPT AND TYPE ALG TO TIME THE ALGORITHMS 
-
-# CURRENTLY ONLY IMPLEMENTED DIJKSTRA (+ LIBRARY VERSION)
-
 
 # Node class 
 class Node:
@@ -52,7 +50,7 @@ class Node:
         return distance
 
     def __repr__(self):
-        return f"Node(osmid={self.osmid}, x={self.x}, y={self.y}, neighbours={self.neighbours})"
+        return f"Node(osmid={self.osmid}, x={self.x}, y={self.y}, neighbours={self.neighbours}, isLandmark={self.isLandmark})"
 
 
 # Edge class
@@ -127,12 +125,18 @@ def generateGraph(center, radius, network_type, filename):
 
 
 # function to add the path to the map 
-def add_path_to_map(map, graph, path, filename):
+def add_path_to_map(map, graph, nodes, path, filename):
+    marker_cluster = MarkerCluster().add_to(map)
 
+    for idx, node in nodes.iterrows():
+        folium.Marker(
+            location=[node['y'], node['x']],
+            popup=f"Node {idx}\n",
+            icon=folium.Icon(color='red', icon='info-sign')
+        ).add_to(marker_cluster)
+    
     nodes_dict = createDict(graph)[0]
-
     path_coordinates = [(nodes_dict[node_id].y, nodes_dict[node_id].x) for node_id in path]
-
     folium.PolyLine(
         path_coordinates, 
         color="blue", 
@@ -142,24 +146,24 @@ def add_path_to_map(map, graph, path, filename):
     
     map.save(filename)
 
-
+    
 # function for the heuristic used in the benchmark algo 
 def heuristic(node, target, node_dict):
-    # # Haversine formula to calculate the distance between two nodes
-    # R = 6371000 
-    # node_data = node_dict[node]
-    # target_data = node_dict[target]
+    # Haversine formula to calculate the distance between two nodes
+    R = 6371000 
+    node_data = node_dict[node]
+    target_data = node_dict[target]
     
-    # dLat = math.radians(target_data.y - node_data.y)
-    # dLon = math.radians(target_data.x - node_data.x)
-    # a = (
-    #     math.sin(dLat / 2) ** 2 +
-    #     math.cos(math.radians(node_data.y)) * math.cos(math.radians(target_data.y)) * math.sin(dLon / 2) ** 2
-    # )
-    # c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-    # distance = R * c  
-    # return distance
-    return math.sqrt(((node_dict[node].x - node_dict[target].x) ** 2) + ((node_dict[target].y - node_dict[node].y) ** 2))
+    dLat = math.radians(target_data.y - node_data.y)
+    dLon = math.radians(target_data.x - node_data.x)
+    a = (
+        math.sin(dLat / 2) ** 2 +
+        math.cos(math.radians(node_data.y)) * math.cos(math.radians(target_data.y)) * math.sin(dLon / 2) ** 2
+    )
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    distance = R * c  
+    return distance
+    #return math.sqrt(((node_dict[node].x - node_dict[target].x) ** 2) + ((node_dict[target].y - node_dict[node].y) ** 2))
 
 
 # uses networkx to find the shortest path 
@@ -323,6 +327,112 @@ def dijkstra(graph, source, target):
     return path, (end_time - start_time)/10
 
 
+# function for selecting the landmarks - furthest logic (can implement random as well)
+def selectLandmarks(nodes, num_landmarks):
+    if num_landmarks > len(nodes):
+        raise ValueError("Number of landmarks cannot exceed number of nodes")
+    
+    landmarks = []  # stores the node objects that are now landmarks 
+
+    # randomise the first node to be a landmark
+    keys = list(nodes.keys())
+    random_index = random.randint(0, len(keys) - 1)
+    nodes[keys[random_index]].isLandmark = True
+    landmarks.append(nodes[keys[random_index]])
+    
+    landmark_count = 1
+
+    # loop through all other nodes and find the node that is furthest away from the current node
+    while landmark_count < num_landmarks:
+        max_dist = -1
+        best_candidate = None
+
+        for idx in range(len(keys)):
+            if not nodes[keys[idx]].isLandmark:
+                min_dist_to_landmark = min(nodes[keys[idx]].getDistanceTo(landmarks[i]) for i in range(len(landmarks)))
+                if min_dist_to_landmark > max_dist:
+                    max_dist = min_dist_to_landmark
+                    best_candidate = idx
+        
+        if best_candidate is not None:
+            nodes[keys[best_candidate]].isLandmark = True
+            landmarks.append(nodes[keys[best_candidate]])
+            landmark_count += 1
+
+    return nodes
+
+# function for ALT algorithm 
+def alt(graph, source, target):
+    node_dict, edge_dict = createDict(graph)
+
+    num_lm = int(input("How many landmarks would you like? "))
+
+    # need to select some landmarks 
+    node_dict = selectLandmarks(node_dict, num_lm)
+    
+    # then need to find the distance of each node from each landmark 
+    landmark_distances = {lm: {} for lm in node_dict if node_dict[lm].isLandmark}
+    for landmark in landmark_distances:
+        for node in node_dict:
+            landmark_distances[landmark][node] = heuristic(node, landmark, node_dict)
+            # cannot use the one below since some nodes are not reachable 
+            #landmark_distances[landmark][node] = nx.shortest_path_length(graph, source=landmark, target=node, weight='length')
+
+    def alt_heuristic(node, target):
+        return max(abs(landmark_distances[landmark][target] - landmark_distances[landmark][node]) for landmark in landmark_distances)
+
+    # dictionary to store the g value and f value of the node 
+    g_value   = {source: 0}
+    f_value   = {source: alt_heuristic(source, target)}
+    came_from = {source: None}
+
+    closed_nodes = set()
+
+    start_time = time.time()
+
+    for _ in range(10):
+
+        queue = []
+        heapq.heappush(queue, (0,source))
+
+        while queue:
+
+            _, current_node = heapq.heappop(queue)
+
+            if current_node in closed_nodes:
+                continue
+
+            if current_node == target:
+                break
+
+            closed_nodes.add(current_node) 
+
+            # for neighbour in node_dict[current_node].neighbours:
+            for neighbour in node_dict[current_node].neighbours:
+                if neighbour in closed_nodes:
+                    continue
+                edge = edge_dict.get((current_node, neighbour))
+                if edge is not None:
+                    temp_g_score = g_value[current_node] + edge.length
+                    if neighbour not in g_value or temp_g_score < g_value[neighbour]:
+                        came_from[neighbour] = current_node
+                        g_value[neighbour]   = temp_g_score
+                        f_value[neighbour]   = temp_g_score + alt_heuristic(neighbour, target)
+                        heapq.heappush(queue, (f_value[neighbour], neighbour))
+
+        path = []
+        current_node = target
+        while came_from[current_node] is not None:
+            path.append(current_node)
+            current_node = came_from[current_node]
+        path.append(source)
+        path.reverse()
+    
+    end_time = time.time()
+
+    return path, (end_time - start_time)/10
+
+
 # function to return the distance of the found path
 def returnDistance(path, graph):
     _, edges_dict = createDict(graph)
@@ -356,7 +466,8 @@ def algorithmSelection(choice):
         path, time_elapsed = a_star(graph, source_node, target_node)
         print(f"Shortest path using A*: {path}\nTime Elapsed: {time_elapsed}")
     elif choice == 3:
-        pass
+        path, time_elapsed = alt(graph, source_node, target_node)
+        print(f"Shortest path using ALT: {path}\nTime Elapsed: {time_elapsed}")
     else:
         # default to benchmark pathfinder
         path, time_elapsed = benchmarkAlgo(graph, source_node, target_node)
@@ -366,7 +477,7 @@ def algorithmSelection(choice):
     
     # Load the previously generated map
     map = folium.Map(location=[nodes.iloc[0]['y'], nodes.iloc[0]['x']], zoom_start=13)
-    add_path_to_map(map, graph, path, 'map.html')
+    add_path_to_map(map, graph, nodes, path, 'map.html')
 
 # main loop
 while True:
