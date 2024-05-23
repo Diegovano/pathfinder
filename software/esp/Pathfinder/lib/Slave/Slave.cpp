@@ -50,7 +50,7 @@ std::string Slave::spi_tx_string(std::string tx_string)
 
         // De-assert slave select -> end of transfer
 
-        usleep(1e3);
+        usleep(1e4);
     }
 
     digitalWrite(SPI_CS, LOW);
