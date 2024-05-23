@@ -32,17 +32,19 @@ void Slave::spi_tx_string(std::string &tx_str)
     for (std::string::iterator it = tx_str.begin(); it < tx_str.end(); std::advance(it, BUF_LEN))
     {
 
-        //strncpy(TX_BUF, (&*it), 4);
+        strncpy(TX_BUF, (&*it), 4);
+        // strncpy(TX_BUF, "{\"ad", 4);
         //Serial.println(TX_BUF);
 
         // Assert slave select -> begin transfer
-        digitalWrite(SPI_CS, LOW);
 
+        // Serial.print("TXing ");
+        // Serial.println(*it);
+        digitalWrite(SPI_CS, LOW);
         //SPI.transfer((uint8_t)(*it));
         SPI.transferBytes((uint8_t*)(&*it), NULL, BUF_LEN);
 
         // De-assert slave select -> end of transfer
-        digitalWrite(SPI_CS, HIGH);
 
         usleep(delay);
 
@@ -54,7 +56,7 @@ void Slave::spi_tx_string(std::string &tx_str)
     
     SPI.endTransaction();
     
-    
+    return response;
 }
 
 bool Slave::spi_rx_string(std::string &rx_str)
