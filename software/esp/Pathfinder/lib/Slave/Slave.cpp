@@ -11,45 +11,46 @@ void Slave::begin()
     digitalWrite(SPI_CS, HIGH);
 }
 
-void Slave::spi_tx_string(std::string tx_string) 
+std::string Slave::spi_tx_string(std::string tx_string) 
 {
-
+    std::string response; // constatnt response
     
-    Serial.print("Length: ");
-    Serial.println(tx_string.length());
+    // Serial.print("Length: ");
+    // Serial.println(tx_string.length());
 
     SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
 
-    usleep(1e3);
-
     const uint8_t* NULLBUF = (const uint8_t*)"\0\0\0\0";
-
-    digitalWrite(SPI_CS, LOW);
-    SPI.transferBytes(NULLBUF,NULL,4);
-    digitalWrite(SPI_CS, HIGH);
-
-    usleep(1e3);
 
     char TX_BUF[5];
     TX_BUF[4]='\0';
 
     for (std::string::iterator it = tx_string.begin(); it < tx_string.end(); std::advance(it, 4))
-    {
+    { 
+        char RX_BUF[5];
 
-        //strncpy(TX_BUF, (&*it), 4);
+        RX_BUF[4] = '\0';
+
+        strncpy(TX_BUF, (&*it), 4);
+        // strncpy(TX_BUF, "{\"ad", 4);
         //Serial.println(TX_BUF);
 
         // Assert slave select -> begin transfer
+
+        // Serial.print("TXing ");
+        // Serial.println(*it);
         digitalWrite(SPI_CS, LOW);
-
         //SPI.transfer((uint8_t)(*it));
-        SPI.transferBytes((uint8_t*)(&*it), NULL, 4);
-
-        // De-assert slave select -> end of transfer
+        // SPI.transferBytes((const uint8_t*)(&*it), (uint8_t*)NULL, 4);
+        // SPI.transferBytes((/*const*/ uint8_t*)(&*it), (uint8_t*)NULL, 4);
+        SPI.transferBytes((const uint8_t*)TX_BUF, (uint8_t*)RX_BUF, 4);
         digitalWrite(SPI_CS, HIGH);
 
-        usleep(1e3);
+        response += RX_BUF;
 
+        // De-assert slave select -> end of transfer
+
+        usleep(1e3);
     }
 
     digitalWrite(SPI_CS, LOW);
@@ -58,7 +59,7 @@ void Slave::spi_tx_string(std::string tx_string)
     
     SPI.endTransaction();
     
-    
+    return response;
 }
 
 std::string Slave::spi_rx_string()

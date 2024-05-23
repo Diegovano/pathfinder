@@ -14,15 +14,17 @@
 #include "sys/alt_irq.h" // for alt_ic_isr_register
 
 #include "altera_avalon_pio_regs.h" // for IO**_PIO stuff
+#include "ArduinoJson-v6.21.5.h"
 
 #include <iostream> // for cout
-#include <string> // for stringstream
-
-#include <boost/archive/text_oarchive.hpp>
+#include <string> // for string
+#include <sstream> // for stringstream
+#include <queue> // for queue
 
 #define DEBUG false
+#define TIMING false
 
-//This is the ISR that runs when the S
+using namespace ArduinoJson;
 
 // dijkstra bottom left to top right
 
@@ -32,7 +34,11 @@ const int NUM_VERTICES = 9;
 
 int hitcount = 0;
 
-bool terminated = false;
+bool ready = false;
+
+std::string res;
+
+std::queue<char> TX_QUEUE;
 
 // std::string *conStr;
 std::string conStr = "";
@@ -81,6 +87,21 @@ class Graph
       for (int j = 0; j < NUM_VERTICES; j++) graph[i][j] = inArr[i][j];
     }
 
+    dist = new int[NUM_VERTICES]; 
+    inShortestPath = new bool[NUM_VERTICES];
+    predecessor = new int[NUM_VERTICES];
+
+    for (int i = 0; i < NUM_VERTICES; i++)
+    {
+      dist[i] = __INT_MAX__;
+      inShortestPath[i] = false;
+    }
+
+    dist[0] = 0; // dist to source is 0 (0 is bottom left)
+    predecessor[0] = 0;
+  }
+  Graph(int **inArr) : graph(inArr)
+  {
     dist = new int[NUM_VERTICES]; 
     inShortestPath = new bool[NUM_VERTICES];
     predecessor = new int[NUM_VERTICES];
@@ -150,51 +171,46 @@ class Graph
 
     std::cout << 0 << std::endl;
   }
+
+  const int* shortest() const
+  {
+    return predecessor;
+  }
 };
-
-// /* begin copied code */
-// static void spi_rx_isr(void* isr_context){ 
-// IOWR_ALTERA_AVALON_SPI_STATUS(SPI_SLAVE_BASE, 0x0); 
-// } 
-
-// int ret; 
-// int status; 
-// alt_u16 rddata; 
-
-// //this registers slave IRQ with NIOS 
-
-// auto ret = alt_iic_isr_register(SPI_SLAVE_IRQ_INTERRUPT_CONTROLLER_ID,SPI_SLAVE_IRQ,spi_rx_isr,(void *)spi_command_string_tx,0x0); 
-
-// //check if slave status is good 
-
-// do{ 
-// status = IORD_ALTERA_AVALON_SPI_STATUS(SPI_SLAVE_BASE); 
-// } 
-// while ((status & ALTERA_AVALON_SPI_STATUS_RRDY_MSK) == 0); 
-
-// //copy received byte into rddata variable 
-// rddata = IORD_ALTERA_AVALON_SPI_RXDATA(SPI_SLAVE_BASE); 
-
-// //set slave IRQ to enable a new byte receiving 
-
-// IOWR_ALTERA_AVALON_SPI_CONTROL(SPI_SLAVE_BASE, ALTERA_AVALON_SPI_CONTROL_SSO_MSK | ALTERA_AVALON_SPI_CONTROL_IRRDY_MSK); 
-
-// /* end copied code */
-
 
 //This is the ISR that runs when the SPI Slave receives data
 
 static void spi_rx_isr(void* isr_context)
 {
-  int data = IORD_ALTERA_AVALON_SPI_RXDATA(SPI_BASE);
-  int status = IORD_ALTERA_AVALON_SPI_STATUS(SPI_BASE);
+  uint32_t data = IORD_ALTERA_AVALON_SPI_RXDATA(SPI_BASE);
+  #if DEBUG
+    int status = IORD_ALTERA_AVALON_SPI_STATUS(SPI_BASE);
+
+    printf("\nISR iter %d, status %s, got: %lx \n" , hitcount++, decToBinary(status).c_str(), data);
+  #endif
 
   //This resets the IRQ flag. Otherwise the IRQ will continuously run.
   IOWR_ALTERA_AVALON_SPI_STATUS(SPI_BASE, 0x0);
 
-  // printf("\nISR iter %d, status %s, got: %x \n" , hitcount++, decToBinary(status).c_str(), data);
+  uint32_t TX_DATA = 0;
 
-  // IOWR_ALTERA_AVALON_SPI_TXDATA(SPI_BASE, data);
+  for (int i = 0; i < 4; i++)
+  {
+    char next;
+    if (TX_QUEUE.empty()) next = '\0';
+    else 
+    {
+      next = TX_QUEUE.front();
+      TX_QUEUE.pop();
+    }
+
+    TX_DATA = (TX_DATA << 8) | next;
+  }
+  #if DEBUG
+    std::cout << "Transmitting: " << TX_DATA << std::endl;
+  #endif
+
+  IOWR_ALTERA_AVALON_SPI_TXDATA(SPI_BASE, TX_DATA);
 
   for (int i = 32 - NUM_BYTES * 8; i < 32; i += 8)
   {
@@ -204,9 +220,14 @@ static void spi_rx_isr(void* isr_context)
 
     if ( (char) ((data & (0xFF000000 >> i)) >> (24 - i)) == '\0')
     {
-      #if !DEBUG
-        if (conStr != "") std::cout << hitcount++ << ": " << conStr << std::endl << std::endl << std::endl;
-      #endif
+      if (conStr != "") 
+      {
+        #if !DEBUG
+          std::cout << hitcount++ << ": " << conStr << std::endl << std::endl << std::endl;
+        #endif
+        res = conStr;
+        ready = true;
+      }
 
       conStr = "";
       break;
@@ -226,37 +247,95 @@ int main ()
   // //You need to enable the IRQ in the IP core control register as well.
   IOWR_ALTERA_AVALON_SPI_CONTROL(SPI_BASE, ALTERA_AVALON_SPI_CONTROL_IRRDY_MSK); // trigger when is ready
 
-  // //Just calling the ISR to see if the function is OK.
-  // spi_rx_isr(NULL);
+  const int NUM_NODES = 100;
+  const int CAPACITY = 2 * JSON_OBJECT_SIZE(NUM_NODES) + 1 * JSON_OBJECT_SIZE(NUM_NODES ^ 2) + 3 * JSON_OBJECT_SIZE(1);
 
-  // 	// The following is used for timing
-	// alt_u64 ticks;
-	// alt_u64 freq = alt_timestamp_freq();
-
-  // int myArr[9][9] = {{0, 1, -1, -1, -1, -1, -1, -1, -1}, {1, 0, 1, -1, -1, -1, -1, -1, -1}, {-1, 1, 0, -1, -1, 1, -1, -1, -1}, {-1, -1, -1, 0, 1, -1, 1, -1, -1}, {-1, -1, -1, 1, 0, 1, -1, -1, -1}, {-1, -1, 1, -1, 1, 0, -1, -1, -1}, {-1, -1, -1, 1, -1, -1, 0, 1, -1}, {-1, -1, -1, -1, -1, -1, 1, 0, 1}, {-1, -1, -1, -1, -1, -1, -1, 1, 0}};
-
-  // Graph myGraph = Graph(myArr);
-
-	// int T = 100;
-
-	// // The code that you want to time goes here
-	// alt_timestamp_start();
-	// for (int i=0; i<T; i++)
-  // {
-  //   // myGraph.dijkstra();
-  //   usleep(1e5);
-	// }
-	// ticks = alt_timestamp();
-
-
-	// int k = 50 * T; // ticks per ms
-	// float proc_us = (float)ticks / (float)k;
-	// printf("proc_ticks: %llu, proc_us: %f\n", ticks, proc_us);
-
-  // myGraph.print();
+  StaticJsonDocument<CAPACITY> inDoc;
 
   while (true)
   {
-  //   printf("spi: %d\n", IORD_ALTERA_AVALON_SPI_TXDATA(SPI_BASE));
+   if (ready)
+   {
+      ready = false;
+
+      // std::cout << "Deserialising data: " << res << std::endl;
+
+      DeserializationError err = deserializeJson(inDoc, res.c_str());
+
+      if (err)
+      {
+        std::cout << "Error Deserialising Received Data: " << err.c_str() << std::endl;
+      }
+
+      int tempArr[NUM_VERTICES][NUM_VERTICES];
+
+      for (int i = 0; i < NUM_VERTICES; i++)
+      {
+        for (int j = 0; j < NUM_VERTICES; j++)
+        {
+          tempArr[i][j] = inDoc["adj"][i][j];
+        }
+      }
+
+      int T = 100;
+      // Graph myGraph = Graph(inDoc.as<int[NUM_VERTICES][NUM_VERTICES]>());
+      Graph myGraph = Graph(tempArr);
+
+      #if TIMING
+      alt_u64 ticks;
+      alt_u64 freq = alt_timestamp_freq();
+
+      // The code that you want to time goes here
+      alt_timestamp_start();
+      #endif
+
+      for (int i=0; i<T; i++)
+      {
+        myGraph.dijkstra();
+        // usleep(1e5);
+      }
+
+      #if TIMING
+      ticks = alt_timestamp();
+
+      int k = 50 * T; // ticks per ms
+      float proc_us = (float)ticks / (float)k;
+      printf("proc_ticks: %llu, proc_us: %f\n", ticks, proc_us);
+      #endif
+
+      // myGraph.print();
+
+
+      const int *shortest = myGraph.shortest();
+
+      StaticJsonDocument<CAPACITY> outDoc;
+
+
+      JsonArray sht = outDoc["sht"].to<JsonArray>();
+
+      int vert_id = NUM_VERTICES - 1; // starting vertex
+
+      do
+      {
+        sht.add(shortest[vert_id]);
+
+        vert_id = shortest[vert_id];
+
+      } while (shortest[vert_id] != 0);
+
+      sht.add(0);
+
+      std::string response;
+      
+      serializeJson(outDoc, response);
+
+      for(char i : response)
+      {
+        #if DEBUG
+          std::cout << "Adding " << i << " to queue" << std::endl;
+        #endif
+        TX_QUEUE.push(i);
+      }
+    }
   }
 }

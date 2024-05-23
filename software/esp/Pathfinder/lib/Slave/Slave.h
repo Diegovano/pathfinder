@@ -14,7 +14,8 @@ public:
 
     void begin();
 
-    void spi_tx_string(std::string);
+    // void spi_tx_string(std::string);
+    std::string spi_tx_string(std::string);
 
     std::string spi_rx_string();
 
