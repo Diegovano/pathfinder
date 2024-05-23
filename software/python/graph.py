@@ -5,36 +5,36 @@ import math
 
 class Graph:
 
-    def __init__(self, V):
+    def __init__(self, size):
         self.x = []
         self.y = []
         self.adj = []
-        self.V = V
+        self.size = size
 
         # Generate random coordinate pairs:
-        for i in range(V):
+        for i in range(size):
             self.x.append(abs(random.uniform(0, 1)))
             self.y.append(abs(random.uniform(0, 1)))
 
         # Generate default adjacency matrix with no edges
-        for i in range(V):
-            self.adj.append([-1] * i + [0] + [-1] * (V - 1 - i))
+        for i in range(size):
+            self.adj.append([-1] * i + [0] + [-1] * (size - 1 - i))
 
         # Generate edges randomly
-        for i in range(V):
-            for j in range(i+1,V):
+        for i in range(size):
+            for j in range(i+1,size):
                 if (round(random.uniform(0,1))):
                     w = math.sqrt((self.x[i] - self.x[j]) ** 2 + (self.y[i] - self.y[j]) ** 2)
                     self.adj[i][j] = w
                     self.adj[j][i] = w
 
         # Generate random index of starting vertex
-        self.start = math.floor(random.uniform(0, 1) * V)
+        self.start = math.floor(random.uniform(0, 1) * size)
         
         # Generate random index of end vertex, different to start
-        self.goal = self.start
-        while(self.goal == self.start):
-            self.goal = math.floor(random.uniform(0,1) * V)  
+        self.end = self.start
+        while(self.end == self.start):
+            self.end = math.floor(random.uniform(0,1) * size)  
     
     def get_weight(self, x, y):
         return self.adj[y][x]
