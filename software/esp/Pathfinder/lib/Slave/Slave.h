@@ -8,15 +8,17 @@
 class Slave {
 private:
     uint8_t SPI_CS;
+    uint32_t BUF_LEN;
+    const u_int32_t delay = 1e4;
     
 public:
-    Slave(uint8_t);
+    Slave(uint8_t, uint32_t);
 
     void begin();
 
-    void spi_tx_string(std::string);
+    void spi_tx_string(std::string&);
 
-    std::string spi_rx_string();
+    bool spi_rx_string(std::string&);
 
 };
 
