@@ -7,18 +7,18 @@ Graph::Graph(std::string json_in)
 
     DeserializationError error = deserializeJson(doc, json_in);
 
-    V = doc["V"];
-    x = new float[V];
-    y = new float[V];
-    adj = new float*[V];
+    size = doc["size"];
+    x = new float[size];
+    y = new float[size];
+    adj = new float*[size];
 
-    for (int i=0; i<V; i++) 
+    for (int i=0; i<size; i++) 
     {   
         x[i] = doc["x"][i];
         y[i] = doc["y"][i];
 
-        adj[i] = new float[V];
-        for (int j=0; j<V; j++)
+        adj[i] = new float[size];
+        for (int j=0; j<size; j++)
         {
             adj[i][j] = doc["adj"][i][j];
         }
@@ -26,7 +26,7 @@ Graph::Graph(std::string json_in)
     }
     
     start = doc["start"];
-    goal = doc["goal"];
+    end = doc["end"];
 
 }
 
@@ -36,21 +36,21 @@ std::string Graph::to_json()
 
     
 
-    for (int i=0; i<V; i++) 
+    for (int i=0; i<size; i++) 
     {   
         doc["x"][i] = x[i];
         doc["y"][i] = y[i];
 
-        for (int j=0; j<V; j++)
+        for (int j=0; j<size; j++)
         {
             doc["adj"][i][j] = adj[i][j];
         }
         
     }
     
-    doc["V"] = V;
+    doc["size"] = size;
     doc["start"] = start;
-    doc["goal"] = goal;
+    doc["end"] = end;
 
     std::string json_out;
     serializeJson(doc, json_out);

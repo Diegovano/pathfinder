@@ -10,15 +10,15 @@ private:
     float *x;
     float *y;
     float **adj;
-    int V;
+    int size;
     int start;
-    int goal;
+    int end;
 
 public:
     Graph(std::string);
 
     int get_start();
-    int get_goal();
+    int get_end();
     void copy_adj();
     void copy_x();
     void copy_y();
