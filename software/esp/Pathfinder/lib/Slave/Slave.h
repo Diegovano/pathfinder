@@ -9,7 +9,7 @@ class Slave {
 private:
     uint8_t SPI_CS;
     uint32_t BUF_LEN;
-    const u_int32_t delay = 1e6;
+    const u_int32_t delay = 1e1;
     
 public:
     Slave(uint8_t, uint32_t);

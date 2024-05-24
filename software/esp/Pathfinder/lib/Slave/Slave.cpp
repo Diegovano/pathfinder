@@ -1,7 +1,5 @@
 #include <Slave.h>
 
-#define DEBUG false
-
 Slave::Slave(uint8_t pin, uint32_t length)
 : SPI_CS{pin}
 , BUF_LEN{length}
@@ -26,25 +24,17 @@ void Slave::spi_tx_string(std::string &tx_str)
     SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
 
     const uint8_t NULL_BUF[BUF_LEN] = {0};
-    char TX_BUF[BUF_LEN + 1];
-    TX_BUF[BUF_LEN]='\0';
 
     for (std::string::iterator it = tx_str.begin(); it < tx_str.end(); std::advance(it, BUF_LEN))
     {
 
-        strncpy(TX_BUF, (&*it), 4);
-        // strncpy(TX_BUF, "{\"ad", 4);
-        //Serial.println(TX_BUF);
-
         // Assert slave select -> begin transfer
-
-        // Serial.print("TXing ");
-        // Serial.println(*it);
         digitalWrite(SPI_CS, LOW);
-        //SPI.transfer((uint8_t)(*it));
+        
         SPI.transferBytes((uint8_t*)(&*it), NULL, BUF_LEN);
 
         // De-assert slave select -> end of transfer
+        digitalWrite(SPI_CS, HIGH);
 
         usleep(delay);
 
@@ -56,15 +46,10 @@ void Slave::spi_tx_string(std::string &tx_str)
     
     SPI.endTransaction();
     
-    return response;
 }
 
 bool Slave::spi_rx_string(std::string &rx_str)
 {   
-    #if DEBUG
-    char debug[] = "\0\0GOOD MORN\0ING";
-    char *rx_sim = debug;
-    #endif
 
     unsigned long startTime;
     const long timeoutTime = 20000; // in ms
@@ -81,12 +66,7 @@ bool Slave::spi_rx_string(std::string &rx_str)
     while(WAIT & !TIMEOUT) 
     {
         digitalWrite(SPI_CS, LOW);
-        #if DEBUG
-        memcpy(RX_BUF,rx_sim,BUF_LEN);
-        rx_sim +=4;
-        #else
         SPI.transferBytes(NULL,(uint8_t *)RX_BUF,BUF_LEN);
-        #endif
         digitalWrite(SPI_CS, HIGH);
 
         for (int i=0; i<BUF_LEN; i++) 
@@ -121,14 +101,7 @@ bool Slave::spi_rx_string(std::string &rx_str)
     while(APPEND)
     {   
         digitalWrite(SPI_CS, LOW);
-
-        #if DEBUG
-        strncpy(RX_BUF,rx_sim,BUF_LEN);
-        rx_sim += 4;
-        #else
         SPI.transferBytes(NULL,(uint8_t *)RX_BUF,BUF_LEN);
-        #endif
-
         digitalWrite(SPI_CS, HIGH);
 
         for (int i= 0; i<BUF_LEN; i++) 
