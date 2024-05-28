@@ -17,9 +17,6 @@ void Slave::begin()
 
 void Slave::spi_tx_string(std::string &tx_str) 
 {
-    
-    Serial.print("Length: ");
-    Serial.println(tx_str.length());
 
     SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
 
@@ -56,6 +53,7 @@ bool Slave::spi_rx_string(std::string &rx_str)
 
     rx_str = "";
     char RX_BUF[4];
+    const uint8_t NULL_BUF[BUF_LEN] = {0};
 
     SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
     
@@ -66,7 +64,7 @@ bool Slave::spi_rx_string(std::string &rx_str)
     while(WAIT & !TIMEOUT) 
     {
         digitalWrite(SPI_CS, LOW);
-        SPI.transferBytes(NULL,(uint8_t *)RX_BUF,BUF_LEN);
+        SPI.transferBytes(NULL_BUF,(uint8_t *)RX_BUF,BUF_LEN);
         digitalWrite(SPI_CS, HIGH);
 
         for (int i=0; i<BUF_LEN; i++) 
