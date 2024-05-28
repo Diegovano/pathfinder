@@ -99,7 +99,7 @@ bool Slave::spi_rx_string(std::string &rx_str)
     while(APPEND)
     {   
         digitalWrite(SPI_CS, LOW);
-        SPI.transferBytes(NULL,(uint8_t *)RX_BUF,BUF_LEN);
+        SPI.transferBytes(NULL_BUF,(uint8_t *)RX_BUF,BUF_LEN);
         digitalWrite(SPI_CS, HIGH);
 
         for (int i= 0; i<BUF_LEN; i++) 
