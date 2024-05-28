@@ -33,7 +33,8 @@ module EdgeCache
 	// When we have the requested edge value, set ready high and edge_value to
 	// the value from memory
 	output reg ready,
-	output reg [VALUE_WIDTH-1:0] edge_value
+	output reg [VALUE_WIDTH-1:0] edge_value,
+	input wire wait_request
 );
 
 // Becomes high on a reset or when row cache is emptied
@@ -62,19 +63,20 @@ always @(reset, mem_read_ready)
 begin
 	if(reset)
 		state = 0;
-	if(!mem_read_ready)
+	else if(!mem_read_ready)
 		state = state +1;
+	else
+		state = state;
 end
 
 
 always @(posedge clock)
 begin
 	// Release memory lines so other components can access memory
-	mem_addr = 'bz;
-	mem_read_enable = 1'bz;
+	//mem_addr = 'bz;
+	//mem_read_enable = 1'bz;
 
-	if(reset || !query_enable)
-	begin
+	if(reset || !query_enable) begin
 		old_state = 0;
 		row_incomplete = 1'b0;
 		column = 0;
@@ -91,10 +93,12 @@ begin
 		// Request to read particular cell
 		waiting_for_memory = 1'b1;
 	end
-	if(waiting_for_memory)
-	begin
+
+	if(waiting_for_memory && !wait_request)
 		mem_read_enable = 1'b1;
-	end
+	else
+		mem_read_enable = 1'bz;
+
 	if(waiting_for_memory && mem_read_ready) // Problem here. Will count multiple times
 	begin
 		old_state = state;
@@ -115,26 +119,28 @@ begin
 	edge_value = 'bz;
 
 	if(query_enable)
-	begin
-		mem_addr = stored_base_address + row*(MADDR_WIDTH/8)*stored_number_of_nodes + column*MADDR_WIDTH/8;
-		edge_value = row_cache[to_node];
-
-		if(from_node != row)
 		begin
-			row = from_node;
-			column = 0;
-			row_incomplete = 1;
+			mem_addr = stored_base_address + row*(MADDR_WIDTH/8)*stored_number_of_nodes + column*MADDR_WIDTH/8;
+			edge_value = row_cache[to_node];
 
-			// Make old_state and state not match
-			// Just a convenient way to do that
-			old_state = state - 1;
-		end
-		else if(column > to_node)
-		begin
-			ready = 1;
-		end
+			if(from_node != row)
+			begin
+				row = from_node;
+				column = 0;
+				row_incomplete = 1;
 
-	end
+				// Make old_state and state not match
+				// Just a convenient way to do that
+				old_state = state - 1;
+			end
+			else if(column > to_node)
+			begin
+				ready = 1;
+			end
+
+		end
+	else
+		mem_addr = 'bz;
 end
 	
 endmodule

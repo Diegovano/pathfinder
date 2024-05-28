@@ -19,7 +19,8 @@ parameter VALUE_WIDTH=`DEFAULT_VALUE_WIDTH)
 	output reg [VALUE_WIDTH-1:0] sc_min_value,
 	output reg min_ready,
 
-	input wire [VALUE_WIDTH-1:0] dist_vector[MAX_NODES-1:0]
+	input wire [VALUE_WIDTH-1:0] dist_vector[MAX_NODES-1:0],
+	input wire visit_vector_true
 );
 
 // Comb logic to get min
@@ -64,36 +65,25 @@ integer countdown;
 
 `define CYCLES_TO_WAIT 2
 
-integer s;
-integer os;
-always @(reset, set_en, visited_vector)
-begin
-	min_ready = 0;
-	if(reset)
-	begin
-		s=42;
-	end
-	s+=1;
-end
 
 always @(posedge clock) begin
-	if(reset || set_en || os != s)
-	begin
-		os = s;
-		countdown = `CYCLES_TO_WAIT;
-		//min_ready = 0;
-		sc_min_index = 'z;
-		sc_min_value = 'z;
-	end
+	if(reset || set_en || visit_vector_true)
+		begin
+			min_ready = 0; //blocking assignment: TODO: change to non-blocking
+			countdown <= `CYCLES_TO_WAIT; 
+			
+			sc_min_index <= 'z;
+			sc_min_value <= 'z;
+		end
 	else if(countdown > 0)
-	begin
-		countdown = countdown -1;
-	end
+		begin
+			countdown <= countdown - 1;
+		end
 	else
-	begin
-		min_ready = 1;
-		sc_min_index = min_index;
-		sc_min_value = min_value;
-	end
+		begin
+			min_ready <= 1; //TODO: might cause problems, check
+			sc_min_index <= min_index;
+			sc_min_value <= min_value;
+		end
 end
 endmodule

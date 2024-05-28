@@ -152,7 +152,6 @@ Writer
 );
 
 always_comb begin : state_machine
-	next_state = state;
 	if (reset)
 		next_state = RESET_STATE;
 	else begin

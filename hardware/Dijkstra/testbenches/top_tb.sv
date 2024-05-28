@@ -48,6 +48,7 @@ module DijkstraTopTestbench
 	reg clock = 0;
 
 	reg enable = 0;
+	reg wait_request = 1;
 	
 	wire ready;
 
@@ -110,7 +111,8 @@ module DijkstraTopTestbench
 		mem_read_data,
 		mem_write_data,
 		shortest_distance,
-		ready
+		ready,
+		wait_request
 	);
 
 	reg [VALUE_WIDTH-1:0] graph[(MAX_NODES**2)-1:0];
@@ -182,25 +184,26 @@ module DijkstraTopTestbench
 					do_read = 0;
 				end
 
-			// Print graph
-			// $display("~~~GRAPH~~~");
-			// for(row=0;row<number_of_nodes;row=row+1)
-			// begin
-			// 	for(column=0;column<number_of_nodes;column=column+1)
-			// 	begin
-			// 		$write("%d ", graph[`POS]);
-			// 	end
-			// 	$display("\n");
-			// end
+			//// Print graph
+			$display("~~~GRAPH~~~");
+			for(row=0;row<number_of_nodes;row=row+1)
+			begin
+				for(column=0;column<number_of_nodes;column=column+1)
+				begin
+					$write("%d ", graph[`POS]);
+				end
+				$display("\n");
+			end
 
 		
 			// Reset and enable
 			reset = 0;
-			enable = 1;
+			wait_request = 0;
 			@(posedge clock);
 			reset = 1;
 			@(posedge clock);
 			reset = 0;
+			enable = 1;
 			@(posedge clock);
 
 			while(ready !== 1)

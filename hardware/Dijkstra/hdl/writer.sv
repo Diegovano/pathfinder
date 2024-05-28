@@ -24,12 +24,13 @@ module Writer
 	output reg [MADDR_WIDTH-1:0] mem_addr,
 	output reg [MDATA_WIDTH-1:0] mem_write_data,
 
-	output reg ready
+	output reg ready,
+	input reg wait_request
 );
 
 reg[MADDR_WIDTH-1:0] addr;
 
-typedef enum {BEGIN, S0, S1, S2, FINAL} State;
+typedef enum {BEGIN_STATE, S0, S1, S2, FINAL} State;
 State state;
 State next_state;
 
@@ -39,63 +40,66 @@ always @(posedge clock)
 begin
 	if(reset || !enable)
 	begin
-		mem_write_enable = 'z;
-		mem_write_data = 'z;
-		mem_addr = 'z;
-		addr = starting_address;
-		state = BEGIN;
-		index = 0;
-		ready = 0;
-		next_state = BEGIN;
+		mem_write_enable <= 'z;
+		mem_write_data <= 'z;
+		mem_addr <= 'z;
+		addr <= starting_address;
+		state <= BEGIN_STATE;
+		index <= 0;
+		ready <= 0;
+		next_state <= BEGIN_STATE;
 	end
 
 	else if(enable)
 	begin
-		mem_addr = addr;
+		mem_addr <= addr;
 
 		case(state)
-			BEGIN:
+			BEGIN_STATE:
 			begin
 				if(enable)
-					next_state = S0;
+					next_state <= S0;
 			end
 
 			S0:
 			begin
-				mem_write_enable = 1;
+				if (!wait_request)
+				begin
+					mem_write_enable <= 1;
 
-				mem_write_data = prev_vector[index];
-				addr = starting_address + index*MADDR_WIDTH/8;
+					mem_write_data <= prev_vector[index];
+					addr <= starting_address + index*MADDR_WIDTH/8;
 
-				index += 1;
-				next_state = S1;
+					index <= index + 1;
+					next_state <= S1;
+				end
 			end
 			S1:
 			begin
 				if(mem_write_ready)
 				begin
-					mem_write_enable = 0;
+					mem_write_enable <= 0;
 					if(index > number_of_nodes)
-						next_state = FINAL;
+						next_state <= FINAL;
 					else
-						next_state = S2;
+						next_state <= S2;
 				end
 			end
 			S2:
 			begin
 				if(!mem_write_ready)
-					next_state = S0;
+					next_state <= S0;
 			end
 			FINAL:
 			begin
-				mem_write_enable = 'z;
-				mem_write_data = 'z;
-				mem_addr = 'z;
-				ready = 1;
+				mem_write_enable <= 'z;
+				mem_write_data <= 'z;
+				mem_addr <= 'z;
+				ready <= 1;
 			end
 		endcase
 
-		state = next_state;
+		state <= next_state;
 	end
 end
 
