@@ -392,6 +392,11 @@
          value = "9";
          type = "int";
       }
+      datum sopceditor_expanded
+      {
+         value = "1";
+         type = "boolean";
+      }
    }
    element spi.spi_control_port
    {

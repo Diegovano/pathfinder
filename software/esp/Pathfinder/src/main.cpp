@@ -1,64 +1,235 @@
 #include <Arduino.h>
 #include <SPI.h>
 #include <string>
+#include <WiFi.h>
+#include <esp_wpa2.h>
+#include <Graph.h>
+#include <Slave.h>
 
-#define SPI_SS D2
+#define SKIP_RX false
 
+const int SPI_CS = D2; // Slave select is active-low
+const int BUF_LEN = 4;
 
-const int NUM_CHARS = 4;
+enum State
+{
+  HOST_LISTEN,
+  HOST_RX,
+  FPGA_TX,
+  FPGA_RX,
+  HOST_TX,
+  RESET
+};
 
-char TX_BUF[NUM_CHARS];
-char RX_BUF[NUM_CHARS];
+State state;
 
+// WPA2 Personal Authentication
 
-// put function declarations here:
-int myFunction(int, int);
+const char *PER_SSID = "LAPTOP-GLC7SFN7-8537";
+const char *PER_PASSWORD = "U00#10s0";
 
-void setup() {
-  // put your setup code here, to run once:
+// Server declaration
+WiFiServer server(80);
+WiFiClient client;
+std::string request;
+std::string response;
 
-  // uint8_t TX_BUF[NUM_CHARS] = {'p', '\0', 'a'};
+// LED states
+const int LED = D0;
+int LEDState;
 
+// Current time
+unsigned long currentTime = millis();
+// Previous time
+unsigned long previousTime = 0;
+// Define timeout time in milliseconds (example: 2000ms = 2s)
+const long timeoutTime = 2000;
+
+Slave FPGA(SPI_CS, BUF_LEN);
+
+void setup()
+{
+
+  // Serial setup
   Serial.begin(115200);
+  while (!Serial)
+    ;
+  Serial.println("Serial started");
 
-  Serial.println("Hello all :)");
+#if WIFI
+  // Connect to Wi-Fi network with SSID and password
+  // WiFi.mode(WIFI_STA);
+  Serial.print("Connecting to ");
 
-  SPI.begin();
+  Serial.print(PER_SSID);
+  WiFi.begin(PER_SSID, PER_PASSWORD);
 
-  String myStr = "ICL";
-  myStr.toCharArray(TX_BUF, NUM_CHARS); // + 1 for \0 (null terminated)
+  // Serial.println(EAP_SSID);
+  // WiFi.begin(ssid, WPA2_AUTH_PEAP, EAP_ANONYMOUS_IDENTITY, EAP_IDENTITY, EAP_PASSWORD, ROOT_CA);
 
-  // SPI.endTransaction();
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(500);
+    Serial.print(".");
+  }
 
-  // SPI.end();
+  // Print local IP address and start web server
+  Serial.println();
+  Serial.println("WiFi connected.");
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+  server.begin();
+#else
+  int adjMatx[9][9] = {{0, 1, -1, -1, -1, -1, -1, -1, -1}, {1, 0, 1, -1, -1, -1, -1, -1, -1}, {-1, 1, 0, -1, -1, 1, -1, -1, -1}, {-1, -1, -1, 0, 1, -1, 1, -1, -1}, {-1, -1, -1, 1, 0, 1, -1, -1, -1}, {-1, -1, 1, -1, 1, 0, -1, -1, -1}, {-1, -1, -1, 1, -1, -1, 0, 1, -1}, {-1, -1, -1, -1, -1, -1, 1, 0, 1}, {-1, -1, -1, -1, -1, -1, -1, 1, 0}};
 
-  int result = myFunction(2, 3);
+  JsonDocument doc;
 
-  pinMode(SPI_SS, OUTPUT);
-}
+  JsonArray parent = doc["adj"].to<JsonArray>();
 
-void loop() {
-  char myChar = '?';
-  // put your main code here, to run repeatedly:
-  SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
-
-  digitalWrite(SPI_SS, LOW);
-  // SPI.transferBytes(NULL, (uint8_t *)TX_BUF, NUM_CHARS + 1); // DOES NOT WORK
-  // SPI.transferBytes((const uint8_t *)TX_BUF, NULL, NUM_CHARS + 1);
-  SPI.transferBytes((const uint8_t *)TX_BUF, (uint8_t*)RX_BUF, NUM_CHARS);
-  // SPI.transferBytes((const uint8_t *)RX_BUF, (uint8_t*)TX_BUF, NUM_CHARS + 1);
-  // SPI.transfer(TX_BUF, NUM_CHARS + 1);
-  // SPI.transfer(myChar);
-
-  Serial.println((const char*)RX_BUF);
-  digitalWrite(SPI_SS, HIGH);
   
-  SPI.endTransaction();
+  for (int i = 0; i < 9; i++)
+  {
+    JsonArray child = parent.add<JsonArray>();
+    for (int j = 0; j < 9; j++)
+    {
+      child.add(adjMatx[i][j]);
+    }
+  }
 
-  sleep(1);
+  // for (int i = 0; i < BUF_LEN; i++)
+  // {
+  //   // TX_BUF[i] = RX_BUF[i] = '\0';
+  //   // TX_BUF[i] = RX_BUF[i] = i % 26 + 'a';
+  //   TX_BUF[i] = i % 26 + 'a';
+  // }
+
+  // TX_BUF[511] = '\0';
+
+  serializeJson(doc, message);
+#endif
+
+  // Begin FPGA SPI Slave
+  FPGA.begin();
+
+  // Initiate LED
+  pinMode(LED, OUTPUT);
+  digitalWrite(LED, LOW);
+  LEDState = LOW;
+
+  // Initiate state
+  state = HOST_LISTEN;
 }
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+void loop()
+{
+
+  switch (state)
+  {
+  case HOST_LISTEN:
+  {
+    Serial.println("HOST_LISTEN");
+    client = server.available(); // Listen for incoming clients
+
+    if (client)
+    {                                  // If a new client connects,
+      Serial.print("New Client: IP "); // print a message out in the serial port
+      Serial.print(client.localIP());
+      Serial.print(" PORT ");
+      Serial.println(client.localPort());
+      state = HOST_RX;
+    }
+    break;
+  }
+
+  case HOST_RX:
+  {
+    Serial.println("HOST_RX");
+    currentTime = millis();
+    previousTime = currentTime;
+
+    String currentLine = ""; // make a String to hold incoming data from the client
+    while (client.connected() && currentTime - previousTime <= timeoutTime)
+    { // loop while the client's connected
+
+      currentTime = millis();
+      if (client.available())
+      { // if there's bytes to read from the client,
+
+        char c = client.read(); // read a byte, then
+        Serial.write(c);        // print it out the serial monitor
+        request += c;
+        if (c == '\n')
+        {
+          // if the byte is a newline character
+          // if the current line is blank, you got two newline characters in a row.
+          // that's the end of the client HTTP request, so send a response:
+          if (currentLine.length() == 0)
+          {
+            state = FPGA_TX;
+            break;
+          }
+          else
+          {
+            currentLine = "";
+          }
+        }
+        else if (c != '\r')
+        {
+          currentLine += c;
+        }
+      }
+    }
+    break;
+  }
+
+  case FPGA_TX:
+  {
+    Serial.println("FPGA_TX");
+    FPGA.spi_tx_string(request);
+    #if SKIP_RX
+    state = RESET;
+    #else
+    state = FPGA_RX;
+    #endif
+    break;
+  }
+
+  case FPGA_RX:
+  {
+    Serial.println("FPGA_RX");
+    FPGA.spi_rx_string(response);
+    state = HOST_TX;
+    break;
+  }
+
+  case HOST_TX:
+  {
+    Serial.println("HOST_TX");
+    client.println(response.c_str());
+    Serial.println("SUCCESSFUL EXCHANGE! moving to RESET\n");
+    state = RESET;
+    break;
+  }
+
+  case RESET:
+  {
+    Serial.println("RESET");
+    // clear request and response
+    request = "";
+    response = "";
+
+    // Close the connection
+    client.stop();
+    Serial.println("Client disconnected, moving to HOST_LISTEN");
+    state = HOST_LISTEN;
+    break;
+  }
+
+  default:
+    Serial.println("default");
+    Serial.println("ERROR! moving to RESET");
+    state = RESET;
+  }
+
+  usleep(1e6);
 }

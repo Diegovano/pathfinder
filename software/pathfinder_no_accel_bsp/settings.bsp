@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>16-May-2024 17:28:06</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1715876886672</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>23-May-2024 15:52:35</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1716475955243</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>./</BspGeneratedLocation>
         <BspSettingsFile>../pathfinder_no_accel_bsp/settings.bsp</BspSettingsFile>
         <SopcDesignFile>../../quartus/nios2_system.sopcinfo</SopcDesignFile>
