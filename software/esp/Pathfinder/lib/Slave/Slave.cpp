@@ -17,7 +17,6 @@ void Slave::begin()
 
 void Slave::spi_tx_string(std::string &tx_str) 
 {
-
     SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
 
     const uint8_t NULL_BUF[BUF_LEN] = {0};
@@ -30,11 +29,12 @@ void Slave::spi_tx_string(std::string &tx_str)
         
         SPI.transferBytes((uint8_t*)(&*it), NULL, BUF_LEN);
 
+        digitalWrite(SPI_CS, HIGH);
+
         // De-assert slave select -> end of transfer
         digitalWrite(SPI_CS, HIGH);
 
         usleep(delay);
-
     }
 
     digitalWrite(SPI_CS, LOW);
@@ -42,18 +42,18 @@ void Slave::spi_tx_string(std::string &tx_str)
     digitalWrite(SPI_CS, HIGH);
     
     SPI.endTransaction();
-    
 }
 
 bool Slave::spi_rx_string(std::string &rx_str)
 {   
 
+    const uint8_t NULL_BUF[BUF_LEN] = {0};
+
     unsigned long startTime;
-    const long timeoutTime = 20000; // in ms
+    const long timeoutTime = 5000; // in ms
 
     rx_str = "";
     char RX_BUF[4];
-    const uint8_t NULL_BUF[BUF_LEN] = {0};
 
     SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
     
@@ -61,6 +61,8 @@ bool Slave::spi_rx_string(std::string &rx_str)
     startTime = millis();
     bool TIMEOUT = false;
     bool WAIT = true;
+
+    Serial.println("\tWAIT");
     while(WAIT & !TIMEOUT) 
     {
         digitalWrite(SPI_CS, LOW);
@@ -70,9 +72,9 @@ bool Slave::spi_rx_string(std::string &rx_str)
         for (int i=0; i<BUF_LEN; i++) 
         {
             char rx_c = RX_BUF[i];
-            Serial.println(rx_c);
-            Serial.print("!WAIT: ");
-            Serial.println(!WAIT);
+            // Serial.println(rx_c);
+            //Serial.print("\tWAIT: ");
+            //Serial.println(WAIT);
             if (!WAIT)
             {
                 rx_str += rx_c;
@@ -80,8 +82,8 @@ bool Slave::spi_rx_string(std::string &rx_str)
             else if (rx_c != '\0')
             {
                 WAIT = false;
-                Serial.print("first valid char: ");
-                Serial.println(rx_c);
+                //Serial.print("first valid char: ");
+                //Serial.println(rx_c);
                 rx_str += rx_c;
             }
         }
@@ -92,10 +94,12 @@ bool Slave::spi_rx_string(std::string &rx_str)
             rx_str = "FPGA_RESPONSE_TIMEOUT";
         }
 
-        usleep(delay);
+        usleep(10 * delay);
+        // usleep(500 * delay);
     }
 
     bool APPEND = !TIMEOUT;
+    Serial.println("\tAPPEND");
     while(APPEND)
     {   
         digitalWrite(SPI_CS, LOW);
@@ -116,7 +120,7 @@ bool Slave::spi_rx_string(std::string &rx_str)
             }
         }
 
-        usleep(delay);
+        usleep(20 * delay);
     }
 
     SPI.endTransaction();

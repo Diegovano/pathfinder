@@ -58,15 +58,16 @@ int main ()
       case IDLE:
       {
         #if DEBUG
-        if (stateChange) printf("IDLE:\n");
+        if (stateChange) printf("\nIDLE:\n");
         #endif
 
-
+        //nextState set by ISR
+        break;
       }
       case GRAPH_RX:
       {
         #if DEBUG
-        if (stateChange) printf("GRAPH_RX:\n");
+        if (stateChange) printf("\nGRAPH_RX:\n");
         #endif
 
         // nextState set by ISR
@@ -75,7 +76,8 @@ int main ()
       case PATHFINDING:
       {
         #if DEBUG
-        if (stateChange) printf("PATHFINDING:\n");
+        if (stateChange) printf("\nPATHFINDING:\n");
+        printf("%s", context.response.c_str());
         #endif
 
         GraphFormat graphf(NUM_VERTICES);
@@ -84,11 +86,12 @@ int main ()
 
         if (err != "") 
         {
-          printf(err.c_str());
+          printf("\n%s\n", err.c_str());
+          nextState = IDLE;
           break;
         }
 
-        Graph myGraph = Graph((int**)graphf.adj, NUM_VERTICES);
+        Graph myGraph = Graph((float**)graphf.adj, NUM_VERTICES);
 
         #if TIMING
         alt_u64 ticks;
@@ -110,20 +113,27 @@ int main ()
         int k = 50 * T; // ticks per ms
         float proc_us = (float)ticks / (float)k;
         printf("proc_ticks: %llu, proc_us: %f\n", ticks, proc_us);
+        #else
+        myGraph.dijkstra();
         #endif
 
-        myGraph.dijkstra();
+        const int *shortest = myGraph.shortest();
 
-        res.shortest = myGraph.shortest();
+        res.shortest = new int[NUM_VERTICES];
 
-        nextState = States::RESPONSE_TX;
+        for (int i = 0; i < NUM_VERTICES; i++) res.shortest[i] = shortest[i];
+
+        res.start = graphf.start;
+        res.end = graphf.end;
+
+        nextState = States::ENQUEUE_RESPONSE;
       }
       break;
 
       case ENQUEUE_RESPONSE:
       {
         #if DEBUG
-        if (stateChange) printf("PREPARING RESPONSE:\n");
+        if (stateChange) printf("\nPREPARING RESPONSE:\n");
         #endif
 
         std::string output;
@@ -140,11 +150,13 @@ int main ()
         }
 
         nextState = RESPONSE_TX;
+
       }
+      break;
 
       case RESPONSE_TX:
         #if DEBUG
-        if (stateChange) printf("RESPONDING:\n");
+        if (stateChange) printf("\nRESPONDING:\n");
         #endif
 
       break;

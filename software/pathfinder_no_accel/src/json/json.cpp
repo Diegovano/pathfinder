@@ -2,15 +2,21 @@
 
 std::string deserialiseGraph(std::string input, GraphFormat &graph)
 {
-  std::string res;
-
   StaticJsonDocument<CAPACITY> inDoc;
 
-  DeserializationError err = deserializeJson(inDoc, res.c_str());
+  DeserializationError err = deserializeJson(inDoc, input.c_str());
 
-  if (err) return err.c_str();
+  if (err)
+  {
+    printf("\nError parsing following JSON: %s", input.c_str());
+    return err.c_str();
+  } 
 
-  if (graph.size != inDoc["size"]) return "graph size mismatch";
+  if (graph.size != inDoc["size"]) 
+  {
+    std::string errMsg = "graph size mismatch, expected " + std::to_string(graph.size) + " got " + std::to_string((int)inDoc["size"]);
+    return errMsg;
+  }
 
   graph.start = inDoc["start"];
   graph.end = inDoc["end"];
@@ -28,13 +34,13 @@ std::string deserialiseGraph(std::string input, GraphFormat &graph)
   return "";
 }
 
-std::string serialiseResult(ResultFormat res, std::string &output)
+void serialiseResult(ResultFormat res, std::string &output)
 {
   StaticJsonDocument<CAPACITY> outDoc;
 
   JsonArray sht = outDoc["sht"].to<JsonArray>();
 
-  int vert_id = sizeof(res.shortest) / sizeof(res.shortest[0]) - 1; // starting vertex
+  int vert_id = res.end; // starting vertex (dijkstra starts from end)
 
   do
   {
@@ -42,7 +48,7 @@ std::string serialiseResult(ResultFormat res, std::string &output)
 
     vert_id = res.shortest[vert_id];
 
-  } while (res.shortest[vert_id] != 0);
+  } while (res.shortest[vert_id] != res.start);
 
   sht.add(0);
   

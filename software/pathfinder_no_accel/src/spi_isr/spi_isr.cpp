@@ -1,6 +1,6 @@
 #include "spi_isr.h"
 
-#define DEBUG true
+#define DEBUG false
 
 // dijkstra code adapted from geeks for geeks
 
@@ -45,7 +45,8 @@ void spi_rx_isr(void* isr_context)
       if (TX_QUEUE->empty()) 
       {
         next = '\0';
-        *context->nextState = States::IDLE; 
+        // *context->nextState = States::IDLE; 
+        *context->nextState = States::GRAPH_RX; 
       }
       else 
       {
@@ -65,10 +66,10 @@ void spi_rx_isr(void* isr_context)
   if (*state == States::GRAPH_RX)
   {
     #if DEBUG
-    int status = IORD_ALTERA_AVALON_SPI_STATUS(SPI_BASE);
+      int status = IORD_ALTERA_AVALON_SPI_STATUS(SPI_BASE);
 
-    printf("\nISR iter %d, status %s, got: %lx \n" , hitcount++, decToBinary(status).c_str(), data);
-  #endif
+      printf("\nISR iter %d, status %s, got: %lx \n" , hitcount++, decToBinary(status).c_str(), data);
+    #endif
     for (int i = 32 - NUM_BYTES * 8; i < 32; i += 8)
     {
       #if DEBUG
@@ -80,12 +81,12 @@ void spi_rx_isr(void* isr_context)
         if (conStr != "") 
         {
           #if !DEBUG
-            printf("%d: %s\n\n\n", hitcount++, conStr.c_str());
+            // printf("%d: %s\n\n\n", hitcount++, conStr.c_str());
           #else
             printf("\n%s\n", conStr.c_str());
           #endif
           context->response = conStr;
-          *context->nextState = States::ENQUEUE_RESPONSE;
+          *context->nextState = States::PATHFINDING;
         }
 
         conStr = "";

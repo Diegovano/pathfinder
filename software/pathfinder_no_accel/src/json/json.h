@@ -22,9 +22,10 @@ struct GraphFormat
 
 struct ResultFormat
 {
-  const int *shortest;
+  int *shortest;
+  int start, end;
 };
 
 std::string deserialiseGraph(std::string input, GraphFormat &graph);
 
-std::string serialiseResult(ResultFormat res, std::string &output);
+void serialiseResult(ResultFormat res, std::string &output);

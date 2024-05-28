@@ -7,6 +7,7 @@
 #include <Slave.h>
 
 #define SKIP_RX false
+#define WIFI false
 
 const int SPI_CS = D2; // Slave select is active-low
 const int BUF_LEN = 4;
@@ -56,6 +57,7 @@ void setup()
     ;
   Serial.println("Serial started");
 
+#if WIFI
   // Connect to Wi-Fi network with SSID and password
   // WiFi.mode(WIFI_STA);
   Serial.print("Connecting to ");
@@ -78,6 +80,46 @@ void setup()
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
   server.begin();
+#else
+  float adjMatx[9][9] = {{0, 1, -1, -1, -1, -1, -1, -1, -1}, {1, 0, 1, -1, -1, -1, -1, -1, -1}, {-1, 1, 0, -1, -1, 1, -1, -1, -1}, {-1, -1, -1, 0, 1, -1, 1, -1, -1}, {-1, -1, -1, 1, 0, 1, -1, -1, -1}, {-1, -1, 1, -1, 1, 0, -1, -1, -1}, {-1, -1, -1, 1, -1, -1, 0, 1, -1}, {-1, -1, -1, -1, -1, -1, 1, 0, 1}, {-1, -1, -1, -1, -1, -1, -1, 1, 0}};
+  float x[9] = {9.5, 7.74, 4.51, 2.53, 2.30, 6.07, 2.73, 6.71, 10.88};
+  float y[9] = {1.72, 4.59, 4.31, 4.38, 10.46, 6.24, 6.40, 9.03, 6.46};
+  const int size = 9;
+  int start = 0, end = 8;
+  std::string message;
+
+  JsonDocument doc;
+
+  JsonArray parent = doc["adj"].to<JsonArray>();
+  JsonArray xArr = doc["x"].to<JsonArray>();
+  JsonArray yArr = doc["y"].to<JsonArray>();
+  
+  for (int i = 0; i < 9; i++)
+  {
+    xArr.add(x[i]);
+    yArr.add(y[i]);
+    JsonArray child = parent.add<JsonArray>();
+    for (int j = 0; j < 9; j++)
+    {
+      child.add(adjMatx[i][j]);
+    }
+  }
+
+  doc["size"] = size;
+  doc["start"] = start;
+  doc["end"] = end;
+
+  // for (int i = 0; i < BUF_LEN; i++)
+  // {
+  //   // TX_BUF[i] = RX_BUF[i] = '\0';
+  //   // TX_BUF[i] = RX_BUF[i] = i % 26 + 'a';
+  //   TX_BUF[i] = i % 26 + 'a';
+  // }
+
+  // TX_BUF[511] = '\0';
+
+  serializeJson(doc, message);
+#endif
 
   // Begin FPGA SPI Slave
   FPGA.begin();
@@ -88,7 +130,13 @@ void setup()
   LEDState = LOW;
 
   // Initiate state
+  #if WIFI
   state = HOST_LISTEN;
+  #else
+  state = FPGA_TX;
+  request = message;
+  // Serial.println(message.c_str());
+  #endif
 }
 
 void loop()
@@ -98,6 +146,10 @@ void loop()
   {
   case HOST_LISTEN:
   {
+    #if !WIFI
+    state = FPGA_TX;
+    break;
+    #endif
     Serial.println("HOST_LISTEN");
     client = server.available(); // Listen for incoming clients
 
@@ -161,6 +213,7 @@ void loop()
     state = RESET;
     #else
     state = FPGA_RX;
+    // state = FPGA_TX;
     #endif
     break;
   }
@@ -169,7 +222,12 @@ void loop()
   {
     Serial.println("FPGA_RX");
     FPGA.spi_rx_string(response);
+    #if WIFI
     state = HOST_TX;
+    #else
+    Serial.println(response.c_str());
+    state = FPGA_TX;
+    #endif
     break;
   }
 
@@ -202,5 +260,5 @@ void loop()
     state = RESET;
   }
 
-  usleep(1e6);
+  sleep(2);
 }

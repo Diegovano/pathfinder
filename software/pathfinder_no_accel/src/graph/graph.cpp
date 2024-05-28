@@ -23,6 +23,7 @@ void Graph::dijkstra()
     {
       if (!inShortestPath[i] && graph[min_index][i] > 0 && dist[min_index] != __INT_MAX__ && dist[min_index] + graph[min_index][i] < dist[i]) 
       {
+        // printf("new dist[%d]: dist[%d] %f + graph[%d][%d] %f\n", i, min_index, dist[min_index], min_index, i, graph[min_index][i]);
         dist[i] = dist[min_index] + graph[min_index][i];
         predecessor[i] = min_index;
       }
@@ -32,11 +33,11 @@ void Graph::dijkstra()
 
 void Graph::print() const
 {
-  printf("distances from bottom left:\n");
+  printf("\n\ndistances from bottom left:\n");
 
   for (int i = 0; i < NUM_VERTICES; i++)
   {
-    printf("%d: %d\n", i, dist[i]);
+    printf("%d: %f\n", i, dist[i]);
   }
 
   printf("path from top right: ");
@@ -56,7 +57,7 @@ void Graph::print() const
   printf("0");
 }
 
-const int* Graph::shortest() const
+int* Graph::shortest() const
 {
   return predecessor;
 }
