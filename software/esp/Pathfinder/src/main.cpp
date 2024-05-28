@@ -56,7 +56,6 @@ void setup()
     ;
   Serial.println("Serial started");
 
-#if WIFI
   // Connect to Wi-Fi network with SSID and password
   // WiFi.mode(WIFI_STA);
   Serial.print("Connecting to ");
@@ -79,34 +78,6 @@ void setup()
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
   server.begin();
-#else
-  int adjMatx[9][9] = {{0, 1, -1, -1, -1, -1, -1, -1, -1}, {1, 0, 1, -1, -1, -1, -1, -1, -1}, {-1, 1, 0, -1, -1, 1, -1, -1, -1}, {-1, -1, -1, 0, 1, -1, 1, -1, -1}, {-1, -1, -1, 1, 0, 1, -1, -1, -1}, {-1, -1, 1, -1, 1, 0, -1, -1, -1}, {-1, -1, -1, 1, -1, -1, 0, 1, -1}, {-1, -1, -1, -1, -1, -1, 1, 0, 1}, {-1, -1, -1, -1, -1, -1, -1, 1, 0}};
-
-  JsonDocument doc;
-
-  JsonArray parent = doc["adj"].to<JsonArray>();
-
-  
-  for (int i = 0; i < 9; i++)
-  {
-    JsonArray child = parent.add<JsonArray>();
-    for (int j = 0; j < 9; j++)
-    {
-      child.add(adjMatx[i][j]);
-    }
-  }
-
-  // for (int i = 0; i < BUF_LEN; i++)
-  // {
-  //   // TX_BUF[i] = RX_BUF[i] = '\0';
-  //   // TX_BUF[i] = RX_BUF[i] = i % 26 + 'a';
-  //   TX_BUF[i] = i % 26 + 'a';
-  // }
-
-  // TX_BUF[511] = '\0';
-
-  serializeJson(doc, message);
-#endif
 
   // Begin FPGA SPI Slave
   FPGA.begin();
