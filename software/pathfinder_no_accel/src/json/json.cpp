@@ -1,11 +1,10 @@
 #include "json.h"
 
-const int MAX_AVG_OVER = 10;
+const int MAX_AVG_OVER = 100;
 
 std::string deserialiseGraph(std::string input, GraphFormat &graph)
 {
-  StaticJsonDocument<CAPACITY> inDoc;
-
+  StaticJsonDocument<2 * CAPACITY> inDoc; // 2x capacity to play it safe
   DeserializationError err = deserializeJson(inDoc, input.c_str());
 
   if (err)
@@ -63,6 +62,14 @@ void serialiseResult(ResultFormat res, std::string &output)
   sht.add(0);
 
   if(res.pathfindAvg) outDoc["pathfindAvg"] = res.pathfindAvg;
+
+  // TAGS TO IDENTIFY SYSTEM WHICH GENERATED OUTPUT
+
+  outDoc["max_iterations"] = MAX_AVG_OVER;
+  outDoc["iCache"] = 8;
+  outDoc["dCache"] = 8;
+  outDoc["algorithm"] = "dijkstra";
+  outDoc["note"] = "";
   
   serializeJson(outDoc, output);
 }

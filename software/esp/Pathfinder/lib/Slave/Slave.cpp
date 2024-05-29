@@ -13,6 +13,7 @@ void Slave::begin()
     digitalWrite(SPI_CS, LOW);
     SPI.transferBytes(NULL_BUF, NULL, 4);
     digitalWrite(SPI_CS, HIGH);
+    usleep(delay);
 }
 
 void Slave::spi_tx_string(std::string &tx_str) 
@@ -40,6 +41,7 @@ void Slave::spi_tx_string(std::string &tx_str)
     digitalWrite(SPI_CS, LOW);
     SPI.transferBytes(NULL_BUF,NULL,BUF_LEN);
     digitalWrite(SPI_CS, HIGH);
+    usleep(delay);
     
     SPI.endTransaction();
 }
@@ -68,6 +70,7 @@ bool Slave::spi_rx_string(std::string &rx_str)
         digitalWrite(SPI_CS, LOW);
         SPI.transferBytes(NULL_BUF,(uint8_t *)RX_BUF,BUF_LEN);
         digitalWrite(SPI_CS, HIGH);
+        usleep(delay);
 
         for (int i=0; i<BUF_LEN; i++) 
         {
@@ -105,6 +108,7 @@ bool Slave::spi_rx_string(std::string &rx_str)
         digitalWrite(SPI_CS, LOW);
         SPI.transferBytes(NULL_BUF,(uint8_t *)RX_BUF,BUF_LEN);
         digitalWrite(SPI_CS, HIGH);
+        usleep(delay);
 
         for (int i= 0; i<BUF_LEN; i++) 
         {

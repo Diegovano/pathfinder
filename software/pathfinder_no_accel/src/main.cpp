@@ -4,7 +4,7 @@
  *  Created on: 6 May 2024
  *      Author: diego
 */
-// #include "sys/alt_stdio.h" // for alt_printf
+#include "sys/alt_stdio.h" // for alt_printf
 // #include "system.h" // useful MACRO_DEFS
 
 #include <string> // for string
@@ -79,11 +79,8 @@ int main ()
         #if DEBUG
         if (stateChange) printf("\nPATHFINDING:\n");
         #endif
-
         GraphFormat graphf(NUM_VERTICES);
-
         std::string err = deserialiseGraph(context.response, graphf);
-
         if (err != "") 
         {
           printf("\n%s\n", err.c_str());
@@ -103,11 +100,8 @@ int main ()
           // The code that you want to time goes here
           alt_timestamp_start();
 
-          int T = 100;
-
           for (int i=0; i<graphf.averageOver; i++)
           {
-            printf("Solving...\n");
             myGraph.reset();
             myGraph.dijkstra();
             // usleep(1e5);
@@ -115,12 +109,14 @@ int main ()
 
           ticks = alt_timestamp();
 
-          int k = 50 * T; // ticks per ms
-          float proc_us = (float)ticks / (float)k;
-          printf("Profiling Results: %d iteration%c, \nproc_ticks: %llu,\tproc_us: %f\tavg: %f\n",
-            graphf.averageOver, graphf.averageOver > 1 ? 's' : '\0', ticks, proc_us, proc_us / graphf.averageOver);
+          int k = 50 * graphf.averageOver; // ticks per ms
+          double proc_us = (double)ticks / (double)k;
 
-          res.pathfindAvg = proc_us / graphf.averageOver;
+          // WARNING: THIS PRINT CAN CAUSE THE SOFTWARE TO HANG RIGHT AFTER ENTERING THE 'PATHFINDING' STATE.
+          // printf("Profiling Results: %i iteration(s), \nproc_ticks: %llu,\tproc_us: %f\tavg: %f\n",
+          //   graphf.averageOver, ticks, proc_us, proc_us);
+
+          res.pathfindAvg = proc_us;
         }
         else myGraph.dijkstra();
         #else

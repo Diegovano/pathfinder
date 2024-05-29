@@ -90,7 +90,12 @@ ELF := pathfinder_no_accel.elf
 
 # Paths to C, C++, and assembly source files.
 C_SRCS :=
-CXX_SRCS := src/main.cpp src/graph/graph.cpp src/helpers/helpers.cpp src/json/json.cpp src/spi_isr/spi_isr.cpp
+CXX_SRCS += src/main.cpp src/graph/graph.cpp src/helpers/helpers.cpp src/json/json.cpp src/spi_isr/spi_isr.cpp
+CXX_SRCS += src/graph/graph.cpp
+CXX_SRCS += src/helpers/helpers.cpp
+CXX_SRCS += src/json/json.cpp
+CXX_SRCS += src/main.cpp
+CXX_SRCS += src/spi_isr/spi_isr.cpp
 ASM_SRCS :=
 
 
