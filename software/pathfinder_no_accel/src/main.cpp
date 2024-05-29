@@ -12,6 +12,7 @@
 #include <queue> // for queue
 
 #include "sys/alt_irq.h" // for alt_ic_isr_register
+#include "sys/alt_timestamp.h" // for timing
 
 #include "graph/graph.h"
 #include "helpers/helpers.h"
@@ -20,7 +21,7 @@
 #include "json/json.h"
 
 #define DEBUG true
-#define TIMING false
+#define TIMING true
 
 int main () 
 {
@@ -77,7 +78,6 @@ int main ()
       {
         #if DEBUG
         if (stateChange) printf("\nPATHFINDING:\n");
-        printf("%s", context.response.c_str());
         #endif
 
         GraphFormat graphf(NUM_VERTICES);
@@ -93,26 +93,36 @@ int main ()
 
         Graph myGraph = Graph((float**)graphf.adj, NUM_VERTICES);
 
+        res.pathfindAvg = 0;
         #if TIMING
-        alt_u64 ticks;
-        alt_u64 freq = alt_timestamp_freq();
-
-        // The code that you want to time goes here
-        alt_timestamp_start();
-
-        int T = 100;
-
-        for (int i=0; i<T; i++)
+        if (graphf.averageOver != 0)
         {
-          myGraph.dijkstra();
-          // usleep(1e5);
+          alt_u64 ticks;
+          // alt_u64 freq = alt_timestamp_freq();
+
+          // The code that you want to time goes here
+          alt_timestamp_start();
+
+          int T = 100;
+
+          for (int i=0; i<graphf.averageOver; i++)
+          {
+            printf("Solving...\n");
+            myGraph.reset();
+            myGraph.dijkstra();
+            // usleep(1e5);
+          }
+
+          ticks = alt_timestamp();
+
+          int k = 50 * T; // ticks per ms
+          float proc_us = (float)ticks / (float)k;
+          printf("Profiling Results: %d iteration%c, \nproc_ticks: %llu,\tproc_us: %f\tavg: %f\n",
+            graphf.averageOver, graphf.averageOver > 1 ? 's' : '\0', ticks, proc_us, proc_us / graphf.averageOver);
+
+          res.pathfindAvg = proc_us / graphf.averageOver;
         }
-
-        ticks = alt_timestamp();
-
-        int k = 50 * T; // ticks per ms
-        float proc_us = (float)ticks / (float)k;
-        printf("proc_ticks: %llu, proc_us: %f\n", ticks, proc_us);
+        else myGraph.dijkstra();
         #else
         myGraph.dijkstra();
         #endif
@@ -158,6 +168,8 @@ int main ()
         #if DEBUG
         if (stateChange) printf("\nRESPONDING:\n");
         #endif
+
+        delete[] res.shortest;
 
       break;
 

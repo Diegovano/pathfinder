@@ -2,7 +2,6 @@
 
 Graph::Graph(std::string json_in)
 {
-
     JsonDocument doc;
 
     DeserializationError error = deserializeJson(doc, json_in);
@@ -30,11 +29,17 @@ Graph::Graph(std::string json_in)
 
 }
 
+Graph::~Graph()
+{
+    delete[] x;
+    delete[] y;
+    for(int i = 0; i < size; i++) delete[] adj[i];
+    delete[] adj;
+}
+
 std::string Graph::to_json() 
 {
     JsonDocument doc;
-
-    
 
     for (int i=0; i<size; i++) 
     {   

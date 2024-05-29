@@ -31,6 +31,26 @@ void Graph::dijkstra()
   }
 }
 
+void Graph::reset()
+{
+  delete[] dist;
+  delete[] inShortestPath;
+  delete[] predecessor;
+
+  dist = new float[NUM_VERTICES]; 
+  inShortestPath = new bool[NUM_VERTICES];
+  predecessor = new int[NUM_VERTICES];
+
+  for (int i = 0; i < NUM_VERTICES; i++)
+  {
+    dist[i] = __INT_MAX__;
+    inShortestPath[i] = false;
+  }
+
+  dist[0] = 0; // dist to source is 0 (0 is bottom left)
+  predecessor[0] = 0;
+}
+
 void Graph::print() const
 {
   printf("\n\ndistances from bottom left:\n");
@@ -46,13 +66,15 @@ void Graph::print() const
 
   printf("%d ", NUM_VERTICES - 1);
 
+  int i = 0;
+
   do
   {
     printf("%d ", predecessor[vert_id]);
 
     vert_id = predecessor[vert_id];
 
-  } while (predecessor[vert_id] != 0);
+  } while (predecessor[vert_id] != 0 && i < 1000);
 
   printf("0");
 }

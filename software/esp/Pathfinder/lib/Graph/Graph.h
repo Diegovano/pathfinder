@@ -16,6 +16,7 @@ private:
 
 public:
     Graph(std::string);
+    ~Graph();
 
     int get_start();
     int get_end();
@@ -23,8 +24,6 @@ public:
     void copy_x();
     void copy_y();
     std::string to_json();
-
-
 };
 
 #endif

@@ -47,6 +47,8 @@ class Graph
 
   void dijkstra();
 
+  void reset();
+
   void print() const;
 
   int* shortest() const;

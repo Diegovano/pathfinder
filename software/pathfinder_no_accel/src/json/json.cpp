@@ -1,5 +1,7 @@
 #include "json.h"
 
+const int MAX_AVG_OVER = 10;
+
 std::string deserialiseGraph(std::string input, GraphFormat &graph)
 {
   StaticJsonDocument<CAPACITY> inDoc;
@@ -10,7 +12,11 @@ std::string deserialiseGraph(std::string input, GraphFormat &graph)
   {
     printf("\nError parsing following JSON: %s", input.c_str());
     return err.c_str();
-  } 
+  }
+
+  graph.averageOver = inDoc["avgCount"]; // defaults to 0 if no "avgCount" property
+
+  graph.averageOver = std::min(graph.averageOver, MAX_AVG_OVER);
 
   if (graph.size != inDoc["size"]) 
   {
@@ -42,15 +48,21 @@ void serialiseResult(ResultFormat res, std::string &output)
 
   int vert_id = res.end; // starting vertex (dijkstra starts from end)
 
+  int i = 0;
+
   do
   {
     sht.add(res.shortest[vert_id]);
 
     vert_id = res.shortest[vert_id];
 
-  } while (res.shortest[vert_id] != res.start);
+  } while (res.shortest[vert_id] != res.start && i < 1000);
+
+  if (i >= 1000) printf("WARNING: Predecessor maximum length exceeded");
 
   sht.add(0);
+
+  if(res.pathfindAvg) outDoc["pathfindAvg"] = res.pathfindAvg;
   
   serializeJson(outDoc, output);
 }
