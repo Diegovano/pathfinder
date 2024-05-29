@@ -485,16 +485,18 @@ def bidirectional(graph, source, target):
 
 
 # function to select random nodes
-def select_random_nodes(graph, num_pairs=5):
-    valid_nodes = [node for node in graph.nodes() if list(graph.neighbors(node))]
+# these nodes need to be outside of the radius 
+def select_random_nodes(graph, rad, lat, long, node_dict, num_pairs=5):
+    valid_nodes = [node for node in graph.nodes() if list(graph.neighbors(node)) and node_dict[node].getDistanceTo(Node(-1,lat,long,None, False)) >= rad]
     random_pairs = [(random.choice(valid_nodes), random.choice(valid_nodes)) for _ in range(num_pairs)]
     return random_pairs
 
 # function used to test all algorithms
 def test_all_algorithms():
-    # generate the graph 
     radius = [250, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 8500, 9000, 9500, 10000]
-    center = [51.4988, -0.1749]
+    center_lat = 51.4988
+    center_long = -0.1749
+    center = [center_lat, center_long]
     type_net = "drive"
 
     num_pairs = 5
@@ -522,12 +524,14 @@ def test_all_algorithms():
 
         graph = ox.graph_from_gdfs(nodes, edges)
 
+        node_dict, _ = createDict(graph)
+
         print("Graph Generated \n")
 
         num_nodes = len(nodes)
         num_edges = len(edges)
         density = nx.density(graph)
-        random_pairs = select_random_nodes(graph, num_pairs)
+        random_pairs = select_random_nodes(graph, rad, center_lat, center_long, node_dict, num_pairs)
 
         for source, target in random_pairs:
             while True:
