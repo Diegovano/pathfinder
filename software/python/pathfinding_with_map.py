@@ -95,6 +95,8 @@ def generateGraph(center, radius, network_type, filename):
     # convert multidigraph to node and edge GeoDataFrame
     nodes, edges = ox.graph_to_gdfs(G, fill_edge_geometry=True) 
 
+    print(f"The number of nodes is {len(nodes)} and the number of edges is {len(edges)}. The density is {nx.density(G)}.")
+
     folium.Circle(
         radius=radius,
         location=center,
@@ -285,6 +287,11 @@ def a_star(graph, source, target):
     return path, (end_time - start_time)/10
 
 
+# function for bidirectional A*
+def a_star_bi(graph, source, target):
+    pass
+
+
 # function for Dijkstra algorithm 
 def dijkstra(graph, source, target):
 
@@ -327,6 +334,18 @@ def dijkstra(graph, source, target):
     return path, (end_time - start_time)/10
 
 
+# function for Bidirectional Dijkstra 
+def dijkstra_bi(graph, source, target):
+    
+    node_dict, edge_dict = createDict(graph)
+
+    start_time = time.time()
+
+    path = []
+    end_time = time.time()
+    return path, (end_time - start_time) / 10
+
+
 # function for selecting the landmarks - furthest logic (can implement random as well)
 def selectLandmarks(nodes, num_landmarks):
     if num_landmarks > len(nodes):
@@ -361,11 +380,15 @@ def selectLandmarks(nodes, num_landmarks):
 
     return nodes
 
+
 # function for ALT algorithm 
-def alt(graph, source, target):
+def alt(graph, source, target, landmarks=None):
     node_dict, edge_dict = createDict(graph)
 
-    num_lm = int(input("How many landmarks would you like? "))
+    if landmarks is None:
+        num_lm = int(input("How many landmarks would you like? "))
+    else:
+        num_lm = landmarks
 
     # need to select some landmarks 
     node_dict = selectLandmarks(node_dict, num_lm)
@@ -443,15 +466,112 @@ def returnDistance(path, graph):
     return distance 
 
 
+# if we were properly doing this then we cant use bidirectional 
+# algorithms since they would be on the other side of the road
+# function for bidirectional algorithms
+def bidirectional(graph, source, target):
+
+    print("\nBidirectional Algorithm Selection: ")
+    print(" 1. Dijkstra")
+    print(" 2. A* ")
+    algo_choice = int(input("Please select a bidirectional algorithm to test: "))
+
+    if algo_choice == 1:
+        path, time_elapsed = dijkstra_bi(graph, source, target)
+        return path, time_elapsed, "bidirectional Dijkstra"
+    elif algo_choice == 2:
+        path, time_elapsed = a_star_bi(graph, source, target)
+        return path, time_elapsed, "bidirectional A*"
+
+
+# function to select random nodes
+def select_random_nodes(graph, num_pairs=5):
+    valid_nodes = [node for node in graph.nodes() if list(graph.neighbors(node))]
+    random_pairs = [(random.choice(valid_nodes), random.choice(valid_nodes)) for _ in range(num_pairs)]
+    return random_pairs
+
+# function used to test all algorithms
+def test_all_algorithms():
+    # generate the graph 
+    radius = [250, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 8500, 9000, 9500, 10000]
+    center = [51.4988, -0.1749]
+    type_net = "drive"
+
+    num_pairs = 5
+
+    results = []
+
+    for rad in radius:
+        print(f"Generating map with radius {rad}")
+        
+        G = ox.graph_from_point(tuple(center), dist=rad, network_type=type_net, simplify=True)
+        nodes, edges = ox.graph_to_gdfs(G, fill_edge_geometry=True)
+        
+        for col in edges.columns:
+            if edges[col].dtype == 'object':
+                edges[col] = edges[col].apply(lambda x: str(x) if isinstance(x, list) else x)
+        
+        nodes.to_file('nodes.geojson', driver='GeoJSON')
+        edges.to_file('edges.geojson', driver='GeoJSON')
+
+        nodes = gpd.read_file('nodes.geojson')
+        edges = gpd.read_file('edges.geojson')
+
+        if not isinstance(edges.index, pd.MultiIndex):
+            edges.set_index(['u', 'v', 'key'], inplace=True)
+
+        graph = ox.graph_from_gdfs(nodes, edges)
+
+        print("Graph Generated \n")
+
+        num_nodes = len(nodes)
+        num_edges = len(edges)
+        density = nx.density(graph)
+        random_pairs = select_random_nodes(graph, num_pairs)
+
+        for source, target in random_pairs:
+            while True:
+                try:
+                    dijkstra_path, dijkstra_time = dijkstra(graph, source, target)
+                    astar_path, astar_time = a_star(graph, source, target)
+                    #alt_path, alt_time = alt(graph, source, target, min(int(len(nodes)/50), 70))
+                    dijkstra_distance = returnDistance(dijkstra_path, graph)
+                    astar_distance = returnDistance(astar_path, graph)
+                    break
+                except:
+                    source, target = random.choice(select_random_nodes(graph,1))
+
+            result = {
+                'radius': rad,
+                'density': density,
+                'num_nodes': num_nodes,
+                'num_edges': num_edges,
+                'source': source,
+                'target': target,
+                'dijkstra_distance': dijkstra_distance,
+                'astar_distance': astar_distance,
+                'dijkstra_time': dijkstra_time,
+                'astar_time': astar_time,
+            }
+
+            with open("test_results.txt", "a") as file:
+                file.write(str(result) + ",\n")
+
+            results.append(result)
+    
+    return results
+
 # function for the user to select an algorithm to test
 def algorithmSelection(choice):
     # read the nodes and the edges from the map 
+    print("\nReading Files....")
     nodes = gpd.read_file('nodes.geojson')
     edges = gpd.read_file('edges.geojson')
+    print("Files Read\n")
 
     # default source and target for now 
-    source_node = 1697709073
-    target_node = 7998510389
+    source_node = int(input("Please enter the OSMID of the source node: "))
+    target_node = int(input("Please enter the OSMID of the target node: "))
 
     # ensure edges have a MultiIndex for (u, v, key)
     if not isinstance(edges.index, pd.MultiIndex):
@@ -468,16 +588,23 @@ def algorithmSelection(choice):
     elif choice == 3:
         path, time_elapsed = alt(graph, source_node, target_node)
         print(f"Shortest path using ALT: {path}\nTime Elapsed: {time_elapsed}")
+    elif choice == 4:
+        path, time_elapsed, method = bidirectional(graph, source_node, target_node)
+        print(f"Shortest path using {method}: {path}\nTime Elapsed: {time_elapsed}")
     else:
         # default to benchmark pathfinder
         path, time_elapsed = benchmarkAlgo(graph, source_node, target_node)
         print(f"Shortest path: {path}\nTime elapsed: {time_elapsed}")
-
-    print(f"The distance of the route is {returnDistance(path, graph)}m")
+    
+    try:
+        print(f"The distance of the route is {returnDistance(path, graph)}m")
+    except Exception as ex:
+        print(f"Error with excpetion {ex}")
     
     # Load the previously generated map
     map = folium.Map(location=[nodes.iloc[0]['y'], nodes.iloc[0]['x']], zoom_start=13)
     add_path_to_map(map, graph, nodes, path, 'map.html')
+
 
 # main loop
 while True:
@@ -496,8 +623,13 @@ while True:
         print(" 1. Dijkstra")
         print(" 2. A* ")
         print(" 3. ALT")
-        print(" 4. NetworkX (library)\n")
+        print(" 4. Bidirectional Algorithms")
+        print(" 5. NetworkX (library)")
+        print(" 6. Testing\n")
         algo_choice = int(input("Please select an algorithm to test: "))
-        algorithmSelection(algo_choice)
+        if algo_choice == 6:
+            print(test_all_algorithms())
+        else:
+            algorithmSelection(algo_choice)
     else:
         continue
