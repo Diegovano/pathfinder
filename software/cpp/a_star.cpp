@@ -85,7 +85,7 @@ class Edge {
 int main() {
 
     std::map<long long, Node> nodes_dict;
-    std::map<std::tuple<long long, long long>, Edge> edge_dict;
+    std::map<std::vector<long long>, Edge> edge_dict;
 
     // example data
     nodes_dict[276548]     = Node(276548, -0.1744846, 51.5000732, {26389375, 3764277424});
@@ -102,30 +102,30 @@ int main() {
     nodes_dict[1691189781] = Node(1691189781, -0.1760478, 51.500665, {25291708});
     nodes_dict[3764277424] = Node(3764277424, -0.1752505, 51.4999865, {25291709, 276548});
 
-    edge_dict[std::make_tuple(276548, 26389375)]     = Edge(2693172, 33.532);
-    edge_dict[std::make_tuple(26389375, 276548)]     = Edge(2693172, 33.532);
-    edge_dict[std::make_tuple(276548, 3764277424)]   = Edge(299032751, 53.887);
-    edge_dict[std::make_tuple(3764277424, 276548)]   = Edge(299032751, 53.887);
-    edge_dict[std::make_tuple(26389375, 34519894)]   = Edge(2693172, 181.396);
-    edge_dict[std::make_tuple(34519894, 26389375)]   = Edge(2693172, 181.396);
-    edge_dict[std::make_tuple(26389375, 32618386)]   = Edge(23106603, 183.129);
-    edge_dict[std::make_tuple(32618386, 26389375)]   = Edge(23106603, 183.129);
-    edge_dict[std::make_tuple(3764277424, 25291709)] = Edge(299032751, 19.803);
-    edge_dict[std::make_tuple(25291709, 3764277424)] = Edge(299032751, 19.803);
-    edge_dict[std::make_tuple(25291708, 1691189781)] = Edge(372864575, 62.337);
-    edge_dict[std::make_tuple(1691189781, 25291708)] = Edge(372864575, 62.337);
-    edge_dict[std::make_tuple(25291708, 3764277424)] = Edge(372864578, 33.73);
-    edge_dict[std::make_tuple(25291709, 25291708)]   = Edge(8304508, 28.225);
-    edge_dict[std::make_tuple(25473589, 26389442)]   = Edge(5038288, 10.796);
-    edge_dict[std::make_tuple(26389442, 25473589)]   = Edge(5038288, 10.796);
-    edge_dict[std::make_tuple(25473589, 25473592)]   = Edge(5038288, 154.774);
-    edge_dict[std::make_tuple(25473592, 25473589)]   = Edge(5038288, 154.774);
-    edge_dict[std::make_tuple(25473589, 25473590)]   = Edge(673383050, 122.668);
-    edge_dict[std::make_tuple(25473590, 25473589)]   = Edge(673383050, 122.668);
-    edge_dict[std::make_tuple(26389442, 34519894)]   = Edge(5038287, 41.055);
-    edge_dict[std::make_tuple(34519894, 26389442)]   = Edge(5038287, 41.055);
-    edge_dict[std::make_tuple(26389442, 26389434)]   = Edge(5038288, 143.458);
-    edge_dict[std::make_tuple(26389434, 26389442)]   = Edge(5038288, 143.458);
+    edge_dict[{276548, 26389375}]     = Edge(2693172, 33.532);
+    edge_dict[{26389375, 276548}]     = Edge(2693172, 33.532);
+    edge_dict[{276548, 3764277424}]   = Edge(299032751, 53.887);
+    edge_dict[{3764277424, 276548}]   = Edge(299032751, 53.887);
+    edge_dict[{26389375, 34519894}]   = Edge(2693172, 181.396);
+    edge_dict[{34519894, 26389375}]   = Edge(2693172, 181.396);
+    edge_dict[{26389375, 32618386}]   = Edge(23106603, 183.129);
+    edge_dict[{32618386, 26389375}]   = Edge(23106603, 183.129);
+    edge_dict[{3764277424, 25291709}] = Edge(299032751, 19.803);
+    edge_dict[{25291709, 3764277424}] = Edge(299032751, 19.803);
+    edge_dict[{25291708, 1691189781}] = Edge(372864575, 62.337);
+    edge_dict[{1691189781, 25291708}] = Edge(372864575, 62.337);
+    edge_dict[{25291708, 3764277424}] = Edge(372864578, 33.73);
+    edge_dict[{25291709, 25291708}]   = Edge(8304508, 28.225);
+    edge_dict[{25473589, 26389442}]   = Edge(5038288, 10.796);
+    edge_dict[{26389442, 25473589}]   = Edge(5038288, 10.796);
+    edge_dict[{25473589, 25473592}]   = Edge(5038288, 154.774);
+    edge_dict[{25473592, 25473589}]   = Edge(5038288, 154.774);
+    edge_dict[{25473589, 25473590}]   = Edge(673383050, 122.668);
+    edge_dict[{25473590, 25473589}]   = Edge(673383050, 122.668);
+    edge_dict[{26389442, 34519894}]   = Edge(5038287, 41.055);
+    edge_dict[{34519894, 26389442}]   = Edge(5038287, 41.055);
+    edge_dict[{26389442, 26389434}]   = Edge(5038288, 143.458);
+    edge_dict[{26389434, 26389442}]   = Edge(5038288, 143.458);
 
     // random source and target
     int source = 25473590;
@@ -139,42 +139,64 @@ int main() {
 
     std::set<long long> closed_nodes;
 
-    std::priority_queue<std::tuple<float, long long>, std::vector<std::tuple<float, long long>>, std::greater<std::tuple<float, long long>>> queue;
+    // prioirty queue of vectors of long longs (f_value, node) in ascending order of f_value 
+    std::priority_queue<std::vector<long long>, std::vector<std::vector<long long>>, std::greater<std::vector<long long>>> queue;
 
-    queue.push(std::make_tuple(0.0f, source));
+    // push the source node to the queue
+    queue.push({0ll, source});
 
+    // while the queue is not empty
     while(!queue.empty()) {
-        std::tuple<int, long long> top = queue.top();
+        // get the top element of the queue
+        std::vector<long long> top = queue.top();
+        // remove the top element from the queue
         queue.pop();
 
-        long long current_node = std::get<1>(top);
+        // get the current node 
+        long long current_node = top[1];
 
+        
+        // if the current node is in the closed nodes set, continue
         if (closed_nodes.count(current_node) > 0) {
             continue;
         }
 
+        // if the current node is the target node, break
         if (current_node == target) {
             break;
         }
 
+        // add the current node to the closed nodes set
         closed_nodes.insert(current_node);
 
+        // get the neighbours of the current node
         std::vector<long long> cn_neighbours = nodes_dict[current_node].getNeighbours();
 
+        // for each neighbour of the current node
         for (int neighbour : cn_neighbours) {
+            // if the neighbour is in the closed nodes set, continue
             if (closed_nodes.count(neighbour) > 0) {
                 continue;
             }
 
-            Edge edge = edge_dict[std::make_tuple(current_node, neighbour)];
+            // get the edge between the current node and the neighbour
+            Edge edge = edge_dict[{current_node, neighbour}];
 
+            // if the edge length is not 0
             if (edge.getLength() != 0) {
+                // calculate the temp g score
                 float temp_g_score = g_value[current_node] + edge.getLength();
+                // if the neighbour is not in the g value map or the temp g score is less than the g value of the neighbour
                 if (g_value.find(neighbour) == g_value.end() || temp_g_score < g_value[neighbour]) {
+                    // update the came from map, g value map and f value map
                     came_from[neighbour] = current_node;
                     g_value[neighbour] = temp_g_score;
                     f_value[neighbour] = temp_g_score + nodes_dict[current_node].getDistanceTo(nodes_dict[target]);
-                    queue.push(std::make_tuple(f_value[neighbour], neighbour));
+                    // push the f value and the neighbour to the queue
+                    std::vector<long long> vec; 
+                    vec.push_back(f_value[neighbour]);
+                    vec.push_back(neighbour);
+                    queue.push(vec);
                 }
             }
 
