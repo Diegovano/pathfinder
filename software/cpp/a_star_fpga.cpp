@@ -11,6 +11,10 @@
 #include <unistd.h>
 #include <cstdio>
 
+
+// TO GET THIS TO WORK YOU MUST MAKE SURE ITS .CPP EXTENSTION AND NOT .C
+// AND IN THE MAKEFILE WHERE IT SAYS "APP_CXXFLAGS" CHANGE IT TO "APP_CXXFLAGS := -std=c++11 $(ALT_CXXFLAGS) $(CXXFLAGS)"
+
 constexpr double M_PI = 3.14159265358979323846;
 
 // Class for a Node
