@@ -2,7 +2,7 @@
 
 const int MAX_AVG_OVER = 100;
 
-std::string deserialiseGraph(std::string input, GraphFormat &graph)
+std::string deserialiseGraph(std::string &input, GraphFormat &graph)
 {
   StaticJsonDocument<2 * CAPACITY> inDoc; // 2x capacity to play it safe
   DeserializationError err = deserializeJson(inDoc, input.c_str());
@@ -39,25 +39,33 @@ std::string deserialiseGraph(std::string input, GraphFormat &graph)
   return "";
 }
 
-void serialiseResult(ResultFormat res, std::string &output)
+std::string serialiseResult(ResultFormat res, std::string &output)
 {
   StaticJsonDocument<CAPACITY> outDoc;
 
   JsonArray sht = outDoc["sht"].to<JsonArray>();
-
   int vert_id = res.end; // starting vertex (dijkstra starts from end)
 
   int i = 0;
 
+  if (res.shortest[vert_id] < 0)
+  {
+    printf("\n\nWARNING: Could not compute shortest path\n\n");
+    return "shortest array seems undefined";
+  }
+
   do
   {
     sht.add(res.shortest[vert_id]);
-
     vert_id = res.shortest[vert_id];
 
-  } while (res.shortest[vert_id] != res.start && i < 1000);
+  } while (res.shortest[vert_id] != res.start && i++ < 1000);
 
-  if (i >= 1000) printf("WARNING: Predecessor maximum length exceeded");
+  if (i >= 1000)
+  {
+    printf("\n\nWARNING: Predecessor maximum length exceeded! Was the pathfinding executed?\n\n");
+    return "Error during serialisation, maximum predecessor length exceeded (likely undefined predecessor array, or the requested path is impossible)";
+  }
 
   sht.add(0);
 
@@ -72,4 +80,6 @@ void serialiseResult(ResultFormat res, std::string &output)
   outDoc["note"] = "";
   
   serializeJson(outDoc, output);
+
+  return "";
 }

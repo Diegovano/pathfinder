@@ -28,9 +28,6 @@ void spi_rx_isr(void* isr_context)
     else return;
   }
 
-  //This resets the IRQ flag. Otherwise the IRQ will continuously run.
-  IOWR_ALTERA_AVALON_SPI_STATUS(SPI_BASE, 0x0);
-
   #ifdef __INTELLISENSE__
   #pragma diag_default 20 // restore default behaviour
   #endif
@@ -61,7 +58,15 @@ void spi_rx_isr(void* isr_context)
     #endif
   }
 
+  #ifdef __INTELLISENSE__
+  #pragma diag_suppress 20 // ignore missing __builtin_stwio etc...
+  #endif
+
   IOWR_ALTERA_AVALON_SPI_TXDATA(SPI_BASE, TX_DATA);
+
+  #ifdef __INTELLISENSE__
+  #pragma diag_default 20 // restore default behaviour
+  #endif
 
   if (*state == States::GRAPH_RX)
   {
@@ -78,7 +83,7 @@ void spi_rx_isr(void* isr_context)
 
       if ( (char) ((data & (0xFF000000 >> i)) >> (24 - i)) == '\0')
       {
-        if (conStr != "") 
+        if (conStr != "")
         {
           #if !DEBUG
             // printf("%d: %s\n\n\n", hitcount++, conStr.c_str());
@@ -95,4 +100,7 @@ void spi_rx_isr(void* isr_context)
       else conStr += (char) ((data & (0xFF000000 >> i)) >> (24 - i)) ; 
     }
   }
+
+      //This resets the IRQ flag. Otherwise the IRQ will continuously run.
+  IOWR_ALTERA_AVALON_SPI_STATUS(SPI_BASE, 0x0);
 }

@@ -5,6 +5,7 @@
  *      Author: diego
 */
 #include "sys/alt_stdio.h" // for alt_printf
+// #include "unistd.h" // for usleep
 // #include "system.h" // useful MACRO_DEFS
 
 #include <string> // for string
@@ -112,9 +113,8 @@ int main ()
           int k = 50 * graphf.averageOver; // ticks per ms
           double proc_us = (double)ticks / (double)k;
 
-          // WARNING: THIS PRINT CAN CAUSE THE SOFTWARE TO HANG RIGHT AFTER ENTERING THE 'PATHFINDING' STATE.
-          // printf("Profiling Results: %i iteration(s), \nproc_ticks: %llu,\tproc_us: %f\tavg: %f\n",
-          //   graphf.averageOver, ticks, proc_us, proc_us);
+          printf("Profiling Results: %i iteration(s), \nproc_ticks: %llu,\tproc_us: %f\tavg: %f\n",
+            graphf.averageOver, ticks, proc_us, proc_us);
 
           res.pathfindAvg = proc_us;
         }
@@ -144,7 +144,15 @@ int main ()
 
         std::string output;
 
-        serialiseResult(res, output);
+        std::string status = serialiseResult(res, output);
+
+        if (status != "") 
+        {
+          printf("Unable to serialise JSON object.\nIs there a path with this adjacency matrix?");
+          printf("\n%s", context.response.c_str());
+          nextState = IDLE;
+          break;
+        }
 
         #if DEBUG
           printf("Adding %s to queue\n", output.c_str());
@@ -165,7 +173,7 @@ int main ()
         if (stateChange) printf("\nRESPONDING:\n");
         #endif
 
-        delete[] res.shortest;
+        // delete[] res.shortest;
 
       break;
 

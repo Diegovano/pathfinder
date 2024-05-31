@@ -41,6 +41,8 @@ struct ResultFormat
   float pathfindAvg;
 };
 
-std::string deserialiseGraph(std::string input, GraphFormat &graph);
+// if return not "", then returns error details
+std::string deserialiseGraph(std::string &input, GraphFormat &graph);
 
-void serialiseResult(ResultFormat res, std::string &output);
+// if return not "", then returns error details
+std::string serialiseResult(ResultFormat res, std::string &output);
