@@ -69,7 +69,12 @@ reg mem_reset_sink;
 assign mem_clock_sink = mem_clock;
 assign mem_reset_sink = mem_reset;
 
+reg wait_request_sink;
+assign wait_request_sink = 0;
 
+// assign mem_read_enable = 1'bz;
+// assign mem_write_enable = 1'bz;
+// assign mem_addr = 32'bz;
 
 DijkstraTop #(.MAX_NODES(MAX_NODES), .INDEX_WIDTH(INDEX_WIDTH), 
     .VALUE_WIDTH(VALUE_WIDTH), .MADDR_WIDTH(MADDR_WIDTH), .MDATA_WIDTH(MDATA_WIDTH))
@@ -90,7 +95,7 @@ DijkstraTop #(.MAX_NODES(MAX_NODES), .INDEX_WIDTH(INDEX_WIDTH),
 		mem_write_data,
 		shortest_distance,
 		ready,
-		wait_request
+		wait_request_sink
 	);
 
 endmodule

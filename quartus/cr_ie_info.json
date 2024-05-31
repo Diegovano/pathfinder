@@ -1,0 +1,22 @@
+{
+	"system" : {
+		"platform" : "windows64",
+		"os_name" : "Windows 10",
+		"os_version" : "10.0"
+	},
+	"error" : {
+		"executable" : "quartus",
+		"comment" : "not_applicable",
+		"error_message" : "Path (length 0): \n",
+		"source_file" : "/quartus/ccl/fio/fio_path.cpp",
+		"line" : "83",
+		"stack_trace" : "\t0x7ffc6e8a46ed: CCL_ERR + 0x46ed (?err_report_internal_error@@YAXPEBD00H@Z + 0x2d)\n\t0x7ffc6e91a845: CCL_FIO + 0xa845 (?fio_display_path_too_long_assert_message@@YAXPEBD@Z + 0x235)\n\t0x7ffc6e91b933: CCL_FIO + 0xb933 (?fullpath@FIO_PATH@@QEBA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ + 0x53)\n\t0x7ffbea360b2d: pgm_pgme + 0x40b2d (?engage_ocpp_mode@PGME_PROGRAMMER@@QEAA_NPEAV?$vector@PEAVPGM_CHAIN_ELEMENT@@V?$allocator@PEAVPGM_CHAIN_ELEMENT@@@std@@@std@@@Z + 0x8dd)\n\t 0x70499550: QtCore4 + 0x29550 (?start@QThread@@QEAAXW4Priority@1@@Z + 0x400)\n\t0x7ffc72c24f7e: MSVCR120 + 0x24f7e (_beginthreadex + 0x106)\n\t0x7ffc72c25125: MSVCR120 + 0x25125 (_endthreadex + 0x191)\n\t0x7ffc84d67343: KERNEL32 + 0x17343 (BaseThreadInitThunk + 0x13)\n\t0x7ffc857e26b0: ntdll + 0x526b0 (RtlUserThreadStart + 0x20)\n",
+		"subsystem" : "FIO"
+	},
+	"quartus" : {
+		"quartus_bits" : "64",
+		"version" : "20.1.1",
+		"build" : "720",
+		"edition" : "Lite Edition"
+	}
+}

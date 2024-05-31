@@ -13,13 +13,6 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	DijkstraTopTestbench
 
-} {} {}} ../hdl/writer.sv {1 {vlog -work work -sv -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra/hdl/writer.sv
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module Writer
-
-Top level modules:
-	Writer
-
 } {} {}} ../hdl/edge_cache.v {1 {vlog -work work -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra/hdl/edge_cache.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module EdgeCache
@@ -27,12 +20,12 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	EdgeCache
 
-} {} {}} ../hdl/minheap.sv {1 {vlog -work work -sv -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra/hdl/minheap.sv
+} {} {}} ../hdl/writer.sv {1 {vlog -work work -sv -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra/hdl/writer.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module MinHeap
+-- Compiling module Writer
 
 Top level modules:
-	MinHeap
+	Writer
 
 } {} {}} ../hdl/dijkstra_top.sv {1 {vlog -work work -sv -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra/hdl/dijkstra_top.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
@@ -47,5 +40,15 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 
 Top level modules:
 	PriorityQueue
+
+} {} {}} ../hdl/minheap.sv {1 {vlog -work work -sv -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra/hdl/minheap.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module MinHeap
+
+Top level modules:
+	MinHeap
+
+} {} {}} ../hdl/constants.v {1 {vlog -work work -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra/hdl/constants.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 
 } {} {}}

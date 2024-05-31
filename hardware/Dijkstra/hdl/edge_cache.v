@@ -61,12 +61,13 @@ integer old_state;
 
 always @(reset, mem_read_ready)
 begin
+	state = state;
 	if(reset)
 		state = 0;
 	else if(!mem_read_ready)
 		state = state +1;
-	else
-		state = state;
+	
+		
 end
 
 

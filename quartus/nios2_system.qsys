@@ -41,6 +41,14 @@
          type = "int";
       }
    }
+   element dummy_0
+   {
+      datum _sortIndex
+      {
+         value = "12";
+         type = "int";
+      }
+   }
    element jtag_uart
    {
       datum _sortIndex
@@ -54,6 +62,110 @@
       datum baseAddress
       {
          value = "16781480";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
          type = "String";
       }
    }
@@ -684,6 +796,7 @@
   <parameter name="MDATA_WIDTH" value="16" />
   <parameter name="VALUE_WIDTH" value="32" />
  </module>
+ <module name="dummy_0" kind="dummy" version="1.0" enabled="0" />
  <module
    name="jtag_uart"
    kind="altera_avalon_jtag_uart"
@@ -846,6 +959,15 @@
  <connection
    kind="avalon"
    version="20.1"
+   start="dummy_0.avalon_master"
+   end="sdram.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00800000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="20.1"
    start="dijkstra32_0.avalon_master"
    end="sdram.s1">
   <parameter name="arbitrationPriority" value="1" />
@@ -979,6 +1101,11 @@
    kind="clock"
    version="20.1"
    start="clk_0.clk"
+   end="dummy_0.clock_sink" />
+ <connection
+   kind="clock"
+   version="20.1"
+   start="clk_0.clk"
    end="dijkstra32_0.clock_sink" />
  <connection kind="interrupt" version="20.1" start="cpu.irq" end="jtag_uart.irq">
   <parameter name="irqNumber" value="16" />
@@ -1008,6 +1135,15 @@
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0" />
  </connection>
+ <connection
+   kind="nios_custom_instruction"
+   version="20.1"
+   start="cpu.custom_instruction_master"
+   end="dummy_0.nios_custom_instruction_slave">
+  <parameter name="CIName" value="dummy_0" />
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="1" />
+ </connection>
  <connection kind="reset" version="20.1" start="clk_0.clk_reset" end="cpu.reset" />
  <connection
    kind="reset"
@@ -1029,6 +1165,11 @@
    version="20.1"
    start="clk_0.clk_reset"
    end="pio_debug.reset" />
+ <connection
+   kind="reset"
+   version="20.1"
+   start="clk_0.clk_reset"
+   end="dummy_0.reset_sink" />
  <connection
    kind="reset"
    version="20.1"

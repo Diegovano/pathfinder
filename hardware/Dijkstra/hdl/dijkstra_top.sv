@@ -21,8 +21,8 @@ module DijkstraTop
 	input wire[INDEX_WIDTH-1:0] number_of_nodes,
 	input wire[MADDR_WIDTH-1:0] base_address,
 
-	output wire mem_read_enable,
-	output wire mem_write_enable,
+	output reg mem_read_enable,
+	output reg mem_write_enable,
 
 	input wire mem_write_ready,
 	input wire mem_read_ready,
@@ -40,6 +40,8 @@ module DijkstraTop
 // Reset components at our will
 reg controlled_ec_reset;
 reg controlled_pq_reset;
+reg ec_mem_read_enable;
+reg writer_mem_write_enable;
 
 // Keep track of paths
 reg [INDEX_WIDTH-1:0] prev_vector[MAX_NODES-1:0];
@@ -117,7 +119,7 @@ EdgeCache
 		ec_to_node,
 		mem_addr,
 		mem_read_data,
-		mem_read_enable,
+		ec_mem_read_enable,
 		mem_read_ready,
 		ec_ready,
 		ec_edge_value,
@@ -143,13 +145,17 @@ Writer
 	writer_address,
 	prev_vector,
 	number_of_nodes,
-	mem_write_enable,
+	writer_mem_write_enable,
 	mem_write_ready,
 	mem_addr,
 	mem_write_data,
 	writer_ready,
 	wait_request
 );
+
+initial begin
+	state = FINAL_STATE;
+end
 
 always_comb begin : state_machine
 	next_state = state;
@@ -194,12 +200,24 @@ always_comb begin : state_machine
 			next_state = FINAL_STATE;
 		endcase
 	end
+	case(state)
+	FINAL_STATE:
+		begin
+			mem_read_enable = 1'bz;
+			mem_write_enable = 1'bz;
+		end
+	default:
+		begin
+			mem_read_enable = ec_mem_read_enable;
+			mem_write_enable = writer_mem_write_enable;
+		end
+	endcase
 end
 
 
 always @(posedge clock)
 begin
-	state <= next_state; //TODO: change to non-blocking
+	state <= next_state;
 	case(next_state)
 		// Reset components
 		RESET_STATE:
@@ -287,6 +305,7 @@ begin
 		begin
 			ready <= 1;
 			writer_enable <= 0;
+			
 		end
 	endcase
 end
