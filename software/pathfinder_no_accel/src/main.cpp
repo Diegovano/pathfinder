@@ -146,6 +146,8 @@ int main ()
 
         std::string status = serialiseResult(res, output);
 
+        delete[] res.shortest;
+
         if (status != "") 
         {
           printf("Unable to serialise JSON object.\nIs there a path with this adjacency matrix?");
@@ -172,9 +174,6 @@ int main ()
         #if DEBUG
         if (stateChange) printf("\nRESPONDING:\n");
         #endif
-
-        // delete[] res.shortest;
-
       break;
 
       default:
