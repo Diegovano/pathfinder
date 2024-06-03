@@ -9,6 +9,15 @@ import heapq
 import math
 import random
 
+
+# Code for converting a float to a binary string used for Verilog testing
+import struct
+def float_to_binary32(value):
+    packed_value = struct.pack('!f', value)
+    integer_representation = struct.unpack('!I', packed_value)[0]
+    binary_string = format(integer_representation, '032b')
+    return binary_string
+
 # HOW TO USE AT THE MOMENT 
 # RUN THE CODE AND THEN GENERATE A MAP 
 # ENTER THE LAT LONG OF THE LOCATION YOU WANT 
@@ -18,36 +27,38 @@ import random
 
 # Node class 
 class Node:
-    def __init__(self, osmid, x, y, neighbours, isLandmark=False):
+    def __init__(self, osmid, x, y, lat, lon, neighbours, isLandmark=False):
         self.osmid = osmid
-        self.x = x
-        self.y = y
+        self.x   = x
+        self.y   = y
+        self.lat = lat
+        self.lon = lon
         self.neighbours = neighbours
         self.isLandmark = isLandmark
 
     def get(self, attr_name, default=None):
         # Check if the requested attribute is one of the basic attributes
-        if attr_name in ['osmid', 'x', 'y', 'neighbours']:
+        if attr_name in ['osmid', 'x', 'y','lat', 'lon', 'neighbours']:
             return getattr(self, attr_name, default)
         # Otherwise, return from custom attributes
         return None
     
-    # def getDistanceTo(self, target):
-    #     return ox.distance.euclidean(self.y, self.x, target.y, target.x)
-        #return math.sqrt(((self.x - target.x) ** 2) + ((target.y - self.y) ** 2))
-
     def getDistanceTo(self, target):
-        # Haversine formula to calculate distance between two latitude/longitude points
-        R = 6371000 
-        dLat = math.radians(target.y - self.y)
-        dLon = math.radians(target.x - self.x)
-        a = (
-            math.sin(dLat / 2) ** 2 +
-            math.cos(math.radians(self.y)) * math.cos(math.radians(target.y)) * math.sin(dLon / 2) ** 2
-        )
-        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-        distance = R * c  
-        return distance
+        return math.sqrt(((self.x - target.x) ** 2) + ((target.y - self.y) ** 2))
+        #return (((self.x - target.x) ** 2) + ((target.y - self.y) ** 2))
+
+    # Haversine formula to calculate distance between two latitude/longitude points
+    # def getDistanceTo(self, target):
+    #     R = 6371000 
+    #     dLat = math.radians(target.y - self.y)
+    #     dLon = math.radians(target.x - self.x)
+    #     a = (
+    #         math.sin(dLat / 2) ** 2 +
+    #         math.cos(math.radians(self.y)) * math.cos(math.radians(target.y)) * math.sin(dLon / 2) ** 2
+    #     )
+    #     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    #     distance = R * c  
+    #     return distance
 
     def __repr__(self):
         return f"Node(osmid={self.osmid}, x={self.x}, y={self.y}, neighbours={self.neighbours}, isLandmark={self.isLandmark})"
@@ -90,12 +101,15 @@ def generateGraph(center, radius, network_type, filename):
     map.add_child(folium.LatLngPopup())
 
     # create a graph of the map with given radius and network type 
-    G = ox.graph_from_point(tuple(center), dist=radius, network_type=network_type, simplify=True)
-
+    G = ox.graph_from_point(tuple(center), dist=radius, network_type=network_type, simplify=True, retain_all=False)
+    G = ox.project_graph(G)
     # convert multidigraph to node and edge GeoDataFrame
     nodes, edges = ox.graph_to_gdfs(G, fill_edge_geometry=True) 
 
     print(f"The number of nodes is {len(nodes)} and the number of edges is {len(edges)}. The density is {nx.density(G)}.")
+
+    # dark colour map
+    # folium.TileLayer('cartodbdark_matter').add_to(map)
 
     folium.Circle(
         radius=radius,
@@ -109,7 +123,7 @@ def generateGraph(center, radius, network_type, filename):
     # Add nodes as markers
     for idx, node in nodes.iterrows():
         folium.Marker(
-            location=[node['y'], node['x']],
+            location=[node['lat'], node['lon']],
             popup=f"Node {idx}\n",
             icon=folium.Icon(color='red', icon='info-sign')
         ).add_to(marker_cluster)
@@ -127,18 +141,20 @@ def generateGraph(center, radius, network_type, filename):
 
 
 # function to add the path to the map 
-def add_path_to_map(map, graph, nodes, path, filename):
+def add_path_to_map(graph, nodes, path, output_filename):
+    # Load the map from the saved file
+    map = folium.Map(location=[nodes.iloc[0]['lat'], nodes.iloc[0]['lon']], zoom_start=13)
     marker_cluster = MarkerCluster().add_to(map)
 
     for idx, node in nodes.iterrows():
         folium.Marker(
-            location=[node['y'], node['x']],
+            location=[node['lat'], node['lon']],
             popup=f"Node {idx}\n",
             icon=folium.Icon(color='red', icon='info-sign')
         ).add_to(marker_cluster)
     
     nodes_dict = createDict(graph)[0]
-    path_coordinates = [(nodes_dict[node_id].y, nodes_dict[node_id].x) for node_id in path]
+    path_coordinates = [(nodes_dict[node_id].lat, nodes_dict[node_id].lon) for node_id in path]
     folium.PolyLine(
         path_coordinates, 
         color="blue", 
@@ -146,7 +162,7 @@ def add_path_to_map(map, graph, nodes, path, filename):
         opacity=1
     ).add_to(map)
     
-    map.save(filename)
+    map.save(output_filename)
 
     
 # function for the heuristic used in the benchmark algo 
@@ -197,11 +213,13 @@ def createDict(graph):
     for _, node_data in graph.nodes(data=True):
         if node_data:
             osmid = node_data['osmid']
-            x = node_data['x']
-            y = node_data['y']
+            x   = node_data['x']
+            y   = node_data['y']
+            lat = node_data['lat']
+            lon = node_data['lon']
             #neighbours = list(graph.neighbors(osmid))
             neighbours = list(graph.successors(osmid))
-            node_obj = Node(osmid, x, y, neighbours)
+            node_obj = Node(osmid, x, y, lat, lon, neighbours)
             node_dict[osmid] = node_obj
         else:
             continue
@@ -486,14 +504,27 @@ def bidirectional(graph, source, target):
 
 # function to select random nodes
 # these nodes need to be outside of the radius 
+# function to select random nodes
+# these nodes need to be outside of the radius 
 def select_random_nodes(graph, rad, lat, long, node_dict, num_pairs=5):
-    valid_nodes = [node for node in graph.nodes() if list(graph.neighbors(node)) and node_dict[node].getDistanceTo(Node(-1,lat,long,None, False)) >= rad]
+    center_node = Node(-1, lat, long, None, False)
+
+    valid_nodes = [
+        node for node in graph.nodes()
+        if list(graph.neighbors(node)) and node_dict[node].getDistanceTo(center_node) >= rad
+    ]
+    
+    if len(valid_nodes) < num_pairs * 2:
+        raise ValueError("Not enough valid nodes to generate the required number of pairs.")
+    
     random_pairs = [(random.choice(valid_nodes), random.choice(valid_nodes)) for _ in range(num_pairs)]
     return random_pairs
 
+
 # function used to test all algorithms
 def test_all_algorithms():
-    radius = [250, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 8500, 9000, 9500, 10000]
+    #radius = [250, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 8500, 9000, 9500, 10000]
+    radius = [9000,9500,10000]
     center_lat = 51.4988
     center_long = -0.1749
     center = [center_lat, center_long]
@@ -506,8 +537,12 @@ def test_all_algorithms():
     for rad in radius:
         print(f"Generating map with radius {rad}")
         
-        G = ox.graph_from_point(tuple(center), dist=rad, network_type=type_net, simplify=True)
-        nodes, edges = ox.graph_to_gdfs(G, fill_edge_geometry=True)
+        G = ox.graph_from_point(tuple(center), dist=rad, network_type=type_net, simplify=True, retain_all=False)
+        G = ox.simplify_graph(G)
+
+        G_projected = ox.project_graph(G)
+
+        nodes, edges = ox.graph_to_gdfs(G_projected, fill_edge_geometry=True)
         
         for col in edges.columns:
             if edges[col].dtype == 'object':
@@ -543,7 +578,7 @@ def test_all_algorithms():
                     astar_distance = returnDistance(astar_path, graph)
                     break
                 except:
-                    source, target = random.choice(select_random_nodes(graph,1))
+                    source, target = random.choice(select_random_nodes(graph, rad, center_lat, center_long, node_dict, 1))
 
             result = {
                 'radius': rad,
@@ -565,6 +600,17 @@ def test_all_algorithms():
     
     return results
 
+
+# function to generate the test cases for hardware simulation
+def generate_test_cases(graph):
+    nodes, _ = createDict(graph)
+    num_nodes = len(nodes)
+
+    for i in range(0, num_nodes-2, 2):
+        with open('C:\\Users\\vrnan\\FYP_Pathfinder\\QuartusTest\\hello_world_test\\inputs.txt', 'a') as f:
+            f.write(f"{float_to_binary32(list(nodes.values())[i].x)} {float_to_binary32(list(nodes.values())[i+1].x)} {float_to_binary32(list(nodes.values())[i].y)} {float_to_binary32(list(nodes.values())[i+1].y)}\n")
+
+
 # function for the user to select an algorithm to test
 def algorithmSelection(choice):
     # read the nodes and the edges from the map 
@@ -574,8 +620,10 @@ def algorithmSelection(choice):
     print("Files Read\n")
 
     # default source and target for now 
-    source_node = int(input("Please enter the OSMID of the source node: "))
-    target_node = int(input("Please enter the OSMID of the target node: "))
+    # source_node = int(input("Please enter the OSMID of the source node: "))
+    # target_node = int(input("Please enter the OSMID of the target node: "))
+    source_node = 25291654
+    target_node = 25321727
 
     # ensure edges have a MultiIndex for (u, v, key)
     if not isinstance(edges.index, pd.MultiIndex):
@@ -595,19 +643,19 @@ def algorithmSelection(choice):
     elif choice == 4:
         path, time_elapsed, method = bidirectional(graph, source_node, target_node)
         print(f"Shortest path using {method}: {path}\nTime Elapsed: {time_elapsed}")
-    else:
+    elif choice == 5:
         # default to benchmark pathfinder
         path, time_elapsed = benchmarkAlgo(graph, source_node, target_node)
         print(f"Shortest path: {path}\nTime elapsed: {time_elapsed}")
+    else:
+        # generate the test cases for hardware
+        generate_test_cases(graph)
     
     try:
         print(f"The distance of the route is {returnDistance(path, graph)}m")
+        add_path_to_map(graph, nodes, path, 'map_with_path.html')
     except Exception as ex:
         print(f"Error with excpetion {ex}")
-    
-    # Load the previously generated map
-    map = folium.Map(location=[nodes.iloc[0]['y'], nodes.iloc[0]['x']], zoom_start=13)
-    add_path_to_map(map, graph, nodes, path, 'map.html')
 
 
 # main loop
@@ -629,7 +677,8 @@ while True:
         print(" 3. ALT")
         print(" 4. Bidirectional Algorithms")
         print(" 5. NetworkX (library)")
-        print(" 6. Testing\n")
+        print(" 6. Testing")
+        print(" 7. Generate Test Cases for Hardware Simulation\n")
         algo_choice = int(input("Please select an algorithm to test: "))
         if algo_choice == 6:
             print(test_all_algorithms())
@@ -637,3 +686,6 @@ while True:
             algorithmSelection(algo_choice)
     else:
         continue
+
+
+    # [25291654, 25291657, 29931954, 29902288, 29931953, 25291645, 1678696721, 1691113043, 534936618, 1280521211, 102061, 30522449, 4750026919, 102062, 1270864798, 1691112956, 25291664, 30524567, 6546381410, 7911369886, 3765209084, 3765186615, 109670, 276548, 26389375, 34519894, 6280192964, 6280192965, 20963439, 1360237602, 25291778, 7902276163, 7902276164, 5146350397, 4147738097, 20963434, 26389219, 1116142944, 26389140, 95953254, 26389048, 26389049, 276553, 21105396, 26389054, 276554, 27125489, 26389053, 26966609, 197985, 300425901, 197978, 26788005, 1528999913, 33141762, 851320215, 33202490, 18127062, 33140922, 7746604923, 33140903, 33140757, 8742986876, 8742986874, 33140539, 3983732745, 766490939, 25321727]
