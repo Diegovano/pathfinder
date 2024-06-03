@@ -29,11 +29,11 @@ class Logger:
         
 
 
-l = Logger()
-l.loadLog('31_05_2024.csv')
+# l = Logger()
+# l.loadLog('31_05_2024.csv')
 
-entry = "{\"tStamp\":[1],\"iCache\":[2],\"dCache\":[3],\"alg\":[4],\"note\":[5],\"tExec\":[8]}"
-l.logEntry(entry)
-l.print()
+# entry = "{\"tStamp\":[1],\"iCache\":[2],\"dCache\":[3],\"alg\":[4],\"note\":[5],\"tExec\":[8]}"
+# l.logEntry(entry)
+# l.print()
 
-l.saveLog("31_05_2024.csv")
+# l.saveLog("31_05_2024.csv")

@@ -2,9 +2,13 @@ import socket
 import graph
 import time
 import json
+import logger
 
 HOST = "192.168.137.13"
 PORT = 80
+
+logger = logger.Logger()
+logger.loadLog('31_05_2024.csv')
 
 while(True):
 
@@ -19,10 +23,9 @@ while(True):
         data = s.recv(1024).decode('utf8')
     s.close()
 
-
-    #shortestPath = json.loads(data)
-    #print(shortestPath)
-
     print(f"Received {data}")
+    logger.logEntry(data)
+    logger.saveLog('31_05_2024.csv')
+
 
     time.sleep(10)
