@@ -43,22 +43,11 @@ class Node:
         # Otherwise, return from custom attributes
         return None
     
-    def getDistanceTo(self, target):
-        return math.sqrt(((self.x - target.x) ** 2) + ((target.y - self.y) ** 2))
-        #return (((self.x - target.x) ** 2) + ((target.y - self.y) ** 2))
-
-    # Haversine formula to calculate distance between two latitude/longitude points
-    # def getDistanceTo(self, target):
-    #     R = 6371000 
-    #     dLat = math.radians(target.y - self.y)
-    #     dLon = math.radians(target.x - self.x)
-    #     a = (
-    #         math.sin(dLat / 2) ** 2 +
-    #         math.cos(math.radians(self.y)) * math.cos(math.radians(target.y)) * math.sin(dLon / 2) ** 2
-    #     )
-    #     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-    #     distance = R * c  
-    #     return distance
+    def getDistanceTo(self, target, type=1):
+        if type == 1:
+            return math.sqrt(((self.x - target.x) ** 2) + ((target.y - self.y) ** 2))
+        elif type == 2:
+            return (((target.x - self.x) ** 2) + ((target.y - self.y) ** 2))
 
     def __repr__(self):
         return f"Node(osmid={self.osmid}, x={self.x}, y={self.y}, neighbours={self.neighbours}, isLandmark={self.isLandmark})"
@@ -141,7 +130,7 @@ def generateGraph(center, radius, network_type, filename):
 
 
 # function to add the path to the map 
-def add_path_to_map(graph, nodes, path, output_filename):
+def add_path_to_map(graph, nodes, path, output_filename, previous_path=None):
     # Load the map from the saved file
     map = folium.Map(location=[nodes.iloc[0]['lat'], nodes.iloc[0]['lon']], zoom_start=13)
     marker_cluster = MarkerCluster().add_to(map)
@@ -161,27 +150,24 @@ def add_path_to_map(graph, nodes, path, output_filename):
         weight=2.5, 
         opacity=1
     ).add_to(map)
+
+    print(f"The path is {previous_path}")
+
+    if previous_path is not None:
+        path_coordinates = [(nodes_dict[node_id].lat, nodes_dict[node_id].lon) for node_id in previous_path]
+        folium.PolyLine(
+            path_coordinates, 
+            color="green", 
+            weight=2.5, 
+            opacity=1
+        ).add_to(map)
     
     map.save(output_filename)
 
     
 # function for the heuristic used in the benchmark algo 
 def heuristic(node, target, node_dict):
-    # Haversine formula to calculate the distance between two nodes
-    R = 6371000 
-    node_data = node_dict[node]
-    target_data = node_dict[target]
-    
-    dLat = math.radians(target_data.y - node_data.y)
-    dLon = math.radians(target_data.x - node_data.x)
-    a = (
-        math.sin(dLat / 2) ** 2 +
-        math.cos(math.radians(node_data.y)) * math.cos(math.radians(target_data.y)) * math.sin(dLon / 2) ** 2
-    )
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-    distance = R * c  
-    return distance
-    #return math.sqrt(((node_dict[node].x - node_dict[target].x) ** 2) + ((node_dict[target].y - node_dict[node].y) ** 2))
+    return math.sqrt(((node_dict[node].x - node_dict[target].x) ** 2) + ((node_dict[target].y - node_dict[node].y) ** 2))
 
 
 # uses networkx to find the shortest path 
@@ -252,11 +238,13 @@ def createDict(graph):
 # function for A* Algorithm 
 def a_star(graph, source, target):
 
+    heuristic_type = int(input("Please enter the heuristic type - 1) euclidean, 2) square euclidean): "));
+
     node_dict, edge_dict = createDict(graph)
 
     # dictionary to store the g value and f value of the node 
     g_value   = {source: 0}
-    f_value   = {source: node_dict[source].getDistanceTo(node_dict[target])}
+    f_value   = {source: node_dict[source].getDistanceTo(node_dict[target], heuristic_type)}
     came_from = {source: None}
 
     closed_nodes = set()
@@ -269,7 +257,6 @@ def a_star(graph, source, target):
         heapq.heappush(queue, (0,source))
 
         while queue:
-
             _, current_node = heapq.heappop(queue)
 
             if current_node in closed_nodes:
@@ -282,15 +269,19 @@ def a_star(graph, source, target):
 
             # for neighbour in node_dict[current_node].neighbours:
             for neighbour in node_dict[current_node].neighbours:
+                # if neighbour has already been visited then skip
                 if neighbour in closed_nodes:
                     continue
+                # get the edge connecting the current node to the neighbour
                 edge = edge_dict.get((current_node, neighbour))
+                # if there is an edge
                 if edge is not None:
+                    # calculate the new g score
                     temp_g_score = g_value[current_node] + edge.length
                     if neighbour not in g_value or temp_g_score < g_value[neighbour]:
                         came_from[neighbour] = current_node
                         g_value[neighbour]   = temp_g_score
-                        f_value[neighbour]   = temp_g_score + node_dict[current_node].getDistanceTo(node_dict[target])
+                        f_value[neighbour]   = temp_g_score + node_dict[neighbour].getDistanceTo(node_dict[target], heuristic_type)
                         heapq.heappush(queue, (f_value[neighbour], neighbour))
 
         path = []
@@ -611,8 +602,11 @@ def generate_test_cases(graph):
             f.write(f"{float_to_binary32(list(nodes.values())[i].x)} {float_to_binary32(list(nodes.values())[i+1].x)} {float_to_binary32(list(nodes.values())[i].y)} {float_to_binary32(list(nodes.values())[i+1].y)}\n")
 
 
+# global variable to store the previous path
+previous_path = None
 # function for the user to select an algorithm to test
 def algorithmSelection(choice):
+    global previous_path
     # read the nodes and the edges from the map 
     print("\nReading Files....")
     nodes = gpd.read_file('nodes.geojson')
@@ -650,12 +644,17 @@ def algorithmSelection(choice):
     else:
         # generate the test cases for hardware
         generate_test_cases(graph)
+
+    print(f"The distance of the route is {returnDistance(path, graph)}m")
+    add_path_to_map(graph, nodes, path, 'map_with_path.html', previous_path)
+    previous_path = path
     
-    try:
-        print(f"The distance of the route is {returnDistance(path, graph)}m")
-        add_path_to_map(graph, nodes, path, 'map_with_path.html')
-    except Exception as ex:
-        print(f"Error with excpetion {ex}")
+    # try:
+    #     print(f"The distance of the route is {returnDistance(path, graph)}m")
+    #     add_path_to_map(graph, nodes, path, 'map_with_path.html', previous_path)
+    #     previous_path = path
+    # except Exception as ex:
+    #     print(f"Error with excpetion {ex}")
 
 
 # main loop
@@ -686,6 +685,3 @@ while True:
             algorithmSelection(algo_choice)
     else:
         continue
-
-
-    # [25291654, 25291657, 29931954, 29902288, 29931953, 25291645, 1678696721, 1691113043, 534936618, 1280521211, 102061, 30522449, 4750026919, 102062, 1270864798, 1691112956, 25291664, 30524567, 6546381410, 7911369886, 3765209084, 3765186615, 109670, 276548, 26389375, 34519894, 6280192964, 6280192965, 20963439, 1360237602, 25291778, 7902276163, 7902276164, 5146350397, 4147738097, 20963434, 26389219, 1116142944, 26389140, 95953254, 26389048, 26389049, 276553, 21105396, 26389054, 276554, 27125489, 26389053, 26966609, 197985, 300425901, 197978, 26788005, 1528999913, 33141762, 851320215, 33202490, 18127062, 33140922, 7746604923, 33140903, 33140757, 8742986876, 8742986874, 33140539, 3983732745, 766490939, 25321727]
