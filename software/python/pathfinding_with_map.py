@@ -44,8 +44,8 @@ class Node:
         return None
     
     def getDistanceTo(self, target):
-        return math.sqrt(((self.x - target.x) ** 2) + ((target.y - self.y) ** 2))
-        #return (((self.x - target.x) ** 2) + ((target.y - self.y) ** 2))
+        #return math.sqrt(((self.x - target.x) ** 2) + ((target.y - self.y) ** 2))
+        return (((self.x - target.x) ** 2) + ((target.y - self.y) ** 2))
 
     # Haversine formula to calculate distance between two latitude/longitude points
     # def getDistanceTo(self, target):
@@ -286,7 +286,7 @@ def a_star(graph, source, target):
                     continue
                 edge = edge_dict.get((current_node, neighbour))
                 if edge is not None:
-                    temp_g_score = g_value[current_node] + edge.length
+                    temp_g_score = g_value[current_node] + (edge.length ** 2)
                     if neighbour not in g_value or temp_g_score < g_value[neighbour]:
                         came_from[neighbour] = current_node
                         g_value[neighbour]   = temp_g_score
@@ -658,34 +658,34 @@ def algorithmSelection(choice):
         print(f"Error with excpetion {ex}")
 
 
-# main loop
-while True:
-    choice = input("Would you like to generate a map (gen) or time an algorithm (alg)? ")
-    if choice == "gen":
-        lat = float(input("Enter the latitude of the center (default 51.4988): "))
-        long = float(input("Enter the longitude of the center (default -0.1749): "))
-        mapCenter = [lat, long] 
-        radius = int(input("Enter the radius of the graph coverage: "))
-        network_type = input("Place enter the network type (all, all_public, bike, drive, drive_service, walk): ")
-        map_filename = 'map.html'
-        generateGraph(mapCenter, radius, network_type, map_filename)
-    elif choice == "alg":
+def main():
+    while True:
+        choice = input("Would you like to generate a map (gen) or time an algorithm (alg)? ")
+        if choice == "gen":
+            lat = float(input("Enter the latitude of the center (default 51.4988): "))
+            long = float(input("Enter the longitude of the center (default -0.1749): "))
+            mapCenter = [lat, long] 
+            radius = int(input("Enter the radius of the graph coverage: "))
+            network_type = input("Place enter the network type (all, all_public, bike, drive, drive_service, walk): ")
+            map_filename = 'map.html'
+            generateGraph(mapCenter, radius, network_type, map_filename)
+        elif choice == "alg":
         
-        print("\nAlgorithm Selection: ")
-        print(" 1. Dijkstra")
-        print(" 2. A* ")
-        print(" 3. ALT")
-        print(" 4. Bidirectional Algorithms")
-        print(" 5. NetworkX (library)")
-        print(" 6. Testing")
-        print(" 7. Generate Test Cases for Hardware Simulation\n")
-        algo_choice = int(input("Please select an algorithm to test: "))
-        if algo_choice == 6:
-            print(test_all_algorithms())
+            print("\nAlgorithm Selection: ")
+            print(" 1. Dijkstra")
+            print(" 2. A* ")
+            print(" 3. ALT")
+            print(" 4. Bidirectional Algorithms")
+            print(" 5. NetworkX (library)")
+            print(" 6. Testing")
+            print(" 7. Generate Test Cases for Hardware Simulation\n")
+            algo_choice = int(input("Please select an algorithm to test: "))
+            if algo_choice == 6:
+                print(test_all_algorithms())
+            else:
+                algorithmSelection(algo_choice)
         else:
-            algorithmSelection(algo_choice)
-    else:
-        continue
+            continue
 
 
     # [25291654, 25291657, 29931954, 29902288, 29931953, 25291645, 1678696721, 1691113043, 534936618, 1280521211, 102061, 30522449, 4750026919, 102062, 1270864798, 1691112956, 25291664, 30524567, 6546381410, 7911369886, 3765209084, 3765186615, 109670, 276548, 26389375, 34519894, 6280192964, 6280192965, 20963439, 1360237602, 25291778, 7902276163, 7902276164, 5146350397, 4147738097, 20963434, 26389219, 1116142944, 26389140, 95953254, 26389048, 26389049, 276553, 21105396, 26389054, 276554, 27125489, 26389053, 26966609, 197985, 300425901, 197978, 26788005, 1528999913, 33141762, 851320215, 33202490, 18127062, 33140922, 7746604923, 33140903, 33140757, 8742986876, 8742986874, 33140539, 3983732745, 766490939, 25321727]
