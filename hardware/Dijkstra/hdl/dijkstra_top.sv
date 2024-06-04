@@ -34,7 +34,8 @@ module DijkstraTop
 	output wire[VALUE_WIDTH-1:0] shortest_distance,
 
 	output reg ready,
-	input wire wait_request
+	input wire wait_request,
+	output wire isFINAL_STATe
 );
 
 // Reset components at our will
@@ -48,8 +49,8 @@ reg [INDEX_WIDTH-1:0] prev_vector[MAX_NODES-1:0];
 
 // States for the FSM
 typedef enum {RESET_STATE, READY_STATE, V0, V1, V2, V3, V4, V5, WRITE_STATE, FINAL_STATE} State ;
-State state;
-State next_state;
+State state = FINAL_STATE;
+State next_state = FINAL_STATE;
 
 // Visited nodes
 integer number_of_unvisited_nodes;
@@ -126,7 +127,7 @@ EdgeCache
 		wait_request
 	);
 
-reg writer_enable;
+reg writer_enable=0;
 wire writer_ready;
 reg[MADDR_WIDTH-1:0] writer_address;
 
@@ -153,9 +154,11 @@ Writer
 	wait_request
 );
 
-initial begin
-	state = FINAL_STATE;
-end
+// initial begin
+// 	state = FINAL_STATE;
+// end
+
+assign isFINAL_STATe = state == FINAL_STATE;
 
 always_comb begin : state_machine
 	next_state = state;
@@ -200,18 +203,18 @@ always_comb begin : state_machine
 			next_state = FINAL_STATE;
 		endcase
 	end
-	case(state)
-	FINAL_STATE:
-		begin
-			mem_read_enable = 1'bz;
-			mem_write_enable = 1'bz;
-		end
-	default:
-		begin
-			mem_read_enable = ec_mem_read_enable;
-			mem_write_enable = writer_mem_write_enable;
-		end
-	endcase
+	// case(state)
+	// FINAL_STATE:
+	// 	begin
+	// 		mem_read_enable = 1'bz;
+	// 		mem_write_enable = 1'bz;
+	// 	end
+	// default:
+	// 	begin
+		mem_read_enable = ec_mem_read_enable;
+		mem_write_enable = 1'bz;//writer_mem_write_enable; //if change this to 1'bz, it works
+	// 	end
+	// endcase
 end
 
 

@@ -26,6 +26,7 @@ module DijkstraInterface
 (
     //input wire main_reset, // reset signal for the whole system, currently only a placeholder
 	input wire algorithm_reset,
+	input wire algorithm_start,
 	input wire algorithm_clock,
 	input wire algorithm_enable,
 
@@ -73,13 +74,14 @@ reg wait_request_sink;
 assign wait_request_sink = 0;
 
 // assign mem_read_enable = 1'bz;
-// assign mem_write_enable = 1'bz;
+//assign mem_write_enable = 1'bz;
 // assign mem_addr = 32'bz;
+wire isFINAL_STATE;
 
 DijkstraTop #(.MAX_NODES(MAX_NODES), .INDEX_WIDTH(INDEX_WIDTH), 
     .VALUE_WIDTH(VALUE_WIDTH), .MADDR_WIDTH(MADDR_WIDTH), .MDATA_WIDTH(MDATA_WIDTH))
     dijkstra(
-		algorithm_reset,
+		algorithm_start, //reset
 		algorithm_clock,
 		algorithm_enable,
 		datab[9:0], // source
@@ -95,7 +97,11 @@ DijkstraTop #(.MAX_NODES(MAX_NODES), .INDEX_WIDTH(INDEX_WIDTH),
 		mem_write_data,
 		shortest_distance,
 		ready,
-		wait_request_sink
+		wait_request_sink,
+		isFINAL_STATE
 	);
 
+
+// assign LEDG[6] = 1;
+// assign LEDG[7] = isFINAL_STATE;
 endmodule

@@ -86,7 +86,7 @@ ACDS_VERSION := 20.1
 # Define path to the application ELF. 
 # It may be used by the makefile fragments so is defined before including them. 
 # 
-ELF := dummy.elf
+ELF := hw.elf
 
 # Paths to C, C++, and assembly source files.
 C_SRCS := hello_world.c
@@ -124,7 +124,7 @@ CRT0 :=
 SYS_LIB :=
 
 # Define path to the root of the BSP.
-BSP_ROOT_DIR := ../dummy_bsp/
+BSP_ROOT_DIR := ../hw_bsp/
 
 # List of application specific include directories, library directories and library names
 APP_INCLUDE_DIRS :=
