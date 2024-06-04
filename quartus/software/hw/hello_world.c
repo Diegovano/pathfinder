@@ -20,37 +20,10 @@
 
 int main()
 {
-//  int adj_matrix[4];
-//  adj_matrix[0] = 0;
-//  adj_matrix[1] = 1;
-//  adj_matrix[2] = 1;
-//  adj_matrix[3] = 0;
-//
-//  printf ("hi \n");
-//  printf ("number: %d \n",adj_matrix[2]);
-
-  int adj_matrix[4];
-  int *base_address;
-  base_address = &adj_matrix;
-  base_address[0] = 0;
-  base_address[1] = 1;
-  base_address[2] = 1;
-  base_address[3] = 0;
-
-  printf("num: %d \n", base_address[0]);
-  printf("num: %d \n", base_address[1]);
-  printf("pointer %p \n", base_address);
-
-  int source = 0;
-  int destination = 1;
-  int number_nodes = 32;
-
-  long datab = number_nodes << 20 + destination <<10 + source;
-
-  printf("Hello from Nios II!\n");
-  int a = ALT_CI_DIJKSTRA32_0(base_address, datab);
-  printf("done %d",a);
 
 
+  printf("hello world \n");
+  int a = ALT_CI_DIJKSTRA32_0(0,0);
+  printf("goodbye world: %d \n",a);
   return 0;
 }

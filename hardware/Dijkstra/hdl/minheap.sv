@@ -63,7 +63,7 @@ assign min_value = dist_vector[min_index];
 
 integer countdown;
 
-`define CYCLES_TO_WAIT 2
+`define CYCLES_TO_WAIT 5
 
 
 always @(posedge clock) begin
@@ -82,8 +82,8 @@ always @(posedge clock) begin
 	else
 		begin
 			min_ready <= 1; //TODO: might cause problems, check
-			sc_min_index <= min_index;
-			sc_min_value <= min_value;
+			sc_min_index <= heap[2*MAX_NODES-2];
+			sc_min_value <= dist_vector[heap[2*MAX_NODES-2]];
 		end
 end
 endmodule

@@ -78,11 +78,22 @@ assign wait_request_sink = 0;
 // assign mem_addr = 32'bz;
 wire isFINAL_STATE;
 
+// Clock divider by 4
+logic [1:0] clk_div;
+always_ff @(posedge algorithm_clock or posedge algorithm_reset) begin
+	if (algorithm_reset) begin
+		clk_div <= 2'b00;
+	end else begin
+		clk_div <= clk_div + 1;
+	end
+end
+wire clock_divided = clk_div[1];
+
 DijkstraTop #(.MAX_NODES(MAX_NODES), .INDEX_WIDTH(INDEX_WIDTH), 
     .VALUE_WIDTH(VALUE_WIDTH), .MADDR_WIDTH(MADDR_WIDTH), .MDATA_WIDTH(MDATA_WIDTH))
     dijkstra(
 		algorithm_start, //reset
-		algorithm_clock,
+		clock_divided,
 		algorithm_enable,
 		datab[9:0], // source
 		datab[19:10], // destination

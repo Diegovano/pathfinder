@@ -46,9 +46,12 @@ always @ (posedge clock) begin
 	// All distances but source should start as INFINITY
 	if(reset)
 	begin
-		for(i=0;i<MAX_NODES;i=i+1)
-			dist_vector[i] <= `INFINITY;
-		dist_vector[index] <= 0;
+		for(i=0;i<MAX_NODES;i=i+1) begin
+			if(i != index)
+				dist_vector[i] <= `INFINITY;
+			else
+				dist_vector[i] <= 0;
+		end
 	end
 
 	// Set value

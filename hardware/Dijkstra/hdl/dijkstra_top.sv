@@ -83,7 +83,7 @@ PriorityQueue #(.MAX_NODES(MAX_NODES), .INDEX_WIDTH(INDEX_WIDTH), .VALUE_WIDTH(V
 	priority_queue (
 		controlled_pq_reset,
 		clock,
-		pq_set_distance,
+		pq_set_distance, //pq set_en
 		pq_index,
 		visited_vector,
 		pq_distance_to_set,
