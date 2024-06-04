@@ -1,8 +1,8 @@
 import socket
-import graph
+import lib.graph as graph
 import time
 import json
-import logger
+import lib.logger as logger
 
 HOST = "192.168.137.13"
 PORT = 80

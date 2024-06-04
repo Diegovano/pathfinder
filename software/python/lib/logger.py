@@ -1,6 +1,5 @@
 import pandas as pd
 import json
-import time
 from datetime import datetime
 
 class Logger:
