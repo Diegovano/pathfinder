@@ -33,6 +33,14 @@
          type = "String";
       }
    }
+   element dijkstra_check_step
+   {
+      datum _sortIndex
+      {
+         value = "11";
+         type = "int";
+      }
+   }
    element jtag_uart
    {
       datum _sortIndex
@@ -240,7 +248,7 @@
   <parameter name="cpuArchRev" value="1" />
   <parameter name="cpuID" value="0" />
   <parameter name="cpuReset" value="false" />
-  <parameter name="customInstSlavesSystemInfo" value="&lt;info/&gt;" />
+  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="dijkstra_check_step_0" baseAddress="0" addressSpan="1" clockCycleType="VARIABLE" /></info>]]></parameter>
   <parameter name="customInstSlavesSystemInfo_nios_a" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_b" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_c" value="&lt;info/&gt;" />
@@ -282,7 +290,7 @@
   <parameter name="icache_burstType" value="None" />
   <parameter name="icache_numTCIM" value="0" />
   <parameter name="icache_ramBlockType" value="Automatic" />
-  <parameter name="icache_size" value="8192" />
+  <parameter name="icache_size" value="16384" />
   <parameter name="icache_tagramBlockType" value="Automatic" />
   <parameter name="impl" value="Fast" />
   <parameter name="instAddrWidth" value="25" />
@@ -405,6 +413,11 @@
   <parameter name="tracefilename" value="" />
   <parameter name="userDefinedSettings" value="" />
  </module>
+ <module
+   name="dijkstra_check_step"
+   kind="dijkstra_check_step"
+   version="1.0"
+   enabled="1" />
  <module
    name="jtag_uart"
    kind="altera_avalon_jtag_uart"
@@ -705,6 +718,15 @@
  </connection>
  <connection kind="interrupt" version="20.1" start="cpu.irq" end="pio_debug.irq">
   <parameter name="irqNumber" value="0" />
+ </connection>
+ <connection
+   kind="nios_custom_instruction"
+   version="20.1"
+   start="cpu.custom_instruction_master"
+   end="dijkstra_check_step.nios_custom_instruction_slave">
+  <parameter name="CIName">dijkstra_check_step_0</parameter>
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0" />
  </connection>
  <connection kind="reset" version="20.1" start="clk_0.clk_reset" end="cpu.reset" />
  <connection

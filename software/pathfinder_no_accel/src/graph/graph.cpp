@@ -21,10 +21,11 @@ void Graph::dijkstra()
 
     for (int i = 0; i < NUM_VERTICES; i++)
     {
-      if (!inShortestPath[i] && graph[min_index][i] > 0 && dist[min_index] != __INT_MAX__ && dist[min_index] + graph[min_index][i] < dist[i]) 
+      float newDist = ALT_CI_DIJKSTRA_CHECK_STEP_0(dist[min_index], graph[min_index][i]);
+      if (!inShortestPath[i] && graph[min_index][i] > 0 && newDist < dist[i]) 
       {
         // printf("new dist[%d]: dist[%d] %f + graph[%d][%d] %f\n", i, min_index, dist[min_index], min_index, i, graph[min_index][i]);
-        dist[i] = dist[min_index] + graph[min_index][i];
+        dist[i] = newDist;
         predecessor[i] = min_index;
       }
     }

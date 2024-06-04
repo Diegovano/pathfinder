@@ -1,4 +1,8 @@
 #include <iostream>
+#include <cmath>
+
+#define ALT_CI_DIJKSTRA_CHECK_STEP_0(A,B) __builtin_custom_fnff(ALT_CI_DIJKSTRA_CHECK_STEP_0_N,(A),(B))
+#define ALT_CI_DIJKSTRA_CHECK_STEP_0_N 0x0
 
 class Graph
 {
@@ -27,7 +31,7 @@ class Graph
 
     for (int i = 0; i < NUM_VERTICES; i++)
     {
-      dist[i] = __INT_MAX__;
+      dist[i] = INFINITY;
       inShortestPath[i] = false;
     }
 

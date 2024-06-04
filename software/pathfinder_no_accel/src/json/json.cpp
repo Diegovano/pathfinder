@@ -74,7 +74,7 @@ std::string serialiseResult(ResultFormat res, std::string &output)
   // TAGS TO IDENTIFY SYSTEM WHICH GENERATED OUTPUT
 
   outDoc["max_iterations"] = MAX_AVG_OVER;
-  outDoc["iCache"] = 8;
+  outDoc["iCache"] = 16;
   outDoc["dCache"] = 8;
   outDoc["algorithm"] = "dijkstra";
   outDoc["note"] = "";
