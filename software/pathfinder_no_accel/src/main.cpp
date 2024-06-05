@@ -5,7 +5,8 @@
  *      Author: diego
 */
 #include "sys/alt_stdio.h" // for alt_printf
-// #include "unistd.h" // for usleep
+#include "sys/alt_cache.h" // for alt_dcache_flush, alt_icacheflush
+#include "unistd.h" // for usleep
 // #include "system.h" // useful MACRO_DEFS
 
 #include <string> // for string
@@ -95,7 +96,10 @@ int main ()
         #if TIMING
         if (graphf.averageOver != 0)
         {
-          alt_u64 ticks;
+          alt_64 proc_ticks = 0;
+          alt_u64 time1 = 0;
+          // alt_u64 overhead = 0;
+          alt_u64 time3 = 0;
           // alt_u64 freq = alt_timestamp_freq();
 
           // The code that you want to time goes here
@@ -104,17 +108,28 @@ int main ()
           for (int i=0; i<graphf.averageOver; i++)
           {
             myGraph.reset();
+
+            alt_icache_flush_all();
+            alt_dcache_flush_all();
+
+            time1 = alt_timestamp();
+            // overhead = alt_timestamp() - time1;
+            
             myGraph.dijkstra();
-            // usleep(1e5);
+
+            time3 = alt_timestamp();
+
+            // proc_ticks += (time3 - time1 - 1 * overhead);
+            proc_ticks += (time3 - time1);
           }
 
-          ticks = alt_timestamp();
+          // ticks = alt_timestamp();
 
-          int k = 50 * graphf.averageOver; // ticks per ms
-          double proc_us = (double)ticks / (double)k;
+          int k = alt_timestamp_freq() * 1e-6 * graphf.averageOver; // ticks per ms
+          double proc_us = (double)proc_ticks / (double)k;
 
-          printf("Profiling Results: %i iteration(s), \nproc_ticks: %llu,\tproc_us: %f\tavg: %f\n",
-            graphf.averageOver, ticks, proc_us, proc_us);
+          printf("Profiling Results: %i iteration(s), \nproc_ticks: %lld,\tproc_us: %f\tavg: %f\n",
+            graphf.averageOver, proc_ticks, proc_us, proc_us);
 
           res.pathfindAvg = proc_us;
         }

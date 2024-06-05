@@ -27,24 +27,26 @@ module dijkstra_check_step
     if (reset)
     begin
       done = 0;
-      result = 0;
+      result = 0;`
     end
-    else if (dataa == 32'h7F800000 || datab == 32'h7F800000)
+    else if (dataa == 32'h7F800000 || datab == 32'h7F800000 || datab[31] == 1 || datab[30:0] == 31'b0)
     begin
       result = 32'h7f800000; // infinity
       done = 1;
     end
     else 
-    case (count)
-      2: begin
-        result = add_res;
-        done = 1;
-      end
-      default: begin
-        result = 0;
-        done = 0;
-      end
-    endcase
+    begin
+      case (count)
+        2: begin
+          result = add_res;
+          done = 1;
+        end
+        default: begin
+          result = 0;
+          done = 0;
+        end
+      endcase
+    end
   end
 
   always @(posedge clk) begin

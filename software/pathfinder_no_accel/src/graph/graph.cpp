@@ -21,11 +21,22 @@ void Graph::dijkstra()
 
     for (int i = 0; i < NUM_VERTICES; i++)
     {
+      #ifdef __INTELLISENSE__
+      #pragma diag_suppress 20 // ignore missing __builtin_stwio etc...
+      #endif
+
       float newDist = ALT_CI_DIJKSTRA_CHECK_STEP_0(dist[min_index], graph[min_index][i]);
-      if (!inShortestPath[i] && graph[min_index][i] > 0 && newDist < dist[i]) 
+
+      #ifdef __INTELLISENSE__
+      #pragma diag_default 20 // restore default behaviour
+      #endif
+
+      if (!inShortestPath[i] && newDist < dist[i]) 
+      // if(!inShortestPath[i] && graph[min_index][i] > 0 && dist[min_index] != INFINITY && dist[min_index] + graph[min_index][i] < dist[i])
       {
         // printf("new dist[%d]: dist[%d] %f + graph[%d][%d] %f\n", i, min_index, dist[min_index], min_index, i, graph[min_index][i]);
         dist[i] = newDist;
+        // dist[i] = dist[min_index] + graph[min_index][i];
         predecessor[i] = min_index;
       }
     }

@@ -248,7 +248,7 @@
   <parameter name="cpuArchRev" value="1" />
   <parameter name="cpuID" value="0" />
   <parameter name="cpuReset" value="false" />
-  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="dijkstra_check_step_0" baseAddress="0" addressSpan="1" clockCycleType="VARIABLE" /></info>]]></parameter>
+  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="dijkstra_check_step" baseAddress="0" addressSpan="1" clockCycleType="VARIABLE" /></info>]]></parameter>
   <parameter name="customInstSlavesSystemInfo_nios_a" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_b" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_c" value="&lt;info/&gt;" />
@@ -724,7 +724,7 @@
    version="20.1"
    start="cpu.custom_instruction_master"
    end="dijkstra_check_step.nios_custom_instruction_slave">
-  <parameter name="CIName">dijkstra_check_step_0</parameter>
+  <parameter name="CIName" value="dijkstra_check_step" />
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0" />
  </connection>
