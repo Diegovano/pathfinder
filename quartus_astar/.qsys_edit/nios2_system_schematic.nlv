@@ -1,0 +1,28 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst nios2_system -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst nios2_system.jtag_uart -pg 1 -lvl 3 -y 230
+preplace inst nios2_system.fp_mult_0 -pg 1 -lvl 3 -y 70
+preplace inst nios2_system.fp_add_0 -pg 1 -lvl 3 -y 30
+preplace inst nios2_system.cpu.cpu -pg 1
+preplace inst nios2_system.sysid -pg 1 -lvl 3 -y 530
+preplace inst nios2_system.cpu.reset_bridge -pg 1
+preplace inst nios2_system.sys_clk_timer -pg 1 -lvl 3 -y 330
+preplace inst nios2_system.led_pio -pg 1 -lvl 3 -y 430
+preplace inst nios2_system.sdram -pg 1 -lvl 3 -y 610
+preplace inst nios2_system.fp_sqrt_0 -pg 1 -lvl 3 -y 110
+preplace inst nios2_system.cpu -pg 1 -lvl 2 -y 320
+preplace inst nios2_system.clk_0 -pg 1 -lvl 1 -y 390
+preplace inst nios2_system.fp_sub_0 -pg 1 -lvl 3 -y 190
+preplace inst nios2_system.cpu.clock_bridge -pg 1
+preplace netloc INTERCONNECT<net_container>nios2_system</net_container>(MASTER)cpu.instruction_master,(SLAVE)sys_clk_timer.s1,(SLAVE)led_pio.s1,(SLAVE)sdram.s1,(SLAVE)sysid.control_slave,(SLAVE)jtag_uart.avalon_jtag_slave,(SLAVE)cpu.debug_mem_slave,(MASTER)cpu.data_master) 1 1 2 430 520 810
+preplace netloc EXPORT<net_container>nios2_system</net_container>(SLAVE)clk_0.clk_in_reset,(SLAVE)nios2_system.reset) 1 0 1 NJ
+preplace netloc FAN_OUT<net_container>nios2_system</net_container>(SLAVE)fp_sub_0.nios_custom_instruction_slave,(SLAVE)fp_sqrt_0.nios_custom_instruction_slave,(SLAVE)fp_mult_0.nios_custom_instruction_slave,(MASTER)cpu.custom_instruction_master,(SLAVE)fp_add_0.nios_custom_instruction_slave) 1 2 1 790
+preplace netloc EXPORT<net_container>nios2_system</net_container>(SLAVE)nios2_system.sdram_wire,(SLAVE)sdram.wire) 1 0 3 NJ 680 NJ 680 NJ
+preplace netloc EXPORT<net_container>nios2_system</net_container>(SLAVE)nios2_system.led_pio_external_connection,(SLAVE)led_pio.external_connection) 1 0 3 NJ 460 NJ 460 NJ
+preplace netloc FAN_OUT<net_container>nios2_system</net_container>(MASTER)clk_0.clk,(SLAVE)jtag_uart.clk,(SLAVE)led_pio.clk,(SLAVE)sysid.clk,(SLAVE)sdram.clk,(SLAVE)cpu.clk,(SLAVE)sys_clk_timer.clk) 1 1 2 390 480 850
+preplace netloc FAN_OUT<net_container>nios2_system</net_container>(SLAVE)jtag_uart.irq,(MASTER)cpu.irq,(SLAVE)sys_clk_timer.irq) 1 2 1 830
+preplace netloc EXPORT<net_container>nios2_system</net_container>(SLAVE)clk_0.clk_in,(SLAVE)nios2_system.clk) 1 0 1 NJ
+preplace netloc FAN_OUT<net_container>nios2_system</net_container>(SLAVE)jtag_uart.reset,(SLAVE)sdram.reset,(MASTER)clk_0.clk_reset,(SLAVE)led_pio.reset,(SLAVE)sysid.reset,(SLAVE)sys_clk_timer.reset,(SLAVE)cpu.reset) 1 1 2 410 500 870
+levelinfo -pg 1 0 180 1130
+levelinfo -hier nios2_system 190 220 550 910 1120
