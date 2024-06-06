@@ -1,6 +1,6 @@
 #include "json.h"
 
-const int MAX_AVG_OVER = 100;
+const int MAX_AVG_OVER = 1000;
 
 std::string deserialiseGraph(std::string &input, GraphFormat &graph)
 {

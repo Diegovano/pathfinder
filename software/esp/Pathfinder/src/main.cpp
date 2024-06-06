@@ -86,7 +86,7 @@ void setup()
   float y[9] = {1.72, 4.59, 4.31, 4.38, 10.46, 6.24, 6.40, 9.03, 6.46};
   const int size = 9;
   int start = 0, end = 8;
-  int averageOver = 100; // number of pathfinding tasks to perform to determine average time required
+  int averageOver = 1000; // number of pathfinding tasks to perform to determine average time required
   std::string message;
 
   JsonDocument doc;

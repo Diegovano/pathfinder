@@ -3,6 +3,10 @@
 
 #define ALT_CI_DIJKSTRA_CHECK_STEP_0(A,B) __builtin_custom_fnff(ALT_CI_DIJKSTRA_CHECK_STEP_0_N,(A),(B))
 #define ALT_CI_DIJKSTRA_CHECK_STEP_0_N 0x0
+#define ALT_CI_LEF_0(A,B) __builtin_custom_inff(ALT_CI_LEF_0_N,(A),(B))
+#define ALT_CI_LEF_0_N 0x1
+#define ALT_CI_LTF_0(A,B) __builtin_custom_inff(ALT_CI_LTF_0_N,(A),(B))
+#define ALT_CI_LTF_0_N 0x2
 
 class Graph
 {
