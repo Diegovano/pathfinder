@@ -4,7 +4,7 @@
 
 # List of include directories for -I compiler option (-I added when used).
 # Includes the BSP.
-ALT_INCLUDE_DIRS := 
+ALT_INCLUDE_DIRS :=
 
 # List of library directories for -L linker option (-L added when used).
 # Includes the BSP.
@@ -86,11 +86,10 @@ ACDS_VERSION := 20.1
 # Define path to the application ELF. 
 # It may be used by the makefile fragments so is defined before including them. 
 # 
-ELF := pathfinder_no_accel.elf
+ELF := pathfinder.elf
 
 # Paths to C, C++, and assembly source files.
 C_SRCS :=
-CXX_SRCS += src/main.cpp src/graph/graph.cpp src/helpers/helpers.cpp src/json/json.cpp src/spi_isr/spi_isr.cpp
 CXX_SRCS += src/graph/graph.cpp
 CXX_SRCS += src/helpers/helpers.cpp
 CXX_SRCS += src/json/json.cpp
@@ -98,13 +97,16 @@ CXX_SRCS += src/main.cpp
 CXX_SRCS += src/spi_isr/spi_isr.cpp
 ASM_SRCS :=
 
+SDIR_C_SRCS :=
+SDIR_CXX_SRCS :=
+SDIR_ASM_SRCS :=
 
 # Path to root of object file tree.
 OBJ_ROOT_DIR := obj
 
 # Options to control objdump.
 CREATE_OBJDUMP := 1
-OBJDUMP_INCLUDE_SOURCE := 1
+OBJDUMP_INCLUDE_SOURCE := 0
 OBJDUMP_FULL_CONTENTS := 0
 
 # Options to enable/disable optional files.
@@ -114,7 +116,7 @@ CREATE_LINKER_MAP := 1
 # Common arguments for ALT_CFLAGSs
 APP_CFLAGS_DEFINED_SYMBOLS :=
 APP_CFLAGS_UNDEFINED_SYMBOLS :=
-APP_CFLAGS_OPTIMIZATION := -O1
+APP_CFLAGS_OPTIMIZATION := -O0
 APP_CFLAGS_DEBUG_LEVEL := -g
 APP_CFLAGS_WARNINGS := -Wall
 APP_CFLAGS_USER_FLAGS :=
@@ -129,7 +131,7 @@ CRT0 :=
 SYS_LIB :=
 
 # Define path to the root of the BSP.
-BSP_ROOT_DIR := /home/diego/documents/pathfinder/software/pathfinder_no_accel_bsp/
+BSP_ROOT_DIR := ../pathfinder_bsp/
 
 # List of application specific include directories, library directories and library names
 APP_INCLUDE_DIRS :=
@@ -140,7 +142,8 @@ APP_LIBRARY_NAMES :=
 BUILD_PRE_PROCESS :=
 BUILD_POST_PROCESS :=
 
-QUARTUS_PROJECT_DIR := /home/diego/documents/pathfinder/quartus/
+OBJDUMP_INCLUDE_SOURCE := 1
+QUARTUS_PROJECT_DIR := ../../quartus/
 
 
 #END GENERATED
