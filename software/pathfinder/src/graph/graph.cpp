@@ -76,28 +76,45 @@ void Graph::reset()
 
   for (int i = 0; i < NUM_VERTICES; i++)
   {
-    dist[i] = __INT_MAX__;
+    dist[i] = INFINITY;
     inShortestPath[i] = false;
   }
 
-  dist[0] = 0; // dist to source is 0 (0 is bottom left)
-  predecessor[0] = 0;
+  dist[start] = 0; // dist to source is 0 (0 is bottom left)
+  predecessor[start] = 0;
+}
+
+void Graph::printAdj() const
+{
+  printf("[");
+  for (int i = 0; i < NUM_VERTICES; i++)
+  {
+    printf("[");
+    for (int j = 0; j < NUM_VERTICES; j++)
+    {
+      printf("%f", graph[i][j]);
+      if (j < NUM_VERTICES - 1) printf(",\t");
+    }
+    printf("]");
+    if (i < NUM_VERTICES - 1) printf(",\n");
+  }
+  printf("]\n\n");
 }
 
 void Graph::print() const
 {
-  printf("\n\ndistances from bottom left:\n");
+  printf("\n\ndistances from bottom %d:\n", start);
 
   for (int i = 0; i < NUM_VERTICES; i++)
   {
     printf("%d: %f\n", i, dist[i]);
   }
 
-  printf("path from top right: ");
+  printf("path from %d: ", end);
 
-  int vert_id = NUM_VERTICES - 1;
+  int vert_id = end;
 
-  printf("%d ", NUM_VERTICES - 1);
+  printf("%d ", end);
 
   int i = 0;
 
@@ -109,8 +126,9 @@ void Graph::print() const
 
   } while (predecessor[vert_id] != 0 && i < 1000);
 
-  printf("0");
+  printf("%d", start);
 }
+
 
 int* Graph::shortest() const
 {

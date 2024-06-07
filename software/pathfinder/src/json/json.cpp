@@ -30,12 +30,45 @@ std::string deserialiseGraph(std::string &input, GraphFormat &graph)
   {
     graph.x[i] = inDoc["x"][i];
     graph.y[i] = inDoc["y"][i];
-    for (int j = 0; j < graph.size; j++)
-    {
-      graph.adj[i][j] = inDoc["adj"][i][j];
-    }
   }
 
+
+  if (inDoc["adjMatx"])
+  {
+    graph.adjMatx = true;
+
+    for (int i = 0; i < graph.size; i++)
+    {
+      for (int j = 0; j < graph.size; j++)
+      {
+        graph.adj[i][j] = inDoc["adjMatx"][i][j];
+      }
+    }
+  }
+  else
+  {
+    graph.adjMatx = false;
+
+    for (int i = 0; i < graph.size; i++)
+    {
+      for (int j = 0; j < graph.size; j++)
+      {
+        graph.adj[i][j] = i == j ? 0 : -1;
+      }
+    }
+
+    for (int i = 0; i < graph.size; i++)
+    {
+      for (size_t j = 0; j < inDoc["adjList"][i].as<JsonArray>().size(); j++)
+      {
+        Edge thisEdge;
+        thisEdge.target = inDoc["adjList"][i][j][0];
+        thisEdge.length = inDoc["adjList"][i][j][1];
+
+        graph.adj[i][thisEdge.target] = thisEdge.length;
+      }
+    }
+  }
   return "";
 }
 
@@ -54,6 +87,8 @@ std::string serialiseResult(ResultFormat res, std::string &output)
     return "shortest array seems undefined";
   }
 
+  sht.add(res.end);
+
   do
   {
     sht.add(res.shortest[vert_id]);
@@ -67,15 +102,15 @@ std::string serialiseResult(ResultFormat res, std::string &output)
     return "Error during serialisation, maximum predecessor length exceeded (likely undefined predecessor array, or the requested path is impossible)";
   }
 
-  sht.add(0);
+  sht.add(res.start);
 
   if(res.pathfindAvg) outDoc["pathfindAvg"] = res.pathfindAvg;
 
   // TAGS TO IDENTIFY SYSTEM WHICH GENERATED OUTPUT
 
   outDoc["max_iterations"] = MAX_AVG_OVER;
-  outDoc["iCache"] = 16;
-  outDoc["dCache"] = 8;
+  outDoc["iCache"] = 2;
+  outDoc["dCache"] = 2;
   outDoc["algorithm"] = "dijkstra";
   outDoc["note"] = "";
   

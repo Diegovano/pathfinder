@@ -17,9 +17,11 @@ class Graph
   int *predecessor;
 
   const int NUM_VERTICES;
+  const int start;
+  const int end;
 
   public:
-  Graph(float **inArr, int p_NUM_VERTICES) : NUM_VERTICES(p_NUM_VERTICES)
+  Graph(float **inArr, int p_NUM_VERTICES, int p_start, int p_end) : NUM_VERTICES(p_NUM_VERTICES), start(p_start), end(p_end)
   {
     graph = new float*[NUM_VERTICES];
     for (int i = 0; i < NUM_VERTICES; i++) graph[i] = new float[NUM_VERTICES];
@@ -39,8 +41,8 @@ class Graph
       inShortestPath[i] = false;
     }
 
-    dist[0] = 0; // dist to source is 0 (0 is bottom left)
-    predecessor[0] = 0;
+    dist[start] = 0; // dist to source is 0
+    predecessor[start] = 0;
   }
 
   ~Graph()
@@ -57,6 +59,7 @@ class Graph
 
   void reset();
 
+  void printAdj() const;
   void print() const;
 
   int* shortest() const;

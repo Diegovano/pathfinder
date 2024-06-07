@@ -29,7 +29,7 @@ int main ()
 {
   printf("Starting Pathfinder!\n");
 
-  const int NUM_VERTICES = 9;
+  const int NUM_VERTICES = 13;
 
   std::queue<char> TX_QUEUE;
   States state = States::IDLE, nextState = States::IDLE;
@@ -55,6 +55,7 @@ int main ()
   {
     bool stateChange = state != nextState;
     state = nextState;
+    Graph *myGraph;
 
     switch (state)
     {
@@ -90,7 +91,8 @@ int main ()
           break;
         }
 
-        Graph myGraph = Graph((float**)graphf.adj, NUM_VERTICES);
+        // delete myGraph; // this line breaks SPI
+        myGraph = new Graph((float**)graphf.adj, NUM_VERTICES, graphf.start, graphf.end); // NEED TO DELETE BUT DELETE CAUSES PROBLEMS
 
         res.pathfindAvg = 0;
         #if TIMING
@@ -107,7 +109,7 @@ int main ()
 
           for (int i=0; i<graphf.averageOver; i++)
           {
-            myGraph.reset();
+            myGraph->reset();
 
             alt_icache_flush_all();
             alt_dcache_flush_all();
@@ -115,7 +117,7 @@ int main ()
             time1 = alt_timestamp();
             // overhead = alt_timestamp() - time1;
             
-            myGraph.dijkstra();
+            myGraph->dijkstra();
 
             time3 = alt_timestamp();
 
@@ -133,12 +135,12 @@ int main ()
 
           res.pathfindAvg = proc_us;
         }
-        else myGraph.dijkstra();
+        else myGraph->dijkstra();
         #else
         myGraph.dijkstra();
         #endif
 
-        const int *shortest = myGraph.shortest();
+        const int *shortest = myGraph->shortest();
 
         res.shortest = new int[NUM_VERTICES];
 
@@ -165,8 +167,10 @@ int main ()
 
         if (status != "") 
         {
-          printf("Unable to serialise JSON object.\nIs there a path with this adjacency matrix?");
-          printf("\n%s", context.response.c_str());
+          printf("Unable to serialise JSON object.\nIs there a path with this adjacency matrix? Routing from nodes %d to %d\n\n", res.start, res.end);
+          // printf("\n%s", context.response.c_str());
+          myGraph->printAdj();
+          myGraph->print();
           nextState = IDLE;
           break;
         }
@@ -188,7 +192,7 @@ int main ()
       case RESPONSE_TX:
         #if DEBUG
         if (stateChange) printf("\nRESPONDING:\n");
-        #endif
+      #endif
       break;
 
       default:

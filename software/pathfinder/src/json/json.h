@@ -8,8 +8,13 @@ using namespace ArduinoJson;
 const int NUM_NODES = 100;
 const int CAPACITY = 2 * JSON_OBJECT_SIZE(NUM_NODES) + 1 * JSON_OBJECT_SIZE(NUM_NODES ^ 2) + 4 * JSON_OBJECT_SIZE(1);
 
+struct Edge {
+    int target;
+    float length;
+};
 struct GraphFormat
 {
+  bool adjMatx;
   float *x, *y, **adj;
   const int size;
   int start, end;
