@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <cstdio>
 
+#include <sys/alt_cache.h>
 #include <sys/times.h>
 #include <sys/alt_timestamp.h>
 #include <system.h>
@@ -98,16 +99,16 @@ std::vector<int> findPath(const std::vector<Node>& nodes, const std::vector<std:
             if (closed_nodes.count(neighbour)) continue;
 
             // calculate the tentative g value
-            //float temp_g_score = g_value[current_node] + edge.length;
-            float temp_g_score = ALT_CI_FP_ADD_0(g_value[current_node],edge.length);
+            float temp_g_score = g_value[current_node] + edge.length;
+            //float temp_g_score = ALT_CI_FP_ADD_0(g_value[current_node],edge.length);
 
             // if the tentative g value is less than the g value of the neighbour node
             if (temp_g_score < g_value[neighbour]) {
                 // update the came from, g value and f value of the neighbour node
                 came_from[neighbour] = current_node;
                 g_value[neighbour] = temp_g_score;
-                //f_value[neighbour] = temp_g_score + getDistance(nodes[neighbour], nodes[target]);
-                f_value[neighbour] = ALT_CI_FP_ADD_0(temp_g_score,getDistance(nodes[neighbour], nodes[target]));
+                f_value[neighbour] = temp_g_score + getDistance(nodes[neighbour], nodes[target]);
+                //f_value[neighbour] = ALT_CI_FP_ADD_0(temp_g_score,getDistance(nodes[neighbour], nodes[target]));
                 // push the f value and the neighbour node to the queue
                 queue.push({f_value[neighbour], neighbour});
             }
@@ -166,7 +167,7 @@ int main() {
     int source = 4;
     int target = 10;
 
-    int iterations = 1;
+    int iterations = 100;
     std::vector<int> result;
 
     // start the timer
@@ -180,6 +181,9 @@ int main() {
 
     for (int i = 0; i < iterations; ++i) {
         //exec_t1 = times(NULL);
+    	alt_icache_flush_all();
+    	alt_dcache_flush_all();
+
     	time1 = alt_timestamp();
     	result = findPath(nodes, adjList, source, target);
         time3 = alt_timestamp();
