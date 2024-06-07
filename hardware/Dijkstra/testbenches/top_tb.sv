@@ -1,7 +1,7 @@
 `include "../hdl/constants.v"
 `timescale 1ps/1ps
 
-`define BASE_ADDRESS 0
+`define BASE_ADDRESS 16777176
 `define NUMBER_OF_NODES 8
 `define TEST_VECTOR_FILE "testvectors/testvectors.txt"
 

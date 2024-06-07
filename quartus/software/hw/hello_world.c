@@ -18,12 +18,50 @@
 #include <system.h>
 
 
+
 int main()
 {
+  int adj_matrix[4] = {0,3,
+		  	  	  	   5,0};
+  int *base_address = &adj_matrix;
+
+  printf("address %u, value %d \n", base_address ,base_address[0]);
+  printf("address %u, value %d \n", base_address+1 ,base_address[1]);
+  printf("address %u, value %d \n", base_address+2 ,base_address[2]);
+  printf("address %u, value %d \n", base_address+3 ,base_address[3]);
 
 
-  printf("hello world \n");
-  int a = ALT_CI_DIJKSTRA32_0(0,0);
-  printf("goodbye world: %d \n",a);
+  printf("hello world \n \n");
+
+//  unsigned long c = ALT_CI_DUMMY_0(4,6);
+//  printf ("c lu %lu \n", c);
+
+//  int number_of_nodes = 2;
+//  int source_node = 0;
+//  int destination_node = number_of_nodes -1;
+//  long datab = number_of_nodes <<20 + destination_node <<10 + source_node;
+  unsigned long datab = 1;
+
+
+  for(int i = 0; i < 5; i++){
+	  long unsigned b = ALT_CI_DUMMY_0(base_address,datab);
+	  printf ("b %lu \n", b);
+  }
+//
+//  unsigned long c = ALT_CI_DUMMY_0(base_address+1,0);
+//  printf ("c lu %lu \n", c);
+//  c = ALT_CI_DUMMY_0(base_address+1,0);
+//  printf ("c lu %lu \n", c);
+//  c = ALT_CI_DUMMY_0(base_address+1,0);
+//	printf ("c lu %lu \n", c);
+//	c = ALT_CI_DUMMY_0(base_address+1,0);
+//	printf ("c lu %lu \n", c);
+//	c = ALT_CI_DUMMY_0(base_address+1,0);
+//	printf ("c lu %lu \n", c);
+//	c = ALT_CI_DUMMY_0(base_address+1,0);
+//	printf ("c lu %lu \n", c);
+//	c = ALT_CI_DUMMY_0(base_address+1,0);
+//	printf ("c lu %lu \n", c);
+
   return 0;
 }

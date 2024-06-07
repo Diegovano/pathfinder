@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 20.1 720 linux 2024.05.07.16:02:20
+# ACDS 20.1 720 win32 2024.06.06.12:27:42
 
 # ----------------------------------------
 # vcs - auto-generated simulation script
@@ -94,12 +94,12 @@
 # within the Quartus project, and generate a unified
 # script which supports all the Altera IP within the design.
 # ----------------------------------------
-# ACDS 20.1 720 linux 2024.05.07.16:02:20
+# ACDS 20.1 720 win32 2024.06.06.12:27:42
 # ----------------------------------------
 # initialize variables
 TOP_LEVEL_NAME="pll"
 QSYS_SIMDIR="./../../"
-QUARTUS_INSTALL_DIR="/home/diego/intelFPGA_lite/20.1/quartus/"
+QUARTUS_INSTALL_DIR="C:/intelfpga_lite/20.1/quartus/"
 SKIP_FILE_COPY=0
 SKIP_SIM=0
 USER_DEFINED_ELAB_OPTIONS=""
@@ -131,19 +131,6 @@ fi
 # copy RAM/ROM files to simulation directory
 
 vcs -lca -timescale=1ps/1ps -sverilog +verilog2001ext+.v -ntb_opts dtm $ELAB_OPTIONS $USER_DEFINED_ELAB_OPTIONS \
-  -v $QUARTUS_INSTALL_DIR/eda/sim_lib/altera_primitives.v \
-  -v $QUARTUS_INSTALL_DIR/eda/sim_lib/220model.v \
-  -v $QUARTUS_INSTALL_DIR/eda/sim_lib/sgate.v \
-  -v $QUARTUS_INSTALL_DIR/eda/sim_lib/altera_mf.v \
-  $QUARTUS_INSTALL_DIR/eda/sim_lib/altera_lnsim.sv \
-  -v $QUARTUS_INSTALL_DIR/eda/sim_lib/synopsys/cyclonev_atoms_ncrypt.v \
-  -v $QUARTUS_INSTALL_DIR/eda/sim_lib/synopsys/cyclonev_hmi_atoms_ncrypt.v \
-  -v $QUARTUS_INSTALL_DIR/eda/sim_lib/cyclonev_atoms.v \
-  -v $QUARTUS_INSTALL_DIR/eda/sim_lib/synopsys/cyclonev_hssi_atoms_ncrypt.v \
-  -v $QUARTUS_INSTALL_DIR/eda/sim_lib/cyclonev_hssi_atoms.v \
-  -v $QUARTUS_INSTALL_DIR/eda/sim_lib/synopsys/cyclonev_pcie_hip_atoms_ncrypt.v \
-  -v $QUARTUS_INSTALL_DIR/eda/sim_lib/cyclonev_pcie_hip_atoms.v \
-  $QSYS_SIMDIR/pll.vo \
   -top $TOP_LEVEL_NAME
 # ----------------------------------------
 # simulate

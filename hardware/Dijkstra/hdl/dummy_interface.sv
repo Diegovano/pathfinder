@@ -4,52 +4,121 @@
 
 module DummyInterface
 (
-    //input wire main_reset, // reset signal for the whole system, currently only a placeholder
-	input wire algorithm_reset,
+    input wire algorithm_reset,
+	input wire algorithm_start,
 	input wire algorithm_clock,
 	input wire algorithm_enable,
 
 	input wire mem_clock, //these are not actually used, but required for the interface
 	input wire mem_reset,
 
-    input wire[31:0] dummy_base_address, // dataa
+    input wire[31:0] base_address, // dataa
     input wire[31:0] datab, // datab, 
 
-	output wire mem_read_enable,
-	output wire mem_write_enable,
+	output reg mem_read_enable,
+	//output wire mem_write_enable,
 
-	input wire mem_write_ready,
+	//input wire mem_write_ready,
 	input wire mem_read_ready,
-    input wire [1:0] mem_write_response, // required for interface, not actually used
+    
+	//input wire [1:0] mem_write_response, // required for interface, not actually used
 
-	output wire [32-1:0] mem_addr,
-	input wire [16-1:0] mem_read_data,
-	output wire [16-1:0] mem_write_data,
+	output reg [31:0] mem_addr,
+	input wire [15:0] mem_read_data,
+	//output wire [MDATA_WIDTH-1:0] mem_write_data,
 
 	output reg[31:0] shortest_distance,
 
-	output reg ready = 0,	
+	output reg ready, //done
 
 	input wire wait_request
 );
-// initial begin
-// 	ready = 0;
-// 	@ (posedge algorithm_clock);
-// 	ready = 1;
-// end
-//initial ready = 0;
-int state = 0;
 
-always @(posedge algorithm_clock) begin
-	if (state == 0) begin
-		ready <= 1;
-		state <= 1;
+// dummy adder
+// integer countdown;
+// `define COUNTDOWN_MAX 500
+
+// always @(posedge algorithm_clock, posedge algorithm_reset) begin
+// 	if (algorithm_reset) begin
+// 		countdown <= 0;
+// 		ready <= 0;
+// 	end else begin
+// 		if (algorithm_start) begin
+// 			countdown <= `COUNTDOWN_MAX;
+// 			ready <= 0;
+// 		end else begin
+// 			if (countdown > 0) begin
+// 				countdown <= countdown - 1;
+// 			end
+// 			else begin
+// 				ready <= 1;
+// 			end
+// 		end
+// 	end	
+// end
+
+// // assign shortest_distance = base_address + datab;
+// assign mem_read_enable = 1'bz;
+
+//  reg [31:0] temp;  // Temporary register to hold intermediate results
+//     integer i;        // Loop variable
+
+//     always @(*) begin
+//         temp = base_address;
+//         for (i = 0; i < 1000; i = i + 1) begin
+//             temp = temp + 1;
+//         end
+//         shortest_distance = temp;
+//     end
+
+//// dummy memory reader
+typedef enum logic [1:0] {IDLE, READ, OUTPUT, FINAL} state_t;
+state_t state, next_state;
+always @(posedge algorithm_clock, posedge algorithm_reset) begin
+	if (algorithm_reset) begin
+		state <= IDLE;
+	end else begin
+		state <= next_state;
 	end
-	else begin
-		ready <= 0;
-		state <= 0;
-	end
-	shortest_distance <= datab + dummy_base_address;
+end
+
+always_comb begin
+    // Default assignments to avoid latches
+    ready = 0;
+    mem_addr = 32'bz;
+    mem_read_enable = 1'bz;
+    shortest_distance = 354;
+    next_state = state;
+    case (state)
+        IDLE: begin
+            if (algorithm_start) begin
+                next_state = READ;
+            end
+        end
+        
+        READ: begin
+            mem_addr = base_address;
+            mem_read_enable = 1'b1;
+            // if (mem_read_ready && !wait_request) begin
+            //     next_state = OUTPUT;
+            // end
+            if (!wait_request) begin //maintain read state until memory is ready
+                next_state = OUTPUT;
+            end
+        end
+        
+        OUTPUT: begin
+            if (mem_read_ready) begin //wait until data valid
+                next_state = IDLE;
+                shortest_distance = {16'b0, mem_read_data} + datab;
+                ready = 1;
+            end
+        end
+        
+        // default: begin
+        //     next_state = IDLE;
+        // end
+    endcase
 end
 
 

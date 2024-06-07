@@ -470,6 +470,14 @@
          type = "String";
       }
    }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
    element onchip_memory
    {
       datum _sortIndex
@@ -661,7 +669,7 @@
   <parameter name="cpuArchRev" value="1" />
   <parameter name="cpuID" value="0" />
   <parameter name="cpuReset" value="false" />
-  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="dijkstra32_0" baseAddress="0" addressSpan="1" clockCycleType="VARIABLE" /></info>]]></parameter>
+  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="dijkstra32_0" baseAddress="0" addressSpan="1" clockCycleType="VARIABLE" /><slave name="dummy_0" baseAddress="1" addressSpan="1" clockCycleType="VARIABLE" /></info>]]></parameter>
   <parameter name="customInstSlavesSystemInfo_nios_a" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_b" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_c" value="&lt;info/&gt;" />
@@ -833,7 +841,7 @@
   <parameter name="MDATA_WIDTH" value="16" />
   <parameter name="VALUE_WIDTH" value="32" />
  </module>
- <module name="dummy_0" kind="dummy" version="1.0" enabled="0" />
+ <module name="dummy_0" kind="dummy" version="1.0" enabled="1" />
  <module
    name="jtag_uart"
    kind="altera_avalon_jtag_uart"

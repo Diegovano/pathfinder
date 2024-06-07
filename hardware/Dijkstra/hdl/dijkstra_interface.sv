@@ -93,7 +93,8 @@ DijkstraTop #(.MAX_NODES(MAX_NODES), .INDEX_WIDTH(INDEX_WIDTH),
     .VALUE_WIDTH(VALUE_WIDTH), .MADDR_WIDTH(MADDR_WIDTH), .MDATA_WIDTH(MDATA_WIDTH))
     dijkstra(
 		algorithm_start, //reset
-		clock_divided,
+		algorithm_clock,
+		// clock_divided,
 		algorithm_enable,
 		datab[9:0], // source
 		datab[19:10], // destination
