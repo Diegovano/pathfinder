@@ -8,6 +8,9 @@
 #define ALT_CI_LTF_0(A,B) __builtin_custom_inff(ALT_CI_LTF_0_N,(A),(B))
 #define ALT_CI_LTF_0_N 0x2
 
+extern float __builtin_custom_fnff(int a, float b, float c);
+extern int __builtin_custom_inff(int a, float b, float c);
+
 class Graph
 {
   float **graph;

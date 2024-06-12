@@ -15,15 +15,7 @@ void Graph::dijkstra()
     for (int i = 0; i < NUM_VERTICES; i++)
     {
       #if HW_ACCEL
-      #ifdef __INTELLISENSE__
-      #pragma diag_suppress 20 // ignore missing __builtin_stwio etc...
-      #endif
-
       if (!inShortestPath[i] && ALT_CI_LEF_0(dist[i], min))
-
-      #ifdef __INTELLISENSE__
-      #pragma diag_default 20 // restore default behaviour
-      #endif
       #else
       if (!inShortestPath[i] && dist[i] <= min)
       #endif

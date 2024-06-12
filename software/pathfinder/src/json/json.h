@@ -4,6 +4,7 @@
 using namespace ArduinoJson;
 
 #include <algorithm> // for min
+#include "system.h" // for ALT_CPU_*CACHE_SIZE
 
 const int NUM_NODES = 100;
 const int CAPACITY = 2 * JSON_OBJECT_SIZE(NUM_NODES) + 1 * JSON_OBJECT_SIZE(NUM_NODES ^ 2) + 4 * JSON_OBJECT_SIZE(1);

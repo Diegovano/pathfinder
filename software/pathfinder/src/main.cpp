@@ -40,16 +40,8 @@ int main ()
   int ret = alt_ic_isr_register(SPI_IRQ_INTERRUPT_CONTROLLER_ID, SPI_IRQ, spi_rx_isr, (void *)&context, 0x0);
   printf("IRQ register return %d \n", ret);
 
-  #ifdef __INTELLISENSE__
-  #pragma diag_suppress 20 // ignore missing __builtin_stwio etc...
-  #endif
-
   // //You need to enable the IRQ in the IP core control register as well.
   IOWR_ALTERA_AVALON_SPI_CONTROL(SPI_BASE, ALTERA_AVALON_SPI_CONTROL_IRRDY_MSK); // trigger when is ready
-
-  #ifdef __INTELLISENSE__
-  #pragma diag_default 20 // restore default behaviour
-  #endif
 
   while (true)
   {
