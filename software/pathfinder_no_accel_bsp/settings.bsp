@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>29-May-2024 18:02:57</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1717002177485</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>12-Jun-2024 17:39:35</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1718210375575</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>./</BspGeneratedLocation>
         <BspSettingsFile>../pathfinder_no_accel_bsp/settings.bsp</BspSettingsFile>
         <SopcDesignFile>../../quartus/nios2_system.sopcinfo</SopcDesignFile>
@@ -923,26 +923,32 @@
                 <attributes>timer</attributes>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>dma</slaveDescriptor>
+                <addressRange>0x01001080 - 0x0100109F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>pio_debug</slaveDescriptor>
-                <addressRange>0x01001080 - 0x0100108F</addressRange>
+                <addressRange>0x010010A0 - 0x010010AF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>pio</slaveDescriptor>
-                <addressRange>0x01001090 - 0x0100109F</addressRange>
+                <addressRange>0x010010B0 - 0x010010BF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>sysid</slaveDescriptor>
-                <addressRange>0x010010A0 - 0x010010A7</addressRange>
+                <addressRange>0x010010C0 - 0x010010C7</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>jtag_uart</slaveDescriptor>
-                <addressRange>0x010010A8 - 0x010010AF</addressRange>
+                <addressRange>0x010010C8 - 0x010010CF</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>
