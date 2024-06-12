@@ -5,7 +5,8 @@
  *      Author: diego
 */
 #include "sys/alt_stdio.h" // for alt_printf
-// #include "unistd.h" // for usleep
+#include "sys/alt_cache.h" // for alt_dcache_flush, alt_icacheflush
+#include "unistd.h" // for usleep
 // #include "system.h" // useful MACRO_DEFS
 
 #include <string> // for string
@@ -28,7 +29,7 @@ int main ()
 {
   printf("Starting Pathfinder!\n");
 
-  const int NUM_VERTICES = 9;
+  const int NUM_VERTICES = 13;
 
   std::queue<char> TX_QUEUE;
   States state = States::IDLE, nextState = States::IDLE;
@@ -39,21 +40,14 @@ int main ()
   int ret = alt_ic_isr_register(SPI_IRQ_INTERRUPT_CONTROLLER_ID, SPI_IRQ, spi_rx_isr, (void *)&context, 0x0);
   printf("IRQ register return %d \n", ret);
 
-  #ifdef __INTELLISENSE__
-  #pragma diag_suppress 20 // ignore missing __builtin_stwio etc...
-  #endif
-
   // //You need to enable the IRQ in the IP core control register as well.
   IOWR_ALTERA_AVALON_SPI_CONTROL(SPI_BASE, ALTERA_AVALON_SPI_CONTROL_IRRDY_MSK); // trigger when is ready
-
-  #ifdef __INTELLISENSE__
-  #pragma diag_default 20 // restore default behaviour
-  #endif
 
   while (true)
   {
     bool stateChange = state != nextState;
     state = nextState;
+    Graph *myGraph;
 
     switch (state)
     {
@@ -89,13 +83,17 @@ int main ()
           break;
         }
 
-        Graph myGraph = Graph((float**)graphf.adj, NUM_VERTICES);
+        // delete myGraph; // this line breaks SPI
+        myGraph = new Graph((float**)graphf.adj, NUM_VERTICES, graphf.start, graphf.end); // NEED TO DELETE BUT DELETE CAUSES PROBLEMS
 
         res.pathfindAvg = 0;
         #if TIMING
         if (graphf.averageOver != 0)
         {
-          alt_u64 ticks;
+          alt_64 proc_ticks = 0;
+          alt_u64 time1 = 0;
+          // alt_u64 overhead = 0;
+          alt_u64 time3 = 0;
           // alt_u64 freq = alt_timestamp_freq();
 
           // The code that you want to time goes here
@@ -103,27 +101,38 @@ int main ()
 
           for (int i=0; i<graphf.averageOver; i++)
           {
-            myGraph.reset();
-            myGraph.dijkstra();
-            // usleep(1e5);
+            myGraph->reset();
+
+            alt_icache_flush_all();
+            alt_dcache_flush_all();
+
+            time1 = alt_timestamp();
+            // overhead = alt_timestamp() - time1;
+            
+            myGraph->dijkstra();
+
+            time3 = alt_timestamp();
+
+            // proc_ticks += (time3 - time1 - 1 * overhead);
+            proc_ticks += (time3 - time1);
           }
 
-          ticks = alt_timestamp();
+          // ticks = alt_timestamp();
 
-          int k = 50 * graphf.averageOver; // ticks per ms
-          double proc_us = (double)ticks / (double)k;
+          int k = alt_timestamp_freq() * 1e-6 * graphf.averageOver; // ticks per ms
+          double proc_us = (double)proc_ticks / (double)k;
 
-          printf("Profiling Results: %i iteration(s), \nproc_ticks: %llu,\tproc_us: %f\tavg: %f\n",
-            graphf.averageOver, ticks, proc_us, proc_us);
+          printf("Profiling Results: %i iteration(s), \nproc_ticks: %lld,\tproc_us: %f\tavg: %f\n",
+            graphf.averageOver, proc_ticks, proc_us, proc_us);
 
           res.pathfindAvg = proc_us;
         }
-        else myGraph.dijkstra();
+        else myGraph->dijkstra();
         #else
         myGraph.dijkstra();
         #endif
 
-        const int *shortest = myGraph.shortest();
+        const int *shortest = myGraph->shortest();
 
         res.shortest = new int[NUM_VERTICES];
 
@@ -150,8 +159,10 @@ int main ()
 
         if (status != "") 
         {
-          printf("Unable to serialise JSON object.\nIs there a path with this adjacency matrix?");
-          printf("\n%s", context.response.c_str());
+          printf("Unable to serialise JSON object.\nIs there a path with this adjacency matrix? Routing from nodes %d to %d\n\n", res.start, res.end);
+          // printf("\n%s", context.response.c_str());
+          myGraph->printAdj();
+          myGraph->print();
           nextState = IDLE;
           break;
         }
@@ -173,7 +184,7 @@ int main ()
       case RESPONSE_TX:
         #if DEBUG
         if (stateChange) printf("\nRESPONDING:\n");
-        #endif
+      #endif
       break;
 
       default:

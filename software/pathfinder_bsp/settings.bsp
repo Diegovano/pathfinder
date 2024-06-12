@@ -5,7 +5,7 @@
         <BspGeneratedTimeStamp>12-Jun-2024 17:39:35</BspGeneratedTimeStamp>
         <BspGeneratedUnixTimeStamp>1718210375575</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>./</BspGeneratedLocation>
-        <BspSettingsFile>../pathfinder_no_accel_bsp/settings.bsp</BspSettingsFile>
+        <BspSettingsFile>../pathfinder_bsp/settings.bsp</BspSettingsFile>
         <SopcDesignFile>../../quartus/nios2_system.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
         <Cpu>cpu</Cpu>

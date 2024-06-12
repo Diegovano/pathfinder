@@ -16,10 +16,6 @@ void spi_rx_isr(void* isr_context)
   std::queue<char> *TX_QUEUE = context->queue;
   States *state = context->state;
 
-  #ifdef __INTELLISENSE__
-  #pragma diag_suppress 20 // ignore missing __builtin_stwio etc...
-  #endif
-
   uint32_t data = IORD_ALTERA_AVALON_SPI_RXDATA(SPI_BASE);
 
   if (*state == States::IDLE)
@@ -27,10 +23,6 @@ void spi_rx_isr(void* isr_context)
     if (data == 0) *context->nextState = States::GRAPH_RX;
     else return;
   }
-
-  #ifdef __INTELLISENSE__
-  #pragma diag_default 20 // restore default behaviour
-  #endif
 
   uint32_t TX_DATA = 0;
 
@@ -58,15 +50,7 @@ void spi_rx_isr(void* isr_context)
     #endif
   }
 
-  #ifdef __INTELLISENSE__
-  #pragma diag_suppress 20 // ignore missing __builtin_stwio etc...
-  #endif
-
   IOWR_ALTERA_AVALON_SPI_TXDATA(SPI_BASE, TX_DATA);
-
-  #ifdef __INTELLISENSE__
-  #pragma diag_default 20 // restore default behaviour
-  #endif
 
   if (*state == States::GRAPH_RX)
   {
