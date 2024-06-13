@@ -37,7 +37,7 @@
    {
       datum _sortIndex
       {
-         value = "3";
+         value = "4";
          type = "int";
       }
    }
@@ -45,7 +45,7 @@
    {
       datum _sortIndex
       {
-         value = "14";
+         value = "15";
          type = "int";
       }
    }
@@ -61,7 +61,7 @@
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "3";
          type = "int";
       }
    }
@@ -77,7 +77,7 @@
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "5";
          type = "int";
       }
    }
@@ -85,7 +85,7 @@
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "6";
          type = "int";
       }
    }
@@ -93,7 +93,7 @@
    {
       datum _sortIndex
       {
-         value = "15";
+         value = "16";
          type = "int";
       }
    }
@@ -109,7 +109,7 @@
    {
       datum _sortIndex
       {
-         value = "1";
+         value = "2";
          type = "int";
       }
    }
@@ -141,61 +141,13 @@
    {
       datum _sortIndex
       {
-         value = "13";
+         value = "14";
          type = "int";
       }
       datum sopceditor_expanded
       {
          value = "1";
          type = "boolean";
-      }
-   }
-   element dma.control_port_slave
-   {
-      datum baseAddress
-      {
-         value = "16781472";
-         type = "String";
-      }
-   }
-   element jtag_uart
-   {
-      datum _sortIndex
-      {
-         value = "2";
-         type = "int";
-      }
-   }
-   element jtag_uart.avalon_jtag_slave
-   {
-      datum baseAddress
-      {
-         value = "16781512";
-         type = "String";
-      }
-   }
-   element pio
-   {
-      datum _sortIndex
-      {
-         value = "6";
-         type = "int";
-      }
-   }
-   element pio.s1
-   {
-      datum baseAddress
-      {
-         value = "16781488";
-         type = "String";
-      }
-   }
-   element pio_debug
-   {
-      datum _sortIndex
-      {
-         value = "9";
-         type = "int";
       }
    }
    element pio_debug.s1
@@ -226,7 +178,7 @@
    {
       datum _sortIndex
       {
-         value = "12";
+         value = "13";
          type = "int";
       }
       datum sopceditor_expanded
@@ -295,7 +247,7 @@
    {
       datum _sortIndex
       {
-         value = "11";
+         value = "12";
          type = "int";
       }
    }
@@ -365,7 +317,7 @@
   <parameter name="cpuArchRev" value="1" />
   <parameter name="cpuID" value="0" />
   <parameter name="cpuReset" value="false" />
-  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="dijkstra_check_step" baseAddress="0" addressSpan="1" clockCycleType="VARIABLE" /><slave name="lef_0" baseAddress="1" addressSpan="1" clockCycleType="COMBINATORIAL" /><slave name="ltf_0" baseAddress="2" addressSpan="1" clockCycleType="COMBINATORIAL" /><slave name="mem_access" baseAddress="3" addressSpan="1" clockCycleType="COMBINATORIAL" /></info>]]></parameter>
+  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="lef_0" baseAddress="1" addressSpan="1" clockCycleType="COMBINATORIAL" /><slave name="ltf_0" baseAddress="2" addressSpan="1" clockCycleType="COMBINATORIAL" /><slave name="mem_access" baseAddress="3" addressSpan="1" clockCycleType="COMBINATORIAL" /><slave name="dijkstra_check_step" baseAddress="0" addressSpan="1" clockCycleType="VARIABLE" /></info>]]></parameter>
   <parameter name="customInstSlavesSystemInfo_nios_a" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_b" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_c" value="&lt;info/&gt;" />
@@ -552,8 +504,8 @@
   <parameter name="readSlaveDataWidthMax" value="16" />
   <parameter name="softresetEnable" value="true" />
   <parameter name="useRegistersForFIFO" value="false" />
-  <parameter name="writeAddressMap"><![CDATA[<address-map><slave name='mem_access.data_slave' start='0x0' end='0x400' /></address-map>]]></parameter>
-  <parameter name="writeSlaveAddressWidthMax" value="10" />
+  <parameter name="writeAddressMap"><![CDATA[<address-map><slave name='mem_access.data_slave' start='0x0' end='0x4' /></address-map>]]></parameter>
+  <parameter name="writeSlaveAddressWidthMax" value="2" />
   <parameter name="writeSlaveDataWidthMax" value="32" />
  </module>
  <module
@@ -718,7 +670,7 @@
   <parameter name="timeoutPulseOutput" value="false" />
   <parameter name="watchdogPulse" value="2" />
  </module>
- <module name="vector_op" kind="vector_op" version="1.0" enabled="1">
+ <module name="vector_op" kind="vector_op" version="1.0" enabled="0">
   <parameter name="ADDRESS_WIDTH" value="3" />
  </module>
  <connection
@@ -826,20 +778,6 @@
    kind="avalon"
    version="20.1"
    start="dma.write_master"
-   end="vector_op.avalon_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection kind="avalon" version="20.1" start="dma.read_master" end="sdram.s1">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00800000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="20.1"
-   start="dma.write_master"
    end="mem_access.data_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
@@ -891,15 +829,6 @@
    kind="nios_custom_instruction"
    version="20.1"
    start="cpu.custom_instruction_master"
-   end="vector_op.nios_custom_instruction_slave">
-  <parameter name="CIName" value="vector_op" />
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0" />
- </connection>
- <connection
-   kind="nios_custom_instruction"
-   version="20.1"
-   start="cpu.custom_instruction_master"
    end="lef.nios_custom_instruction_slave">
   <parameter name="CIName" value="lef_0" />
   <parameter name="arbitrationPriority" value="1" />
@@ -922,6 +851,15 @@
   <parameter name="CIName" value="mem_access" />
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="3" />
+ </connection>
+ <connection
+   kind="nios_custom_instruction"
+   version="20.1"
+   start="cpu.custom_instruction_master"
+   end="dijkstra_check_step.nios_custom_instruction_slave">
+  <parameter name="CIName" value="dijkstra_check_step" />
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0" />
  </connection>
  <connection kind="reset" version="20.1" start="clk_0.clk_reset" end="cpu.reset" />
  <connection
