@@ -46,8 +46,9 @@ module DummyInterface_tb;
         .wait_request(wait_request)
     );
     
-    // Generate clock
+    // Generate clock, extreme case where different frequencies and phases
     always #5 algorithm_clock = ~algorithm_clock;
+    always #7 mem_clock = ~mem_clock;
     
     // Testbench procedure
     initial begin
@@ -59,7 +60,7 @@ module DummyInterface_tb;
         mem_clock = 0;
         mem_reset = 0;
         base_address = 32'h00000010;
-        datab = 32'h00000005;
+        datab = 32'h00000000;
         mem_read_ready = 0;
         wait_request = 0;
         mem_read_data = 0;
@@ -70,30 +71,41 @@ module DummyInterface_tb;
         end
         
         // Release reset
-        #20;
+        @ (posedge algorithm_clock);
+        @ (posedge algorithm_clock);
+
         algorithm_reset = 0;
-        
-        // Start the algorithm
-        #20;
-        algorithm_start = 1;
-        #10;
-        algorithm_start = 0;
-        
-        // Wait for ready signal
-        wait (ready);
-        
-        // Display result
-        $display("Shortest Distance: %d", shortest_distance);
-        
-        // End simulation
-        #100;
+
+        for (i = 0; i < 10; i = i + 1) begin
+           base_address = i;
+            
+            // Start algorithm
+            algorithm_start = 1;
+            @ (posedge algorithm_clock);
+            algorithm_start = 0;
+            
+            // Wait for ready signal
+            wait (ready);
+            
+            // Display result
+            $display("Shortest Distance: %d", shortest_distance);
+            
+            // End simulation
+            @(posedge algorithm_clock);
+            @(posedge algorithm_clock);
+        end
+
+        @(posedge algorithm_clock);
+        @(posedge algorithm_clock);
+        @(posedge algorithm_clock);
         $finish;
     end
     
+    
     // Memory read with delay
     reg [MEM_DELAY-1:0] read_pipeline;
-    always @(posedge algorithm_clock or posedge algorithm_reset) begin
-        if (algorithm_reset) begin
+    always @(posedge mem_clock or posedge mem_reset) begin
+        if (mem_reset) begin
             read_pipeline <= 0;
             mem_read_ready <= 0;
         end else begin
@@ -102,7 +114,7 @@ module DummyInterface_tb;
         end
     end
     
-    always @(posedge algorithm_clock) begin
+    always @(posedge mem_clock) begin
         if (mem_read_enable) begin
             mem_read_data <= memory[{mem_addr[31:1],1'b0}];
         end

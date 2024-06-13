@@ -3,9 +3,9 @@
 # This script creates the hello_world application in this directory.
 
 
-BSP_DIR=../hw_bsp
+BSP_DIR=../s_bsp
 QUARTUS_PROJECT_DIR=../../
-NIOS2_APP_GEN_ARGS="--elf-name hw.elf --set OBJDUMP_INCLUDE_SOURCE 1 --src-files hello_world.c"
+NIOS2_APP_GEN_ARGS="--elf-name s.elf --set OBJDUMP_INCLUDE_SOURCE 1 --src-files hello_world.c"
 
 # If script is launched from Windows through Windows Subsystem for Linux (WSL).  
 # The adjust-path macro converts absolute windows 
