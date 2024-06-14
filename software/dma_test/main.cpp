@@ -28,7 +28,7 @@ void doneCallback(void *handle)
   dma_check();
   printf("done\n");
 
-  int res = ALT_CI_MEM_ACCESS(10, 10);
+  int res = ALT_CI_MEM_ACCESS_0(10, 10);
 
   printf("res: %d\n", res);
   DMA_STATUS
@@ -38,7 +38,11 @@ int main()
 {
   printf("Hello from Nios II!\n");
 
-  int *a = new int(4);
+  int *a = new int[4]();
+
+  printf("address: %p\n", a);
+
+  for (int i = 0; i < 4; i++) a[i] = i + 1;
 
   alt_dma_txchan tx;
 
@@ -54,7 +58,7 @@ int main()
     alt_dma_txchan_ioctl(tx, ALT_DMA_TX_ONLY_ON, 0);
     // alt_dma_txchan_ioctl(tx, ALT_DMA_SET_MODE_32, nullptr);
     dma_check();
-    int ret = alt_dma_txchan_send(tx, a, 4, doneCallback, nullptr);
+    int ret = alt_dma_txchan_send(tx, a, 4 * 1, doneCallback, nullptr);
     printf("yay? %u\n", ret);
   }
 

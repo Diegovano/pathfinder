@@ -251,14 +251,6 @@
          type = "int";
       }
    }
-   element vector_op.avalon_slave
-   {
-      datum baseAddress
-      {
-         value = "0";
-         type = "String";
-      }
-   }
 }
 ]]></parameter>
  <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
@@ -317,7 +309,7 @@
   <parameter name="cpuArchRev" value="1" />
   <parameter name="cpuID" value="0" />
   <parameter name="cpuReset" value="false" />
-  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="lef_0" baseAddress="1" addressSpan="1" clockCycleType="COMBINATORIAL" /><slave name="ltf_0" baseAddress="2" addressSpan="1" clockCycleType="COMBINATORIAL" /><slave name="mem_access" baseAddress="3" addressSpan="1" clockCycleType="COMBINATORIAL" /><slave name="dijkstra_check_step" baseAddress="0" addressSpan="1" clockCycleType="VARIABLE" /></info>]]></parameter>
+  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="lef_0" baseAddress="1" addressSpan="1" clockCycleType="COMBINATORIAL" /><slave name="ltf_0" baseAddress="2" addressSpan="1" clockCycleType="COMBINATORIAL" /><slave name="dijkstra_check_step" baseAddress="0" addressSpan="1" clockCycleType="VARIABLE" /><slave name="mem_access_0" baseAddress="3" addressSpan="1" clockCycleType="VARIABLE" /></info>]]></parameter>
   <parameter name="customInstSlavesSystemInfo_nios_a" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_b" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_c" value="&lt;info/&gt;" />
@@ -529,7 +521,7 @@
  </module>
  <module name="lef" kind="lef" version="1.0" enabled="1" />
  <module name="ltf" kind="ltf" version="1.0" enabled="1" />
- <module name="mem_access" kind="mem_access" version="1.0" enabled="1" />
+ <module name="mem_access" kind="mem_access" version="1.4" enabled="1" />
  <module
    name="onchip_memory"
    kind="altera_avalon_onchip_memory2"
@@ -847,19 +839,19 @@
    kind="nios_custom_instruction"
    version="20.1"
    start="cpu.custom_instruction_master"
-   end="mem_access.nios_custom_instruction_slave">
-  <parameter name="CIName" value="mem_access" />
+   end="dijkstra_check_step.nios_custom_instruction_slave">
+  <parameter name="CIName" value="dijkstra_check_step" />
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="3" />
+  <parameter name="baseAddress" value="0" />
  </connection>
  <connection
    kind="nios_custom_instruction"
    version="20.1"
    start="cpu.custom_instruction_master"
-   end="dijkstra_check_step.nios_custom_instruction_slave">
-  <parameter name="CIName" value="dijkstra_check_step" />
+   end="mem_access.nios_custom_instruction_slave">
+  <parameter name="CIName" value="mem_access_0" />
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0" />
+  <parameter name="baseAddress" value="3" />
  </connection>
  <connection kind="reset" version="20.1" start="clk_0.clk_reset" end="cpu.reset" />
  <connection

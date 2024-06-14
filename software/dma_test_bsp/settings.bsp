@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>13-Jun-2024 15:31:13</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1718289073425</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>14-Jun-2024 13:57:49</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1718369869545</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>./</BspGeneratedLocation>
         <BspSettingsFile>../dma_test_bsp/settings.bsp</BspSettingsFile>
         <SopcDesignFile>/home/diego/documents/pathfinder/quartus/nios2_system.sopcinfo</SopcDesignFile>
