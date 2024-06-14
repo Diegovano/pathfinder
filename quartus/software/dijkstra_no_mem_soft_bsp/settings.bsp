@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>2024-6-12 12:19:01</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1718191141987</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>C:\Users\runsh\Desktop\Main\IC\EIE3\summer\pathfinder\quartus\software\s_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>2024-6-14 17:22:19</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1718382139462</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>C:\Users\runsh\Desktop\Main\IC\EIE3\summer\pathfinder\quartus\software\dijkstra_no_mem_soft_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>C:\Users\runsh\Desktop\Main\IC\EIE3\summer\pathfinder\quartus\nios2_system.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>

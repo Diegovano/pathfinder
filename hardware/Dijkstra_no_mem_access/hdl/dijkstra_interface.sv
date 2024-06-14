@@ -22,6 +22,7 @@ module DijkstraInterface
 	input wire reset,
 	input wire start, 
 	input wire clock,
+	input wire clock_enable,
 
 	input wire[7:0] select_n, //choose the mode of instruction
 
@@ -82,6 +83,7 @@ edge_cache(
 reg dijkstra_enable;
 wire [15:0] dijkstra_ec_from_node;
 wire [15:0] dijkstra_ec_to_node;
+wire dijkstra_ec_read;
 wire dijkstra_ready;
 wire [31:0] dijkstra_result;
 
@@ -100,7 +102,7 @@ dijkstra_top(
 	.number_of_nodes(datab[15:0]),
 	.ec_ready(edge_cache_ready),
 	.ec_edge_value(edge_cache_read_data),
-	.ec_query(edge_cache_read),
+	.ec_query(dijkstra_ec_read),
 	.ec_from_node(dijkstra_ec_from_node),
 	.ec_to_node(dijkstra_ec_to_node),
 	.ready(dijkstra_ready),
@@ -120,9 +122,10 @@ always_comb begin
 	// initialize value to prevent latch
 	edge_cache_write = 0;
 	edge_cache_reset = 0;
+	edge_cache_read = 0;
 	dijkstra_enable = 0;
-	edge_cache_from_node = 0;
-	edge_cache_to_node = 0;
+	edge_cache_from_node = dataa[15:0];
+	edge_cache_to_node = dataa[31:16];
 	ready = 0;
 	result = 32'hdeadbeef;
 	next_state = state;
@@ -138,45 +141,54 @@ always_comb begin
 		end
 		RUNNING: begin
 			case(select_n)
-				0: begin
+				0: begin //writing to cache
 					edge_cache_write = 1;
 					edge_cache_from_node = dataa[15:0];
 					edge_cache_to_node = dataa[31:16];
 					result = 32'h0000beef;
 					ready = edge_cache_ready;
-					if (edge_cache_ready) begin
+					if (edge_cache_ready && clock_enable) begin
 						next_state = IDLE;
 					end
 				end
-				1: begin
-					result = 0;//TODO: read from previous vector cache
-					ready = 1;
-					next_state = IDLE;
+				1: begin //reading from cache
+					edge_cache_from_node = dataa[15:0];
+					edge_cache_to_node = dataa[31:16];
+					edge_cache_read = 1;
+					result = edge_cache_read_data;
+					ready = edge_cache_ready && clock_enable;
+					if (edge_cache_ready && clock_enable) begin
+						next_state = IDLE;
+					end
 				end
 				2: begin
 					dijkstra_enable = 1;
+					edge_cache_read = dijkstra_ec_read;
 					result = dijkstra_result;
-					ready = dijkstra_ready;
+					ready = dijkstra_ready && clock_enable;
 					edge_cache_from_node = dijkstra_ec_from_node;
 					edge_cache_to_node = dijkstra_ec_to_node;
-					if (dijkstra_ready) begin
+					if (dijkstra_ready && clock_enable) begin
 						next_state = IDLE;
 					end
 				end
 				3: begin
 					edge_cache_reset = 1;
-					ready = edge_cache_ready;
-					if (edge_cache_ready) begin
+					ready = edge_cache_ready && clock_enable;
+					if (edge_cache_ready && clock_enable) begin
 						next_state = IDLE;
 					end
 				end
-				4: begin
-					ready = 1;
-					next_state = IDLE;
-				end
+				// 4: begin
+				// 	ready = 1;
+				// 	next_state = IDLE;
+				// end
 				default: begin
 					result = 32'hdeadbeef;
-					next_state = IDLE;
+					ready = 1;
+					if (clock_enable) begin
+						next_state = IDLE;
+					end
 				end
 			endcase
 		end

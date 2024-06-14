@@ -48,6 +48,7 @@ module DijkstraTopTestbench
 ();
     reg reset = 0;
     reg clock = 0;
+    reg clock_enable = 0;
     reg start = 0;
 
     reg [7:0] select_n;
@@ -66,13 +67,14 @@ module DijkstraTopTestbench
         .reset(reset),
         .start(start),
         .clock(clock),
+        .clock_enable(1),
         .select_n(select_n),
         .dataa(dataa),
         .datab(datab),
         .result(result),
         .ready(ready)
     );
-
+    always #300000 clock_enable = ~clock_enable;
     always #10000 clock = ~clock;
 
     initial begin
@@ -94,15 +96,28 @@ module DijkstraTopTestbench
 				begin
 					// Load edge value into graph
 					_ = $fscanf(testvectors, "%d", tb_write_data);
-
+                    //$display("writing data %d \n", tb_write_data);
 					// Write to edge cache
 					select_n = 0;
                     dataa = {column[15:0],row[15:0]};
                     datab = tb_write_data;
+                    //clock_enable = 1;
                     start = 1;
                     @(posedge clock);
                     start = 0;
                     wait(ready);
+                    @(posedge clock);
+                    select_n = 1;
+                    dataa = {column[15:0],row[15:0]};
+                    start = 1;
+                    @(posedge clock);
+                    start = 0;
+                    wait(ready);
+                    @(posedge clock);
+                    if (result !== tb_write_data) begin
+                        $display("failed to read back edge value, expecting: %d, got: %d", tb_write_data, result);
+                        $finish;
+                    end
 				end
             //start dijkstra
             select_n = 2;

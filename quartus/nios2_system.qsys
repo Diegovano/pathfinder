@@ -33,6 +33,14 @@
          type = "String";
       }
    }
+   element dijkstra32_nomem_0
+   {
+      datum _sortIndex
+      {
+         value = "11";
+         type = "int";
+      }
+   }
    element jtag_uart
    {
       datum _sortIndex
@@ -47,14 +55,6 @@
       {
          value = "16781480";
          type = "String";
-      }
-   }
-   element new_component_0
-   {
-      datum _sortIndex
-      {
-         value = "11";
-         type = "int";
       }
    }
    element nios2_system
@@ -656,7 +656,7 @@
   <parameter name="cpuArchRev" value="1" />
   <parameter name="cpuID" value="0" />
   <parameter name="cpuReset" value="false" />
-  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="new_component_0" baseAddress="0" addressSpan="4" clockCycleType="VARIABLE" /></info>]]></parameter>
+  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="dijkstra32_nomem_0" baseAddress="0" addressSpan="256" clockCycleType="VARIABLE" /></info>]]></parameter>
   <parameter name="customInstSlavesSystemInfo_nios_a" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_b" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_c" value="&lt;info/&gt;" />
@@ -822,6 +822,15 @@
   <parameter name="userDefinedSettings" value="" />
  </module>
  <module
+   name="dijkstra32_nomem_0"
+   kind="dijkstra32_nomem"
+   version="1.0"
+   enabled="1">
+  <parameter name="INDEX_WIDTH" value="16" />
+  <parameter name="MAX_NODES" value="32" />
+  <parameter name="VALUE_WIDTH" value="32" />
+ </module>
+ <module
    name="jtag_uart"
    kind="altera_avalon_jtag_uart"
    version="20.1"
@@ -840,7 +849,6 @@
   <parameter name="writeBufferDepth" value="64" />
   <parameter name="writeIRQThreshold" value="8" />
  </module>
- <module name="new_component_0" kind="new_component" version="1.0" enabled="1" />
  <module
    name="onchip_memory"
    kind="altera_avalon_onchip_memory2"
@@ -1104,11 +1112,6 @@
    version="20.1"
    start="clk_0.clk"
    end="onchip_memory.clk1" />
- <connection
-   kind="clock"
-   version="20.1"
-   start="clk_0.clk"
-   end="new_component_0.clock_sink" />
  <connection kind="interrupt" version="20.1" start="cpu.irq" end="jtag_uart.irq">
   <parameter name="irqNumber" value="16" />
  </connection>
@@ -1132,8 +1135,8 @@
    kind="nios_custom_instruction"
    version="20.1"
    start="cpu.custom_instruction_master"
-   end="new_component_0.nios_custom_instruction_slave">
-  <parameter name="CIName" value="new_component_0" />
+   end="dijkstra32_nomem_0.nios_custom_instruction_slave">
+  <parameter name="CIName" value="dijkstra32_nomem_0" />
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0" />
  </connection>
@@ -1158,11 +1161,6 @@
    version="20.1"
    start="clk_0.clk_reset"
    end="pio_debug.reset" />
- <connection
-   kind="reset"
-   version="20.1"
-   start="clk_0.clk_reset"
-   end="new_component_0.reset_sink" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

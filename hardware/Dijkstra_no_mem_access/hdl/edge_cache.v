@@ -25,27 +25,28 @@ module EdgeCache
 	// When we have the requested edge value, set ready high and edge_value to
 	// the value from memory
 	output reg ready,
-	output reg [VALUE_WIDTH-1:0] edge_value
+	output wire [VALUE_WIDTH-1:0] edge_value
 );
 
-
-// Where the row is stored after we pull it from the graph
-reg [VALUE_WIDTH-1:0] row_cache[MAX_NODES-1:0][MAX_NODES-1:0];
-integer i;
-integer j;
-
-assign edge_value = row_cache[from_node][to_node];
+EdgeCacheMem 
+#(
+	.MAX_NODES(MAX_NODES),
+	.INDEX_WIDTH(INDEX_WIDTH),
+	.VALUE_WIDTH(VALUE_WIDTH)
+)
+edge_cache_mem(
+	.clock(clock),
+	.address({to_node[4:0], from_node[4:0]}),
+	.write_enable(write_enable),
+	.write_data(write_data),
+	.edge_value(edge_value)
+);
 
 always @(posedge clock, posedge reset)
 begin
 	if(reset)
 		begin
-			for(i=0; i<MAX_NODES; i=i+1)
-				for(j=0; j<MAX_NODES; j=j+1)
-					if(i==j)
-						row_cache[i][j] = 0;
-					else
-						row_cache[i][j] = `INFINITY;
+			// TODO: reset the cache
 			ready = 1'b1;
 		end
 	else if(read_enable)
@@ -54,7 +55,6 @@ begin
 		end
 	else if (write_enable)
 		begin
-			row_cache[from_node][to_node] = write_data;
 			ready = 1'b1;
 		end
 	else
