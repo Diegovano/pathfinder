@@ -30,6 +30,7 @@ long read_dijkstra_cache(int from_node, int to_node){
 }
 
 long run_dijkstra (int from_node, int to_node, int number_of_nodes){
+	ALT_CI_DIJKSTRA32_NOMEM_0(2,0,0); //a manual software reset cuz hardware reset buggy
 	long dataa = (to_node <<16) + from_node;
 	long datab = number_of_nodes;
 	return ALT_CI_DIJKSTRA32_NOMEM_0(2,dataa,datab);
@@ -38,31 +39,17 @@ long run_dijkstra (int from_node, int to_node, int number_of_nodes){
 int main()
 {
   printf("Hello from Nios II!\n");
-  write_dijkstra_cache(0,0,0);
-  write_dijkstra_cache(23,0,1);
-  write_dijkstra_cache(23,1,0);
-  write_dijkstra_cache(0,1,1);
-
-
-  printf("%d \n", read_dijkstra_cache(0,0));
-  printf("%d \n", read_dijkstra_cache(0,1));
-  printf("%d \n", read_dijkstra_cache(1,0));
-  printf("%d \n", read_dijkstra_cache(1,1));
-
-
-  long b= run_dijkstra(0,1,2);
-  printf("%li \n", b);
 
 
   int testvector[8][8] = {
-		  {0,205,201,248,188,181,125,203},
+		  {0,205,201,248,188,181,125,301},
 		  {205,0,160,132,176,123,215,189},
 		  {201,160,0,130,140,87,88,122},
 		  {248,132,130,0,259,67,237,175},
 		  {188,176,140,259,0,226,170,193},
 		  {181,123,87,67,226,0,79,225},
 		  {125,215,88,237,170,79,0,177},
-		  {203,189,122,175,193,225,177,0}};
+		  {301,189,122,175,193,225,177,0}};
   for (int row=0; row <8; row++){
 	  for (int column=0; column <8; column++){
 		  write_dijkstra_cache(testvector[row][column],row,column);
@@ -75,7 +62,24 @@ int main()
   	  printf("\n");
   }
 
-  printf("%lu \n", run_dijkstra(0,7,8)); //expecting 206
+
+  printf("%li \n", run_dijkstra(0,7,8)); //expecting 301
+
+  int testvector2[8][8] = {
+  		  {0,205,201,248,188,181,125,201},
+  		  {205,0,160,132,176,123,215,189},
+  		  {201,160,0,130,140,87,88,122},
+  		  {248,132,130,0,259,67,237,175},
+  		  {188,176,140,259,0,226,170,193},
+  		  {181,123,87,67,226,0,79,225},
+  		  {125,215,88,237,170,79,0,177},
+  		  {201,189,122,175,193,225,177,0}};
+    for (int row=0; row <8; row++){
+  	  for (int column=0; column <8; column++){
+  		  write_dijkstra_cache(testvector2[row][column],row,column);
+  	  }
+    }
+  printf("%li \n", run_dijkstra(0,7,8)); //expecting 201
 
 
   printf("goodbye");

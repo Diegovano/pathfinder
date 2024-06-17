@@ -202,10 +202,11 @@ begin
 		WRITE_STATE:
 		begin
 			ec_query <= 0;
+			ready <= 1;
 		end
 		FINAL_STATE:
 		begin
-			ready <= 1;
+			ready <= 0;
 		end
 	endcase
 end
