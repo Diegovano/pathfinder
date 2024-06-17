@@ -39,41 +39,41 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  10 .debug_abbrev 0000c060  00000000  00000000  00045e00  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 11 .debug_line   00017d28  00000000  00000000  00051e60  2**0
+ 11 .debug_line   00017d2e  00000000  00000000  00051e60  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 12 .debug_frame  000026ec  00000000  00000000  00069b88  2**2
+ 12 .debug_frame  000026ec  00000000  00000000  00069b90  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_str    0000424f  00000000  00000000  0006c274  2**0
+ 13 .debug_str    0000424f  00000000  00000000  0006c27c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_loc    0001ed03  00000000  00000000  000704c3  2**0
+ 14 .debug_loc    0001ed03  00000000  00000000  000704cb  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_alt_sim_info 00000030  00000000  00000000  0008f1c8  2**2
+ 15 .debug_alt_sim_info 00000030  00000000  00000000  0008f1d0  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_ranges 000025f8  00000000  00000000  0008f1f8  2**3
+ 16 .debug_ranges 000025f8  00000000  00000000  0008f200  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .thread_model 00000003  00000000  00000000  00094e37  2**0
+ 17 .thread_model 00000003  00000000  00000000  00094e3f  2**0
                   CONTENTS, READONLY
- 18 .cpu          00000003  00000000  00000000  00094e3a  2**0
+ 18 .cpu          00000003  00000000  00000000  00094e42  2**0
                   CONTENTS, READONLY
- 19 .qsys         00000001  00000000  00000000  00094e3d  2**0
+ 19 .qsys         00000001  00000000  00000000  00094e45  2**0
                   CONTENTS, READONLY
- 20 .simulation_enabled 00000001  00000000  00000000  00094e3e  2**0
+ 20 .simulation_enabled 00000001  00000000  00000000  00094e46  2**0
                   CONTENTS, READONLY
- 21 .sysid_hash   00000004  00000000  00000000  00094e3f  2**0
+ 21 .sysid_hash   00000004  00000000  00000000  00094e47  2**0
                   CONTENTS, READONLY
- 22 .sysid_base   00000004  00000000  00000000  00094e43  2**0
+ 22 .sysid_base   00000004  00000000  00000000  00094e4b  2**0
                   CONTENTS, READONLY
- 23 .sysid_time   00000004  00000000  00000000  00094e47  2**0
+ 23 .sysid_time   00000004  00000000  00000000  00094e4f  2**0
                   CONTENTS, READONLY
- 24 .stderr_dev   00000009  00000000  00000000  00094e4b  2**0
+ 24 .stderr_dev   00000009  00000000  00000000  00094e53  2**0
                   CONTENTS, READONLY
- 25 .stdin_dev    00000009  00000000  00000000  00094e54  2**0
+ 25 .stdin_dev    00000009  00000000  00000000  00094e5c  2**0
                   CONTENTS, READONLY
- 26 .stdout_dev   00000009  00000000  00000000  00094e5d  2**0
+ 26 .stdout_dev   00000009  00000000  00000000  00094e65  2**0
                   CONTENTS, READONLY
- 27 .sopc_system_name 0000000c  00000000  00000000  00094e66  2**0
+ 27 .sopc_system_name 0000000c  00000000  00000000  00094e6e  2**0
                   CONTENTS, READONLY
- 28 .quartus_project_dir 0000003d  00000000  00000000  00094e72  2**0
+ 28 .quartus_project_dir 0000003d  00000000  00000000  00094e7a  2**0
                   CONTENTS, READONLY
 SYMBOL TABLE:
 00800000 l    d  .entry	00000000 .entry
@@ -1336,8 +1336,8 @@ int main()
   int iterations = 1000;
   80063c:	0080fa04 	movi	r2,1000
   800640:	e0bfee15 	stw	r2,-72(fp)
-  int size = 13;
-  800644:	00800344 	movi	r2,13
+  int size = 30;
+  800644:	00800784 	movi	r2,30
   800648:	e0bfed15 	stw	r2,-76(fp)
   // The code that you want to time goes here
   alt_timestamp_start();
@@ -1346,52 +1346,52 @@ int main()
   for (int i=0; i<iterations; i++){
   800650:	e03ff515 	stw	zero,-44(fp)
   800654:	00004706 	br	800774 <main+0x3b8>
-	  time1 = alt_timestamp();
-  800658:	080f7e00 	call	80f7e0 <alt_timestamp>
-  80065c:	e0bff115 	stw	r2,-60(fp)
-  800660:	e0fff215 	stw	r3,-56(fp)
+
 	  for (int row=0; row <size; row++){
-  800664:	e03ff415 	stw	zero,-48(fp)
-  800668:	00001d06 	br	8006e0 <main+0x324>
+  800658:	e03ff415 	stw	zero,-48(fp)
+  80065c:	00001d06 	br	8006d4 <main+0x318>
 		  for (int column=0; column <size; column++){
-  80066c:	e03ff315 	stw	zero,-52(fp)
-  800670:	00001506 	br	8006c8 <main+0x30c>
+  800660:	e03ff315 	stw	zero,-52(fp)
+  800664:	00001506 	br	8006bc <main+0x300>
 			  write_dijkstra_cache(testvector3[row][column],row,column);
-  800674:	e0fff417 	ldw	r3,-48(fp)
-  800678:	1805883a 	mov	r2,r3
-  80067c:	1004913a 	slli	r2,r2,4
-  800680:	10c5c83a 	sub	r2,r2,r3
-  800684:	1085883a 	add	r2,r2,r2
-  800688:	e0fff317 	ldw	r3,-52(fp)
-  80068c:	10c5883a 	add	r2,r2,r3
-  800690:	100490ba 	slli	r2,r2,2
-  800694:	e0fffe04 	addi	r3,fp,-8
-  800698:	1885883a 	add	r2,r3,r2
-  80069c:	10bbe817 	ldw	r2,-4192(r2)
-  8006a0:	1009883a 	mov	r4,r2
-  8006a4:	08009840 	call	800984 <__floatsisf>
-  8006a8:	1007883a 	mov	r3,r2
-  8006ac:	e1bff317 	ldw	r6,-52(fp)
-  8006b0:	e17ff417 	ldw	r5,-48(fp)
-  8006b4:	1809883a 	mov	r4,r3
-  8006b8:	08002840 	call	800284 <write_dijkstra_cache>
+  800668:	e0fff417 	ldw	r3,-48(fp)
+  80066c:	1805883a 	mov	r2,r3
+  800670:	1004913a 	slli	r2,r2,4
+  800674:	10c5c83a 	sub	r2,r2,r3
+  800678:	1085883a 	add	r2,r2,r2
+  80067c:	e0fff317 	ldw	r3,-52(fp)
+  800680:	10c5883a 	add	r2,r2,r3
+  800684:	100490ba 	slli	r2,r2,2
+  800688:	e0fffe04 	addi	r3,fp,-8
+  80068c:	1885883a 	add	r2,r3,r2
+  800690:	10bbe817 	ldw	r2,-4192(r2)
+  800694:	1009883a 	mov	r4,r2
+  800698:	08009840 	call	800984 <__floatsisf>
+  80069c:	1007883a 	mov	r3,r2
+  8006a0:	e1bff317 	ldw	r6,-52(fp)
+  8006a4:	e17ff417 	ldw	r5,-48(fp)
+  8006a8:	1809883a 	mov	r4,r3
+  8006ac:	08002840 	call	800284 <write_dijkstra_cache>
 		  for (int column=0; column <size; column++){
-  8006bc:	e0bff317 	ldw	r2,-52(fp)
-  8006c0:	10800044 	addi	r2,r2,1
-  8006c4:	e0bff315 	stw	r2,-52(fp)
-  8006c8:	e0fff317 	ldw	r3,-52(fp)
-  8006cc:	e0bfed17 	ldw	r2,-76(fp)
-  8006d0:	18bfe816 	blt	r3,r2,800674 <main+0x2b8>
+  8006b0:	e0bff317 	ldw	r2,-52(fp)
+  8006b4:	10800044 	addi	r2,r2,1
+  8006b8:	e0bff315 	stw	r2,-52(fp)
+  8006bc:	e0fff317 	ldw	r3,-52(fp)
+  8006c0:	e0bfed17 	ldw	r2,-76(fp)
+  8006c4:	18bfe816 	blt	r3,r2,800668 <main+0x2ac>
 	  for (int row=0; row <size; row++){
-  8006d4:	e0bff417 	ldw	r2,-48(fp)
-  8006d8:	10800044 	addi	r2,r2,1
-  8006dc:	e0bff415 	stw	r2,-48(fp)
-  8006e0:	e0fff417 	ldw	r3,-48(fp)
-  8006e4:	e0bfed17 	ldw	r2,-76(fp)
-  8006e8:	18bfe016 	blt	r3,r2,80066c <main+0x2b0>
+  8006c8:	e0bff417 	ldw	r2,-48(fp)
+  8006cc:	10800044 	addi	r2,r2,1
+  8006d0:	e0bff415 	stw	r2,-48(fp)
+  8006d4:	e0fff417 	ldw	r3,-48(fp)
+  8006d8:	e0bfed17 	ldw	r2,-76(fp)
+  8006dc:	18bfe016 	blt	r3,r2,800660 <main+0x2a4>
 		  }
 	  }
-
+	  time1 = alt_timestamp();
+  8006e0:	080f7e00 	call	80f7e0 <alt_timestamp>
+  8006e4:	e0bff115 	stw	r2,-60(fp)
+  8006e8:	e0fff215 	stw	r3,-56(fp)
 	  run_dijkstra(0,size-1,size);
   8006ec:	e0bfed17 	ldw	r2,-76(fp)
   8006f0:	10bfffc4 	addi	r2,r2,-1

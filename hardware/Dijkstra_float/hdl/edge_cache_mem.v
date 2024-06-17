@@ -11,7 +11,7 @@ module EdgeCacheMem
 (
 	input wire clock,
 	//[9:5] to node, [4:0] from node
-	input wire[9:0] address, 
+	input wire[2*INDEX_WIDTH-1:0] address, 
 
 	// Input signals for when we want to query an edge
 	input wire write_enable, //diven by n=0 

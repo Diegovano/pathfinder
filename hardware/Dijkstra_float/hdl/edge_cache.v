@@ -36,7 +36,7 @@ EdgeCacheMem
 )
 edge_cache_mem(
 	.clock(clock),
-	.address({to_node[4:0], from_node[4:0]}),
+	.address({to_node, from_node}),
 	.write_enable(write_enable),
 	.write_data(write_data),
 	.edge_value(edge_value)

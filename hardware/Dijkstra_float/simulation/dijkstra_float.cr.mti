@@ -5,6 +5,13 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	DijkstraInterface
 
+} {} {}} C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v {1 {vlog -work work -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module EdgeCache
+
+Top level modules:
+	EdgeCache
+
 } {} {}} C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv {1 {vlog -work work -sv -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling package dijkstra_interface_tb_sv_unit
@@ -12,6 +19,13 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 
 Top level modules:
 	DijkstraTopTestbench
+
+} {} {}} C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/priority_queue.sv {1 {vlog -work work -sv -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/priority_queue.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module PriorityQueue
+
+Top level modules:
+	PriorityQueue
 
 } {} {}} C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/math/fp_adder.sv {1 {vlog -work work -sv -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/math/fp_adder.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
@@ -34,9 +48,6 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	DijkstraTop
 
-} {} {}} C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/constants.v {1 {vlog -work work -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/constants.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-
 } {} {}} C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/math/fp_comparator.sv {1 {vlog -work work -sv -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/math/fp_comparator.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module fp_comparator
@@ -44,11 +55,11 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	fp_comparator
 
-} {} {}} C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/priority_queue.sv {1 {vlog -work work -sv -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/priority_queue.sv
+} {} {}} C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache_mem.v {1 {vlog -work work -stats=none C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache_mem.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module PriorityQueue
+-- Compiling module EdgeCacheMem
 
 Top level modules:
-	PriorityQueue
+	EdgeCacheMem
 
 } {} {}}

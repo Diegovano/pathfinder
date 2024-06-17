@@ -473,6 +473,14 @@
          type = "String";
       }
    }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
    element onchip_memory
    {
       datum _sortIndex
@@ -834,8 +842,8 @@
    kind="dijkstra32_float"
    version="1.0"
    enabled="1">
-  <parameter name="INDEX_WIDTH" value="16" />
-  <parameter name="MAX_NODES" value="32" />
+  <parameter name="INDEX_WIDTH" value="7" />
+  <parameter name="MAX_NODES" value="128" />
   <parameter name="VALUE_WIDTH" value="32" />
  </module>
  <module

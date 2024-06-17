@@ -609,3 +609,1995 @@ run -all
 #    Time: 2095330 ns  Iteration: 3  Instance: /DijkstraTopTestbench
 # 1
 # Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 142
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 67.000000
+# Shortest distance: 13.000000
+# Shortest distance: 86.000000
+# Shortest distance: 38.000000
+# Shortest distance: 82.000000
+# Shortest distance: 48.000000
+# Shortest distance: 74.000000
+# Shortest distance: 39.000000
+# Shortest distance: 98.000000
+# Shortest distance: 56.000000
+# Shortest distance: 26.000000
+# Shortest distance: 44.000000
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(142)
+#    Time: 2095330 ns  Iteration: 3  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 142
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 67.000000
+# Shortest distance: 13.000000
+# Shortest distance: 86.000000
+# Shortest distance: 38.000000
+# Shortest distance: 82.000000
+# Shortest distance: 48.000000
+# Shortest distance: 74.000000
+# Shortest distance: 39.000000
+# Shortest distance: 98.000000
+# Shortest distance: 56.000000
+# Shortest distance: 26.000000
+# Shortest distance: 44.000000
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(142)
+#    Time: 2095330 ns  Iteration: 3  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 142
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 67.000000
+# Shortest distance: 13.000000
+# Shortest distance: 86.000000
+# Shortest distance: 38.000000
+# Shortest distance: 82.000000
+# Shortest distance: 48.000000
+# Shortest distance: 74.000000
+# Shortest distance: 39.000000
+# Shortest distance: 98.000000
+# Shortest distance: 56.000000
+# Shortest distance: 26.000000
+# Shortest distance: 44.000000
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(142)
+#    Time: 2095330 ns  Iteration: 3  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 142
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 67.000000
+# Shortest distance: 13.000000
+# Shortest distance: 86.000000
+# Shortest distance: 38.000000
+# Shortest distance: 82.000000
+# Shortest distance: 48.000000
+# Shortest distance: 74.000000
+# Shortest distance: 39.000000
+# Shortest distance: 98.000000
+# Shortest distance: 56.000000
+# Shortest distance: 26.000000
+# Shortest distance: 44.000000
+# Shortest distance: 0.000000
+# Test failed
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(138)
+#    Time: 2232910 ns  Iteration: 3  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 138
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (14) for port 'address'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache_mem.v(14).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache/edge_cache_mem File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v Line: 37
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 42.000000
+# Test failed
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(138)
+#    Time: 154750 ns  Iteration: 3  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 138
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (14) for port 'address'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache_mem.v(14).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache/edge_cache_mem File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v Line: 37
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 42.000000
+# Test failed
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(138)
+#    Time: 154750 ns  Iteration: 3  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 138
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 67.000000
+# Shortest distance: 13.000000
+# Shortest distance: 86.000000
+# Shortest distance: 38.000000
+# Shortest distance: 82.000000
+# Shortest distance: 48.000000
+# Shortest distance: 74.000000
+# Shortest distance: 39.000000
+# Shortest distance: 98.000000
+# Shortest distance: 56.000000
+# Shortest distance: 26.000000
+# Shortest distance: 44.000000
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(142)
+#    Time: 2095330 ns  Iteration: 3  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 142
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 67.000000
+# Shortest distance: 13.000000
+# Shortest distance: 86.000000
+# Shortest distance: 38.000000
+# Shortest distance: 82.000000
+# Shortest distance: 48.000000
+# Shortest distance: 74.000000
+# Shortest distance: 39.000000
+# Shortest distance: 98.000000
+# Shortest distance: 56.000000
+# Shortest distance: 26.000000
+# Shortest distance: 44.000000
+# Shortest distance: 31.000000
+# Shortest distance: 54.000000
+# Shortest distance: 59.000000
+# Shortest distance: 25.000000
+# Shortest distance: 34.000000
+# Shortest distance: 26.000000
+# Shortest distance: 37.000000
+# Shortest distance: 26.000000
+# Shortest distance: 53.000000
+# Shortest distance: 52.000000
+# Shortest distance: 47.000000
+# Shortest distance: 39.000000
+# Shortest distance: 36.000000
+# Shortest distance: 27.000000
+# Shortest distance: 28.000000
+# Shortest distance: 31.000000
+# Shortest distance: 29.000000
+# Shortest distance: 38.000000
+# Shortest distance: 33.000000
+# Shortest distance: 43.000000
+# Shortest distance: 45.000000
+# Shortest distance: 14.000000
+# Shortest distance: 52.000000
+# Shortest distance: 52.000000
+# Shortest distance: 42.000000
+# Shortest distance: 17.000000
+# Shortest distance: 26.000000
+# Shortest distance: 27.000000
+# Shortest distance: 21.000000
+# Shortest distance: 29.000000
+# Shortest distance: 53.000000
+# Shortest distance: 41.000000
+# Shortest distance: 36.000000
+# Shortest distance: 31.000000
+# Shortest distance: 25.000000
+# Shortest distance: 45.000000
+# Shortest distance: 20.000000
+# Shortest distance: 40.000000
+# Shortest distance: 31.000000
+# Shortest distance: 38.000000
+# Shortest distance: 26.000000
+# Shortest distance: 14.000000
+# Shortest distance: 18.000000
+# Shortest distance: 36.000000
+# Shortest distance: 35.000000
+# Shortest distance: 29.000000
+# Shortest distance: 34.000000
+# Shortest distance: 24.000000
+# Shortest distance: 26.000000
+# Shortest distance: 28.000000
+# Shortest distance: 36.000000
+# Shortest distance: 46.000000
+# Shortest distance: 22.000000
+# Shortest distance: 29.000000
+# Shortest distance: 36.000000
+# Shortest distance: 45.000000
+# Break key hit
+# Simulation stop requested.
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 67.000000
+# Shortest distance: 13.000000
+# Shortest distance: 86.000000
+# Shortest distance: 38.000000
+# Shortest distance: 82.000000
+# Shortest distance: 48.000000
+# Shortest distance: 74.000000
+# Shortest distance: 39.000000
+# Shortest distance: 98.000000
+# Shortest distance: 56.000000
+# Shortest distance: 26.000000
+# Shortest distance: 44.000000
+# Shortest distance: 31.000000
+# Shortest distance: 54.000000
+# Shortest distance: 59.000000
+# Shortest distance: 25.000000
+# Shortest distance: 34.000000
+# Shortest distance: 26.000000
+# Shortest distance: 37.000000
+# Shortest distance: 26.000000
+# Shortest distance: 53.000000
+# Shortest distance: 52.000000
+# Shortest distance: 47.000000
+# Shortest distance: 39.000000
+# Shortest distance: 36.000000
+# Shortest distance: 27.000000
+# Shortest distance: 28.000000
+# Shortest distance: 31.000000
+# Shortest distance: 29.000000
+# Shortest distance: 38.000000
+# Shortest distance: 33.000000
+# Shortest distance: 43.000000
+# Shortest distance: 45.000000
+# Shortest distance: 14.000000
+# Shortest distance: 52.000000
+# Shortest distance: 52.000000
+# Shortest distance: 42.000000
+# Shortest distance: 17.000000
+# Shortest distance: 26.000000
+# Shortest distance: 27.000000
+# Shortest distance: 21.000000
+# Shortest distance: 29.000000
+# Shortest distance: 53.000000
+# Shortest distance: 2139095040.000000
+# Test failed
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(138)
+#    Time: 14729690 ns  Iteration: 5  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 138
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 67.000000
+# Shortest distance: 13.000000
+# Shortest distance: 86.000000
+# Shortest distance: 38.000000
+# Shortest distance: 82.000000
+# Shortest distance: 48.000000
+# Shortest distance: 74.000000
+# Shortest distance: 39.000000
+# Shortest distance: 98.000000
+# Shortest distance: 56.000000
+# Shortest distance: 26.000000
+# Shortest distance: 44.000000
+# Shortest distance: 31.000000
+# Shortest distance: 54.000000
+# Shortest distance: 59.000000
+# Shortest distance: 25.000000
+# Shortest distance: 34.000000
+# Shortest distance: 26.000000
+# Shortest distance: 37.000000
+# Shortest distance: 26.000000
+# Break key hit
+# Simulation stop requested.
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 67.000000
+# Shortest distance: 13.000000
+# Shortest distance: 86.000000
+# Shortest distance: 38.000000
+# Shortest distance: 82.000000
+# Shortest distance: 48.000000
+# Shortest distance: 74.000000
+# Shortest distance: 39.000000
+# Shortest distance: 98.000000
+# Shortest distance: 56.000000
+# Shortest distance: 26.000000
+# Shortest distance: 2139095040.000000
+# Test failed
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(138)
+#    Time: 2041850 ns  Iteration: 5  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 138
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# failed to read back edge value, expecting: 108.000000, got: 0.000000
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(119)
+#    Time: 290 ns  Iteration: 1  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 119
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# failed to read back edge value, expecting: 124.000000, got: 0.000000
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(119)
+#    Time: 285750 ns  Iteration: 1  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 119
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 67.000000
+# Shortest distance: 13.000000
+# Shortest distance: 86.000000
+# Shortest distance: 38.000000
+# Shortest distance: 82.000000
+# Shortest distance: 48.000000
+# Shortest distance: 74.000000
+# Shortest distance: 39.000000
+# Shortest distance: 98.000000
+# Shortest distance: 56.000000
+# Shortest distance: 26.000000
+# Shortest distance: 2139095040.000000
+# Test failed
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(138)
+#    Time: 2041850 ns  Iteration: 5  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 138
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 67.000000
+# Shortest distance: 13.000000
+# Shortest distance: 86.000000
+# Shortest distance: 38.000000
+# Shortest distance: 82.000000
+# Shortest distance: 48.000000
+# Shortest distance: 74.000000
+# Shortest distance: 39.000000
+# Shortest distance: 98.000000
+# Shortest distance: 56.000000
+# Shortest distance: 26.000000
+# Shortest distance: 44.000000
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(142)
+#    Time: 2095330 ns  Iteration: 3  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 142
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 67.000000
+# Shortest distance: 13.000000
+# Shortest distance: 86.000000
+# Shortest distance: 38.000000
+# Shortest distance: 82.000000
+# Shortest distance: 48.000000
+# Shortest distance: 74.000000
+# Shortest distance: 39.000000
+# Shortest distance: 98.000000
+# Shortest distance: 56.000000
+# Shortest distance: 26.000000
+# Shortest distance: 2139095040.000000
+# Test failed
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(138)
+#    Time: 2041850 ns  Iteration: 5  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 138
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 187.000000
+# Test failed
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(138)
+#    Time: 16970 ns  Iteration: 3  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 138
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 67.000000
+# Shortest distance: 13.000000
+# Shortest distance: 86.000000
+# Shortest distance: 38.000000
+# Shortest distance: 82.000000
+# Shortest distance: 48.000000
+# Shortest distance: 74.000000
+# Shortest distance: 39.000000
+# Shortest distance: 98.000000
+# Shortest distance: 56.000000
+# Shortest distance: 26.000000
+# Shortest distance: 2139095040.000000
+# Test failed
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(138)
+#    Time: 2041850 ns  Iteration: 5  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 138
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 67.000000
+# Shortest distance: 13.000000
+# Shortest distance: 86.000000
+# Shortest distance: 38.000000
+# Shortest distance: 82.000000
+# Shortest distance: 48.000000
+# Shortest distance: 74.000000
+# Shortest distance: 39.000000
+# Shortest distance: 98.000000
+# Shortest distance: 56.000000
+# Shortest distance: 26.000000
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(142)
+#    Time: 1918710 ns  Iteration: 3  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 142
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 67.000000
+# Shortest distance: 13.000000
+# Shortest distance: 86.000000
+# Shortest distance: 38.000000
+# Shortest distance: 82.000000
+# Shortest distance: 48.000000
+# Shortest distance: 74.000000
+# Shortest distance: 39.000000
+# Shortest distance: 98.000000
+# Shortest distance: 56.000000
+# Shortest distance: 26.000000
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(142)
+#    Time: 1918710 ns  Iteration: 3  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 142
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (12) for port 'address'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache_mem.v(14).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache/edge_cache_mem File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v Line: 37
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 85.000000
+# Test failed
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(138)
+#    Time: 645790 ns  Iteration: 3  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 138
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 67.000000
+# Shortest distance: 13.000000
+# Shortest distance: 86.000000
+# Shortest distance: 38.000000
+# Shortest distance: 82.000000
+# Shortest distance: 48.000000
+# Shortest distance: 74.000000
+# Shortest distance: 39.000000
+# Shortest distance: 98.000000
+# Shortest distance: 56.000000
+# Shortest distance: 26.000000
+# Shortest distance: 2139095040.000000
+# Test failed
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(138)
+#    Time: 2041850 ns  Iteration: 5  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 138
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (12) for port 'address'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache_mem.v(14).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache/edge_cache_mem File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v Line: 37
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 85.000000
+# Test failed
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(138)
+#    Time: 645790 ns  Iteration: 3  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 138
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 67.000000
+# Shortest distance: 13.000000
+# Shortest distance: 86.000000
+# Shortest distance: 38.000000
+# Shortest distance: 82.000000
+# Shortest distance: 48.000000
+# Shortest distance: 74.000000
+# Shortest distance: 39.000000
+# Shortest distance: 98.000000
+# Shortest distance: 56.000000
+# Shortest distance: 26.000000
+# Shortest distance: 44.000000
+# Shortest distance: 31.000000
+# Shortest distance: 54.000000
+# Shortest distance: 59.000000
+# Shortest distance: 25.000000
+# Shortest distance: 34.000000
+# Shortest distance: 26.000000
+# Shortest distance: 37.000000
+# Shortest distance: 26.000000
+# Shortest distance: 53.000000
+# Shortest distance: 52.000000
+# Shortest distance: 47.000000
+# Shortest distance: 39.000000
+# Shortest distance: 36.000000
+# Shortest distance: 27.000000
+# Shortest distance: 28.000000
+# Shortest distance: 31.000000
+# Shortest distance: 29.000000
+# Shortest distance: 38.000000
+# Shortest distance: 33.000000
+# Shortest distance: 43.000000
+# Shortest distance: 45.000000
+# Shortest distance: 14.000000
+# Shortest distance: 52.000000
+# Shortest distance: 52.000000
+# Shortest distance: 42.000000
+# Shortest distance: 17.000000
+# Shortest distance: 26.000000
+# Shortest distance: 27.000000
+# Shortest distance: 21.000000
+# Shortest distance: 29.000000
+# Shortest distance: 53.000000
+# ** Note: $finish    : C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv(142)
+#    Time: 14237910 ns  Iteration: 3  Instance: /DijkstraTopTestbench
+# 1
+# Break in Module DijkstraTopTestbench at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv line 142
+# Compile of constants.v was successful.
+# Compile of dijkstra_interface.sv was successful.
+# Compile of dijkstra_top.sv was successful.
+# Compile of edge_cache.v was successful.
+# Compile of edge_cache_mem.v was successful.
+# Compile of minheap.sv was successful.
+# Compile of priority_queue.sv was successful.
+# Compile of fp_adder.sv was successful.
+# Compile of fp_comparator.sv was successful.
+# Compile of dijkstra_interface_tb.sv was successful.
+# 10 compiles, 0 failed with no errors.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.dijkstra_interface_tb_sv_unit
+# Loading work.DijkstraTopTestbench
+# Loading work.DijkstraInterface
+# Loading work.EdgeCache
+# Loading work.EdgeCacheMem
+# Loading work.DijkstraTop
+# Loading work.PriorityQueue
+# Loading work.MinHeap
+# Loading work.fp_adder
+# Loading work.fp_comparator
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clock_enable'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv Line: 66
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (16) for port 'from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (16) for port 'to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/edge_cache File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 71
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (16) for port 'source'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(17).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (16) for port 'destination'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(18).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (16) for port 'number_of_nodes'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(19).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (16) for port 'ec_from_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (16) for port 'ec_to_node'. The port definition is at: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv(25).
+#    Time: 0 ps  Iteration: 0  Instance: /DijkstraTopTestbench/DUT/dijkstra_top File: C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv Line: 96
+run -all
+# GetModuleFileName: ?????????
+# 
+# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+# Shortest distance: 108.000000
+# Shortest distance: 30.000000
+# Shortest distance: 15.000000
+# Shortest distance: 42.000000
+# Shortest distance: 104.000000
+# Shortest distance: 51.000000
+# Shortest distance: 206.000000
+# Shortest distance: 153.000000
+# Shortest distance: 54.000000
+# Shortest distance: 70.000000
+# Shortest distance: 74.000000
+# Shortest distance: 37.000000
+# Shortest distance: 93.000000
+# Shortest distance: 127.000000
+# Shortest distance: 10.000000
+# Shortest distance: 37.000000
+# Shortest distance: 134.000000
+# Shortest distance: 64.000000
+# Shortest distance: 92.000000
+# Shortest distance: 67.000000
+# Shortest distance: 13.000000
+# Shortest distance: 86.000000
+# Shortest distance: 38.000000
+# Shortest distance: 82.000000
+# Shortest distance: 48.000000
+# Shortest distance: 74.000000
+# Shortest distance: 39.000000
+# Shortest distance: 98.000000
+# Shortest distance: 56.000000
+# Shortest distance: 26.000000
+# Shortest distance: 44.000000
+# Shortest distance: 31.000000
+# Shortest distance: 54.000000
+# Shortest distance: 59.000000
+# Shortest distance: 25.000000
+# Shortest distance: 34.000000
+# Shortest distance: 26.000000
+# Shortest distance: 37.000000
+# Shortest distance: 26.000000
+# Shortest distance: 53.000000
+# Shortest distance: 52.000000
+# Shortest distance: 47.000000
+# Shortest distance: 39.000000
+# Shortest distance: 36.000000
+# Shortest distance: 27.000000
+# Break key hit
+# Break in Module DijkstraTop at C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv line 157

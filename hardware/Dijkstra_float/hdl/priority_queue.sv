@@ -40,7 +40,15 @@ integer i;
 // Output value if get_en is set
 assign read_value = dist_vector[index];
 
-MinHeap minheap(reset, clock, set_en, visited_vector, min_index, min_value, min_ready, dist_vector, visit_vector_true);
+MinHeap minheap(reset, 
+			clock, 
+			set_en, 
+			visited_vector, 
+			min_index, 
+			min_value, 
+			min_ready, 
+			dist_vector, 
+			visit_vector_true);
 
 always_ff @ (posedge clock) begin
 	if(reset) begin

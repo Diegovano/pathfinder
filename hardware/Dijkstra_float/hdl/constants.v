@@ -1,6 +1,6 @@
 // Number of nodes we're working with
-`define DEFAULT_MAX_NODES 32 //number of nodes to support
-`define DEFAULT_INDEX_WIDTH 16 //number of bits used to represent a node index
+`define DEFAULT_MAX_NODES 128 //number of nodes to support
+`define DEFAULT_INDEX_WIDTH 7 //number of bits used to represent a node index
 
 // Width of the edge value
 // Max edge value is 2**VALUE_WIDTH-1

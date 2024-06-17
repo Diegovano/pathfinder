@@ -124,18 +124,18 @@ int main()
   alt_u64 time3 = 0;
 
   int iterations = 1000;
-  int size = 13;
+  int size = 30;
   // The code that you want to time goes here
   alt_timestamp_start();
 
   for (int i=0; i<iterations; i++){
-	  time1 = alt_timestamp();
+
 	  for (int row=0; row <size; row++){
 		  for (int column=0; column <size; column++){
 			  write_dijkstra_cache(testvector3[row][column],row,column);
 		  }
 	  }
-
+	  time1 = alt_timestamp();
 	  run_dijkstra(0,size-1,size);
 	  time3 = alt_timestamp();
 	  proc_ticks += (time3 - time1);
@@ -145,6 +145,7 @@ int main()
 
   printf("Profiling Results: %i iteration(s), \nproc_ticks: %lld,\tproc_us: %f\tavg: %f\n",
 		  iterations, proc_ticks, proc_us, proc_us);
+
 
 
 
