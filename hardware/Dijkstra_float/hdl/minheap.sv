@@ -45,12 +45,19 @@ generate
 		genvar i;
 		for(i=start;i<start+`ITEMS;i=i+2)
 		begin: find_min2
+
+			wire lt;
+			fp_comparator heap_lt(
+				.lt(lt),
+				.a(dist_vector[heap[i]]),
+				.b(dist_vector[heap[i+1]])
+			);
 			assign heap[MAX_NODES+i/2] =
 				visited_vector[heap[i]] != `UNVISITED?
 					heap[i+1]:
 					visited_vector[heap[i+1]] != `UNVISITED?
 						heap[i]:
-						dist_vector[heap[i]] < dist_vector[heap[i+1]]? //TODO: floating point comparator
+						lt? 
 							heap[i]:
 							heap[i+1];
 		end

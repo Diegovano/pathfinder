@@ -79,6 +79,20 @@ PriorityQueue #(.MAX_NODES(MAX_NODES), .INDEX_WIDTH(INDEX_WIDTH), .VALUE_WIDTH(V
 		min_ready,
 		dist_vector,
 		visit_vector_true
+	); 
+
+wire [VALUE_WIDTH-1:0] next_node_distance;
+fp_adder next_node_value_adder (
+		ec_edge_value,
+		current_node_value,
+		next_node_distance
+	);
+
+wire new_distance_shorter;
+fp_comparator next_node_value_comparator (
+		next_node_distance,
+		pq_distance_read,
+		new_distance_shorter
 	);
 
 always_comb begin : state_machine
@@ -180,11 +194,11 @@ begin
 			if(ec_ready)
 			begin
 				// Check if we need to reduce
-				if(current_node_value + ec_edge_value < pq_distance_read) //TODO: floating point support compare
+				if(next_node_distance < pq_distance_read) 
 				begin
 					// Reduce
 					prev_vector[pq_index] <= current_node;
-					pq_distance_to_set <= current_node_value + ec_edge_value; //TODO: floating point support add operation
+					pq_distance_to_set <= next_node_distance;
 					pq_set_distance <= 1;
 				end
 			end

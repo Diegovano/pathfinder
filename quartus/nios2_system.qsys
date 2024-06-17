@@ -33,6 +33,14 @@
          type = "String";
       }
    }
+   element dijkstra32_float_0
+   {
+      datum _sortIndex
+      {
+         value = "12";
+         type = "int";
+      }
+   }
    element dijkstra32_nomem_0
    {
       datum _sortIndex
@@ -656,7 +664,7 @@
   <parameter name="cpuArchRev" value="1" />
   <parameter name="cpuID" value="0" />
   <parameter name="cpuReset" value="false" />
-  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="dijkstra32_nomem_0" baseAddress="0" addressSpan="256" clockCycleType="VARIABLE" /></info>]]></parameter>
+  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="dijkstra32_float_0" baseAddress="0" addressSpan="256" clockCycleType="VARIABLE" /></info>]]></parameter>
   <parameter name="customInstSlavesSystemInfo_nios_a" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_b" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_c" value="&lt;info/&gt;" />
@@ -822,10 +830,19 @@
   <parameter name="userDefinedSettings" value="" />
  </module>
  <module
+   name="dijkstra32_float_0"
+   kind="dijkstra32_float"
+   version="1.0"
+   enabled="1">
+  <parameter name="INDEX_WIDTH" value="16" />
+  <parameter name="MAX_NODES" value="32" />
+  <parameter name="VALUE_WIDTH" value="32" />
+ </module>
+ <module
    name="dijkstra32_nomem_0"
    kind="dijkstra32_nomem"
    version="1.0"
-   enabled="1">
+   enabled="0">
   <parameter name="INDEX_WIDTH" value="16" />
   <parameter name="MAX_NODES" value="32" />
   <parameter name="VALUE_WIDTH" value="32" />
@@ -1137,6 +1154,15 @@
    start="cpu.custom_instruction_master"
    end="dijkstra32_nomem_0.nios_custom_instruction_slave">
   <parameter name="CIName" value="dijkstra32_nomem_0" />
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0" />
+ </connection>
+ <connection
+   kind="nios_custom_instruction"
+   version="20.1"
+   start="cpu.custom_instruction_master"
+   end="dijkstra32_float_0.nios_custom_instruction_slave">
+  <parameter name="CIName" value="dijkstra32_float_0" />
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0" />
  </connection>
