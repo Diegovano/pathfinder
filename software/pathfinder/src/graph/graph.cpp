@@ -2,6 +2,11 @@
 
 #define HW_ACCEL true
 
+bool operator< (const request& a, const request& b) // required for std::set<request>
+{
+  return a.target < b.target;
+}
+
 void Graph::dijkstra()
 {
   for (int step = 0; step < NUM_VERTICES - 1; step++)
@@ -15,7 +20,7 @@ void Graph::dijkstra()
     for (int i = 0; i < NUM_VERTICES; i++)
     {
       #if HW_ACCEL
-      if (!inShortestPath[i] && ALT_CI_LEF_0(dist[i], min))
+      if (!inShortestPath[i] && ALT_CI_LEF_1(dist[i], min))
       #else
       if (!inShortestPath[i] && dist[i] <= min)
       #endif
@@ -36,7 +41,7 @@ void Graph::dijkstra()
       float newDist = ALT_CI_DIJKSTRA_CHECK_STEP_0(dist[min_index], graph[min_index][i]);
       // if (!inShortestPath[i] && newDist < dist[i]) 
 
-      if (!inShortestPath[i] && ALT_CI_LTF_0(newDist, dist[i])) 
+      if (!inShortestPath[i] && ALT_CI_LTF_1(newDist, dist[i])) 
       #ifdef __INTELLISENSE__
       #pragma diag_default 20 // restore default behaviour
       #endif
@@ -53,6 +58,71 @@ void Graph::dijkstra()
         predecessor[i] = min_index;
       }
     }
+  }
+}
+
+void Graph::delta(int p_delta)
+{
+  deltaVal = p_delta;
+
+  for (int i = 0; i < 9; i++) buckets.push_back(std::set<int>());
+
+  buckets.at(0).insert(start); // starting node
+
+  predecessor[start] = start;
+
+  while (true)
+  {
+    std::set<int> del;
+
+    int firstNonEmpty = -1;
+    for (unsigned int i = 0; i < buckets.size(); i++) 
+      if (buckets.at(i).size()) 
+      {
+        firstNonEmpty = i;
+        break;
+      }
+
+    if (firstNonEmpty == -1) break;
+
+    while(buckets.at(firstNonEmpty).size())
+    {
+      std::set<request> reqs = findRequests(buckets.at(firstNonEmpty), true);
+      del.insert(buckets.at(firstNonEmpty).begin(), buckets.at(firstNonEmpty).end());
+      buckets.at(firstNonEmpty) = std::set<int>();
+
+      for (request req : reqs) relax(req);
+    }
+
+    std::set<request> reqs = findRequests(del, false);
+    for (request req : reqs) relax(req);
+  }
+}
+
+std::set<request> Graph::findRequests(std::set<int> vertx, bool isLight)
+{
+  std::set<request> light, heavy;
+
+  for (int vert : vertx)
+  {
+    for (int i = 0; i < NUM_VERTICES; i++)
+    if(vert != i && graph[vert][i] <= deltaVal) // double check comparaison, optimal may be to split evenly when weight is equal to delta
+      light.insert({i, dist[vert] + graph[vert][i], vert});
+    else if (vert != i) heavy.insert({i, dist[vert] + graph[vert][i], vert});
+  }
+
+  return isLight ? light : heavy;
+}
+
+void Graph::relax(request req)
+{
+  if (req.newDist != __INT_MAX__ && req.newDist < dist[req.target])
+  {
+    buckets.at(floor(dist[req.target] / deltaVal)).erase(req.target);
+    buckets.at(floor(req.newDist/deltaVal)).insert(req.target);
+
+    dist[req.target] = req.newDist;
+    predecessor[req.target] = req.pred;
   }
 }
 
