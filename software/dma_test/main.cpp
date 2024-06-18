@@ -28,7 +28,7 @@ void doneCallback(void *handle)
   dma_check();
   printf("done\n");
 
-  int res = ALT_CI_MEM_ACCESS_0(10, 10);
+  int res = ALT_CI_MEM_ACCESS_0(4, 0);
 
   printf("res: %d\n", res);
   DMA_STATUS
@@ -55,10 +55,14 @@ int main()
   else
   {
     // alt_dma_txchan_reg(tx);
-    alt_dma_txchan_ioctl(tx, ALT_DMA_TX_ONLY_ON, 0);
-    // alt_dma_txchan_ioctl(tx, ALT_DMA_SET_MODE_32, nullptr);
+    alt_dma_txchan_ioctl(tx, ALT_DMA_TX_ONLY_ON, a);
+    alt_dma_txchan_ioctl(tx, ALT_DMA_SET_MODE_32, nullptr);
     dma_check();
     int ret = alt_dma_txchan_send(tx, a, 4 * 1, doneCallback, nullptr);
+
+    int res = ALT_CI_MEM_ACCESS_0(4, 0);
+    printf("res: %d\n", res);
+    
     printf("yay? %u\n", ret);
   }
 
