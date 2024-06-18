@@ -5,7 +5,7 @@
 
 BSP_DIR=../PATHFINDER_DMA_bsp
 QUARTUS_PROJECT_DIR=../../
-NIOS2_APP_GEN_ARGS="--elf-name PATHFINDER_DMA.elf --set OBJDUMP_INCLUDE_SOURCE 1 --src-files hello_world.c"
+NIOS2_APP_GEN_ARGS="--elf-name pathfinder.elf --set OBJDUMP_INCLUDE_SOURCE 1 --src-files src/**/*.cpp src/*.cpp"
 
 # If script is launched from Windows through Windows Subsystem for Linux (WSL).  
 # The adjust-path macro converts absolute windows 
@@ -72,26 +72,6 @@ do
   esac
   shift
 done
-
-
-# Now we also need to go copy the sources for this application to the
-# local directory.
-find "${SOPC_KIT_NIOS2}/examples/software/hello_world/" -name '*.c' -or -name '*.h' -or -name 'hostfs*' | xargs -i cp -L {} ./ || {
-        echo "failed during copying example source files"
-        exit 1
-}
-
-find "${SOPC_KIT_NIOS2}/examples/software/hello_world/" -name 'readme.txt' -or -name 'Readme.txt' | xargs -i cp -L {} ./ || {
-        echo "failed copying readme file"
-}
-
-if [ -d "${SOPC_KIT_NIOS2}/examples/software/hello_world/system" ]
-then
-        cp -RL "${SOPC_KIT_NIOS2}/examples/software/hello_world/system" . || {
-                echo "failed during copying project support files"
-                exit 1
-        }
-fi
 
 chmod -R +w . || {
         echo "failed during changing file permissions"

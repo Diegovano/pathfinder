@@ -86,12 +86,13 @@ ACDS_VERSION := 20.1
 # Define path to the application ELF. 
 # It may be used by the makefile fragments so is defined before including them. 
 # 
-ELF := PATHFINDER_DMA.elf
+ELF := pathfinder.elf
 
 # Paths to C, C++, and assembly source files.
 C_SRCS :=
-CXX_SRCS += hello_world.cpp
-CXX_SRCS += dma.cpp
+CXX_SRCS += src/Accelerator/Accelerator.cpp
+CXX_SRCS += src/DMA/DMA.cpp
+CXX_SRCS += src/main.cpp
 ASM_SRCS :=
 
 
