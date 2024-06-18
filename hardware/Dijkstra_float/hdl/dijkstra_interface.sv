@@ -32,24 +32,24 @@ module DijkstraInterface
 		// dataa[15:0] = from node
 		// dataa[31:16] = to node
 		// datab = edge weight
-	// n = 1: read from previous vector cache
+	// n = 1: read edge cache
 		// dataa[15:0] = node index
 	// n = 2: compute dijkstra
 		// dataa[15:0] = from node
 		// dataa[31:16] = to node
 		// datab[15:0] = number of nodes
-	// n = 3: reset to edge cache
-		// n = m: w = 0
-		// n != m: w = -1
-	// n = 4: reset previous vector cache to all -1
+	// n = 3: read previous vector cache
+		// dataa[15:0] = node index
 
 	output reg[31:0] result,
 	// n = 0: write to edge cache
 		// result = 0xdeadbeef
-	// n = 1: read from previous vector cache
+	// n = 1: read from edge cache
 		// result = previous vector value
 	// n = 2: compute dijkstra
 		// result = shortest distance
+	// n = 3: read from previous vector cache
+		// result = previous vector value
 
 	output reg ready
 );
@@ -86,6 +86,7 @@ wire [15:0] dijkstra_ec_to_node;
 wire dijkstra_ec_read;
 wire dijkstra_ready;
 wire [31:0] dijkstra_result;
+wire [INDEX_WIDTH-1:0] visited_vector_data;
 
 DijkstraTop
 #(
@@ -106,7 +107,9 @@ dijkstra_top(
 	.ec_from_node(dijkstra_ec_from_node),
 	.ec_to_node(dijkstra_ec_to_node),
 	.ready(dijkstra_ready),
-	.shortest_distance(dijkstra_result)
+	.shortest_distance(dijkstra_result),
+	.visited_vector_read_address(dataa[15:0]),
+	.visited_vector_data(visited_vector_data)
 );
 
 
@@ -172,17 +175,13 @@ always_comb begin
 						next_state = IDLE;
 					end
 				end
-				3: begin
-					edge_cache_reset = 1;
-					ready = edge_cache_ready && clock_enable;
-					if (edge_cache_ready && clock_enable) begin
+				3: begin //TODO Buggy
+					ready = clock_enable;
+					result = visited_vector_data;
+					if (clock_enable) begin
 						next_state = IDLE;
 					end
 				end
-				// 4: begin
-				// 	ready = 1;
-				// 	next_state = IDLE;
-				// end
 				default: begin
 					result = 32'hdeadbeef;
 					ready = 1;

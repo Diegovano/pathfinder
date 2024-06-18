@@ -25,12 +25,20 @@ module DijkstraTop
 	output reg[INDEX_WIDTH-1:0] ec_to_node,
 
 	output wire[VALUE_WIDTH-1:0] shortest_distance,
-	output reg ready
+	output reg ready,
+
+	//used to read value from the visit vector, to write back to memory when n = 4
+	//previous node for a given node found by dijkstra
+	input wire[INDEX_WIDTH-1:0] visited_vector_read_address, 
+	output wire[INDEX_WIDTH-1:0] visited_vector_data 
+	
+	
 );
 
 
 // Keep track of paths
 reg [INDEX_WIDTH-1:0] prev_vector[MAX_NODES-1:0];
+assign visited_vector_data = prev_vector[visited_vector_read_address];
 
 // States for the FSM
 typedef enum {RESET_STATE, READY_STATE, V0, V1, V2, V3, V4, V5, WRITE_STATE, FINAL_STATE} State ;

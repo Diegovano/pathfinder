@@ -1,7 +1,7 @@
 `include "../hdl/constants.v"
 `timescale 1ps/1ps
 
-`define NUMBER_OF_NODES 8
+`define NUMBER_OF_NODES 128
 `define TEST_VECTOR_FILE "testvectors/testvectors.txt"
 
 function string get_tv_path();
@@ -60,7 +60,7 @@ module DijkstraTopTestbench
     reg [16:0] number_of_nodes = `NUMBER_OF_NODES;
     reg [31:0] tb_write_data;
 
-    reg [16:0] path_vector [31:0];
+    reg [6:0] path_vector [127:0];
     reg [31:0] shortest_distance;
 
     DijkstraInterface DUT(
@@ -130,13 +130,27 @@ module DijkstraTopTestbench
 
             $display("Shortest distance: %f", result);
             //wait for dijkstra to finish
-            for(row=0;row<number_of_nodes;row=row+1)
-                _ = $fscanf(testvectors, "%d", path_vector[row]); 
+            for(row=0;row<number_of_nodes;row=row+1)begin
+                _ = $fscanf(testvectors, "%d", path_vector[row]);
+            end
             _ = $fscanf(testvectors, "%f", shortest_distance);
             if (result !== shortest_distance) begin
-                $display("Test failed");
+                $display("shortest distance not correct, expecting: %f, got: %f", shortest_distance, result);
                 $finish;
             end
+            // for (row=0;row<number_of_nodes;row=row+1) begin
+            //     select_n = 3;
+            //     dataa = {16'b0, row[15:0]};
+            //     datab = 0;
+            //     start = 1; 
+            //     @(posedge clock);
+            //     start = 0;
+            //     wait(ready);
+            //     if (result !== path_vector[row]) begin
+            //         $display("path not patched, expecting: %d, got: %d", path_vector[row], result);
+            //         $finish;
+            //     end
+            // end
         end
 
         $finish;
