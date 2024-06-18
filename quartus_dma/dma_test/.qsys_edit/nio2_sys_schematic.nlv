@@ -1,0 +1,26 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst nio2_sys.cpu.cpu -pg 1
+preplace inst nio2_sys -pg 1 -lvl 1 -y 40 -regml 5 -regy -20
+preplace inst nio2_sys.jtag_uart -pg 1 -lvl 3 -y 160
+preplace inst nio2_sys.nios_custom_instr_floating_point_0 -pg 1 -lvl 3 -y 300
+preplace inst nio2_sys.led_pio -pg 1 -lvl 3 -y 440
+preplace inst nio2_sys.cpu -pg 1 -lvl 2 -y 280
+preplace inst nio2_sys.sys_clk_timer -pg 1 -lvl 3 -y 340
+preplace inst nio2_sys.sdram -pg 1 -lvl 3 -y 690
+preplace inst nio2_sys.sysid -pg 1 -lvl 3 -y 610
+preplace inst nio2_sys.clk_0 -pg 1 -lvl 1 -y 350
+preplace inst nio2_sys.dma -pg 1 -lvl 3 -y 40
+preplace inst nio2_sys.cpu.reset_bridge -pg 1
+preplace inst nio2_sys.cpu.clock_bridge -pg 1
+preplace netloc FAN_OUT<net_container>nio2_sys</net_container>(SLAVE)cpu.clk,(SLAVE)sys_clk_timer.clk,(SLAVE)led_pio.clk,(SLAVE)sysid.clk,(SLAVE)dma.clk,(SLAVE)jtag_uart.clk,(MASTER)clk_0.clk,(SLAVE)sdram.clk) 1 1 2 390 490 850
+preplace netloc EXPORT<net_container>nio2_sys</net_container>(SLAVE)nio2_sys.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
+preplace netloc FAN_OUT<net_container>nio2_sys</net_container>(SLAVE)cpu.reset,(SLAVE)jtag_uart.reset,(SLAVE)dma.reset,(SLAVE)led_pio.reset,(SLAVE)sys_clk_timer.reset,(SLAVE)sysid.reset,(MASTER)clk_0.clk_reset,(SLAVE)sdram.reset) 1 1 2 410 510 870
+preplace netloc POINT_TO_POINT<net_container>nio2_sys</net_container>(SLAVE)nios_custom_instr_floating_point_0.s1,(MASTER)cpu.custom_instruction_master) 1 2 1 830
+preplace netloc INTERCONNECT<net_container>nio2_sys</net_container>(MASTER)dma.read_master,(MASTER)cpu.data_master,(MASTER)cpu.instruction_master,(SLAVE)led_pio.s1,(MASTER)dma.write_master,(SLAVE)sys_clk_timer.s1,(SLAVE)dma.control_port_slave,(SLAVE)sdram.s1,(SLAVE)cpu.debug_mem_slave,(SLAVE)jtag_uart.avalon_jtag_slave,(SLAVE)sysid.control_slave) 1 1 3 430 530 790 30 1160
+preplace netloc EXPORT<net_container>nio2_sys</net_container>(SLAVE)nio2_sys.led_pio_external_connection,(SLAVE)led_pio.external_connection) 1 0 3 NJ 470 NJ 470 NJ
+preplace netloc FAN_OUT<net_container>nio2_sys</net_container>(SLAVE)dma.irq,(SLAVE)jtag_uart.irq,(MASTER)cpu.irq,(SLAVE)sys_clk_timer.irq) 1 2 1 810
+preplace netloc EXPORT<net_container>nio2_sys</net_container>(SLAVE)sdram.wire,(SLAVE)nio2_sys.sdram_wire) 1 0 3 NJ 760 NJ 760 NJ
+preplace netloc EXPORT<net_container>nio2_sys</net_container>(SLAVE)nio2_sys.clk,(SLAVE)clk_0.clk_in) 1 0 1 NJ
+levelinfo -pg 1 0 180 1260
+levelinfo -hier nio2_sys 190 220 550 940 1230 1250

@@ -1,0 +1,115 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/software/dma_read_write/obj/default/runtime/sim/mentor
+vnio2_sys_jtag_uart
+Z1 !s110 1718715240
+!i10b 1
+!s100 C`E^eaGW0FRSCmBj8Oc<b2
+IU__GikbJ:zP3TmX7Z7VWm3
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+Z3 w1718708136
+Z4 8C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_jtag_uart.v
+Z5 FC:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_jtag_uart.v
+L0 331
+Z6 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z7 !s108 1718715240.000000
+Z8 !s107 C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_jtag_uart.v|
+Z9 !s90 -reportprogress|300|C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_jtag_uart.v|-work|jtag_uart|
+!i113 1
+Z10 o-work jtag_uart
+Z11 tCvgOpt 0
+vnio2_sys_jtag_uart_scfifo_r
+R1
+!i10b 1
+!s100 OgPm=HOcWPY=@aaQXg;[Q3
+I=`8RH<kUC`5m]g]>Tf7OV1
+R2
+R0
+R3
+R4
+R5
+L0 243
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vnio2_sys_jtag_uart_scfifo_w
+R1
+!i10b 1
+!s100 2H6I:[CWjY3`7^0egbK]D0
+IQKlI`J>Z`UQf]^i5iF?SZ1
+R2
+R0
+R3
+R4
+R5
+L0 78
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vnio2_sys_jtag_uart_sim_scfifo_r
+R1
+!i10b 1
+!s100 O<b>OOhn3]D:NQ30cPAX^3
+I[S9DnJm:]j=hT<o`1L96I1
+R2
+R0
+R3
+R4
+R5
+L0 164
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vnio2_sys_jtag_uart_sim_scfifo_w
+R1
+!i10b 1
+!s100 z7W89L@fzg5;I[8ZClnYY0
+ID^P`bjPP;[:8[1VcWmL>>1
+R2
+R0
+R3
+R4
+R5
+L0 21
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11

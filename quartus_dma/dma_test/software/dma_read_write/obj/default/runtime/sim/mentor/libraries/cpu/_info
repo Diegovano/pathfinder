@@ -1,0 +1,136 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/software/dma_read_write/obj/default/runtime/sim/mentor
+vnio2_sys_cpu
+!s110 1718715241
+!i10b 1
+!s100 3V6Yz22iAQA;m;1IBemmg2
+IEJ`LOo[cU1:FU:Na`a>`j1
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1718708135
+8C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu.v
+FC:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu.v
+L0 9
+Z2 OV;L;10.5b;63
+r1
+!s85 0
+31
+!s108 1718715241.000000
+!s107 C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu.v|
+!s90 -reportprogress|300|C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu.v|-work|cpu|
+!i113 1
+Z3 o-work cpu
+Z4 tCvgOpt 0
+vnio2_sys_cpu_cpu
+!s110 1718715237
+!i10b 1
+!s100 oKN=1IEA3QYJ6aM045DCC0
+I_Of6@AVcP;zLlbmKOVR0Q3
+R1
+R0
+Z5 w1718708184
+8C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu.vo
+FC:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu.vo
+L0 31
+R2
+r1
+!s85 0
+31
+Z6 !s108 1718715237.000000
+!s107 C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu.vo|
+!s90 -reportprogress|300|C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu.vo|-work|cpu|
+!i113 1
+R3
+R4
+vnio2_sys_cpu_cpu_debug_slave_sysclk
+Z7 !s110 1718715238
+!i10b 1
+!s100 [kCVHcenYaKiF;80^m9E63
+IV2HEo^0YY`iOAR;F0aCMd2
+R1
+R0
+R5
+8C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu_debug_slave_sysclk.v
+FC:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu_debug_slave_sysclk.v
+Z8 L0 21
+R2
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu_debug_slave_sysclk.v|
+!s90 -reportprogress|300|C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu_debug_slave_sysclk.v|-work|cpu|
+!i113 1
+R3
+R4
+vnio2_sys_cpu_cpu_debug_slave_tck
+R7
+!i10b 1
+!s100 ]32V^kX^_E<G?EZOZJ75V0
+I]KzjNH6nBdQCE?g7GMnUP2
+R1
+R0
+R5
+8C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu_debug_slave_tck.v
+FC:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu_debug_slave_tck.v
+R8
+R2
+r1
+!s85 0
+31
+Z9 !s108 1718715238.000000
+!s107 C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu_debug_slave_tck.v|
+!s90 -reportprogress|300|C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu_debug_slave_tck.v|-work|cpu|
+!i113 1
+R3
+R4
+vnio2_sys_cpu_cpu_debug_slave_wrapper
+R7
+!i10b 1
+!s100 9ml?_`A>A`V5fOAkbN<@[3
+INV3mX`n[e2f_a_[CE2<@@1
+R1
+R0
+R5
+8C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu_debug_slave_wrapper.v
+FC:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu_debug_slave_wrapper.v
+R8
+R2
+r1
+!s85 0
+31
+R9
+!s107 C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu_debug_slave_wrapper.v|
+!s90 -reportprogress|300|C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu_debug_slave_wrapper.v|-work|cpu|
+!i113 1
+R3
+R4
+vnio2_sys_cpu_cpu_test_bench
+R7
+!i10b 1
+!s100 G80Xh8>G7bMIHQ2O;zLJ42
+IF5PJhTjI?AIl4;oZZBNXO1
+R1
+R0
+R5
+8C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu_test_bench.v
+FC:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu_test_bench.v
+R8
+R2
+r1
+!s85 0
+31
+R9
+!s107 C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu_test_bench.v|
+!s90 -reportprogress|300|C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_cpu_cpu_test_bench.v|-work|cpu|
+!i113 1
+R3
+R4

@@ -1,0 +1,30 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/software/dma_read_write/obj/default/runtime/sim/mentor
+vnio2_sys_tb
+!s110 1718715241
+!i10b 1
+!s100 c:T=>^YHz8]kJF_^879j=2
+IgFkNIXi82blKCVhVe72`_3
+VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1718708124
+8C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/nio2_sys_tb.v
+FC:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/nio2_sys_tb.v
+L0 6
+OV;L;10.5b;63
+r1
+!s85 0
+31
+!s108 1718715241.000000
+!s107 C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/nio2_sys_tb.v|
+!s90 -reportprogress|300|C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/nio2_sys_tb.v|
+!i113 1
+tCvgOpt 0

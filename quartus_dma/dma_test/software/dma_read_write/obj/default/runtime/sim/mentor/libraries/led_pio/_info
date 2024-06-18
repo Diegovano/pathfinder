@@ -1,0 +1,31 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/software/dma_read_write/obj/default/runtime/sim/mentor
+vnio2_sys_led_pio
+!s110 1718715240
+!i10b 1
+!s100 YjM1lF_;a[1R``B<GT[m12
+I^d09=M?DoCQLDT6i5fZ_W1
+VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1718708136
+8C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_led_pio.v
+FC:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_led_pio.v
+L0 21
+OV;L;10.5b;63
+r1
+!s85 0
+31
+!s108 1718715240.000000
+!s107 C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_led_pio.v|
+!s90 -reportprogress|300|C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_led_pio.v|-work|led_pio|
+!i113 1
+o-work led_pio
+tCvgOpt 0

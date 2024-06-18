@@ -1,0 +1,31 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/software/dma_read_write/obj/default/runtime/sim/mentor
+vnio2_sys_mm_interconnect_0_avalon_st_adapter
+!s110 1718715230
+!i10b 1
+!s100 dICE9fGcS1I?]8aKzYjm=3
+IFo:9gGjHFg>1nlj[T]RCU2
+VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1718708186
+8C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_mm_interconnect_0_avalon_st_adapter.v
+FC:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_mm_interconnect_0_avalon_st_adapter.v
+L0 9
+OV;L;10.5b;63
+r1
+!s85 0
+31
+!s108 1718715230.000000
+!s107 C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_mm_interconnect_0_avalon_st_adapter.v|
+!s90 -reportprogress|300|C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_mm_interconnect_0_avalon_st_adapter.v|-work|avalon_st_adapter|
+!i113 1
+o-work avalon_st_adapter
+tCvgOpt 0

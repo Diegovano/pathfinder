@@ -1,0 +1,94 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/software/dma_read_write/obj/default/runtime/sim/mentor
+vnio2_sys_sdram
+Z1 !s110 1718715239
+!i10b 1
+!s100 ZR?aR3eD5@l>DkfJLIoVd3
+I5MNOgiaie03NJdW1YihN@1
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+Z3 w1718708136
+Z4 8C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_sdram.v
+Z5 FC:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_sdram.v
+L0 159
+Z6 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z7 !s108 1718715239.000000
+Z8 !s107 C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_sdram.v|
+Z9 !s90 -reportprogress|300|C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_sdram.v|-work|sdram|
+!i113 1
+Z10 o-work sdram
+Z11 tCvgOpt 0
+vnio2_sys_sdram_input_efifo_module
+R1
+!i10b 1
+!s100 F98HFE6R>88[:Xch?jcj:1
+I=Fea_2gDIX^m<heBQ;_192
+R2
+R0
+R3
+R4
+R5
+Z12 L0 21
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vnio2_sys_sdram_test_component
+R1
+!i10b 1
+!s100 `R@<E;PL[j5;1F63AiO>81
+IH?O>^33ijH`Hk]HU7WcMo0
+R2
+R0
+R3
+Z13 8C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_sdram_test_component.v
+Z14 FC:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_sdram_test_component.v
+L0 114
+R6
+r1
+!s85 0
+31
+R7
+Z15 !s107 C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_sdram_test_component.v|
+Z16 !s90 -reportprogress|300|C:/Users/vrnan/FYP_Pathfinder/QuartusTest/dma_test/nio2_sys/testbench/nio2_sys_tb/simulation/submodules/nio2_sys_sdram_test_component.v|-work|sdram|
+!i113 1
+R10
+R11
+vnio2_sys_sdram_test_component_ram_module
+R1
+!i10b 1
+!s100 P:S?<W7N@PM4n6NK0Njnj3
+IAmI>0zRGPABRA=UK3T89c3
+R2
+R0
+R3
+R13
+R14
+R12
+R6
+r1
+!s85 0
+31
+R7
+R15
+R16
+!i113 1
+R10
+R11
