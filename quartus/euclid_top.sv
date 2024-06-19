@@ -1,6 +1,7 @@
 module euclid_top
 #(
-	parameter ADDRESS_WIDTH=4
+	parameter ADDRESS_WIDTH=4,
+	parameter VECTOR_SIZE=2
 )
 (
 	// COMMON
@@ -18,7 +19,14 @@ module euclid_top
 );
 
 reg [31:0] FILE [0:(2 ** ADDRESS_WIDTH)-1];
+logic [31:0] out [0:VECTOR_SIZE-1];
+logic [7:0] counter;
+integer j;
+
+
 assign done_irq = FILE[0][1];
+
+
 
 // **** MEMORY READ ****
 always_comb 
@@ -45,7 +53,7 @@ begin
 			end
 			2'b01: //ACTIVE
 			begin
-				if (counter == 8'hC)
+				if (counter == 8'h10)
 					FILE[0][1:0] <= 2'b10;
 			end
 			2'b10: //DONE
@@ -61,6 +69,13 @@ begin
 			2'b10: counter <= counter;
 			default: counter <= 8'h0;
 		endcase
+		
+		// RESULTS
+		case (FILE[0][1:0])
+			2'b10: for (j=0; j < VECTOR_SIZE; j = j + 1) FILE[(VECTOR_SIZE*4) + 1 + j] <= out[j];
+			2'b00: for (j=0; j < VECTOR_SIZE; j = j + 1) FILE[(VECTOR_SIZE*4) + 1 + j] <= FILE[(VECTOR_SIZE*4) + 1 + j];
+			default: for (j=0; j < VECTOR_SIZE; j = j + 1) FILE[(VECTOR_SIZE*4) + 1 + j] <= 32'hFFFFFFFF;
+		endcase
 	end
 end
 
@@ -70,27 +85,17 @@ end
 // 2) has x1 in mem[5], x2 in mem[6], y1 in mem[7], y2 in mem[8], result in mem[9]
 generate
 	genvar i;
-	for(i = 1; i < 10; i = i + 5) 
+	for(i = 0; i < VECTOR_SIZE; i = i + 1) 
 	begin : euclid_dist_inst
-		logic [31:0] out;
 		euclid_dist euclid_dist_module (
-			.reset(reset),
+			.reset(rst),
 			.clk(clk),
-			.x1(FILE[i]),
-			.x2(FILE[i+1]),
-			.y1(FILE[i+2]),
-			.y2(FILE[i+3]),
-			.dist(out)
+			.x1(FILE[(i*4)+1]),
+			.x2(FILE[(i*4)+2]),
+			.y1(FILE[(i*4)+3]),
+			.y2(FILE[(i*4)+4]),
+			.res(out[i])
 		);
-		
-		//RESULT
-		always_ff@(posedge clk)
-		begin
-			if (!slave_write & (FILE[0][1:0] == 2'b10))
-				FILE[i+4] <= out;
-			else
-				FILE[i+4] <= 32'hFFFFFFFF;
-		end
 	end
 endgenerate
 	 

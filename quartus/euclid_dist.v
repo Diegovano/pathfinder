@@ -7,7 +7,7 @@ module euclid_dist(
     input  wire [31:0] y1,
     input  wire [31:0] x2,
     input  wire [31:0] y2,
-    output wire [31:0] dist
+    output wire [31:0] res
 );
 
     // Internal variables
@@ -73,7 +73,7 @@ module euclid_dist(
         .clk(clk) ,	
         .areset(reset) ,	
         .a(sum) ,	
-        .q(dist) 	
+        .q(res) 	
     );
 
 endmodule 

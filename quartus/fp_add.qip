@@ -1,5 +1,5 @@
 set_global_assignment -entity "fp_add" -library "fp_add" -name IP_TOOL_NAME "altera_fp_functions"
-set_global_assignment -entity "fp_add" -library "fp_add" -name IP_TOOL_VERSION "18.1"
+set_global_assignment -entity "fp_add" -library "fp_add" -name IP_TOOL_VERSION "20.1"
 set_global_assignment -entity "fp_add" -library "fp_add" -name IP_TOOL_ENV "mwpim"
 set_global_assignment -library "fp_add" -name MISC_FILE [file join $::quartus(qip_path) "fp_add.cmp"]
 set_global_assignment -entity "fp_add" -library "fp_add" -name IP_TARGETED_DEVICE_FAMILY "Cyclone V"
@@ -7,18 +7,18 @@ set_global_assignment -entity "fp_add" -library "fp_add" -name IP_GENERATED_DEVI
 set_global_assignment -entity "fp_add" -library "fp_add" -name IP_QSYS_MODE "UNKNOWN"
 set_global_assignment -name SYNTHESIS_ONLY_QIP ON
 set_global_assignment -entity "fp_add" -library "fp_add" -name IP_COMPONENT_NAME "ZnBfYWRk"
-set_global_assignment -entity "fp_add" -library "fp_add" -name IP_COMPONENT_DISPLAY_NAME "QUxURVJBX0ZQX0ZVTkNUSU9OUw=="
+set_global_assignment -entity "fp_add" -library "fp_add" -name IP_COMPONENT_DISPLAY_NAME "RlBfRlVOQ1RJT05TIEludGVsIEZQR0EgSVA="
 set_global_assignment -entity "fp_add" -library "fp_add" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
 set_global_assignment -entity "fp_add" -library "fp_add" -name IP_COMPONENT_INTERNAL "Off"
-set_global_assignment -entity "fp_add" -library "fp_add" -name IP_COMPONENT_AUTHOR "QWx0ZXJhIENvcnBvcmF0aW9u"
-set_global_assignment -entity "fp_add" -library "fp_add" -name IP_COMPONENT_VERSION "MTguMQ=="
+set_global_assignment -entity "fp_add" -library "fp_add" -name IP_COMPONENT_AUTHOR "SW50ZWwgQ29ycG9yYXRpb24="
+set_global_assignment -entity "fp_add" -library "fp_add" -name IP_COMPONENT_VERSION "MjAuMQ=="
 set_global_assignment -entity "fp_add" -library "fp_add" -name IP_COMPONENT_DESCRIPTION "QSBjb2xsZWN0aW9uIG9mIGZsb2F0aW5nIHBvaW50IGZ1bmN0aW9ucw=="
 set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_NAME "ZnBfYWRkXzAwMDI="
-set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_DISPLAY_NAME "QUxURVJBX0ZQX0ZVTkNUSU9OUw=="
+set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_DISPLAY_NAME "RlBfRlVOQ1RJT05TIEludGVsIEZQR0EgSVA="
 set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
 set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_INTERNAL "Off"
-set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_AUTHOR "QWx0ZXJhIENvcnBvcmF0aW9u"
-set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_VERSION "MTguMQ=="
+set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_AUTHOR "SW50ZWwgQ29ycG9yYXRpb24="
+set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_VERSION "MjAuMQ=="
 set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_DESCRIPTION "QSBjb2xsZWN0aW9uIG9mIGZsb2F0aW5nIHBvaW50IGZ1bmN0aW9ucw=="
 set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_PARAMETER "RlVOQ1RJT05fRkFNSUxZ::QVJJVEg=::RmFtaWx5"
 set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_PARAMETER "QVJJVEhfZnVuY3Rpb24=::QURE::TmFtZQ=="
@@ -69,11 +69,11 @@ set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT
 set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_PARAMETER "bWFudWFsX2RzcF9wbGFubmluZw==::dHJ1ZQ==::RW5hYmxlIEhhcmQgRmxvYXRpbmcgUG9pbnQ="
 set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_PARAMETER "Zm9yY2VSZWdpc3RlcnM=::MTExMQ==::Zm9yY2VSZWdpc3RlcnM="
 set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_PARAMETER "UkVTX0RTUF9wYXJhbQ==::MA==::TXVsdGlwbGllcw=="
-set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_PARAMETER "UkVTX0xVVF9wYXJhbQ==::NzI5::TFVUcw=="
+set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_PARAMETER "UkVTX0xVVF9wYXJhbQ==::NzA2::TFVUcw=="
 set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_PARAMETER "UkVTX01CSVRfcGFyYW0=::MA==::TWVtb3J5IEJpdHM="
 set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_PARAMETER "UkVTX01CTE9DS19wYXJhbQ==::MA==::TWVtb3J5IEJsb2Nrcw=="
 set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_PARAMETER "c2VsZWN0ZWRfZGV2aWNlX2ZhbWlseQ==::Q3ljbG9uZSBW::c2VsZWN0ZWRfZGV2aWNlX2ZhbWlseQ=="
-set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_PARAMETER "c2VsZWN0ZWRfZGV2aWNlX3NwZWVkZ3JhZGU=::Nw==::c2VsZWN0ZWRfZGV2aWNlX3NwZWVkZ3JhZGU="
+set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_PARAMETER "c2VsZWN0ZWRfZGV2aWNlX3NwZWVkZ3JhZGU=::VW5rbm93bg==::c2VsZWN0ZWRfZGV2aWNlX3NwZWVkZ3JhZGU="
 set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_COMPONENT_PARAMETER "dmFsaWRhdGlvbl9mYWlsZWQ=::ZmFsc2U=::dmFsaWRhdGlvbl9mYWlsZWQ="
 
 set_global_assignment -library "fp_add" -name VERILOG_FILE [file join $::quartus(qip_path) "fp_add.v"]
@@ -82,5 +82,5 @@ set_global_assignment -library "fp_add" -name VHDL_FILE [file join $::quartus(qi
 set_global_assignment -library "fp_add" -name VHDL_FILE [file join $::quartus(qip_path) "fp_add/fp_add_0002.vhd"]
 
 set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_TOOL_NAME "altera_fp_functions"
-set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_TOOL_VERSION "18.1"
+set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_TOOL_VERSION "20.1"
 set_global_assignment -entity "fp_add_0002" -library "fp_add" -name IP_TOOL_ENV "mwpim"
