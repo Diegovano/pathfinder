@@ -212,6 +212,8 @@ set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name SYSTEMVERILOG_FILE vector_op.sv
 set_global_assignment -name SYSTEMVERILOG_FILE direct_dijkstra_ip/direct_dijkstra.sv
 set_global_assignment -name SYSTEMVERILOG_FILE simulation/modelsim/work/tb.sv
 set_global_assignment -name SYSTEMVERILOG_FILE dijkstra_check_step_ip/dijkstra_check_step.sv
@@ -228,4 +230,5 @@ set_global_assignment -name QIP_FILE dijkstra_check_step_ip/lef.qip
 set_global_assignment -name SIP_FILE dijkstra_check_step_ip/lef.sip
 set_global_assignment -name QIP_FILE dijkstra_check_step_ip/ltf.qip
 set_global_assignment -name SIP_FILE dijkstra_check_step_ip/ltf.sip
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name VERILOG_FILE euclid_top.v
+set_global_assignment -name VERILOG_FILE euclid_dist.v
