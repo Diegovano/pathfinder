@@ -27,7 +27,7 @@ module dijkstra_check_step
     if (reset)
     begin
       done = 0;
-      result = 0;`
+      result = 0;
     end
     else if (dataa == 32'h7F800000 || datab == 32'h7F800000 || datab[31] == 1 || datab[30:0] == 31'b0)
     begin

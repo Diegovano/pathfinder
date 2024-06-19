@@ -50,6 +50,10 @@
 *.sopc_builder
 *.summary
 *.tcl
+
+# need to keep custom components
+!*_hw.tcl 
+
 **/**/*.txt # Explicitly add any text files used
 *~
 *example*
@@ -93,3 +97,4 @@ nios2_system/
 *.cdf
 
 simulation/
+

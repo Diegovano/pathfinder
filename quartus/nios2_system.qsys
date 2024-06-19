@@ -21,7 +21,7 @@
    {
       datum _sortIndex
       {
-         value = "2";
+         value = "1";
          type = "int";
       }
    }
@@ -37,8 +37,24 @@
    {
       datum _sortIndex
       {
-         value = "11";
+         value = "4";
          type = "int";
+      }
+   }
+   element dma
+   {
+      datum _sortIndex
+      {
+         value = "14";
+         type = "int";
+      }
+   }
+   element dma.control_port_slave
+   {
+      datum baseAddress
+      {
+         value = "16781440";
+         type = "String";
       }
    }
    element jtag_uart
@@ -53,7 +69,215 @@
    {
       datum baseAddress
       {
-         value = "16781480";
+         value = "16781512";
+         type = "String";
+      }
+   }
+   element lef
+   {
+      datum _sortIndex
+      {
+         value = "5";
+         type = "int";
+      }
+   }
+   element ltf
+   {
+      datum _sortIndex
+      {
+         value = "6";
+         type = "int";
+      }
+   }
+   element mem_access
+   {
+      datum _sortIndex
+      {
+         value = "15";
+         type = "int";
+      }
+   }
+   element mem_access.data_slave
+   {
+      datum baseAddress
+      {
+         value = "0";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
          type = "String";
       }
    }
@@ -61,7 +285,7 @@
    {
       datum _sortIndex
       {
-         value = "1";
+         value = "2";
          type = "int";
       }
    }
@@ -77,7 +301,7 @@
    {
       datum _sortIndex
       {
-         value = "7";
+         value = "10";
          type = "int";
       }
    }
@@ -85,7 +309,7 @@
    {
       datum baseAddress
       {
-         value = "16781456";
+         value = "16781488";
          type = "String";
       }
    }
@@ -93,15 +317,20 @@
    {
       datum _sortIndex
       {
-         value = "10";
+         value = "13";
          type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "1";
+         type = "boolean";
       }
    }
    element pio_debug.s1
    {
       datum baseAddress
       {
-         value = "16781440";
+         value = "16781472";
          type = "String";
       }
    }
@@ -109,7 +338,7 @@
    {
       datum _sortIndex
       {
-         value = "8";
+         value = "11";
          type = "int";
       }
    }
@@ -125,7 +354,7 @@
    {
       datum _sortIndex
       {
-         value = "9";
+         value = "12";
          type = "int";
       }
       datum sopceditor_expanded
@@ -146,7 +375,7 @@
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "9";
          type = "int";
       }
    }
@@ -154,7 +383,7 @@
    {
       datum baseAddress
       {
-         value = "16781472";
+         value = "16781504";
          type = "String";
       }
    }
@@ -162,7 +391,7 @@
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "7";
          type = "int";
       }
    }
@@ -178,7 +407,7 @@
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "8";
          type = "int";
       }
    }
@@ -248,14 +477,14 @@
   <parameter name="cpuArchRev" value="1" />
   <parameter name="cpuID" value="0" />
   <parameter name="cpuReset" value="false" />
-  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="dijkstra_check_step" baseAddress="0" addressSpan="1" clockCycleType="VARIABLE" /></info>]]></parameter>
+  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="lef_0" baseAddress="1" addressSpan="1" clockCycleType="COMBINATORIAL" /><slave name="ltf_0" baseAddress="2" addressSpan="1" clockCycleType="COMBINATORIAL" /><slave name="dijkstra_check_step" baseAddress="0" addressSpan="1" clockCycleType="VARIABLE" /><slave name="mem_access_0" baseAddress="3" addressSpan="1" clockCycleType="VARIABLE" /></info>]]></parameter>
   <parameter name="customInstSlavesSystemInfo_nios_a" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_b" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_c" value="&lt;info/&gt;" />
   <parameter name="dataAddrWidth" value="25" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x800000' end='0x1000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='cpu.debug_mem_slave' start='0x1000800' end='0x1001000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='timestamp_timer.s1' start='0x1001000' end='0x1001040' type='altera_avalon_timer.s1' /><slave name='spi.spi_control_port' start='0x1001040' end='0x1001060' type='altera_avalon_spi.spi_control_port' /><slave name='timer.s1' start='0x1001060' end='0x1001080' type='altera_avalon_timer.s1' /><slave name='pio_debug.s1' start='0x1001080' end='0x1001090' type='altera_avalon_pio.s1' /><slave name='pio.s1' start='0x1001090' end='0x10010A0' type='altera_avalon_pio.s1' /><slave name='sysid.control_slave' start='0x10010A0' end='0x10010A8' type='altera_avalon_sysid_qsys.control_slave' /><slave name='jtag_uart.avalon_jtag_slave' start='0x10010A8' end='0x10010B0' type='altera_avalon_jtag_uart.avalon_jtag_slave' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x800000' end='0x1000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='cpu.debug_mem_slave' start='0x1000800' end='0x1001000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='timestamp_timer.s1' start='0x1001000' end='0x1001040' type='altera_avalon_timer.s1' /><slave name='spi.spi_control_port' start='0x1001040' end='0x1001060' type='altera_avalon_spi.spi_control_port' /><slave name='timer.s1' start='0x1001060' end='0x1001080' type='altera_avalon_timer.s1' /><slave name='dma.control_port_slave' start='0x1001080' end='0x10010A0' type='altera_avalon_dma.control_port_slave' /><slave name='pio_debug.s1' start='0x10010A0' end='0x10010B0' type='altera_avalon_pio.s1' /><slave name='pio.s1' start='0x10010B0' end='0x10010C0' type='altera_avalon_pio.s1' /><slave name='sysid.control_slave' start='0x10010C0' end='0x10010C8' type='altera_avalon_sysid_qsys.control_slave' /><slave name='jtag_uart.avalon_jtag_slave' start='0x10010C8' end='0x10010D0' type='altera_avalon_jtag_uart.avalon_jtag_slave' /></address-map>]]></parameter>
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -290,7 +519,7 @@
   <parameter name="icache_burstType" value="None" />
   <parameter name="icache_numTCIM" value="0" />
   <parameter name="icache_ramBlockType" value="Automatic" />
-  <parameter name="icache_size" value="16384" />
+  <parameter name="icache_size" value="8192" />
   <parameter name="icache_tagramBlockType" value="Automatic" />
   <parameter name="impl" value="Fast" />
   <parameter name="instAddrWidth" value="25" />
@@ -301,7 +530,7 @@
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="2147581955" />
+  <parameter name="internalIrqMaskSystemInfo" value="2147581959" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -416,8 +645,29 @@
  <module
    name="dijkstra_check_step"
    kind="dijkstra_check_step"
-   version="1.0"
+   version="1.6"
    enabled="1" />
+ <module name="dma" kind="altera_avalon_dma" version="20.1" enabled="1">
+  <parameter name="allowByteTransactions" value="true" />
+  <parameter name="allowDoubleWordTransactions" value="true" />
+  <parameter name="allowHalfWordTransactions" value="true" />
+  <parameter name="allowQuadWordTransactions" value="true" />
+  <parameter name="allowWordTransactions" value="true" />
+  <parameter name="avalonSpec" value="2.0" />
+  <parameter name="bigEndian" value="false" />
+  <parameter name="burstEnable" value="false" />
+  <parameter name="fifoDepth" value="32" />
+  <parameter name="maxBurstSize" value="128" />
+  <parameter name="minimumDmaTransactionRegisterWidth" value="13" />
+  <parameter name="readAddressMap"><![CDATA[<address-map><slave name='sdram.s1' start='0x800000' end='0x1000000' /></address-map>]]></parameter>
+  <parameter name="readSlaveAddressWidthMax" value="24" />
+  <parameter name="readSlaveDataWidthMax" value="16" />
+  <parameter name="softresetEnable" value="true" />
+  <parameter name="useRegistersForFIFO" value="false" />
+  <parameter name="writeAddressMap"><![CDATA[<address-map><slave name='mem_access.data_slave' start='0x0' end='0x4' /></address-map>]]></parameter>
+  <parameter name="writeSlaveAddressWidthMax" value="2" />
+  <parameter name="writeSlaveDataWidthMax" value="32" />
+ </module>
  <module
    name="jtag_uart"
    kind="altera_avalon_jtag_uart"
@@ -437,6 +687,9 @@
   <parameter name="writeBufferDepth" value="64" />
   <parameter name="writeIRQThreshold" value="8" />
  </module>
+ <module name="lef" kind="lef" version="1.6" enabled="1" />
+ <module name="ltf" kind="ltf" version="1.7" enabled="1" />
+ <module name="mem_access" kind="mem_access" version="1.9" enabled="1" />
  <module
    name="onchip_memory"
    kind="altera_avalon_onchip_memory2"
@@ -513,7 +766,7 @@
   <parameter name="columnWidth" value="8" />
   <parameter name="componentName" value="$${FILENAME}_sdram" />
   <parameter name="dataWidth" value="16" />
-  <parameter name="generateSimulationModel" value="false" />
+  <parameter name="generateSimulationModel" value="true" />
   <parameter name="initNOPDelay" value="0.0" />
   <parameter name="initRefreshCommands" value="2" />
   <parameter name="masteredTristateBridgeSlave" value="0" />
@@ -583,7 +836,16 @@
    start="cpu.data_master"
    end="jtag_uart.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x010010a8" />
+  <parameter name="baseAddress" value="0x010010c8" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="20.1"
+   start="cpu.data_master"
+   end="dma.control_port_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x01001080" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -592,7 +854,7 @@
    start="cpu.data_master"
    end="sysid.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x010010a0" />
+  <parameter name="baseAddress" value="0x010010c0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -604,15 +866,6 @@
   <parameter name="baseAddress" value="0x01000800" />
   <parameter name="defaultConnection" value="false" />
  </connection>
- <connection
-   kind="avalon"
-   version="20.1"
-   start="cpu.data_master"
-   end="onchip_memory.s1">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x01008000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
  <connection kind="avalon" version="20.1" start="cpu.data_master" end="timer.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x01001060" />
@@ -620,7 +873,7 @@
  </connection>
  <connection kind="avalon" version="20.1" start="cpu.data_master" end="pio.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x01001090" />
+  <parameter name="baseAddress" value="0x010010b0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="avalon" version="20.1" start="cpu.data_master" end="sdram.s1">
@@ -643,7 +896,7 @@
    start="cpu.data_master"
    end="pio_debug.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x01001080" />
+  <parameter name="baseAddress" value="0x010010a0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -668,18 +921,23 @@
    kind="avalon"
    version="20.1"
    start="cpu.instruction_master"
-   end="onchip_memory.s1">
+   end="sdram.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x01008000" />
+  <parameter name="baseAddress" value="0x00800000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection kind="avalon" version="20.1" start="dma.read_master" end="sdram.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00800000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon"
    version="20.1"
-   start="cpu.instruction_master"
-   end="sdram.s1">
+   start="dma.write_master"
+   end="mem_access.data_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00800000" />
+  <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="20.1" start="clk_0.clk" end="cpu.clk" />
@@ -695,16 +953,15 @@
    end="timestamp_timer.clk" />
  <connection kind="clock" version="20.1" start="clk_0.clk" end="spi.clk" />
  <connection kind="clock" version="20.1" start="clk_0.clk" end="pio_debug.clk" />
+ <connection kind="clock" version="20.1" start="clk_0.clk" end="dma.clk" />
  <connection
    kind="clock"
    version="20.1"
    start="clk_0.clk"
    end="onchip_memory.clk1" />
+ <connection kind="clock" version="20.1" start="clk_0.clk" end="mem_access.clock" />
  <connection kind="interrupt" version="20.1" start="cpu.irq" end="jtag_uart.irq">
   <parameter name="irqNumber" value="16" />
- </connection>
- <connection kind="interrupt" version="20.1" start="cpu.irq" end="timer.irq">
-  <parameter name="irqNumber" value="1" />
  </connection>
  <connection
    kind="interrupt"
@@ -719,6 +976,30 @@
  <connection kind="interrupt" version="20.1" start="cpu.irq" end="pio_debug.irq">
   <parameter name="irqNumber" value="0" />
  </connection>
+ <connection kind="interrupt" version="20.1" start="cpu.irq" end="dma.irq">
+  <parameter name="irqNumber" value="2" />
+ </connection>
+ <connection kind="interrupt" version="20.1" start="cpu.irq" end="timer.irq">
+  <parameter name="irqNumber" value="1" />
+ </connection>
+ <connection
+   kind="nios_custom_instruction"
+   version="20.1"
+   start="cpu.custom_instruction_master"
+   end="lef.nios_custom_instruction_slave">
+  <parameter name="CIName" value="lef_0" />
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="1" />
+ </connection>
+ <connection
+   kind="nios_custom_instruction"
+   version="20.1"
+   start="cpu.custom_instruction_master"
+   end="ltf.nios_custom_instruction_slave">
+  <parameter name="CIName" value="ltf_0" />
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="2" />
+ </connection>
  <connection
    kind="nios_custom_instruction"
    version="20.1"
@@ -727,6 +1008,15 @@
   <parameter name="CIName" value="dijkstra_check_step" />
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0" />
+ </connection>
+ <connection
+   kind="nios_custom_instruction"
+   version="20.1"
+   start="cpu.custom_instruction_master"
+   end="mem_access.nios_custom_instruction_slave">
+  <parameter name="CIName" value="mem_access_0" />
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="3" />
  </connection>
  <connection kind="reset" version="20.1" start="clk_0.clk_reset" end="cpu.reset" />
  <connection
@@ -749,6 +1039,12 @@
    version="20.1"
    start="clk_0.clk_reset"
    end="pio_debug.reset" />
+ <connection kind="reset" version="20.1" start="clk_0.clk_reset" end="dma.reset" />
+ <connection
+   kind="reset"
+   version="20.1"
+   start="clk_0.clk_reset"
+   end="mem_access.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
