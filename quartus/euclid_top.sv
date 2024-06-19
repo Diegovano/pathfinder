@@ -1,4 +1,4 @@
-module vector_op
+module euclid_top
 #(
 	parameter ADDRESS_WIDTH=4
 )
@@ -45,7 +45,7 @@ begin
 			end
 			2'b01: //ACTIVE
 			begin
-				if (counter == 8'hFF)
+				if (counter == 8'hC)
 					FILE[0][1:0] <= 2'b10;
 			end
 			2'b10: //DONE
@@ -90,7 +90,7 @@ generate
 				FILE[i+4] <= out;
 			else
 				FILE[i+4] <= 32'hFFFFFFFF;
-			end
+		end
 	end
 endgenerate
 	 
