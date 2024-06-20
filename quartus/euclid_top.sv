@@ -53,7 +53,7 @@ begin
 			end
 			2'b01: //ACTIVE
 			begin
-				if (counter == 8'h10)
+				if (counter == 8'hC)
 					FILE[0][1:0] <= 2'b10;
 			end
 			2'b10: //DONE

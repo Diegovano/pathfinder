@@ -111,7 +111,7 @@ CREATE_LINKER_MAP := 1
 # Common arguments for ALT_CFLAGSs
 APP_CFLAGS_DEFINED_SYMBOLS :=
 APP_CFLAGS_UNDEFINED_SYMBOLS :=
-APP_CFLAGS_OPTIMIZATION := -O0
+APP_CFLAGS_OPTIMIZATION := -O2
 APP_CFLAGS_DEBUG_LEVEL := -g
 APP_CFLAGS_WARNINGS := -Wall
 APP_CFLAGS_USER_FLAGS :=
@@ -289,7 +289,7 @@ APP_CFLAGS := $(APP_CFLAGS_DEFINED_SYMBOLS) \
               $(CFLAGS)
 
 # Arguments only for the C++ compiler.
-APP_CXXFLAGS := $(ALT_CXXFLAGS) $(CXXFLAGS)
+APP_CXXFLAGS := -std=c++11 $(ALT_CXXFLAGS) $(CXXFLAGS)
 
 # Arguments only for the C preprocessor.
 # Prefix each include directory with -I.

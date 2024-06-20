@@ -37,11 +37,12 @@ class DMA
 private:
 	volatile int done = 0;
 	unsigned int _base;
+	unsigned int _control;
 public:
-	DMA(unsigned int);
+	DMA(unsigned int, unsigned int);
 	int irq_reg(unsigned int, unsigned int);
 	static void isr(void*);
-	int copy(void*, void*, int, int);
+	int copy(void*, void*, int);
 	void check();
 	void reset();
 };

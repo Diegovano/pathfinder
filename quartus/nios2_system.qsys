@@ -9,6 +9,14 @@
    categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
+   element addf
+   {
+      datum _sortIndex
+      {
+         value = "11";
+         type = "int";
+      }
+   }
    element clk_0
    {
       datum _sortIndex
@@ -37,7 +45,7 @@
    {
       datum _sortIndex
       {
-         value = "10";
+         value = "9";
          type = "int";
       }
    }
@@ -45,7 +53,7 @@
    {
       datum baseAddress
       {
-         value = "16781504";
+         value = "16781472";
          type = "String";
       }
    }
@@ -53,7 +61,7 @@
    {
       datum _sortIndex
       {
-         value = "11";
+         value = "10";
          type = "int";
       }
    }
@@ -77,7 +85,31 @@
    {
       datum baseAddress
       {
-         value = "16781576";
+         value = "16781544";
+         type = "String";
+      }
+   }
+   element ltf
+   {
+      datum _sortIndex
+      {
+         value = "12";
+         type = "int";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
          type = "String";
       }
    }
@@ -277,7 +309,7 @@
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "5";
          type = "int";
       }
    }
@@ -285,7 +317,7 @@
    {
       datum baseAddress
       {
-         value = "16781552";
+         value = "16781520";
          type = "String";
       }
    }
@@ -293,7 +325,7 @@
    {
       datum _sortIndex
       {
-         value = "9";
+         value = "8";
          type = "int";
       }
       datum sopceditor_expanded
@@ -306,7 +338,7 @@
    {
       datum baseAddress
       {
-         value = "16781536";
+         value = "16781504";
          type = "String";
       }
    }
@@ -314,7 +346,7 @@
    {
       datum _sortIndex
       {
-         value = "7";
+         value = "6";
          type = "int";
       }
    }
@@ -330,7 +362,7 @@
    {
       datum _sortIndex
       {
-         value = "8";
+         value = "7";
          type = "int";
       }
       datum sopceditor_expanded
@@ -351,7 +383,7 @@
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "4";
          type = "int";
       }
    }
@@ -359,23 +391,7 @@
    {
       datum baseAddress
       {
-         value = "16781568";
-         type = "String";
-      }
-   }
-   element timer
-   {
-      datum _sortIndex
-      {
-         value = "3";
-         type = "int";
-      }
-   }
-   element timer.s1
-   {
-      datum baseAddress
-      {
-         value = "16781472";
+         value = "16781536";
          type = "String";
       }
    }
@@ -383,7 +399,7 @@
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "3";
          type = "int";
       }
    }
@@ -434,6 +450,7 @@
    internal="spi.external"
    type="conduit"
    dir="end" />
+ <module name="addf" kind="addf" version="2.0" enabled="1" />
  <module name="clk_0" kind="clock_source" version="20.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -453,14 +470,14 @@
   <parameter name="cpuArchRev" value="1" />
   <parameter name="cpuID" value="0" />
   <parameter name="cpuReset" value="false" />
-  <parameter name="customInstSlavesSystemInfo" value="&lt;info/&gt;" />
+  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="addf" baseAddress="1" addressSpan="1" clockCycleType="MULTICYCLE" /><slave name="ltf" baseAddress="0" addressSpan="1" clockCycleType="MULTICYCLE" /></info>]]></parameter>
   <parameter name="customInstSlavesSystemInfo_nios_a" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_b" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_c" value="&lt;info/&gt;" />
   <parameter name="dataAddrWidth" value="25" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x800000' end='0x1000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='cpu.debug_mem_slave' start='0x1000800' end='0x1001000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='euclid_dist.slave' start='0x1001000' end='0x1001040' type='euclid_dist.slave' /><slave name='timestamp_timer.s1' start='0x1001040' end='0x1001080' type='altera_avalon_timer.s1' /><slave name='spi.spi_control_port' start='0x1001080' end='0x10010A0' type='altera_avalon_spi.spi_control_port' /><slave name='timer.s1' start='0x10010A0' end='0x10010C0' type='altera_avalon_timer.s1' /><slave name='dma.control_port_slave' start='0x10010C0' end='0x10010E0' type='altera_avalon_dma.control_port_slave' /><slave name='pio_debug.s1' start='0x10010E0' end='0x10010F0' type='altera_avalon_pio.s1' /><slave name='pio.s1' start='0x10010F0' end='0x1001100' type='altera_avalon_pio.s1' /><slave name='sysid.control_slave' start='0x1001100' end='0x1001108' type='altera_avalon_sysid_qsys.control_slave' /><slave name='jtag_uart.avalon_jtag_slave' start='0x1001108' end='0x1001110' type='altera_avalon_jtag_uart.avalon_jtag_slave' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x800000' end='0x1000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='cpu.debug_mem_slave' start='0x1000800' end='0x1001000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='euclid_dist.slave' start='0x1001000' end='0x1001040' type='euclid_dist.slave' /><slave name='timestamp_timer.s1' start='0x1001040' end='0x1001080' type='altera_avalon_timer.s1' /><slave name='spi.spi_control_port' start='0x1001080' end='0x10010A0' type='altera_avalon_spi.spi_control_port' /><slave name='dma.control_port_slave' start='0x10010A0' end='0x10010C0' type='altera_avalon_dma.control_port_slave' /><slave name='pio_debug.s1' start='0x10010C0' end='0x10010D0' type='altera_avalon_pio.s1' /><slave name='pio.s1' start='0x10010D0' end='0x10010E0' type='altera_avalon_pio.s1' /><slave name='sysid.control_slave' start='0x10010E0' end='0x10010E8' type='altera_avalon_sysid_qsys.control_slave' /><slave name='jtag_uart.avalon_jtag_slave' start='0x10010E8' end='0x10010F0' type='altera_avalon_jtag_uart.avalon_jtag_slave' /></address-map>]]></parameter>
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -468,7 +485,7 @@
   <parameter name="dcache_bursts" value="false" />
   <parameter name="dcache_numTCDM" value="0" />
   <parameter name="dcache_ramBlockType" value="Automatic" />
-  <parameter name="dcache_size" value="8192" />
+  <parameter name="dcache_size" value="16384" />
   <parameter name="dcache_tagramBlockType" value="Automatic" />
   <parameter name="dcache_victim_buf_impl" value="ram" />
   <parameter name="debug_OCIOnchipTrace" value="_128" />
@@ -495,7 +512,7 @@
   <parameter name="icache_burstType" value="None" />
   <parameter name="icache_numTCIM" value="0" />
   <parameter name="icache_ramBlockType" value="Automatic" />
-  <parameter name="icache_size" value="8192" />
+  <parameter name="icache_size" value="16384" />
   <parameter name="icache_tagramBlockType" value="Automatic" />
   <parameter name="impl" value="Fast" />
   <parameter name="instAddrWidth" value="25" />
@@ -506,7 +523,7 @@
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="127" />
+  <parameter name="internalIrqMaskSystemInfo" value="63" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -662,6 +679,7 @@
   <parameter name="writeBufferDepth" value="64" />
   <parameter name="writeIRQThreshold" value="8" />
  </module>
+ <module name="ltf" kind="ltf" version="1.0" enabled="1" />
  <module name="pio" kind="altera_avalon_pio" version="20.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -742,18 +760,6 @@
    enabled="1">
   <parameter name="id" value="472386024" />
  </module>
- <module name="timer" kind="altera_avalon_timer" version="20.1" enabled="1">
-  <parameter name="alwaysRun" value="false" />
-  <parameter name="counterSize" value="32" />
-  <parameter name="fixedPeriod" value="false" />
-  <parameter name="period" value="1" />
-  <parameter name="periodUnits" value="MSEC" />
-  <parameter name="resetOutput" value="false" />
-  <parameter name="snapshot" value="true" />
-  <parameter name="systemFrequency" value="50000000" />
-  <parameter name="timeoutPulseOutput" value="false" />
-  <parameter name="watchdogPulse" value="2" />
- </module>
  <module
    name="timestamp_timer"
    kind="altera_avalon_timer"
@@ -776,7 +782,7 @@
    start="cpu.data_master"
    end="jtag_uart.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x01001108" />
+  <parameter name="baseAddress" value="0x010010e8" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -785,7 +791,7 @@
    start="cpu.data_master"
    end="dma.control_port_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x010010c0" />
+  <parameter name="baseAddress" value="0x010010a0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -794,7 +800,7 @@
    start="cpu.data_master"
    end="sysid.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x01001100" />
+  <parameter name="baseAddress" value="0x010010e0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -806,14 +812,9 @@
   <parameter name="baseAddress" value="0x01000800" />
   <parameter name="defaultConnection" value="false" />
  </connection>
- <connection kind="avalon" version="20.1" start="cpu.data_master" end="timer.s1">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x010010a0" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
  <connection kind="avalon" version="20.1" start="cpu.data_master" end="pio.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x010010f0" />
+  <parameter name="baseAddress" value="0x010010d0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="avalon" version="20.1" start="cpu.data_master" end="sdram.s1">
@@ -836,7 +837,7 @@
    start="cpu.data_master"
    end="pio_debug.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x010010e0" />
+  <parameter name="baseAddress" value="0x010010c0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -905,7 +906,6 @@
  </connection>
  <connection kind="clock" version="20.1" start="clk_0.clk" end="cpu.clk" />
  <connection kind="clock" version="20.1" start="clk_0.clk" end="jtag_uart.clk" />
- <connection kind="clock" version="20.1" start="clk_0.clk" end="timer.clk" />
  <connection kind="clock" version="20.1" start="clk_0.clk" end="sysid.clk" />
  <connection kind="clock" version="20.1" start="clk_0.clk" end="pio.clk" />
  <connection kind="clock" version="20.1" start="clk_0.clk" end="sdram.clk" />
@@ -937,11 +937,26 @@
  <connection kind="interrupt" version="20.1" start="cpu.irq" end="dma.irq">
   <parameter name="irqNumber" value="4" />
  </connection>
- <connection kind="interrupt" version="20.1" start="cpu.irq" end="timer.irq">
+ <connection kind="interrupt" version="20.1" start="cpu.irq" end="euclid_dist.irq">
   <parameter name="irqNumber" value="5" />
  </connection>
- <connection kind="interrupt" version="20.1" start="cpu.irq" end="euclid_dist.irq">
-  <parameter name="irqNumber" value="6" />
+ <connection
+   kind="nios_custom_instruction"
+   version="20.1"
+   start="cpu.custom_instruction_master"
+   end="addf.nios_custom_instruction_slave">
+  <parameter name="CIName" value="addf" />
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="1" />
+ </connection>
+ <connection
+   kind="nios_custom_instruction"
+   version="20.1"
+   start="cpu.custom_instruction_master"
+   end="ltf.nios_custom_instruction_slave">
+  <parameter name="CIName" value="ltf" />
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0" />
  </connection>
  <connection kind="reset" version="20.1" start="clk_0.clk_reset" end="cpu.reset" />
  <connection
@@ -949,7 +964,6 @@
    version="20.1"
    start="clk_0.clk_reset"
    end="jtag_uart.reset" />
- <connection kind="reset" version="20.1" start="clk_0.clk_reset" end="timer.reset" />
  <connection kind="reset" version="20.1" start="clk_0.clk_reset" end="sysid.reset" />
  <connection kind="reset" version="20.1" start="clk_0.clk_reset" end="pio.reset" />
  <connection kind="reset" version="20.1" start="clk_0.clk_reset" end="sdram.reset" />

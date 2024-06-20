@@ -1,6 +1,8 @@
 #include "DMA.h"
 
-DMA::DMA(unsigned int base):_base{base}
+DMA::DMA(unsigned int base, unsigned int control)
+:_base{base},
+ _control{control}
 {
 	reset();
 }
@@ -17,16 +19,16 @@ int DMA::irq_reg(unsigned int interrupt_controller_id, unsigned int irq)
 void DMA::isr(void * context)
 {
 	DMA* dma = (DMA*)context;
-	printf("DMA COPY COMPLETED\n");
-	dma->check();
+	//printf("DMA COPY COMPLETED\n");
+	//dma->check();
 	DMA_WR_STATUS(dma->_base, 0);  /*clear the interrupt*/
 	dma->reset();
 	dma->done++;
 }
 
-int DMA::copy(void* read_location, void* write_location, int length, int control)
+int DMA::copy(void* read_location, void* write_location, int length)
 {
-	printf("mem_to_mem_copy initiated\n");
+	//printf("mem_to_mem_copy initiated\n");
 
     if((DMA_RD_STATUS(_base) & DMA_BUSY_BIT)==DMA_BUSY_BIT)
     {
@@ -40,7 +42,7 @@ int DMA::copy(void* read_location, void* write_location, int length, int control
     /*Data length size*/
     DMA_WR_LEN(_base, length);
     /*Control register*/
-    DMA_WR_CTRL(_base, control | DMA_GO_BIT);
+    DMA_WR_CTRL(_base, _control | DMA_GO_BIT);
 
     while(!done);
     done = 0;
@@ -63,10 +65,10 @@ void DMA::check()
 
 void DMA::reset()
 {
-	printf("DMA RESET\n");
+	//printf("DMA RESET\n");
 	IOWR_ALTERA_AVALON_DMA_CONTROL(_base, 0x1 << 12);
 	IOWR_ALTERA_AVALON_DMA_CONTROL(_base, 0x1 << 12);
-	printf("\n");
+	//printf("\n");
 }
 
 
