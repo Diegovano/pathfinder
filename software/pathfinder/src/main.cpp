@@ -24,15 +24,16 @@
 
 #define DEBUG true
 #define TIMING true
+#define DIJKSTRA true
 
 int main () 
 {
   printf("Starting Pathfinder!\n");
 
-  const int NUM_VERTICES = 13;
+  const int NUM_VERTICES = 219;
 
   std::queue<char> TX_QUEUE;
-  States state = States::IDLE, nextState = States::IDLE;
+  States state, nextState = States::IDLE;
   IsrContext context(&TX_QUEUE, &state, &nextState);
 
   ResultFormat res;
@@ -101,7 +102,8 @@ int main ()
 
           for (int i=0; i<graphf.averageOver; i++)
           {
-            myGraph->reset();
+            // printf("Starting iteration %d of %d\n", i, graphf.averageOver);
+            // myGraph->reset();
 
             alt_icache_flush_all();
             alt_dcache_flush_all();
@@ -109,7 +111,11 @@ int main ()
             time1 = alt_timestamp();
             // overhead = alt_timestamp() - time1;
             
+            #if DIJKSTRA
             myGraph->dijkstra();
+            #else
+            myGraph->delta(150);
+            #endif
 
             time3 = alt_timestamp();
 
@@ -161,7 +167,7 @@ int main ()
         {
           printf("Unable to serialise JSON object.\nIs there a path with this adjacency matrix? Routing from nodes %d to %d\n\n", res.start, res.end);
           // printf("\n%s", context.response.c_str());
-          myGraph->printAdj();
+//          myGraph->printAdj();
           myGraph->print();
           nextState = IDLE;
           break;

@@ -13,7 +13,7 @@ void Graph::dijkstra()
   {
     // get min distance node
 
-    // int min = __INT_MAX__;
+    // int min = INFINITY;
     float min = INFINITY;
     int min_index = -1;
 
@@ -65,14 +65,17 @@ void Graph::delta(int p_delta)
 {
   deltaVal = p_delta;
 
-  for (int i = 0; i < 9; i++) buckets.push_back(std::set<int>());
+  for (int i = 0; i < 20; i++) buckets.push_back(std::set<int>());
 
   buckets.at(0).insert(start); // starting node
 
   predecessor[start] = start;
 
+  int iter = 0;
+
   while (true)
   {
+    printf("Starting iteration %d\n", ++iter);
     std::set<int> del;
 
     int firstNonEmpty = -1;
@@ -87,39 +90,44 @@ void Graph::delta(int p_delta)
 
     while(buckets.at(firstNonEmpty).size())
     {
-      std::set<request> reqs = findRequests(buckets.at(firstNonEmpty), true);
+      std::vector<request> reqs = findRequests(buckets.at(firstNonEmpty), true);
       del.insert(buckets.at(firstNonEmpty).begin(), buckets.at(firstNonEmpty).end());
       buckets.at(firstNonEmpty) = std::set<int>();
 
       for (request req : reqs) relax(req);
     }
 
-    std::set<request> reqs = findRequests(del, false);
+    std::vector<request> reqs = findRequests(del, false);
     for (request req : reqs) relax(req);
   }
 }
 
-std::set<request> Graph::findRequests(std::set<int> vertx, bool isLight)
+std::vector<request> Graph::findRequests(std::set<int> vertx, bool isLight)
 {
-  std::set<request> light, heavy;
+  std::vector<request> light, heavy;
 
   for (int vert : vertx)
   {
     for (int i = 0; i < NUM_VERTICES; i++)
-    if(vert != i && graph[vert][i] <= deltaVal) // double check comparaison, optimal may be to split evenly when weight is equal to delta
-      light.insert({i, dist[vert] + graph[vert][i], vert});
-    else if (vert != i) heavy.insert({i, dist[vert] + graph[vert][i], vert});
+    {
+      if(vert != i && graph[vert][i] <= deltaVal) // double check comparaison, optimal may be to split evenly when weight is equal to delta
+        light.push_back({i, dist[vert] + graph[vert][i], vert});
+      else if (vert != i) heavy.push_back({i, dist[vert] + graph[vert][i], vert});
+    }
   }
+
+  // printf("Made %s requests\n", isLight ? "light" : "heavy");
 
   return isLight ? light : heavy;
 }
 
 void Graph::relax(request req)
 {
-  if (req.newDist != __INT_MAX__ && req.newDist < dist[req.target])
+  if (req.newDist < dist[req.target])
   {
-    buckets.at(floor(dist[req.target] / deltaVal)).erase(req.target);
-    buckets.at(floor(req.newDist/deltaVal)).insert(req.target);
+    // printf("relaxing %d, new dist: %f prev %f\n", req.target, req.newDist, dist[req.target]);
+    if (dist[req.target] != INFINITY && dist[req.target] != __INT_MAX__) buckets.at(floor(dist[req.target] / deltaVal)).erase(req.target);
+    if (req.newDist != INFINITY && req.newDist != __INT_MAX__) buckets.at(floor(req.newDist/deltaVal)).insert(req.target);
 
     dist[req.target] = req.newDist;
     predecessor[req.target] = req.pred;

@@ -36,7 +36,7 @@ class Graph
   std::vector<std::set<int>> buckets;
   int deltaVal;
 
-  std::set<request> findRequests(std::set<int> vertx, bool isLight);
+  std::vector<request> findRequests(std::set<int> vertx, bool isLight);
   void relax(request req);
 
   public:
@@ -47,7 +47,7 @@ class Graph
 
     for (int i = 0; i < NUM_VERTICES; i++)
     {
-      for (int j = 0; j < NUM_VERTICES; j++) graph[i][j] = inArr[i][j] < 0 ? __INT_MAX__ : inArr[i][j];
+      for (int j = 0; j < NUM_VERTICES; j++) graph[i][j] = inArr[i][j] < 0 ? INFINITY : inArr[i][j];
     }
 
     dist = new float[NUM_VERTICES]; 
