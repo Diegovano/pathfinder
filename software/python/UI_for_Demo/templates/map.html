@@ -1,16 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    
-        <script>
-            L_NO_TOUCH = false;
-            L_DISABLE_3D = false;
-        </script>
-    
-    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
-    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathfinder</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+        }
+        #map_e752e21955fbc03701e3fb6487e3e6fb {
+            position: relative;
+            width: 100.0%;
+            height: 100.0%;
+            left: 0.0%;
+            top: 0.0%;
+        }
+        .leaflet-container {
+            font-size: 1rem;
+        }
+        .text-box {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 200px;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .round-button {
+            position: fixed;
+            top: 120px;
+            right: 20px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 50px;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+        .round-button:hover {
+            background-color: #0056b3;
+        }
+        .text-box-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dropdown-box {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 1000;
+        }
+    </style>
+    <script>
+        L_NO_TOUCH = false;
+        L_DISABLE_3D = false;
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -21,158 +91,151 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
-    
-            <meta name="viewport" content="width=device-width,
-                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-            <style>
-                #map_e752e21955fbc03701e3fb6487e3e6fb {
-                    position: relative;
-                    width: 100.0%;
-                    height: 100.0%;
-                    left: 0.0%;
-                    top: 0.0%;
-                }
-                .leaflet-container { font-size: 1rem; }
-            </style>
-        
 </head>
 <body>
-    
-    
-            <div class="folium-map" id="map_e752e21955fbc03701e3fb6487e3e6fb" ></div>
-        
-</body>
-<script>
-    
-    
-            var map_e752e21955fbc03701e3fb6487e3e6fb = L.map(
-                "map_e752e21955fbc03701e3fb6487e3e6fb",
-                {
-                    center: [51.4988, -0.1749],
-                    crs: L.CRS.EPSG3857,
-                    zoom: 14,
-                    zoomControl: true,
-                    preferCanvas: false,
-                }
-            );
+    <div class="folium-map" id="map_e752e21955fbc03701e3fb6487e3e6fb"></div>
+    <div class="text-box-container">
+        <div class="text-box" id="infoBox">
+            <p>Some informational text here.</p>
+        </div>
+    </div>
+    <div class="dropdown-box">
+        <select id="dropdown">
+            <option value="Dijkstra">Dijkstra</option>
+            <option value="A*">A*</option>
+            <option value="Delta Stepping">Delta Stepping</option>
+        </select>
+    </div>
+    <button class="round-button" id="calculateButton">Calculate</button>
+    <script>
+        var selectedAlgorithm = 'Dijkstra';
 
-            
+        function setAlgorithm(algorithm) {
+            selectedAlgorithm = algorithm;
+            console.log('Selected Algorithm:', selectedAlgorithm);
+        }
 
-        
-    
-            var tile_layer_e6e27f251bd9ed001e5679bc9d5215f2 = L.tileLayer(
-                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            );
-        
-    
-            tile_layer_e6e27f251bd9ed001e5679bc9d5215f2.addTo(map_e752e21955fbc03701e3fb6487e3e6fb);
+        document.getElementById('dropdown').addEventListener('change', function() {
+            setAlgorithm(this.value);
+        });
 
-            map_e752e21955fbc03701e3fb6487e3e6fb.on('click', function(e) {
-                // Send a POST request to the server with the clicked coordinates
-                fetch('/post', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        coordinates: [e.latlng.lat, e.latlng.lng],
-                    }),
-                })
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch((error) => {
-                console.error('Error:', error);
-                });
-            });
-            
-            var markers = [];
-
-            function removeAllMarkers() {
-                markers.forEach(function(marker) {
-                    map_e752e21955fbc03701e3fb6487e3e6fb.removeLayer(marker);
-                });
-                markers = [];
+        var map_e752e21955fbc03701e3fb6487e3e6fb = L.map(
+            "map_e752e21955fbc03701e3fb6487e3e6fb",
+            {
+                center: [51.4988, -0.1749],
+                crs: L.CRS.EPSG3857,
+                zoom: 14,
+                zoomControl: true,
+                preferCanvas: false,
             }
-    
-            function newMarker(e){
-                if (markers.length >= 2){
-                    removeAllMarkers();
-                }
+        );
 
-                var greenIcon = L.icon({
-                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                    popupAnchor: [1, -34],
-                    shadowSize: [41, 41]
-                });
+        var tile_layer_e6e27f251bd9ed001e5679bc9d5215f2 = L.tileLayer(
+            "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+            {
+                attribution: "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors",
+                detectRetina: false,
+                maxNativeZoom: 19,
+                maxZoom: 19,
+                minZoom: 0,
+                noWrap: false,
+                opacity: 1,
+                subdomains: "abc",
+                tms: false
+            }
+        );
 
-                var redIcon = L.icon({
-                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                    popupAnchor: [1, -34],
-                    shadowSize: [41, 41]
-                });
+        tile_layer_e6e27f251bd9ed001e5679bc9d5215f2.addTo(map_e752e21955fbc03701e3fb6487e3e6fb);
 
-                var new_mark = L.marker(e.latlng, {icon: markers.length === 0 ? greenIcon : redIcon}).addTo(map_e752e21955fbc03701e3fb6487e3e6fb);
-                new_mark.dragging.enable();
-                new_mark.on('dblclick', function(e){ map_e752e21955fbc03701e3fb6487e3e6fb.removeLayer(e.target)})
-                var lat = e.latlng.lat.toFixed(4),
-                    lng = e.latlng.lng.toFixed(4);
-                new_mark.bindPopup(`Potential Location`);
-                markers.push(new_mark);
-                
-                if (markers.length === 2) {
-                    var btn = document.createElement("button");
-                    btn.innerHTML = "Calculate Distance";
-                    btn.id = "calculateButton";
-                    btn.style.backgroundColor = "#4CAF50"; 
-                    btn.style.border = "none"; 
-                    btn.style.color = "white"; 
-                    btn.style.padding = "15px 32px"; 
-                    btn.style.textAlign = "center"; 
-                    btn.style.textDecoration = "none"; 
-                    btn.style.display = "inline-block";
-                    btn.style.fontSize = "16px"; 
-                    btn.style.margin = "4px 2px";
-                    btn.style.cursor = "pointer"; 
+        map_e752e21955fbc03701e3fb6487e3e6fb.on('click', function(e) {
+            fetch('/post', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    coordinates: [e.latlng.lat, e.latlng.lng],
+                }),
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
 
-                    btn.onclick = function() {
-                        var lat1 = markers[0].getLatLng().lat,
-                            lng1 = markers[0].getLatLng().lng,
-                            lat2 = markers[1].getLatLng().lat,
-                            lng2 = markers[1].getLatLng().lng;
+        var markers = [];
 
-                        fetch('/pathfind', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                lat1: lat1,
-                                lng1: lng1,
-                                lat2: lat2,
-                                lng2: lng2,
-                            }),
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log('Success:', data);
-                        })
-                        .catch((error) => {
-                            console.error('Error:', error);
-                        });
-                    };
+        function removeAllMarkers() {
+            markers.forEach(function(marker) {
+                map_e752e21955fbc03701e3fb6487e3e6fb.removeLayer(marker);
+            });
+            markers = [];
+        }
 
-                    document.body.appendChild(btn);
-                }
+        function newMarker(e) {
+            if (markers.length >= 2) {
+                removeAllMarkers();
+            }
 
-            };
-            map_e752e21955fbc03701e3fb6487e3e6fb.on('click', newMarker);
-            
-</script>
+            var greenIcon = L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+
+            var redIcon = L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+
+            var new_mark = L.marker(e.latlng, { icon: markers.length === 0 ? greenIcon : redIcon }).addTo(map_e752e21955fbc03701e3fb6487e3e6fb);
+            new_mark.dragging.enable();
+            new_mark.on('dblclick', function(e) { map_e752e21955fbc03701e3fb6487e3e6fb.removeLayer(e.target) })
+            var lat = e.latlng.lat.toFixed(4),
+                lng = e.latlng.lng.toFixed(4);
+            new_mark.bindPopup("Potential Location");
+            markers.push(new_mark);
+
+            if (markers.length === 2) {
+                document.getElementById("calculateButton").onclick = function() {
+                    var lat1 = markers[0].getLatLng().lat,
+                        lng1 = markers[0].getLatLng().lng,
+                        lat2 = markers[1].getLatLng().lat,
+                        lng2 = markers[1].getLatLng().lng;
+
+                    fetch('/pathfind', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            lat1: lat1,
+                            lng1: lng1,
+                            lat2: lat2,
+                            lng2: lng2,
+                            algorithm: selectedAlgorithm,
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Success:', data);
+                        document.getElementById('infoBox').innerText = data.info;
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+                };
+            }
+        }
+        map_e752e21955fbc03701e3fb6487e3e6fb.on('click', newMarker);
+    </script>
+</body>
 </html>
