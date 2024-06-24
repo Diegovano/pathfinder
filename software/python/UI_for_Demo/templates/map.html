@@ -168,12 +168,21 @@
         });
 
         var markers = [];
+        var circleReference;
 
         function removeAllMarkers() {
             markers.forEach(function(marker) {
                 map_e752e21955fbc03701e3fb6487e3e6fb.removeLayer(marker);
             });
             markers = [];
+        }
+
+        function addCircle(lat, lng, options) {
+            if(circleReference) {
+                circleReference.remove();
+                circleReference = null;
+            }
+            circleReference = L.circle([lat, lng], options).addTo(map_e752e21955fbc03701e3fb6487e3e6fb);
         }
 
         function newMarker(e) {
@@ -206,6 +215,15 @@
                 lng = e.latlng.lng.toFixed(4);
             new_mark.bindPopup("Potential Location");
             markers.push(new_mark);
+
+            if(markers.length === 1) {
+                addCircle(lat, lng, {
+                    color: 'blue',
+                    fillColor: 'blue',
+                    fillOpacity: 0.1,
+                    radius: 2000
+                });
+            }
 
             if (markers.length === 2) {
                 document.getElementById("calculateButton").onclick = function() {
