@@ -95,7 +95,7 @@ module DijkstraTopTestbench
 				for(column=0;column<number_of_nodes;column=column+1)
 				begin
 					// Load edge value into graph
-					_ = $fscanf(testvectors, "%d", tb_write_data);
+					_ = $fscanf(testvectors, "%f", tb_write_data);
                     //$display("writing data %d \n", tb_write_data);
 					// Write to edge cache
 					select_n = 0;
@@ -115,7 +115,7 @@ module DijkstraTopTestbench
                     wait(ready);
                     @(posedge clock);
                     if (result !== tb_write_data) begin
-                        $display("failed to read back edge value, expecting: %d, got: %d", tb_write_data, result);
+                        $display("failed to read back edge value, expecting: %f, got: %f", tb_write_data, result);
                         $finish;
                     end
 				end
@@ -128,11 +128,11 @@ module DijkstraTopTestbench
             start = 0;
             wait(ready);
 
-            $display("Shortest distance: %d", result);
+            $display("Shortest distance: %f", result);
             //wait for dijkstra to finish
             for(row=0;row<number_of_nodes;row=row+1)
                 _ = $fscanf(testvectors, "%d", path_vector[row]); 
-            _ = $fscanf(testvectors, "%d", shortest_distance);
+            _ = $fscanf(testvectors, "%f", shortest_distance);
             if (result !== shortest_distance) begin
                 $display("Test failed");
                 $finish;

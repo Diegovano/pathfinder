@@ -51,7 +51,21 @@ module DijkstraInterface
 	// n = 3: read from previous vector cache
 		// result = previous vector value
 
-	output reg ready
+	output reg ready,
+
+	//avalon slave signals
+	input wire[15:0] slave_address,
+	input wire slave_read,
+	input wire slave_write,
+	output logic[31:0] slave_readdata,
+	input wire[31:0] slave_writedata,
+	output reg slave_waitrequest,
+
+	//interupt signals
+	output reg interrupt_sender_irq,
+
+	input wire clock_sink,
+	input wire reset_sink
 );
 
 reg edge_cache_write;
@@ -60,7 +74,9 @@ reg edge_cache_reset;
 reg [15:0] edge_cache_from_node;
 reg [15:0] edge_cache_to_node;
 wire edge_cache_ready;
+logic [31:0] edge_cache_write_data;
 wire [VALUE_WIDTH-1:0] edge_cache_read_data;
+reg ec_addr_sel = 0;
 
 EdgeCache
 #(
@@ -73,9 +89,11 @@ edge_cache(
 	.clock(clock),
 	.from_node(edge_cache_from_node),
 	.to_node(edge_cache_to_node),
+	.DMA_Slave_address(slave_address),
+	.add_sel(ec_addr_sel),
 	.read_enable(edge_cache_read), //TODO:fix this
 	.write_enable(edge_cache_write),
-	.write_data(datab),
+	.write_data(edge_cache_write_data),
 	.ready(edge_cache_ready),
 	.edge_value(edge_cache_read_data)
 );
@@ -87,6 +105,8 @@ wire dijkstra_ec_read;
 wire dijkstra_ready;
 wire [31:0] dijkstra_result;
 wire [INDEX_WIDTH-1:0] visited_vector_data;
+wire dijkstra_start;
+assign dijkstra_start = start && select_n == 2;
 
 DijkstraTop
 #(
@@ -95,7 +115,7 @@ DijkstraTop
 	.VALUE_WIDTH(VALUE_WIDTH)
 )
 dijkstra_top(
-	.reset(start),
+	.reset(dijkstra_start),
 	.clock(clock),
 	.enable(dijkstra_enable),
 	.source(dataa[15:0]),
@@ -117,6 +137,8 @@ typedef enum {IDLE, RUNNING} Main_State ;
 Main_State state = IDLE;
 Main_State next_state = IDLE;
 
+//assign slave_readdata = 32'hdeadbeef;
+
 always_ff @(posedge clock) begin
 	state <= next_state;
 end
@@ -126,23 +148,40 @@ always_comb begin
 	edge_cache_write = 0;
 	edge_cache_reset = 0;
 	edge_cache_read = 0;
+	edge_cache_write_data = 32'hdeadbeef;
 	dijkstra_enable = 0;
-	edge_cache_from_node = dataa[15:0];
-	edge_cache_to_node = dataa[31:16];
+	edge_cache_from_node = 0;
+	edge_cache_to_node = 1;
 	ready = 0;
 	result = 32'hdeadbeef;
 	next_state = state;
+
+	slave_waitrequest = 0;
+	slave_readdata = 32'hdeadbeef;
 	if (reset) begin
 		next_state = IDLE;
 		edge_cache_reset = 1;
 	end
 	case (state) 
 		IDLE: begin
+			edge_cache_write = slave_write;
+			edge_cache_read = slave_read;
+			edge_cache_write_data = slave_writedata;
+			edge_cache_from_node = {12'b0,slave_address[3:0]};
+			edge_cache_to_node = {12'b0,slave_address[7:4]};
+			ec_addr_sel = 0;
+
+			
+			slave_readdata = edge_cache_read_data;
+			slave_waitrequest = 0;
+
 			if (start) begin
 				next_state = RUNNING;
 			end
 		end
 		RUNNING: begin
+			edge_cache_write_data = datab;
+			ec_addr_sel = 1;
 			case(select_n)
 				0: begin //writing to cache
 					edge_cache_write = 1;

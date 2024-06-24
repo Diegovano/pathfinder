@@ -11,160 +11,185 @@ cModel Technology
 dC:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_no_mem_access/simulation
 Xdijkstra_interface_tb_sv_unit
 Z0 DXx6 sv_std 3 std 0 22 VYECXdT12H8WgbUP_5Y6:3
-Z1 !s110 1718637866
-VY=igN<6f>S1A;695<XlgP0
+Z1 !s110 1719153703
+VRi^[65m56PeZN@<0Zo5Z21
 r1
 !s85 0
 !i10b 1
-!s100 g8;i]2h4iaELa;OB[Y51b2
-IY=igN<6f>S1A;695<XlgP0
+!s100 BTHU4F[cQQa0NoJh^NAD[2
+IRi^[65m56PeZN@<0Zo5Z21
 !i103 1
 S1
 Z2 dC:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/simulation
-w1718637845
-Z3 8C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
-Z4 FC:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+Z3 w1719153638
+Z4 8C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
+Z5 FC:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv
 F../hdl/constants.v
-!i122 194
+!i122 386
 L0 7 0
-Z5 OV;L;2020.1;71
+Z6 OV;L;2020.1;71
 31
-Z6 !s108 1718637865.000000
+Z7 !s108 1719153703.000000
 !s107 ../hdl/constants.v|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv|
-Z7 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv|
+Z8 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv|
 !i113 1
-Z8 o-work work -sv
-Z9 tCvgOpt 0
+Z9 o-work work -sv
+Z10 tCvgOpt 0
 vDijkstraInterface
 R0
-Z10 !s110 1718637865
+!s110 1719153702
 !i10b 1
-!s100 emO[Q;3Szho47W5L^UfaM2
+!s100 VHQCfaUI;?<EBQo]^P6jV2
 Z11 !s11b Dg1SIo80bB@j0V0VzS_@n1
-IzA9^OlNBBlfoE7UJL>J;d3
+I2G512Qej2NYbdLOA`W<YB3
 Z12 VDg1SIo80bB@j0V0VzS_@n1
 S1
 R2
-w1718620103
+w1719152772
 8C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv
 FC:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv
-!i122 186
-L0 15 187
-R5
+!i122 378
+L0 15 219
+R6
 r1
 !s85 0
 31
-R6
+Z13 !s108 1719153702.000000
 !s107 C:\Users\runsh\Desktop\Main\IC\EIE3\summer\pathfinder\hardware\Dijkstra_float\hdl\constants.v|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_interface.sv|
 !i113 1
-R8
 R9
+R10
 n@dijkstra@interface
 vDijkstraTop
 R0
-R10
+R1
 !i10b 1
-!s100 U0fl?oRb:<NT]68W9fMXz2
+!s100 10oBAI^QHd1?<o`dFdR@T2
 R11
-IjLWU?<TCW[i?I5Uj?]cmO2
+Il^IIBMR`?^BjIOdk811092
 R12
 S1
 R2
-w1718630732
+w1718701780
 8C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv
 FC:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv
-!i122 187
-L0 5 225
-R5
+!i122 379
+L0 5 233
+R6
 r1
 !s85 0
 31
-R6
+R13
 !s107 C:\Users\runsh\Desktop\Main\IC\EIE3\summer\pathfinder\hardware\Dijkstra_float\hdl\constants.v|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/dijkstra_top.sv|
 !i113 1
-R8
 R9
+R10
 n@dijkstra@top
 vDijkstraTopTestbench
 R0
-DXx4 work 29 dijkstra_interface_tb_sv_unit 0 22 Y=igN<6f>S1A;695<XlgP0
+DXx4 work 29 dijkstra_interface_tb_sv_unit 0 22 Ri^[65m56PeZN@<0Zo5Z21
 R1
 R12
 r1
 !s85 0
 !i10b 1
-!s100 =QCn4Q]l@T]hRY9^CiaM00
-IK;h?QB:nnLDEL:g]b8ZdO2
+!s100 ?825CXkL0kcl@7KNY:VoM2
+IEo1eL;Hbe2K8U8M<@G8:B1
 !s105 dijkstra_interface_tb_sv_unit
 S1
 R2
-w1718626859
 R3
 R4
-!i122 194
-L0 47 100
 R5
-31
+!i122 386
+L0 47 115
 R6
-Z13 !s107 ../hdl/constants.v|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv|
+31
 R7
-!i113 1
+Z14 !s107 ../hdl/constants.v|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/dijkstra_interface_tb.sv|
 R8
+!i113 1
 R9
+R10
 n@dijkstra@top@testbench
 vEdgeCache
-R10
+R1
 !i10b 1
-!s100 >@2nkVKaH<UN8gWVK9DCc2
+!s100 j;k>F^Kf4[oHWV0g1VRMi3
 R11
-I?eElXQT^ZDLQQ?FWah1[k0
+IEKKC5ZelFcJ;H`dF42@]10
 R12
 R2
 w1718636695
 8C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v
 FC:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v
-!i122 188
+!i122 380
 L0 6 59
-R5
+R6
 r1
 !s85 0
 31
-R6
+R7
 !s107 C:\Users\runsh\Desktop\Main\IC\EIE3\summer\pathfinder\hardware\Dijkstra_float\hdl\constants.v|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache.v|
 !i113 1
-Z14 o-work work
-R9
+Z15 o-work work
+R10
 n@edge@cache
 vEdgeCacheMem
-R10
+R1
 !i10b 1
-!s100 C:`MJZFR9LzBEN]KG^Ine1
+!s100 AF7<9RXS[gBLe`CcHKe]f0
 R11
-I[ESk^lgg:=UKRK_FJSLDH1
+Ibe<dGVI4_5TULlzM:C>AL0
 R12
 R2
 w1718636981
 8C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache_mem.v
 FC:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache_mem.v
-!i122 189
+!i122 381
 L0 5 30
-R5
+R6
 r1
 !s85 0
 31
-R6
+R7
 !s107 C:\Users\runsh\Desktop\Main\IC\EIE3\summer\pathfinder\hardware\Dijkstra_float\hdl\constants.v|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache_mem.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/edge_cache_mem.v|
 !i113 1
-R14
-R9
+R15
+R10
 n@edge@cache@mem
+vfp32_adder
+R0
+!s110 1719152566
+!i10b 1
+!s100 ?Y0JQN<`4zSTh[9JY89OL2
+R11
+I14[Ub[G=EBgl_ggQ;90z<2
+R12
+S1
+R2
+w1719152563
+Z16 8C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/math/fp_adder.sv
+Z17 FC:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/math/fp_adder.sv
+!i122 295
+L0 1 82
+R6
+r1
+!s85 0
+31
+!s108 1719152566.000000
+Z18 !s107 C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/math/fp_adder.sv|
+Z19 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/math/fp_adder.sv|
+!i113 1
+R9
+R10
 vfp_adder
 R0
-R10
+R1
 !i10b 1
 !s100 EJc:1?g<`16S>WbfT[e=j1
 R11
@@ -172,24 +197,24 @@ Ii6ZIi@io6@9K;d@1mBHKZ2
 R12
 S1
 R2
-w1718630667
-8C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/math/fp_adder.sv
-FC:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/math/fp_adder.sv
-!i122 192
+w1719152858
+R16
+R17
+!i122 384
 L0 1 48
-R5
+R6
 r1
 !s85 0
 31
-R6
-!s107 C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/math/fp_adder.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/math/fp_adder.sv|
+R7
+R18
+R19
 !i113 1
-R8
 R9
+R10
 vfp_comparator
 R0
-R10
+R1
 !i10b 1
 !s100 f1RczUZ`eX]BCjNIY[8_B0
 R11
@@ -200,67 +225,92 @@ R2
 w1718627058
 8C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/math/fp_comparator.sv
 FC:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/math/fp_comparator.sv
-!i122 193
+!i122 385
 L0 1 39
-R5
+R6
 r1
 !s85 0
 31
-R6
+R7
 !s107 C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/math/fp_comparator.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/math/fp_comparator.sv|
 !i113 1
-R8
 R9
+R10
 vMinHeap
 R0
-R10
+R1
 !i10b 1
-!s100 3`MS=ERDOUhXlU4?SFlT@1
+!s100 SfN=JUD0UiC:`imA;Ab5]3
 R11
-IUJeaanjjiL8LgfE@njJIG0
+IGk_AdeDKZkW9O9ze@D1Hb1
 R12
 S1
 R2
 w1718630739
 8C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/minheap.sv
 FC:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/minheap.sv
-!i122 190
+!i122 382
 L0 4 116
-R5
+R6
 r1
 !s85 0
 31
-R6
+R7
 !s107 C:\Users\runsh\Desktop\Main\IC\EIE3\summer\pathfinder\hardware\Dijkstra_float\hdl\constants.v|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/minheap.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/minheap.sv|
 !i113 1
-R8
 R9
+R10
 n@min@heap
 vPriorityQueue
 R0
-R10
+R1
 !i10b 1
-!s100 57neEU8bFZdm:daaiGZLk2
+!s100 884ZiWCnlG[LS[]::LLbC1
 R11
-INELCA]?3U]m;JOA>><=Xz3
+I`^S[1zA@K0AEg`1X[J[[P2
 R12
 S1
 R2
 w1718637207
 8C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/priority_queue.sv
 FC:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/priority_queue.sv
-!i122 191
+!i122 383
 L0 4 75
-R5
+R6
 r1
 !s85 0
 31
-R6
+R7
 !s107 C:\Users\runsh\Desktop\Main\IC\EIE3\summer\pathfinder\hardware\Dijkstra_float\hdl\constants.v|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/priority_queue.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/hdl/priority_queue.sv|
 !i113 1
-R8
 R9
+R10
 n@priority@queue
+vtb_floating_point_adder
+R0
+!s110 1719152608
+!i10b 1
+!s100 I5meW<KUzGkhR[BCCAUd_0
+R11
+Im4`I2lQoR2==<OA1JX:aP0
+R12
+S1
+R2
+w1719152600
+8C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/fp_adder_tb.sv
+FC:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/fp_adder_tb.sv
+!i122 298
+L0 3 39
+R6
+r1
+!s85 0
+31
+!s108 1719152608.000000
+!s107 C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/fp_adder_tb.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/runsh/Desktop/Main/IC/EIE3/summer/pathfinder/hardware/Dijkstra_float/testbenches/fp_adder_tb.sv|
+!i113 1
+R9
+R10

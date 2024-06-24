@@ -16,6 +16,8 @@ module EdgeCache
 	// address
 	input wire[INDEX_WIDTH-1:0] from_node,//row
 	input wire[INDEX_WIDTH-1:0] to_node,//column
+	input wire[2*INDEX_WIDTH-1:0] DMA_Slave_address, 
+	input wire add_sel,
 
 	// Input signals for when we want to query an edge
 	input wire read_enable, //diven by n=2 dijkstra
@@ -27,6 +29,9 @@ module EdgeCache
 	output reg ready,
 	output wire [VALUE_WIDTH-1:0] edge_value
 );
+
+wire [2*INDEX_WIDTH-1:0] mem_address;
+assign mem_address = (add_sel) ? DMA_Slave_address : {to_node, from_node};
 
 EdgeCacheMem 
 #(

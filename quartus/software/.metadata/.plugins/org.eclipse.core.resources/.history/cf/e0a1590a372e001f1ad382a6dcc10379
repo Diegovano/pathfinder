@@ -1,0 +1,136 @@
+/*
+ * "Hello World" example.
+ *
+ * This example prints 'Hello from Nios II' to the STDOUT stream. It runs on
+ * the Nios II 'standard', 'full_featured', 'fast', and 'low_cost' example
+ * designs. It runs with or without the MicroC/OS-II RTOS and requires a STDOUT
+ * device in your system's hardware.
+ * The memory footprint of this hosted application is ~69 kbytes by default
+ * using the standard reference design.
+ *
+ * For a reduced footprint version of this template, and an explanation of how
+ * to reduce the memory footprint for a given application, see the
+ * "small_hello_world" template.
+ *
+ */
+
+#include <alt_types.h>
+#include <stdio.h>
+#include <sys/alt_timestamp.h> // for timing
+#include <system.h>
+#include <math.h>
+
+
+
+void write_dijkstra_cache(float edge_value, int from_node, int to_node){
+	long dataa = (to_node<<16) + from_node;
+	float datab = edge_value;
+	long result = ALT_CI_DIJKSTRA32_FLOAT_0(0,dataa,datab);
+}
+
+float read_dijkstra_cache(int from_node, int to_node){
+	long dataa = (to_node<<16) + from_node;
+	return ALT_CI_DIJKSTRA32_FLOAT_0(1,dataa,0);
+}
+
+int read_path_vector(int node){
+	long dataa = node;
+	return ALT_CI_DIJKSTRA32_FLOAT_0(3,dataa,0);
+}
+
+float run_dijkstra (int from_node, int to_node, int number_of_nodes){
+	ALT_CI_DIJKSTRA32_FLOAT_0(2,0,0); //a manual software reset cuz hardware reset buggy
+	long dataa = (to_node <<16) + from_node;
+	long datab = number_of_nodes;
+	return ALT_CI_DIJKSTRA32_FLOAT_0(2,dataa,datab);
+}
+
+int main()
+{
+  printf("Hello from Nios II!\n");
+  for (int row=0; row < 128; row++){
+	  for (int column=0; column < 128; column++){
+		  if (row == column){
+			  write_dijkstra_cache(0,row, column);
+		  }
+		  else{
+			  write_dijkstra_cache(0x7F800000,row, column);
+		  }
+	  }
+  }
+
+  write_dijkstra_cache(33.532, 0, 6);
+  write_dijkstra_cache(53.887, 0, 12);
+
+  write_dijkstra_cache(62.337, 1, 11);
+  write_dijkstra_cache(33.73, 1, 12);
+
+  write_dijkstra_cache(19.803, 2, 12);
+  write_dijkstra_cache(28.225, 2, 1);
+
+  write_dijkstra_cache(10.796, 3, 8);
+  write_dijkstra_cache(154.774, 3, 5);
+  write_dijkstra_cache(122.668, 3, 4);
+
+  write_dijkstra_cache(122.668, 4, 3);
+
+  write_dijkstra_cache(154.774, 5, 3);
+
+  write_dijkstra_cache(33.532, 6, 0);
+  write_dijkstra_cache(181.396, 6, 10);
+  write_dijkstra_cache(183.129, 6, 9);
+
+  write_dijkstra_cache(143.458, 7, 8);
+
+  write_dijkstra_cache(41.055, 8, 10);
+  write_dijkstra_cache(10.796, 8, 3);
+  write_dijkstra_cache(143.458, 8, 7);
+
+  write_dijkstra_cache(183.129, 9, 6);
+
+  write_dijkstra_cache(41.055, 10, 8);
+  write_dijkstra_cache(181.396, 10, 6);
+
+  write_dijkstra_cache(62.337, 11, 1);
+
+  write_dijkstra_cache(53.887, 12, 0);
+  write_dijkstra_cache(19.803, 12, 2);
+
+  for (int row = 0; row <13; row++){
+  	  for (int column=0; column <13; column++){
+  		  printf("%f \t", read_dijkstra_cache(row,column));
+  	  }
+  	  printf("\n");
+  }
+
+    alt_64 proc_ticks = 0;
+    alt_u64 time1 = 0;
+    alt_u64 time3 = 0;
+
+    int iterations = 1000;
+    int size = 30;
+    // The code that you want to time goes here
+    alt_timestamp_start();
+
+    for (int i=0; i<iterations; i++){
+  	  time1 = alt_timestamp();
+  	  run_dijkstra(1,5,13);
+  	  time3 = alt_timestamp();
+  	  proc_ticks += (time3 - time1);
+    }
+    int k = alt_timestamp_freq() * 1e-6 * iterations; // ticks per ms
+    double proc_us = (double)proc_ticks / (double)k;
+
+    printf("Profiling Results: %i iteration(s), \nproc_ticks: %lld,\tproc_us: %f\tavg: %f\n",
+  		  iterations, proc_ticks, proc_us, proc_us);
+
+
+//  printf("shortest distance: %f \n", run_dijkstra(1,5,13));
+//
+// for (int i=0; i <13; i++){
+//	 printf("%d: %d \n",i,read_path_vector(i));
+// }
+
+
+  return 0;
+}
