@@ -3,6 +3,7 @@ import folium
 from folium.plugins import MarkerCluster, MiniMap
 import networkx as nx 
 import osmnx as ox
+import json
 
 coordinates_array = []
 processing = False
@@ -21,6 +22,62 @@ def create_map():
 
     # Save the map to an HTML file
     folium_map.save('templates/map.html')
+
+
+def formatData():
+    with open('nodes.geojson') as f:
+        nodes_data = json.load(f)
+
+    with open('edges.geojson') as f:
+        edges_data = json.load(f)   
+
+    # Extract nodes and edges from the geojson data
+    nodes_list = nodes_data['features']
+    edges_list = edges_data['features']
+
+    # Create a mapping from node IDs to sequential indices
+    node_id_to_index = {node['properties']['osmid']: i for i, node in enumerate(nodes_list)}
+
+    # Prepare the adjacency list using the sequential indices
+    adj_list = {i: [] for i in range(len(nodes_list))}
+
+    for edge in edges_list:
+        start_node_id = edge['properties']['u']
+        end_node_id = edge['properties']['v']
+        weight = edge['properties']['length']
+        
+        start_node_index = node_id_to_index[start_node_id]
+        end_node_index = node_id_to_index[end_node_id]
+        
+        adj_list[start_node_index].append((end_node_index, weight))
+
+    adj_list_formatted = {"adjList": []}
+
+    for start_node_index, connections in adj_list.items():
+        start_node = nodes_list[start_node_index]
+        start_coord = start_node['geometry']['coordinates']
+        connection_data = {
+            "coords": start_coord,
+            "neighbours": []
+        }
+
+        for end_node_index, weight in connections:
+            end_node = nodes_list[end_node_index]
+            end_coord = end_node['geometry']['coordinates']
+            connection_data["neighbours"].append({
+                "index": end_node_index,
+                "length": weight,
+                "coords": end_coord
+            })
+        
+        adj_list_formatted["adjList"].append(connection_data)
+
+    adj_list_json = json.dumps(adj_list_formatted, indent=2)
+
+    with open('adj_list.json', 'w') as f:
+        f.write(adj_list_json)
+
+    return node_id_to_index, adj_list_json
 
 @app.route('/')
 def index():
@@ -42,40 +99,40 @@ def pathfind():
     orig_node = ox.nearest_nodes(G, X=lng1, Y=lat1)
     dest_node = ox.nearest_nodes(G, X=lng2, Y=lat2)
 
-    print(f"The original node is {orig_node} and the destination node is {dest_node}.")
-
     if orig_node == dest_node:
         return jsonify({'error': 'The start and end nodes are the same. Please choose different locations.'}), 400
 
     # Step 3: Project the graph 
     G = ox.project_graph(G)
-    
-    # Step 4: Calculate the shortest path
+
+    # Step 4: process the graph data
+    nodes, edges = ox.graph_to_gdfs(G, fill_edge_geometry=True)
+    for col in edges.columns:
+        if edges[col].dtype == 'object':
+            edges[col] = edges[col].apply(lambda x: str(x) if isinstance(x, list) else x)
+
+    nodes.to_file('nodes.geojson', driver='GeoJSON')
+    edges.to_file('edges.geojson', driver='GeoJSON')
+
+    # Step 5: Convert the data to suitable format 
+    osmid_id_dict, formattedData = formatData()
+
+    # Step 6: Calculate the shortest path
     if algorithm == 'Dijkstra':
-        shortest_path = nx.shortest_path(G, orig_node, dest_node, weight='length')
+        print('Dijkstra')
     elif algorithm == 'A*':
-        shortest_path = nx.astar_path(G, orig_node, dest_node, weight='length')
+        print('A*')
+    elif algorithm == 'Delta Stepping':
+        print('Delta Stepping')
     else:
         return jsonify({'error': 'Unsupported algorithm'}), 400
-
-    # Step 5: Extract detailed street data for the path
-    street_data = []
-    for i, node in enumerate(shortest_path[:-1]):
-        edge_data = G.get_edge_data(node, shortest_path[i + 1])[0]
-        street_data.append({
-            'from': node,
-            'to': shortest_path[i + 1],
-            'street_name': edge_data.get('name', 'Unnamed street'),
-            'length': edge_data['length']
-        })
-
-    # Step 6: Calculate total distance
-    total_distance = sum(edge['length'] for edge in street_data)
-
+    
+    total_distance = 0
+    total_time = 0
     response = {
         'status': 'success',
-        'path': street_data,
         'total_distance': total_distance,
+        'total_time': total_time,
         'info': f'Path from ({lat1}, {lng1}) to ({lat2}, {lng2}) found, using algorithm {algorithm}'
     }
 
