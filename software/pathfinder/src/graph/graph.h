@@ -85,7 +85,7 @@ class Graph
   }
 
   void dijkstra();
-  void HW_dijkstra(*float mem_address);
+  void HW_dijkstra(*float mem_address, DMA &dma);
 
   void delta(int p_delta = 1);
 
