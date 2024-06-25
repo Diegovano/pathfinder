@@ -86,27 +86,22 @@ ACDS_VERSION := 20.1
 # Define path to the application ELF. 
 # It may be used by the makefile fragments so is defined before including them. 
 # 
-ELF := pathfinder.elf
+ELF := accel_astar.elf
 
 # Paths to C, C++, and assembly source files.
 C_SRCS :=
-CXX_SRCS += src/graph/graph.cpp
-CXX_SRCS += src/helpers/helpers.cpp
-CXX_SRCS += src/json/json.cpp
+CXX_SRCS += src/Accelerator/Accelerator.cpp
+CXX_SRCS += src/DMA/DMA.cpp
 CXX_SRCS += src/main.cpp
-CXX_SRCS += src/spi_isr/spi_isr.cpp
 ASM_SRCS :=
 
-SDIR_C_SRCS :=
-SDIR_CXX_SRCS :=
-SDIR_ASM_SRCS :=
 
 # Path to root of object file tree.
 OBJ_ROOT_DIR := obj
 
 # Options to control objdump.
 CREATE_OBJDUMP := 1
-OBJDUMP_INCLUDE_SOURCE := 0
+OBJDUMP_INCLUDE_SOURCE := 1
 OBJDUMP_FULL_CONTENTS := 0
 
 # Options to enable/disable optional files.
@@ -116,7 +111,7 @@ CREATE_LINKER_MAP := 1
 # Common arguments for ALT_CFLAGSs
 APP_CFLAGS_DEFINED_SYMBOLS :=
 APP_CFLAGS_UNDEFINED_SYMBOLS :=
-APP_CFLAGS_OPTIMIZATION := -O1
+APP_CFLAGS_OPTIMIZATION := -O2
 APP_CFLAGS_DEBUG_LEVEL := -g
 APP_CFLAGS_WARNINGS := -Wall
 APP_CFLAGS_USER_FLAGS :=
@@ -131,7 +126,7 @@ CRT0 :=
 SYS_LIB :=
 
 # Define path to the root of the BSP.
-BSP_ROOT_DIR := ../pathfinder_bsp/
+BSP_ROOT_DIR := ../ACCEL_ASTAR_bsp/
 
 # List of application specific include directories, library directories and library names
 APP_INCLUDE_DIRS :=
@@ -142,8 +137,7 @@ APP_LIBRARY_NAMES :=
 BUILD_PRE_PROCESS :=
 BUILD_POST_PROCESS :=
 
-OBJDUMP_INCLUDE_SOURCE := 1
-QUARTUS_PROJECT_DIR := ../../quartus/
+QUARTUS_PROJECT_DIR := ../../
 
 
 #END GENERATED
@@ -295,7 +289,7 @@ APP_CFLAGS := $(APP_CFLAGS_DEFINED_SYMBOLS) \
               $(CFLAGS)
 
 # Arguments only for the C++ compiler.
-APP_CXXFLAGS := $(ALT_CXXFLAGS) $(CXXFLAGS)
+APP_CXXFLAGS := -std=c++11 $(ALT_CXXFLAGS) $(CXXFLAGS)
 
 # Arguments only for the C preprocessor.
 # Prefix each include directory with -I.

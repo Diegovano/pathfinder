@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<simPackage>
- <file path="lef_sim/lef.vo" type="VERILOG" />
- <topLevel name="lef" />
- <deviceFamily name="cyclonev" />
-</simPackage>

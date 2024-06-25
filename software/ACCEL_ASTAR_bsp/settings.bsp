@@ -2,16 +2,11 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-<<<<<<< HEAD
-        <BspGeneratedTimeStamp>25-Jun-2024 12:34:05</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1719315245315</BspGeneratedUnixTimeStamp>
-=======
-        <BspGeneratedTimeStamp>13-Jun-2024 15:01:09</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1718287269885</BspGeneratedUnixTimeStamp>
->>>>>>> origin/Vincenzo
-        <BspGeneratedLocation>./</BspGeneratedLocation>
-        <BspSettingsFile>../pathfinder_bsp/settings.bsp</BspSettingsFile>
-        <SopcDesignFile>../../quartus/nios2_system.sopcinfo</SopcDesignFile>
+        <BspGeneratedTimeStamp>Jun 20, 2024 1:56:16 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1718844976439</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>C:\Users\andre\ARM_pathfinder\group_repo\pathfinder\software\ACCEL_ASTAR_bsp</BspGeneratedLocation>
+        <BspSettingsFile>settings.bsp</BspSettingsFile>
+        <SopcDesignFile>C:\Users\andre\ARM_pathfinder\group_repo\pathfinder\quartus\nios2_system.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
         <Cpu>cpu</Cpu>
         <SchemaVersion>1.9</SchemaVersion>
@@ -19,7 +14,7 @@
                 <SettingName>hal.sys_clk_timer</SettingName>
                 <Identifier>ALT_SYS_CLK</Identifier>
                 <Type>UnquotedString</Type>
-                <Value>timer</Value>
+                <Value>none</Value>
                 <DefaultValue>none</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Slave descriptor of the system clock timer device. This device provides a periodic interrupt ("tick") and is typically required for RTOS use. This setting defines the value of ALT_SYS_CLK in system.h.</Description>
@@ -910,50 +905,50 @@
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>timestamp_timer</slaveDescriptor>
+                <slaveDescriptor>euclid_dist</slaveDescriptor>
                 <addressRange>0x01001000 - 0x0100103F</addressRange>
+                <addressSpan>64</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>timestamp_timer</slaveDescriptor>
+                <addressRange>0x01001040 - 0x0100107F</addressRange>
                 <addressSpan>64</addressSpan>
                 <attributes>timer</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>spi</slaveDescriptor>
-                <addressRange>0x01001040 - 0x0100105F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>timer</slaveDescriptor>
-                <addressRange>0x01001060 - 0x0100107F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes>timer</attributes>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma</slaveDescriptor>
                 <addressRange>0x01001080 - 0x0100109F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>dma</slaveDescriptor>
+                <addressRange>0x010010A0 - 0x010010BF</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>pio_debug</slaveDescriptor>
-                <addressRange>0x010010A0 - 0x010010AF</addressRange>
+                <addressRange>0x010010C0 - 0x010010CF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>pio</slaveDescriptor>
-                <addressRange>0x010010B0 - 0x010010BF</addressRange>
+                <addressRange>0x010010D0 - 0x010010DF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>sysid</slaveDescriptor>
-                <addressRange>0x010010C0 - 0x010010C7</addressRange>
+                <addressRange>0x010010E0 - 0x010010E7</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>jtag_uart</slaveDescriptor>
-                <addressRange>0x010010C8 - 0x010010CF</addressRange>
+                <addressRange>0x010010E8 - 0x010010EF</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>
