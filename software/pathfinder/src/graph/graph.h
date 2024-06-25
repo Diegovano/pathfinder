@@ -2,13 +2,15 @@
 #include <cmath>
 #include <vector>
 #include <set>
+#include <map>
+#include "system.h"
 
-#define ALT_CI_DIJKSTRA_CHECK_STEP_0(A,B) __builtin_custom_fnff(ALT_CI_DIJKSTRA_CHECK_STEP_0_N,(A),(B))
-#define ALT_CI_DIJKSTRA_CHECK_STEP_0_N 0x0
+#define ALT_CI_DIJKSTRA_CHECK_STEP_1(A,B) __builtin_custom_fnff(ALT_CI_DIJKSTRA_CHECK_STEP_N,(A),(B))
+// #define ALT_CI_DIJKSTRA_CHECK_STEP_0_N 0x0
 #define ALT_CI_LEF_1(A,B) __builtin_custom_inff(ALT_CI_LEF_0_N,(A),(B))
-#define ALT_CI_LEF_0_N 0x1
+// #define ALT_CI_LEF_0_N 0x1
 #define ALT_CI_LTF_1(A,B) __builtin_custom_inff(ALT_CI_LTF_0_N,(A),(B))
-#define ALT_CI_LTF_0_N 0x2
+// #define ALT_CI_LTF_0_N 0x2
 
 extern float __builtin_custom_fnff(int a, float b, float c);
 extern int __builtin_custom_inff(int a, float b, float c);
@@ -33,7 +35,7 @@ class Graph
   const int end;
 
   std::set<int> lightEdges, heavyEdges;
-  std::vector<std::set<int>> buckets;
+  std::map<int, std::set<int>> buckets;
   int deltaVal;
 
   std::vector<request> findRequests(std::set<int> vertx, bool isLight);

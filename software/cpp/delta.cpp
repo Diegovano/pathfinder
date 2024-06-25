@@ -155,7 +155,7 @@ std::vector<request> Graph::findRequests(std::set<int> vertx, bool isLight)
 
 void Graph::relax(request req)
 {
-  if (req.newDist != INFINITY && req.newDist < dist[req.target])
+  if (req.newDist < dist[req.target])
   {
     int ida = floor(dist[req.target] / deltaVal), idb = floor(req.newDist/deltaVal);
     if (buckets.count(ida)) buckets[ida].erase(req.target);
@@ -704,7 +704,7 @@ int main()
     sht.push_back(res[vert_id]);
     vert_id = res[vert_id];
 
-  } while (res[vert_id] != myGraph->start && i++ < 1000);
+  } while (res[vert_id] != myGraph->start && res[vert_id] < SIZE && res[vert_id] >= 0 && i++ < 1000);
 
   if (i >= 1000)
   {
@@ -715,4 +715,12 @@ int main()
   sht.push_back(myGraph->start);
 
   for (int node : sht) std::cout << node << ' ';
+
+  myGraph->print();
+}
+
+void Graph::print() const
+{
+  printf("\n");
+  for(int i = 0; i < NUM_VERTICES; i++) printf("pred of %d\tis %d\n", i, predecessor[i]);
 }

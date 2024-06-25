@@ -2,10 +2,10 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Jun 20, 2024 7:58:26 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1718909906510</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>/home/diego/documents/pathfinder/software/pathfinder_bsp</BspGeneratedLocation>
-        <BspSettingsFile>settings.bsp</BspSettingsFile>
+        <BspGeneratedTimeStamp>25-Jun-2024 12:34:05</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1719315245315</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>./</BspGeneratedLocation>
+        <BspSettingsFile>../pathfinder_bsp/settings.bsp</BspSettingsFile>
         <SopcDesignFile>../../quartus/nios2_system.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
         <Cpu>cpu</Cpu>

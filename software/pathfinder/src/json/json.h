@@ -6,8 +6,9 @@ using namespace ArduinoJson;
 #include <algorithm> // for min
 #include "system.h" // for ALT_CPU_*CACHE_SIZE
 
-const int NUM_NODES = 2000;
-const int CAPACITY = 2 * JSON_OBJECT_SIZE(NUM_NODES) + 1 * JSON_OBJECT_SIZE(NUM_NODES ^ 2) + 4 * JSON_OBJECT_SIZE(1);
+const int NUM_NODES = 219;
+// const int CAPACITY = 2 * JSON_OBJECT_SIZE(NUM_NODES) + 1 * JSON_OBJECT_SIZE(NUM_NODES ^ 2) + 4 * JSON_OBJECT_SIZE(1);
+const int CAPACITY = 2*JSON_ARRAY_SIZE(0) + 50*JSON_ARRAY_SIZE(1) + 2*NUM_NODES*JSON_ARRAY_SIZE(2) + 88*JSON_ARRAY_SIZE(3) + 8*JSON_ARRAY_SIZE(4) + 3*JSON_ARRAY_SIZE(NUM_NODES) + JSON_OBJECT_SIZE(7);
 
 struct Edge {
     int target;

@@ -11,9 +11,8 @@ void Graph::dijkstra()
 {
   for (int step = 0; step < NUM_VERTICES - 1; step++)
   {
-    // get min distance node
+    // for (int i = 0; i < NUM_VERTICES; i++) printf("%d:\t%c %f\t", i, inShortestPath[i] ? 'y' : 'n', dist[i]);    // get min distance node
 
-    // int min = INFINITY;
     float min = INFINITY;
     int min_index = -1;
 
@@ -28,23 +27,17 @@ void Graph::dijkstra()
         min = dist[i], min_index = i;
       }
     }
+    if (min_index == -1) return;
 
     inShortestPath[min_index] = true;
 
     for (int i = 0; i < NUM_VERTICES; i++)
     {
       #if HW_ACCEL
-      #ifdef __INTELLISENSE__
-      #pragma diag_suppress 20 // ignore missing __builtin_stwio etc...
-      #endif
-      
-      float newDist = ALT_CI_DIJKSTRA_CHECK_STEP_0(dist[min_index], graph[min_index][i]);
-      // if (!inShortestPath[i] && newDist < dist[i]) 
+      float newDist = ALT_CI_DIJKSTRA_CHECK_STEP_1(dist[min_index], graph[min_index][i]);
 
-      if (!inShortestPath[i] && ALT_CI_LTF_1(newDist, dist[i])) 
-      #ifdef __INTELLISENSE__
-      #pragma diag_default 20 // restore default behaviour
-      #endif
+      // if (!inShortestPath[i] && newDist < dist[i]) 
+      if (!inShortestPath[i] && ALT_CI_LTF_1(newDist, dist[i]))
       #else
       if(!inShortestPath[i] && graph[min_index][i] > 0 && dist[min_index] != INFINITY && dist[min_index] + graph[min_index][i] < dist[i])
       #endif
@@ -65,9 +58,7 @@ void Graph::delta(int p_delta)
 {
   deltaVal = p_delta;
 
-  for (int i = 0; i < 20; i++) buckets.push_back(std::set<int>());
-
-  buckets.at(0).insert(start); // starting node
+  buckets[0] = std::set<int>({start});
 
   predecessor[start] = start;
 
@@ -80,7 +71,7 @@ void Graph::delta(int p_delta)
 
     int firstNonEmpty = -1;
     for (unsigned int i = 0; i < buckets.size(); i++) 
-      if (buckets.at(i).size()) 
+      if (buckets.count(i) && buckets[i].size()) // check set exists and is non-empty
       {
         firstNonEmpty = i;
         break;
@@ -126,8 +117,11 @@ void Graph::relax(request req)
   if (req.newDist < dist[req.target])
   {
     // printf("relaxing %d, new dist: %f prev %f\n", req.target, req.newDist, dist[req.target]);
-    if (dist[req.target] != INFINITY && dist[req.target] != __INT_MAX__) buckets.at(floor(dist[req.target] / deltaVal)).erase(req.target);
-    if (req.newDist != INFINITY && req.newDist != __INT_MAX__) buckets.at(floor(req.newDist/deltaVal)).insert(req.target);
+    int ida = floor(dist[req.target] / deltaVal), idb = floor(req.newDist / deltaVal);
+
+    if (buckets.count(ida)) buckets[ida].erase(req.target);
+    if (buckets.count(idb)) buckets[idb].insert(req.target);
+    else buckets[idb] = std::set<int>({req.target});
 
     dist[req.target] = req.newDist;
     predecessor[req.target] = req.pred;
@@ -194,7 +188,7 @@ void Graph::print() const
 
     vert_id = predecessor[vert_id];
 
-  } while (predecessor[vert_id] != 0 && i < 1000);
+  } while (predecessor[vert_id] != start && predecessor[vert_id] < NUM_VERTICES && predecessor[vert_id] >= 0 && i++ < 1000);
 
   printf("%d", start);
 }

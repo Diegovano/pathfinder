@@ -28,6 +28,8 @@
 
 int main () 
 {
+//  printf("%f", ALT_CI_DIJKSTRA_CHECK_STEP_1(0.0, 17.191));
+//  return 0;
   printf("Starting Pathfinder!\n");
 
   const int NUM_VERTICES = 219;
@@ -133,9 +135,19 @@ int main ()
 
           res.pathfindAvg = proc_us;
         }
-        else myGraph->dijkstra();
+        else
+          #if DIJKSTRA
+          myGraph->dijkstra();
+          #else
+          myGraph->delta(150);
+          #endif
+        
         #else
-        myGraph.dijkstra();
+        #if DIJKSTRA
+        myGraph->dijkstra();
+        #else
+        myGraph->delta(150);
+        #endif
         #endif
 
         const int *shortest = myGraph->shortest();

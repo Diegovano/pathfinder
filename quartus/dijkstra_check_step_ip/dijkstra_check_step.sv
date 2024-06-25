@@ -29,16 +29,17 @@ module dijkstra_check_step
       done = 0;
       result = 0;
     end
-    else if (dataa == 32'h7F800000 || datab == 32'h7F800000 || datab[31] == 1 || datab[30:0] == 31'b0)
-    begin
-      result = 32'h7f800000; // infinity
-      done = 1;
-    end
+    // else if (clk_en && dataa == 32'h7F800000 || datab == 32'h7F800000 || datab[31] == 1 || datab[30:0] == 31'b0)
+    // begin
+    //   result = 32'h7f800000; // infinity
+    //   done = 1;
+    // end
     else 
     begin
       case (count)
         2: begin
-          result = add_res;
+          result = (dataa == 32'h7F800000 || datab == 32'h7F800000 || datab[31] == 1 || datab[30:0] == 31'b0) ?
+            32'h7f800000 : add_res;
           done = 1;
         end
         default: begin

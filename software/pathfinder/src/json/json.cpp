@@ -1,7 +1,7 @@
 #include "json.h"
 #include <vector>
 
-const int MAX_AVG_OVER = 10;
+const int MAX_AVG_OVER = 0;
 
 const int SIZE = 219;
 std::vector<std::vector<Edge>> adjList(SIZE);
@@ -9,6 +9,8 @@ std::vector<std::vector<Edge>> adjList(SIZE);
 std::string deserialiseGraph(std::string &input, GraphFormat &graph)
 {
   StaticJsonDocument<2 * CAPACITY> inDoc; // 2x capacity to play it safe
+
+  printf("%s\n\n\n", input.c_str());
   // DeserializationError err = deserializeJson(inDoc, input.c_str());
 
   // if (err)
@@ -328,7 +330,7 @@ std::string serialiseResult(ResultFormat res, std::string &output)
     sht.add(res.shortest[vert_id]);
     vert_id = res.shortest[vert_id];
 
-  } while (res.shortest[vert_id] != res.start && i++ < 1000);
+  } while (res.shortest[vert_id] != res.start && res.shortest[vert_id] < SIZE && res.shortest[vert_id] >= 0 && i++ < 1000);
 
   if (i >= 1000)
   {
