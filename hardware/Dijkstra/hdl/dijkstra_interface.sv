@@ -24,7 +24,7 @@ module DijkstraInterface
 	input wire clock,
 	input wire clock_enable,
 
-	input wire[7:0] select_n, //choose the mode of instruction
+	input wire[3:0] select_n, //choose the mode of instruction
 
     input wire[31:0] dataa, 
     input wire[31:0] datab,

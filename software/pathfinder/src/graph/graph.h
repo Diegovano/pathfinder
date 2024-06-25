@@ -4,7 +4,16 @@
 #include <set>
 #include <map>
 #include "system.h"
-#include "includes_and_settings.h"
+#include <cstdio>
+#include <cstddef>
+#include "system.h"
+#include "io.h"
+#include "sys/alt_irq.h"
+#include "alt_types.h"
+#include "sys/alt_timestamp.h"
+#include "sys/alt_cache.h"
+#include <unistd.h>
+#include "../DMA/DMA.h"
 
 
 extern float __builtin_custom_fnff(int a, float b, float c);
@@ -20,6 +29,14 @@ extern int __builtin_custom_inff(int a, float b, float c);
 #pragma GCC target("custom-fadds=253")
 #pragma GCC target("custom-fsubs=254")
 #pragma GCC target("custom-fdivs=255")
+
+
+
+#define ALT_CI_HW_DIJKSTRA_2(n,A,B) __builtin_custom_fnii(ALT_CI_HW_DIJKSTRA_0_N+(n&ALT_CI_HW_DIJKSTRA_0_N_MASK),(A),(B))
+#define ALT_CI_HW_DIJKSTRA_2_N 0x0
+#define ALT_CI_HW_DIJKSTRA_2_N_MASK ((1<<4)-1)
+
+
 
 #define ALT_CI_DIJKSTRA_CHECK_STEP_1(A,B) __builtin_custom_fnff(ALT_CI_DIJKSTRA_ACCEL_0_N,(A),(B))
 
@@ -85,7 +102,7 @@ class Graph
   }
 
   void dijkstra();
-  void HW_dijkstra(*float mem_address, DMA &dma);
+  void HW_dijkstra(float *mem_address, DMA &dma);
 
   void delta(int p_delta = 1);
 

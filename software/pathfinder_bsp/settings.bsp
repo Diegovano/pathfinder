@@ -2,11 +2,11 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Jun 25, 2024 5:25:35 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1719332735208</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>/home/diego/documents/pathfinder/software/pathfinder_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>2024-6-25 20:41:35</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1719344495839</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>C:\Users\runsh\Desktop\Main\IC\EIE3\summer\pathfinder_main\pathfinder\software\pathfinder_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
-        <SopcDesignFile>../../quartus/nios2_system.sopcinfo</SopcDesignFile>
+        <SopcDesignFile>..\..\quartus\nios2_system.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
         <Cpu>cpu</Cpu>
         <SchemaVersion>1.9</SchemaVersion>
@@ -905,44 +905,50 @@
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>hw_dijkstra_0</slaveDescriptor>
+                <addressRange>0x01000000 - 0x0103FFFF</addressRange>
+                <addressSpan>262144</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>astar_accel</slaveDescriptor>
-                <addressRange>0x01001000 - 0x0100103F</addressRange>
+                <addressRange>0x01041000 - 0x0104103F</addressRange>
                 <addressSpan>64</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>timestamp_timer</slaveDescriptor>
-                <addressRange>0x01001040 - 0x0100107F</addressRange>
+                <addressRange>0x01041040 - 0x0104107F</addressRange>
                 <addressSpan>64</addressSpan>
                 <attributes>timer</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>spi</slaveDescriptor>
-                <addressRange>0x01001080 - 0x0100109F</addressRange>
+                <addressRange>0x01041080 - 0x0104109F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>dma</slaveDescriptor>
-                <addressRange>0x010010A0 - 0x010010BF</addressRange>
+                <addressRange>0x010410A0 - 0x010410BF</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>pio</slaveDescriptor>
-                <addressRange>0x010010D0 - 0x010010DF</addressRange>
+                <addressRange>0x010410C0 - 0x010410CF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>sysid</slaveDescriptor>
-                <addressRange>0x010010E0 - 0x010010E7</addressRange>
+                <addressRange>0x010410D0 - 0x010410D7</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>jtag_uart</slaveDescriptor>
-                <addressRange>0x010010E8 - 0x010010EF</addressRange>
+                <addressRange>0x010410D8 - 0x010410DF</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>

@@ -21,7 +21,7 @@
    {
       datum baseAddress
       {
-         value = "16781312";
+         value = "17043456";
          type = "String";
       }
    }
@@ -45,7 +45,7 @@
    {
       datum baseAddress
       {
-         value = "16779264";
+         value = "17041408";
          type = "String";
       }
    }
@@ -69,7 +69,7 @@
    {
       datum baseAddress
       {
-         value = "16781472";
+         value = "17043616";
          type = "String";
       }
    }
@@ -79,6 +79,27 @@
       {
          value = "9";
          type = "int";
+      }
+   }
+   element hw_dijkstra_0
+   {
+      datum _sortIndex
+      {
+         value = "12";
+         type = "int";
+      }
+   }
+   element hw_dijkstra_0.slave
+   {
+      datum _lockedAddress
+      {
+         value = "0";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "16777216";
+         type = "String";
       }
    }
    element jtag_uart
@@ -93,7 +114,7 @@
    {
       datum baseAddress
       {
-         value = "16781544";
+         value = "17043672";
          type = "String";
       }
    }
@@ -317,7 +338,7 @@
    {
       datum baseAddress
       {
-         value = "16781520";
+         value = "17043648";
          type = "String";
       }
    }
@@ -354,7 +375,7 @@
    {
       datum baseAddress
       {
-         value = "16781440";
+         value = "17043584";
          type = "String";
       }
    }
@@ -370,7 +391,7 @@
    {
       datum baseAddress
       {
-         value = "16781536";
+         value = "17043664";
          type = "String";
       }
    }
@@ -386,7 +407,7 @@
    {
       datum baseAddress
       {
-         value = "16781376";
+         value = "17043520";
          type = "String";
       }
    }
@@ -443,14 +464,14 @@
   <parameter name="cpuArchRev" value="1" />
   <parameter name="cpuID" value="0" />
   <parameter name="cpuReset" value="false" />
-  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="nios_custom_instr_floating_point_2_0" baseAddress="224" addressSpan="16" clockCycleType="COMBINATORIAL" /><slave name="dijkstra_accel_0" baseAddress="0" addressSpan="1" clockCycleType="VARIABLE" /><slave name="nios_custom_instr_floating_point_2_0_1" baseAddress="248" addressSpan="8" clockCycleType="VARIABLE" /></info>]]></parameter>
+  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="hw_dijkstra_0" baseAddress="0" addressSpan="16" clockCycleType="VARIABLE" /><slave name="nios_custom_instr_floating_point_2_0" baseAddress="224" addressSpan="16" clockCycleType="COMBINATORIAL" /><slave name="dijkstra_accel_0" baseAddress="16" addressSpan="1" clockCycleType="VARIABLE" /><slave name="nios_custom_instr_floating_point_2_0_1" baseAddress="248" addressSpan="8" clockCycleType="VARIABLE" /></info>]]></parameter>
   <parameter name="customInstSlavesSystemInfo_nios_a" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_b" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_c" value="&lt;info/&gt;" />
   <parameter name="dataAddrWidth" value="25" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x800000' end='0x1000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='cpu.debug_mem_slave' start='0x1000800' end='0x1001000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='astar_accel.s1' start='0x1001000' end='0x1001040' type='astar_accel.s1' /><slave name='timestamp_timer.s1' start='0x1001040' end='0x1001080' type='altera_avalon_timer.s1' /><slave name='spi.spi_control_port' start='0x1001080' end='0x10010A0' type='altera_avalon_spi.spi_control_port' /><slave name='dma.control_port_slave' start='0x10010A0' end='0x10010C0' type='altera_avalon_dma.control_port_slave' /><slave name='pio.s1' start='0x10010D0' end='0x10010E0' type='altera_avalon_pio.s1' /><slave name='sysid.control_slave' start='0x10010E0' end='0x10010E8' type='altera_avalon_sysid_qsys.control_slave' /><slave name='jtag_uart.avalon_jtag_slave' start='0x10010E8' end='0x10010F0' type='altera_avalon_jtag_uart.avalon_jtag_slave' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x800000' end='0x1000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='hw_dijkstra_0.slave' start='0x1000000' end='0x1040000' type='hw_dijkstra.slave' /><slave name='cpu.debug_mem_slave' start='0x1040800' end='0x1041000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='astar_accel.s1' start='0x1041000' end='0x1041040' type='astar_accel.s1' /><slave name='timestamp_timer.s1' start='0x1041040' end='0x1041080' type='altera_avalon_timer.s1' /><slave name='spi.spi_control_port' start='0x1041080' end='0x10410A0' type='altera_avalon_spi.spi_control_port' /><slave name='dma.control_port_slave' start='0x10410A0' end='0x10410C0' type='altera_avalon_dma.control_port_slave' /><slave name='pio.s1' start='0x10410C0' end='0x10410D0' type='altera_avalon_pio.s1' /><slave name='sysid.control_slave' start='0x10410D0' end='0x10410D8' type='altera_avalon_sysid_qsys.control_slave' /><slave name='jtag_uart.avalon_jtag_slave' start='0x10410D8' end='0x10410E0' type='altera_avalon_jtag_uart.avalon_jtag_slave' /></address-map>]]></parameter>
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -489,14 +510,14 @@
   <parameter name="icache_tagramBlockType" value="Automatic" />
   <parameter name="impl" value="Fast" />
   <parameter name="instAddrWidth" value="25" />
-  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x800000' end='0x1000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='cpu.debug_mem_slave' start='0x1000800' end='0x1001000' type='altera_nios2_gen2.debug_mem_slave' /></address-map>]]></parameter>
+  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x800000' end='0x1000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='cpu.debug_mem_slave' start='0x1040800' end='0x1041000' type='altera_nios2_gen2.debug_mem_slave' /></address-map>]]></parameter>
   <parameter name="instructionMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="instructionMasterHighPerformanceMapParam" value="" />
   <parameter name="instruction_master_high_performance_paddr_base" value="0" />
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="55" />
+  <parameter name="internalIrqMaskSystemInfo" value="63" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -621,12 +642,12 @@
   <parameter name="fifoDepth" value="32" />
   <parameter name="maxBurstSize" value="128" />
   <parameter name="minimumDmaTransactionRegisterWidth" value="13" />
-  <parameter name="readAddressMap"><![CDATA[<address-map><slave name='sdram.s1' start='0x800000' end='0x1000000' /><slave name='astar_accel.s1' start='0x1001000' end='0x1001040' /></address-map>]]></parameter>
+  <parameter name="readAddressMap"><![CDATA[<address-map><slave name='sdram.s1' start='0x800000' end='0x1000000' /><slave name='hw_dijkstra_0.slave' start='0x1000000' end='0x1040000' /><slave name='astar_accel.s1' start='0x1041000' end='0x1041040' /></address-map>]]></parameter>
   <parameter name="readSlaveAddressWidthMax" value="25" />
   <parameter name="readSlaveDataWidthMax" value="32" />
   <parameter name="softresetEnable" value="true" />
   <parameter name="useRegistersForFIFO" value="false" />
-  <parameter name="writeAddressMap"><![CDATA[<address-map><slave name='sdram.s1' start='0x800000' end='0x1000000' /><slave name='astar_accel.s1' start='0x1001000' end='0x1001040' /></address-map>]]></parameter>
+  <parameter name="writeAddressMap"><![CDATA[<address-map><slave name='sdram.s1' start='0x800000' end='0x1000000' /><slave name='hw_dijkstra_0.slave' start='0x1000000' end='0x1040000' /><slave name='astar_accel.s1' start='0x1041000' end='0x1041040' /></address-map>]]></parameter>
   <parameter name="writeSlaveAddressWidthMax" value="25" />
   <parameter name="writeSlaveDataWidthMax" value="32" />
  </module>
@@ -642,6 +663,11 @@
   <parameter name="conversion_present" value="false" />
   <parameter name="deviceFamily" value="Cyclone V" />
   <parameter name="root_present" value="false" />
+ </module>
+ <module name="hw_dijkstra_0" kind="hw_dijkstra" version="1.0" enabled="1">
+  <parameter name="INDEX_WIDTH" value="7" />
+  <parameter name="MAX_NODES" value="128" />
+  <parameter name="VALUE_WIDTH" value="32" />
  </module>
  <module
    name="jtag_uart"
@@ -750,7 +776,7 @@
    start="cpu.data_master"
    end="jtag_uart.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x010010e8" />
+  <parameter name="baseAddress" value="0x010410d8" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -759,7 +785,7 @@
    start="cpu.data_master"
    end="dma.control_port_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x010010a0" />
+  <parameter name="baseAddress" value="0x010410a0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -768,7 +794,7 @@
    start="cpu.data_master"
    end="sysid.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x010010e0" />
+  <parameter name="baseAddress" value="0x010410d0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -777,12 +803,12 @@
    start="cpu.data_master"
    end="cpu.debug_mem_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x01000800" />
+  <parameter name="baseAddress" value="0x01040800" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="avalon" version="20.1" start="cpu.data_master" end="pio.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x010010d0" />
+  <parameter name="baseAddress" value="0x010410c0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="avalon" version="20.1" start="cpu.data_master" end="sdram.s1">
@@ -796,7 +822,7 @@
    start="cpu.data_master"
    end="timestamp_timer.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x01001040" />
+  <parameter name="baseAddress" value="0x01041040" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -805,7 +831,16 @@
    start="cpu.data_master"
    end="astar_accel.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x01001000" />
+  <parameter name="baseAddress" value="0x01041000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="20.1"
+   start="cpu.data_master"
+   end="hw_dijkstra_0.slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x01000000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -814,7 +849,7 @@
    start="cpu.data_master"
    end="spi.spi_control_port">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x01001080" />
+  <parameter name="baseAddress" value="0x01041080" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -823,7 +858,7 @@
    start="cpu.instruction_master"
    end="cpu.debug_mem_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x01000800" />
+  <parameter name="baseAddress" value="0x01040800" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -846,7 +881,16 @@
    start="dma.read_master"
    end="astar_accel.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x01001000" />
+  <parameter name="baseAddress" value="0x01041000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="20.1"
+   start="dma.read_master"
+   end="hw_dijkstra_0.slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x01000000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="avalon" version="20.1" start="dma.write_master" end="sdram.s1">
@@ -860,7 +904,16 @@
    start="dma.write_master"
    end="astar_accel.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x01001000" />
+  <parameter name="baseAddress" value="0x01041000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="20.1"
+   start="dma.write_master"
+   end="hw_dijkstra_0.slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x01000000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="20.1" start="clk_0.clk" end="cpu.clk" />
@@ -876,6 +929,18 @@
  <connection kind="clock" version="20.1" start="clk_0.clk" end="spi.clk" />
  <connection kind="clock" version="20.1" start="clk_0.clk" end="dma.clk" />
  <connection kind="clock" version="20.1" start="clk_0.clk" end="astar_accel.clock" />
+ <connection
+   kind="clock"
+   version="20.1"
+   start="clk_0.clk"
+   end="hw_dijkstra_0.clock" />
+ <connection
+   kind="interrupt"
+   version="20.1"
+   start="cpu.irq"
+   end="hw_dijkstra_0.interrupt_sender">
+  <parameter name="irqNumber" value="5" />
+ </connection>
  <connection kind="interrupt" version="20.1" start="cpu.irq" end="jtag_uart.irq">
   <parameter name="irqNumber" value="0" />
  </connection>
@@ -887,13 +952,22 @@
   <parameter name="irqNumber" value="1" />
  </connection>
  <connection kind="interrupt" version="20.1" start="cpu.irq" end="dma.irq">
-  <parameter name="irqNumber" value="4" />
+  <parameter name="irqNumber" value="2" />
  </connection>
  <connection kind="interrupt" version="20.1" start="cpu.irq" end="astar_accel.irq">
-  <parameter name="irqNumber" value="5" />
+  <parameter name="irqNumber" value="3" />
  </connection>
  <connection kind="interrupt" version="20.1" start="cpu.irq" end="spi.irq">
-  <parameter name="irqNumber" value="2" />
+  <parameter name="irqNumber" value="4" />
+ </connection>
+ <connection
+   kind="nios_custom_instruction"
+   version="20.1"
+   start="cpu.custom_instruction_master"
+   end="hw_dijkstra_0.dijkstra">
+  <parameter name="CIName" value="hw_dijkstra_0" />
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0" />
  </connection>
  <connection
    kind="nios_custom_instruction"
@@ -911,7 +985,7 @@
    end="dijkstra_accel.s1">
   <parameter name="CIName" value="dijkstra_accel_0" />
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0" />
+  <parameter name="baseAddress" value="16" />
  </connection>
  <connection
    kind="nios_custom_instruction"
@@ -943,6 +1017,11 @@
    version="20.1"
    start="clk_0.clk_reset"
    end="astar_accel.reset" />
+ <connection
+   kind="reset"
+   version="20.1"
+   start="clk_0.clk_reset"
+   end="hw_dijkstra_0.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
