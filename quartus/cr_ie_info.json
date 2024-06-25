@@ -1,0 +1,22 @@
+{
+	"system" : {
+		"platform" : "linux64",
+		"os_name" : "Arch Linux",
+		"os_version" : ""
+	},
+	"error" : {
+		"executable" : "quartus",
+		"comment" : "not_applicable",
+		"error_message" : "Segment Violation at 0x10",
+		"source_file" : "unknown",
+		"line" : "0",
+		"stack_trace" : "\t0x7842cb60c85a: tbbmalloc.so.2 + 0xc85a (_ZN3rml8internal5Block16freePublicObjectEPNS0_10FreeObjectE + 0x7a)\n\t0x7842c46012c9: tbbmalloc_proxy.so.2 + 0x12c9 (__libc_free + 0x9)\n\t0x7842d0aefedf: db_acf + 0xefedf (_ZNK15ACF_INITIALIZER28destroy_globals_in_acf_tableEv + 0x11f)\n\t0x7842cfe52a60: c.so.6 + 0x3ea60 (__cxa_finalize + 0x160)\n\t0x7842d0ae74c3: db_acf + 0xe74c3\n\t0x7842e9e100f2: ld-linux-x86-64.so.2 + 0x10f2\n\t0x7842e9e1411e: ld-linux-x86-64.so.2 + 0x511e\n\t0x7842cfe52fa1: c.so.6 + 0x3efa1\n\t0x7842cfe5306e: c.so.6 + 0x3f06e\n\t0x7842cfe39c8f: c.so.6 + 0x25c8f\n\t0x7842cfe39d4c: c.so.6 + 0x25d4c (__libc_start_main + 0x8c)\n\t   0x401d39: quartus + 0x1d39\n",
+		"subsystem" : "unknown"
+	},
+	"quartus" : {
+		"quartus_bits" : "64",
+		"version" : "20.1.1",
+		"build" : "720",
+		"edition" : "Lite Edition"
+	}
+}

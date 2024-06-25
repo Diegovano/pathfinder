@@ -7,15 +7,21 @@
 #include "includes_and_settings.h"
 
 
-#define ALT_CI_DIJKSTRA_CHECK_STEP_1(A,B) __builtin_custom_fnff(ALT_CI_DIJKSTRA_CHECK_STEP_N,(A),(B))
-// #define ALT_CI_DIJKSTRA_CHECK_STEP_0_N 0x0
-#define ALT_CI_LEF_1(A,B) __builtin_custom_inff(ALT_CI_LEF_0_N,(A),(B))
-// #define ALT_CI_LEF_0_N 0x1
-#define ALT_CI_LTF_1(A,B) __builtin_custom_inff(ALT_CI_LTF_0_N,(A),(B))
-// #define ALT_CI_LTF_0_N 0x2
-
 extern float __builtin_custom_fnff(int a, float b, float c);
 extern int __builtin_custom_inff(int a, float b, float c);
+
+#pragma GCC target("custom-fcmpnes=226")
+#pragma GCC target("custom-fcmpeqs=227")
+#pragma GCC target("custom-fcmpges=228")
+#pragma GCC target("custom-fcmpgts=229")
+#pragma GCC target("custom-fcmples=230")
+#pragma GCC target("custom-fcmplts=231")
+#pragma GCC target("custom-fmuls=252")
+#pragma GCC target("custom-fadds=253")
+#pragma GCC target("custom-fsubs=254")
+#pragma GCC target("custom-fdivs=255")
+
+#define ALT_CI_DIJKSTRA_CHECK_STEP_1(A,B) __builtin_custom_fnff(ALT_CI_DIJKSTRA_ACCEL_0_N,(A),(B))
 
 struct request
 {

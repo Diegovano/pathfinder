@@ -29,8 +29,6 @@
 
 int main () 
 {
-//  printf("%f", ALT_CI_DIJKSTRA_CHECK_STEP_1(0.0, 17.191));
-//  return 0;
   printf("Starting Pathfinder!\n");
 
   const int NUM_VERTICES = 219;
@@ -83,7 +81,7 @@ int main ()
         #if DEBUG
         if (stateChange) printf("\nPATHFINDING:\n");
         #endif
-        GraphFormat graphf(NUM_VERTICES);
+        GraphFormat graphf;
         std::string err = deserialiseGraph(context.response, graphf);
         if (err != "") 
         {

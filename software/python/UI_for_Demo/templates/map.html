@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathfinder</title>
+    <style>
+        .spinner {
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+
+        @font-face {
+            font-family: 'Bauhaus 93';
+            src: url('fonts/Bauhaus93.woff2') format('woff2'),
+                 url('fonts/Bauhaus93.woff') format('woff'),
+                 url('fonts/Bauhaus93.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        #loadingScreen, #map {
+            font-family: 'Bauhaus 93', sans-serif; 
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+        }
+
+        #map_e752e21955fbc03701e3fb6487e3e6fb {
+            position: relative;
+            width: 100.0%;
+            height: 100.0%;
+            left: 0.0%;
+            top: 0.0%;
+        }
+
+        .leaflet-container {
+            font-size: 1rem;
+        }
+
+        .side-box {
+            height: 500px;
+            width: 200px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .round-button {
+            background-color: white;
+            border: none;
+            color: black;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 50px;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+
+        .round-button:hover {
+            background-color: #90EE90;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .text-box-container {
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .dropdown-box {
+            padding-top: 10px;
+            z-index: 1000;
+        }
+
+        .loading-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #1B7593;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            animation: fadeOut 1s forwards;
+            animation-delay: 2s;
+        }
+
+        .loading-screen img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .leaflet-popup-content-wrapper {
+            background-color: #FF0000;
+            color: #ff0000;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
+            font-family: 'Bauhaus 93', sans-serif;
+        }
+
+        .leaflet-popup-content {
+            margin-top: 0;
+            font-size: 120px;
+        }
+    </style>
+    <script>
+        L_NO_TOUCH = false;
+        L_DISABLE_3D = false;
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById('loadingScreen').style.display = 'none';
+                document.getElementById('map').style.display = 'block';
+            }, 4000);
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+</head>
+<body>
+    <div id="loadingScreen" class="loading-screen">
+        <img src="images/loading-image.png" alt="Loading" />
+    </div>
+    <div class="folium-map" id="map_e752e21955fbc03701e3fb6487e3e6fb"></div>
+    <div id='container' style="position: fixed; top:20px;right:20px; z-index:1000">
+        <div class="side-box">
+            <div style="color: #1E1E1E; font-size: 20px; font-family: Inter; font-weight: 500; line-height: 10px; word-wrap: break-word"><u>Route</u></div>
+            <div style="color: #B3B3B3; font-size: 12px; font-family: Inter; font-weight: 500; line-height: 56px; word-wrap: break-word">Start ID:</div>
+            <div style="color: #B3B3B3; font-size: 12px; font-family: Inter; font-weight: 500; line-height: 16px; word-wrap: break-word">End ID:</div>
+            <div class="dropdown-box">
+                <select id="dropdown">
+                    <option value="Dijkstra">Dijkstra</option>
+                    <option value="A*">A*</option>
+                    <option value="Delta Stepping">Delta Stepping</option>
+                </select>
+            </div>
+            <button class="round-button" id="calculateButton">Calculate</button>
+            <div style="color: #1E1E1E; font-size: 20px; font-family: Inter; font-weight: 500; line-height: 40px; word-wrap: break-word"><u>Runtime</u></div>
+            <div style="color: #B3B3B3; font-size: 12px; font-family: Inter; font-weight: 500; line-height: 20px; word-wrap: break-word">A* :</div>
+            <div style="color: #B3B3B3; font-size: 12px; font-family: Inter; font-weight: 500; line-height: 16px; word-wrap: break-word">Dijkstra:</div>
+            <div style="color: #B3B3B3; font-size: 12px; font-family: Inter; font-weight: 500; line-height: 16px; word-wrap: break-word">Software:</div>
+            <div class="text-box" id="infoBox">
+                <p>Some informational text here.</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        var selectedAlgorithm = 'Dijkstra';
+
+        function setAlgorithm(algorithm) {
+            selectedAlgorithm = algorithm;
+            console.log('Selected Algorithm:', selectedAlgorithm);
+        }
+
+        document.getElementById('dropdown').addEventListener('change', function() {
+            setAlgorithm(this.value);
+        });
+
+        var map_e752e21955fbc03701e3fb6487e3e6fb = L.map(
+            "map_e752e21955fbc03701e3fb6487e3e6fb",
+            {
+                center: [51.4988, -0.1749],
+                crs: L.CRS.EPSG3857,
+                zoom: 14,
+                zoomControl: true,
+                preferCanvas: false,
+            }
+        );
+
+        var tile_layer_e6e27f251bd9ed001e5679bc9d5215f2 = L.tileLayer(
+            "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+            {
+                attribution: "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors",
+                detectRetina: false,
+                maxNativeZoom: 19,
+                maxZoom: 19,
+                minZoom: 0,
+                noWrap: false,
+                opacity: 1,
+                subdomains: "abc",
+                tms: false
+            }
+        );
+
+        tile_layer_e6e27f251bd9ed001e5679bc9d5215f2.addTo(map_e752e21955fbc03701e3fb6487e3e6fb);
+
+        map_e752e21955fbc03701e3fb6487e3e6fb.on('click', function(e) {
+            fetch('/post', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    coordinates: [e.latlng.lat, e.latlng.lng],
+                }),
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+
+        var markers = [];
+        var polyline = null;
+        var circleReference = null;
+
+        function removeAllMarkers() {
+            markers.forEach(function(marker) {
+                map_e752e21955fbc03701e3fb6487e3e6fb.removeLayer(marker);
+            });
+            markers = [];
+            if (polyline) {
+                map_e752e21955fbc03701e3fb6487e3e6fb.removeLayer(polyline);
+                polyline = null;
+            }
+            if (circleReference) {
+                map_e752e21955fbc03701e3fb6487e3e6fb.removeLayer(circleReference);
+                circleReference = null;
+            }
+        }
+
+        function drawPolyline(pathCoords) {
+            var index = 0;
+            function drawSegment() {
+                if (index < pathCoords.length - 1) {
+                    var segment = [pathCoords[index], pathCoords[index + 1]];
+                    L.polyline(segment, { color: 'blue' }).addTo(map_e752e21955fbc03701e3fb6487e3e6fb);
+                    index++;
+                    setTimeout(drawSegment, 500);  // Adjust the delay to control animation speed
+                }
+            }
+            drawSegment();
+        }
+
+        function addCircle(lat, lng, options) {
+            if(circleReference) {
+                circleReference.remove();
+                circleReference = null;
+            }
+            circleReference = L.circle([lat, lng], options).addTo(map_e752e21955fbc03701e3fb6487e3e6fb);
+        }
+
+        function newMarker(e) {
+            if (markers.length >= 2) {
+                removeAllMarkers();
+            }
+
+            var greenIcon = L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+
+            var redIcon = L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+
+            var new_mark = L.marker(e.latlng, { icon: markers.length === 0 ? greenIcon : redIcon }).addTo(map_e752e21955fbc03701e3fb6487e3e6fb);
+            new_mark.dragging.enable();
+            new_mark.on('dblclick', function(e) { 
+                map_e752e21955fbc03701e3fb6487e3e6fb.removeLayer(e.target);
+                markers = markers.filter(marker => marker !== new_mark);
+                if (markers.length < 2 && polyline) {
+                    map_e752e21955fbc03701e3fb6487e3e6fb.removeLayer(polyline);
+                    polyline = null;
+                }
+            });
+
+            var lat = e.latlng.lat.toFixed(4),
+                lng = e.latlng.lng.toFixed(4);
+            new_mark.bindPopup("Potential Location");
+            markers.push(new_mark);
+
+            if(markers.length === 1) {
+                addCircle(lat, lng, {
+                    color: 'blue',
+                    fillColor: 'blue',
+                    fillOpacity: 0.1,
+                    radius: 2000
+                });
+            }
+
+            if (markers.length === 2) {
+
+                var circleCenter = circleReference.getLatLng();
+                var radius = circleReference.getRadius();
+                var distance = e.latlng.distanceTo(circleCenter);
+                
+                if (distance > radius) {
+                    alert("The red marker must be placed within the blue circle.");
+                    map_e752e21955fbc03701e3fb6487e3e6fb.removeLayer(new_mark);
+                    markers.pop();
+                    return;
+                }
+
+                document.getElementById("calculateButton").onclick = function() {
+                    var lat1 = markers[0].getLatLng().lat,
+                        lng1 = markers[0].getLatLng().lng,
+                        lat2 = markers[1].getLatLng().lat,
+                        lng2 = markers[1].getLatLng().lng;
+
+                    document.getElementById('infoBox').innerHTML = '<i class="fas fa-spinner spinner"></i> Calculating';
+                    
+                    let dotCount = 0;
+                    const maxDots = 3;
+                    const calculatingInterval = setInterval(() => {
+                        dotCount = (dotCount + 1) % (maxDots + 1);
+                        const dots = '.'.repeat(dotCount);
+                        document.getElementById('infoBox').innerHTML = `<i class="fas fa-spinner spinner"></i> Calculating${dots}`;
+                    }, 500);
+
+                    fetch('/pathfind', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            lat1: lat1,
+                            lng1: lng1,
+                            lat2: lat2,
+                            lng2: lng2,
+                            algorithm: selectedAlgorithm,
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        clearInterval(calculatingInterval);
+                        document.getElementById('infoBox').innerText = 'Calculation complete'; 
+                        
+                        if (data.status === 'success') {
+                            drawPolyline(data.path)
+                        } else {
+                            document.getElementById('infoBox').innerText = data.error;
+                        }
+                    })
+                    .catch((error) => {
+                        clearInterval(calculatingInterval); 
+                        document.getElementById('infoBox').innerText = "An error occurred. Please try again.";
+                        console.error('Error:', error);
+                    });
+                };
+            }
+        }
+
+        map_e752e21955fbc03701e3fb6487e3e6fb.on('click', newMarker);
+    </script>
+</body>
+</html>

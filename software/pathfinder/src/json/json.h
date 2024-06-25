@@ -18,26 +18,20 @@ struct GraphFormat
 {
   bool adjMatx;
   float *x, *y, **adj;
-  const int size;
+  int size;
   int start, end;
   int averageOver;
 
-  GraphFormat(int numberVertices) : size(numberVertices)
-  {
-    x = new float[size];
-    y = new float[size];
-
-    adj = new float*[size];
-    for (int i = 0; i < size; i++) adj[i] = new float[size]; 
-  }
+  GraphFormat()
+  { }
 
   ~GraphFormat()
   {
-    delete[] x;
-    delete[] y;
+    // delete[] x;
+    // delete[] y;
 
-    for (int i = 0; i < size; i++) delete[] adj[i];
-    delete[] adj;
+    // for (int i = 0; i < size; i++) if(adj[i]) delete[] adj[i];
+    // delete[] adj;
   }
 };
 
