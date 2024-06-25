@@ -16,7 +16,7 @@ public:
 
     void begin();
 
-    void spi_tx_string(std::string&);
+    void spi_tx_string(char*, unsigned int);
 
     bool spi_rx_string(std::string&);
 
