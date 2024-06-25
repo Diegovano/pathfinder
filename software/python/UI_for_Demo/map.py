@@ -61,7 +61,6 @@ def formatData(algorithm, start, end):
                 {
                     "index": end_node_index,
                     "length": length,
-                    "coords": nodes_list[end_node_index]['geometry']['coordinates']
                 }
                 for end_node_index, length in connections
             ]
@@ -76,22 +75,21 @@ def formatData(algorithm, start, end):
 
 
 def send_receive_esp32(json_data):
-    # HOST = "192.168.137.121"
-    # PORT = 80
-    # try:
-    #     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    #         s.connect((HOST, PORT))
-    #         s.sendall(bytes(str(json_data)+"\n\n", 'utf8'))
-    #         print("Sent GRAPH")
-    #         data = json.loads(s.recv(1024).decode('utf8'))
-    #         # response result to client
-    # except Exception as e:
-    #     print(f"An error occurred: {e}")
-    #     data = None
-    # return data
-    data = '{"sht": [73, 108, 162, 71, 68, 63, 60, 61, 156, 112, 15, 113], "max_iterations":0,"iCache":2048, "dCache":2048,"algorithm":"delta","note":""}'
-    data = json.loads(data)
+    HOST = "192.168.137.16"
+    PORT = 80
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((HOST, PORT))
+            s.sendall(bytes(str(json_data)+"\n\n", 'utf8'))
+            print("Sent GRAPH")
+            data = json.loads(s.recv(1024).decode('utf8'))
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        data = None
     return data
+    # data = '{"sht": [73, 108, 162, 71, 68, 63, 60, 61, 156, 112, 15, 113], "max_iterations":0,"iCache":2048, "dCache":2048,"sw_astar_time": 24435,"hybrid_astar_time": 3062,"sw_dj_time": 373,"hybrid_dj_time": 132,"hw_dj_time": 25,"delta_time": "inf","hybrid_delta_time": "inf","distance": 956.6,"note":""}'    
+    # data = json.loads(data)
+    # return data
 
 
 @app.route('/')
@@ -101,14 +99,16 @@ def index():
 
 @app.route('/pathfind', methods=['POST'])
 def pathfind():
+    centerlat = request.json['centerlat']
+    centerlng = request.json['centerlng']
     lat1 = request.json['lat1']
     lng1 = request.json['lng1']
     lat2 = request.json['lat2']
     lng2 = request.json['lng2']
     algorithm = request.json['algorithm']
 
-    distance = 600 # REMEBER TO CHANGE THE DISTANCE FROM 600 TO OTHER
-    coordinates_array = (51.4988, -0.1749) # (lat1, lng1) 
+    distance = 600 
+    coordinates_array = (centerlat, centerlng) # (51.4988, -0.1749) 
     G = ox.graph_from_point(coordinates_array, dist=distance, network_type='drive', simplify=True, retain_all=False)    
     orig_node = ox.nearest_nodes(G, X=lng1, Y=lat1)
     dest_node = ox.nearest_nodes(G, X=lng2, Y=lat2)
@@ -127,19 +127,20 @@ def pathfind():
     edges.to_file('edges.geojson', driver='GeoJSON')
  
     node_id_dict, json_data = formatData(algorithm, orig_node, dest_node)
-    received_data = send_receive_esp32(json_data)['sht']
+    received_data = send_receive_esp32(json_data)
 
     inverted_node_id_dict = {v: k for k, v in node_id_dict.items()}
-    path_osmids = [inverted_node_id_dict[id] for id in received_data]
+    path_osmids = [inverted_node_id_dict[id] for id in received_data['sht']]
     path_coords = [[nodes.loc[osmid].lat, nodes.loc[osmid].lon] for osmid in path_osmids if osmid in nodes.index]
 
-    total_distance = 0
-    total_time = 0
+    times = [received_data['sw_astar_time'], received_data['hybrid_astar_time'], received_data['sw_dj_time'], received_data['hybrid_dj_time'], received_data['hw_dj_time'], received_data['delta_time'], received_data['hybrid_delta_time']]
+    
     response = {
         'status': 'success',
-        'total_distance': total_distance,
-        'total_time': total_time,
+        'total_distance': received_data['distance'],
+        'runtimes': times,
         'path': path_coords,
+        'algorithm': algorithm,
         'info': f'Path from ({lat1}, {lng1}) to ({lat2}, {lng2}) found, using algorithm {algorithm}'
     }
 
