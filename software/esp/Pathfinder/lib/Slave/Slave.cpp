@@ -16,19 +16,19 @@ void Slave::begin()
     usleep(delay);
 }
 
-void Slave::spi_tx_string(std::string &tx_str) 
+void Slave::spi_tx_string(char* tx_str, unsigned int size)
 {
     SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
 
     const uint8_t NULL_BUF[BUF_LEN] = {0};
 
-    for (std::string::iterator it = tx_str.begin(); it < tx_str.end(); std::advance(it, BUF_LEN))
+    for (int i = 0; i < size; i++)
     {
 
         // Assert slave select -> begin transfer
         digitalWrite(SPI_CS, LOW);
         
-        SPI.transferBytes((uint8_t*)(&*it), NULL, BUF_LEN);
+        SPI.transferBytes((uint8_t*)(tx_str+i), NULL, BUF_LEN);
 
         digitalWrite(SPI_CS, HIGH);
 

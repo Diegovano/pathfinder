@@ -8,7 +8,7 @@
 #include <vector>
 
 #define SKIP_RX false
-#define WIFI false
+#define WIFI true
 #define ADJ_MATX false
 #define XY_DONTCARE true
 
@@ -35,7 +35,8 @@ const char *PER_PASSWORD = "U00#10s0";
 // Server declaration
 WiFiServer server(80);
 WiFiClient client;
-std::string request;
+char request[70000];
+unsigned int offset;
 std::string response;
 
 // LED states
@@ -658,6 +659,8 @@ void setup()
   digitalWrite(LED, LOW);
   LEDState = LOW;
 
+  offset = 0;
+
   // Initiate state
   #if WIFI
   state = HOST_LISTEN;
@@ -709,7 +712,8 @@ void loop()
 
         char c = client.read(); // read a byte, then
         Serial.write(c);        // print it out the serial monitor
-        request += c;
+        request[offset] = c;
+        offset++;
         if (c == '\n')
         {
           // if the byte is a newline character
@@ -737,8 +741,8 @@ void loop()
   case FPGA_TX:
   {
     Serial.println("FPGA_TX");
-    FPGA.spi_tx_string(request);
-    Serial.println(request.c_str());
+    FPGA.spi_tx_string(request, offset+1);
+    Serial.println(request);
     #if SKIP_RX
     state = RESET;
     #else
@@ -774,7 +778,7 @@ void loop()
   {
     Serial.println("RESET");
     // clear request and response
-    request = "";
+    offset = 0;
     response = "";
 
     // Close the connection
