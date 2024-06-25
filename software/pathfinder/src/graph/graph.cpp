@@ -198,3 +198,14 @@ int* Graph::shortest() const
 {
   return predecessor;
 }
+
+void Graph::HW_dijkstra(*float mem_address, DMA &dma){
+  const unsigned int cache_address = DIJKSTRA32_FLOAT_0_BASE;
+
+ 	dma.copy((void*)mem_address, (void*)(cache_address), 65536);
+
+  ALT_CI_DIJKSTRA32_FLOAT_2(2,0,0); //a manual software reset cuz hardware reset buggy
+	long dataa = (end <<16) + start;
+	long datab = NUM_VERTICES;
+	ALT_CI_DIJKSTRA32_FLOAT_2(2,dataa,datab);
+}

@@ -355,3 +355,15 @@ std::string serialiseResult(ResultFormat res, std::string &output)
 
   return "";
 }
+
+#define MAX_HARDWARE_NODES 128
+void GraphFormat::Full_HW_dijkstra_reshape(float* HWDijkstra_uncached_matrix)
+{
+  *float temp = HWDijkstra_uncached_matrix;
+  for(int from = 0; from<MAX_HARDWARE_NODES;from++){
+   	 for (int column = 0; column <MAX_HARDWARE_NODES ; column++){
+   		 	 *temp = (graph.adj[column][from] == -1) ? 0x7f800000 : graph.adj[column][from];
+   		 	 temp++;
+     }
+  }
+}

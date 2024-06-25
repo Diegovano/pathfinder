@@ -4,6 +4,8 @@
 #include <set>
 #include <map>
 #include "system.h"
+#include "includes_and_settings.h"
+
 
 #define ALT_CI_DIJKSTRA_CHECK_STEP_1(A,B) __builtin_custom_fnff(ALT_CI_DIJKSTRA_CHECK_STEP_N,(A),(B))
 // #define ALT_CI_DIJKSTRA_CHECK_STEP_0_N 0x0
@@ -77,6 +79,7 @@ class Graph
   }
 
   void dijkstra();
+  void HW_dijkstra(*float mem_address);
 
   void delta(int p_delta = 1);
 

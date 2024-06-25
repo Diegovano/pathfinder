@@ -25,6 +25,7 @@
 #define DEBUG true
 #define TIMING true
 #define DIJKSTRA true
+#define FULL_HW_DIJKSTRA false
 
 int main () 
 {
@@ -46,6 +47,11 @@ int main ()
   // //You need to enable the IRQ in the IP core control register as well.
   IOWR_ALTERA_AVALON_SPI_CONTROL(SPI_BASE, ALTERA_AVALON_SPI_CONTROL_IRRDY_MSK); // trigger when is ready
 
+  float* HW_Dijkstra_float_pointer = (float*)alt_uncached_malloc(65536);
+  unsigned int ctrl = DMA_IRQ_E_BIT | DMA_LEEN | DMA_WORD;
+  DMA dma(DMA_0_BASE, ctrl);
+  dma.irq_reg(DMA_0_IRQ_INTERRUPT_CONTROLLER_ID, DMA_0_IRQ);
+  
   while (true)
   {
     bool stateChange = state != nextState;
@@ -87,6 +93,7 @@ int main ()
         }
 
         // delete myGraph; // this line breaks SPI
+        graphf.Full_HW_dijkstra_reshape(HW_Dijkstra_float_pointer);
         myGraph = new Graph((float**)graphf.adj, NUM_VERTICES, graphf.start, graphf.end); // NEED TO DELETE BUT DELETE CAUSES PROBLEMS
 
         res.pathfindAvg = 0;
@@ -116,7 +123,10 @@ int main ()
             #if DIJKSTRA
             myGraph->dijkstra();
             #else
-            myGraph->delta(150);
+            if(FULL_HW_DIJKSTRA)
+              myGraph->HW_dijkstra(HW_Dijkstra_float_pointer,dma);
+            else
+              myGraph->delta(150);
             #endif
 
             time3 = alt_timestamp();
@@ -139,7 +149,10 @@ int main ()
           #if DIJKSTRA
           myGraph->dijkstra();
           #else
-          myGraph->delta(150);
+          if(FULL_HW_DIJKSTRA)
+            myGraph->HW_dijkstra(HW_Dijkstra_float_pointer, dma);
+          else
+            myGraph->delta(150);
           #endif
         
         #else
