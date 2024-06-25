@@ -1,6 +1,6 @@
-14:23:58 **** Incremental Build of configuration Nios II for project float_bsp ****
+16:47:58 **** Incremental Build of configuration Nios II for project float_bsp ****
 wsl make all 
 [BSP build complete]
 
-14:23:58 Build Finished (took 184ms)
+16:47:59 Build Finished (took 185ms)
 

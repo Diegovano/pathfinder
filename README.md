@@ -13,7 +13,7 @@ The Quartus Project, mainly relating to synthesis
 
 ### Software
 
-All software files, this includes Python prototyping, and `C` code for execution on NIOS.
+All software files, this includes Python prototyping, `C` code for execution on NIOS.
 
 ## Commit Messages
 

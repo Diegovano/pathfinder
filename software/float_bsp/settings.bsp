@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>2024-6-3 10:50:34</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1717408234529</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>C:\Users\runsh\Desktop\Main\IC\EIE3\summer\pathfinder\quartus\software\dummy_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>2024-6-25 21:07:03</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1719346023376</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>C:\Users\runsh\Desktop\Main\IC\EIE3\summer\pathfinder\software\float_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>C:\Users\runsh\Desktop\Main\IC\EIE3\summer\pathfinder\quartus\nios2_system.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
@@ -26,7 +26,7 @@
                 <SettingName>hal.timestamp_timer</SettingName>
                 <Identifier>ALT_TIMESTAMP_CLK</Identifier>
                 <Type>UnquotedString</Type>
-                <Value>none</Value>
+                <Value>timestamp_timer</Value>
                 <DefaultValue>none</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Slave descriptor of timestamp timer device. This device is used by Altera HAL timestamp drivers for high-resolution time measurement. This setting defines the value of ALT_TIMESTAMP_CLK in system.h.</Description>
@@ -905,44 +905,56 @@
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>dijkstra32_float_0</slaveDescriptor>
+                <addressRange>0x01000000 - 0x0103FFFF</addressRange>
+                <addressSpan>262144</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>timestamp_timer</slaveDescriptor>
-                <addressRange>0x01001000 - 0x0100103F</addressRange>
+                <addressRange>0x01041000 - 0x0104103F</addressRange>
                 <addressSpan>64</addressSpan>
                 <attributes>timer</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>spi</slaveDescriptor>
-                <addressRange>0x01001040 - 0x0100105F</addressRange>
+                <addressRange>0x01041040 - 0x0104105F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>timer</slaveDescriptor>
-                <addressRange>0x01001060 - 0x0100107F</addressRange>
+                <addressRange>0x01041060 - 0x0104107F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes>timer</attributes>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>dma_0</slaveDescriptor>
+                <addressRange>0x01041080 - 0x0104109F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>pio_debug</slaveDescriptor>
-                <addressRange>0x01001080 - 0x0100108F</addressRange>
+                <addressRange>0x010410A0 - 0x010410AF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>pio</slaveDescriptor>
-                <addressRange>0x01001090 - 0x0100109F</addressRange>
+                <addressRange>0x010410B0 - 0x010410BF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>sysid</slaveDescriptor>
-                <addressRange>0x010010A0 - 0x010010A7</addressRange>
+                <addressRange>0x010410C0 - 0x010410C7</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>jtag_uart</slaveDescriptor>
-                <addressRange>0x010010A8 - 0x010010AF</addressRange>
+                <addressRange>0x010410C8 - 0x010410CF</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>

@@ -1,0 +1,15 @@
+12 nodes on 128 node hardware
+Profiling Results: 1000 iteration(s), 
+proc_ticks: 1682027,	proc_us: 33.640540	avg: 33.640540
+Profiling Results: 1000 iteration(s), 
+cache_ticks: 2198055,	cache_us: 43.961100	avg: 43.961100
+Profiling Results: 1000 iteration(s), 
+total_ticks: 1682027,	total_us: 77.601640	avg: 77.601640
+
+109 nodes on 128 node hardware
+Profiling Results: 1000 iteration(s), 
+proc_ticks: 19586694,	proc_us: 391.733880	avg: 391.733880
+Profiling Results: 1000 iteration(s), 
+cache_ticks: 2148227,	cache_us: 42.964540	avg: 42.964540
+Profiling Results: 1000 iteration(s), 
+total_ticks: 19586694,	total_us: 434.698420	avg: 434.698420

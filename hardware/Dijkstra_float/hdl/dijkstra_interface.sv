@@ -167,8 +167,8 @@ always_comb begin
 			edge_cache_write = slave_write;
 			edge_cache_read = slave_read;
 			edge_cache_write_data = slave_writedata;
-			edge_cache_from_node = {12'b0,slave_address[3:0]};
-			edge_cache_to_node = {12'b0,slave_address[7:4]};
+			edge_cache_from_node = {9'b0,slave_address[6:0]};
+			edge_cache_to_node = {9'b0,slave_address[13:7]};
 			ec_addr_sel = 0;
 
 			

@@ -25,32 +25,21 @@
 using namespace std;
 
 
-#define ALT_CI_DIJKSTRA32_FLOAT_4(n,A,B) __builtin_custom_pnif(ALT_CI_DIJKSTRA32_FLOAT_0_N+(n&ALT_CI_DIJKSTRA32_FLOAT_0_N_MASK),(A),(B))
-#define ALT_CI_DIJKSTRA32_FLOAT_4_N 0x0
-#define ALT_CI_DIJKSTRA32_FLOAT_4_N_MASK ((1<<8)-1)
-
-#define ALT_CI_DIJKSTRA32_FLOAT_1(n,A,B) __builtin_custom_fnii(ALT_CI_DIJKSTRA32_FLOAT_0_N+(n&ALT_CI_DIJKSTRA32_FLOAT_0_N_MASK),(A),(B))
-#define ALT_CI_DIJKSTRA32_FLOAT_1_N 0x0
-#define ALT_CI_DIJKSTRA32_FLOAT_1_N_MASK ((1<<8)-1)
-
-#define ALT_CI_DIJKSTRA32_FLOAT_2(n,A,B) __builtin_custom_fnii(ALT_CI_DIJKSTRA32_FLOAT_0_N+(n&ALT_CI_DIJKSTRA32_FLOAT_0_N_MASK),(A),(B))
-#define ALT_CI_DIJKSTRA32_FLOAT_2_N 0x0
-#define ALT_CI_DIJKSTRA32_FLOAT_2_N_MASK ((1<<8)-1)
-
-#define ALT_CI_DIJKSTRA32_FLOAT_3(n,A,B) __builtin_custom_inii(ALT_CI_DIJKSTRA32_FLOAT_0_N+(n&ALT_CI_DIJKSTRA32_FLOAT_0_N_MASK),(A),(B))
-#define ALT_CI_DIJKSTRA32_FLOAT_3_N 0x0
-#define ALT_CI_DIJKSTRA32_FLOAT_3_N_MASK ((1<<8)-1)
-
 // macro determines data type of inputs, doing problematic casting
 void write_dijkstra_cache(float edge_value, int from_node, int to_node){
 	long dataa = (to_node<<16) + from_node;
-//	int dummy = 0;
-//	memcpy((void*)&dummy, (void*)&edge_value, 4);
 	float datab = edge_value;
 	ALT_CI_DIJKSTRA32_FLOAT_4(0,dataa,datab);
 }
 
 //writing single data with DMA
+void DMA_write_dijkstra_cache(float edge_value, int from_node, int to_node, DMA& dma){
+	float* float_in_ptr = (float*)alt_uncached_malloc(4);
+	 *float_in_ptr = edge_value;
+	 unsigned int address = DIJKSTRA32_FLOAT_0_BASE + (to_node << 9) + (from_node << 2);
+	 dma.copy((void*)float_in_ptr, (void*)(address), 4);
+	 alt_uncached_free(float_in_ptr);
+}
 void DMA_write_dijkstra_cache(float edge_value, int from_node, int to_node){
 	unsigned int ctrl = DMA_IRQ_E_BIT | DMA_LEEN | DMA_WORD;
 	  DMA dma(DMA_0_BASE, ctrl);
@@ -59,7 +48,7 @@ void DMA_write_dijkstra_cache(float edge_value, int from_node, int to_node){
 
 	float* float_in_ptr = (float*)alt_uncached_malloc(4);
 	 *float_in_ptr = edge_value;
-	 unsigned int address = DIJKSTRA32_FLOAT_0_BASE + (to_node << 9) + (from_node << 2);
+	 unsigned int address = DIJKSTRA32_FLOAT_0_BASE + (to_node << 6) + (from_node << 2);
 	 dma.copy((void*)float_in_ptr, (void*)(address), 4);
 
 }
@@ -75,34 +64,66 @@ int read_path_vector(int node){
 }
 
 float run_dijkstra (int from_node, int to_node, int number_of_nodes){
+	ALT_CI_DIJKSTRA32_FLOAT_2(2,0,1); //a manual software reset cuz hardware reset buggy
+	long dataa = (to_node <<16) + from_node;
+	long datab = number_of_nodes;
+	return ALT_CI_DIJKSTRA32_FLOAT_2(2,dataa,datab);
+}
+
+float run_dijkstra_withCache (int from_node, int to_node, int number_of_nodes, float *mem_addr, DMA& dma){
+	 const unsigned int address = DIJKSTRA32_FLOAT_0_BASE;
+	 dma.copy((void*)mem_addr, (void*)(address), 65536);
+
+	 //printf("done copying cache");
 	ALT_CI_DIJKSTRA32_FLOAT_2(2,0,0); //a manual software reset cuz hardware reset buggy
 	long dataa = (to_node <<16) + from_node;
 	long datab = number_of_nodes;
 	return ALT_CI_DIJKSTRA32_FLOAT_2(2,dataa,datab);
 }
 
+void full_HW_dijkstra_reshape(float *mem_pointer, float **adj_matrix){
+	float *temp = mem_pointer;
+	//temp++;
+	for(int from = 0; from<128;from++){
+		//temp++;
+		 for (int column = 0; column <128 ; column++){
+			 	*temp = adj_matrix[column][from];
+			 	temp++;
+			 }
+	 }
+
+}
+
 int main()
 {
   printf("Hello from Nios II!\n");
+  float* float_in_ptr = (float*)alt_uncached_malloc(65536);
+  float* temp_pointer = float_in_ptr;
+  unsigned int ctrl = DMA_IRQ_E_BIT | DMA_LEEN | DMA_WORD;
+  DMA dma(DMA_0_BASE, ctrl);
+  dma.irq_reg(DMA_0_IRQ_INTERRUPT_CONTROLLER_ID, DMA_0_IRQ);
 
-//  //DMA setup
-//
-//
-//
-
-
-
- float adjMatrix[128][128];
+//reset cache
  for (int row=0; row < 128; row++){
 	  for (int column=0; column < 128; column++){
 		  if (row == column){
-			  DMA_write_dijkstra_cache(0,row, column);
+			  //DMA_write_dijkstra_cache(0,row, column,dma);
 		  }
 		  else{
-			  DMA_write_dijkstra_cache(0x7F800000,row, column);
+			  //DMA_write_dijkstra_cache(0x7F800000,row, column,dma);
 		  }
 	  }
   }
+
+
+
+
+ float *x, *y, **adjMatrix;
+ x = new float[128];
+ y = new float[128];
+ adjMatrix = new float*[128];
+ for (int i = 0; i < 128; i++) adjMatrix[i] = new float[128];
+
  for(int i = 0; i<128;i++){
 	 for (int j = 0; j <128 ; j++){
 		 	if (i==j){
@@ -111,8 +132,7 @@ int main()
 		 	else{
 		 		adjMatrix[i][j] = 0x7F800000;
 		 	}
-
-		 }
+	 }
  }
  adjMatrix[13][6] = 33.532;
   adjMatrix[13][12] = 53.887;
@@ -139,50 +159,19 @@ int main()
   adjMatrix[12][13] = 53.887;
   adjMatrix[12][2] = 19.803;
 
-
-//
- float* float_in_ptr = (float*)alt_uncached_malloc(65536);
- float* temp_pointer = float_in_ptr;
- for(int from = 0; from<128;from++){
-	 for (int column = 0; column <128 ; column++){
-		 	 *temp_pointer = adjMatrix[column][from];
-		 	 temp_pointer++;
-
-		 }
- }
-
-
-     unsigned int ctrl = DMA_IRQ_E_BIT | DMA_LEEN | DMA_WORD;
-  	 DMA dma(DMA_0_BASE, ctrl);
-  	 dma.irq_reg(DMA_0_IRQ_INTERRUPT_CONTROLLER_ID, DMA_0_IRQ);
-  	 const unsigned int address = DIJKSTRA32_FLOAT_0_BASE;
- 	 dma.copy((void*)float_in_ptr, (void*)(address), 65536);
-
- 	 printf("done DMA copying cache\n");
-
- 	for (int row = 0; row <14; row++){
- 	  	  for (int column=0; column <14; column++){
- 	  		  printf("%f \t", read_dijkstra_cache(row,column));
- 	  	  }
- 	  	  printf("\n");
- 	  }
-
-
-	 printf("done reseting cache\n");
+  full_HW_dijkstra_reshape(float_in_ptr, adjMatrix);
 
 
 
-	  printf("\nshortest distance: %f \n", run_dijkstra(1,5,14));
-	  for (int i=0; i <14; i++){
-	 	 printf("%d: %d \n",i,read_path_vector(i));
-	  }
+  printf("\nshortest distance: %f \n", run_dijkstra_withCache(1,5,14,float_in_ptr,dma));
+
+  for (int i=0; i <14; i++){
+	 printf("%d: %d \n",i,read_path_vector(i));
+  }
 
 
 	 alt_64 proc_ticks = 0;
-	 alt_64 cache_ticks = 0;
-	 alt_64 total_ticks = 0;
 	 alt_u64 time1 = 0;
-	 alt_u64 time2 = 0;
 	 alt_u64 time3 = 0;
 
     int iterations = 1000;
@@ -192,29 +181,19 @@ int main()
     for (int i=0; i<iterations; i++){
 //
       time1 = alt_timestamp();
-      dma.copy((void*)float_in_ptr, (void*)(address), 1024);
-  	  time2 = alt_timestamp();
-  	  run_dijkstra(1,5,14);
+  	  run_dijkstra_withCache(1,5,14,float_in_ptr,dma);
   	  time3 = alt_timestamp();
 
-  	  proc_ticks += (time3 - time2);
-	  cache_ticks += (time2 - time1);
-	  total_ticks += (time3 - time1);
+  	  proc_ticks += (time3 - time1);
+
     }
     int k = alt_timestamp_freq() * 1e-6 * iterations; // ticks per ms
     double proc_us = (double)proc_ticks / (double)k;
-    double total_us = (double)total_ticks / (double)k;
-    double cache_us = (double)cache_ticks / (double)k;
-
     printf("Profiling Results: %i iteration(s), \nproc_ticks: %lld,\tproc_us: %f\tavg: %f\n",
   		  iterations, proc_ticks, proc_us, proc_us);
-    printf("Profiling Results: %i iteration(s), \ncache_ticks: %lld,\tcache_us: %f\tavg: %f\n",
-      		  iterations, cache_ticks, cache_us, cache_us);
-    printf("Profiling Results: %i iteration(s), \ntotal_ticks: %lld,\ttotal_us: %f\tavg: %f\n",
-      		  iterations, proc_ticks, total_us, total_us);
-
 
   printf("done with 13 node matrix\n");
+
 
   vector<vector<pair<int, float>>> adjList(128);
   // Initialise the adjacency list with the edges
@@ -331,101 +310,65 @@ int main()
   for (int row=0; row < 128; row++){
  	  for (int column=0; column < 128; column++){
  		  if (row == column){
- 			  DMA_write_dijkstra_cache(0,row, column);
+ 			  //DMA_write_dijkstra_cache(0,row, column,dma);
  		  }
  		  else{
- 			  DMA_write_dijkstra_cache(0x7F800000,row, column);
+ 			  //DMA_write_dijkstra_cache(0x7F800000,row, column,dma);
  		  }
  	  }
    }
   printf("done clearing cache\n");
 
-  float adjMatrix2[128][128];
   for(int i = 0; i<128;i++){
   	 for (int j = 0; j <128 ; j++){
   		 	if (i==j){
-  		 		adjMatrix2[i][j] = 0;
+  		 		adjMatrix[i][j] = 0;
   		 	}
   		 	else{
-  		 		adjMatrix2[i][j] = 0x7F800000;
+  		 		adjMatrix[i][j] = 0x7F800000;
   		 	}
-
-  		 }
+  	 }
    }
    for (int i = 0; i < 128; ++i) {
            for (auto edge : adjList[i]) {
                int neighbor = edge.first;
                float weight = edge.second;
-               adjMatrix2[i][neighbor] = weight;
+               adjMatrix[i][neighbor] = weight;
            }
        }
+   full_HW_dijkstra_reshape(float_in_ptr, adjMatrix);
+   printf("%f \n", run_dijkstra_withCache(15,94,110,float_in_ptr,dma));
 
-   float* float_in_ptr2 = (float*)alt_uncached_malloc(65536);
-    temp_pointer = float_in_ptr2;
-    for(int from = 0; from<128;from++){
-   	 for (int column = 0; column <128 ; column++){
-   		 	 *temp_pointer = adjMatrix2[column][from];
-   		 	 temp_pointer++;
-
-   		 }
-    }
-    printf("start DMA copying \n");
-    unsigned int ctrl2 = DMA_IRQ_E_BIT | DMA_LEEN | DMA_WORD;
-      	 DMA dma2(DMA_0_BASE, ctrl2);
-      	 dma2.irq_reg(DMA_0_IRQ_INTERRUPT_CONTROLLER_ID, DMA_0_IRQ);
-      	 const unsigned int address2 = DIJKSTRA32_FLOAT_0_BASE;
-     	 dma2.copy((void*)float_in_ptr2, (void*)(address2), 65536);
-
-
-    printf("%f \t", read_dijkstra_cache(1,21));
-    printf("%f \t", read_dijkstra_cache(1,22));
-    printf("%f \t", read_dijkstra_cache(94,103));
-    printf("\nshortest distance: %f \n", run_dijkstra(15,94,119));
-    	  for (int i=0; i <128; i++){
-    	 	 printf("%d: %d \n",i,read_path_vector(i));
-    	  }
+  for (int i=0; i <128; i++){
+	 printf("%d: %d \n",i,read_path_vector(i));
+  }
 
 
     	  alt_64 proc_ticks2 = 0;
-    	  	 alt_64 cache_ticks2 = 0;
-    	  	 alt_64 total_ticks2 = 0;
     	  	 alt_u64 time12 = 0;
-    	  	 alt_u64 time22 = 0;
     	  	 alt_u64 time32 = 0;
 
     	      int iterations2 = 1000;
     	      // The code that you want to time goes here
     	      alt_timestamp_start();
-    	      time12 = alt_timestamp(); //
     	      for (int i=0; i<iterations2; i++){
     	  //
     	        time12 = alt_timestamp();
-    	        dma2.copy((void*)float_in_ptr2, (void*)(address), 1024);
-    	    	  time22 = alt_timestamp();
-    	    	  run_dijkstra(1,2,67);
-    	    	  time32 = alt_timestamp();
-
-    	    	  proc_ticks2 += (time32 - time22);
-    	  	  cache_ticks2 += (time22 - time12);
-    	  	  total_ticks2 += (time32 - time12);
+    	    	run_dijkstra_withCache(15,94,110,float_in_ptr,dma);
+    	    	time32 = alt_timestamp();
+    	    	proc_ticks2 += (time32 - time12);
     	      }
 
     	      double proc_us2 = (double)proc_ticks2 / (double)k;
-    	      double total_us2 = (double)total_ticks2 / (double)k;
-    	      double cache_us2 = (double)cache_ticks2 / (double)k;
+
+
 
     	      printf("Profiling Results: %i iteration(s), \nproc_ticks: %lld,\tproc_us: %f\tavg: %f\n",
     	    		  iterations, proc_ticks2, proc_us2, proc_us2);
-    	      printf("Profiling Results: %i iteration(s), \ncache_ticks: %lld,\tcache_us: %f\tavg: %f\n",
-    	        		  iterations, cache_ticks2, cache_us2, cache_us2);
-    	      printf("Profiling Results: %i iteration(s), \ntotal_ticks: %lld,\ttotal_us: %f\tavg: %f\n",
-    	        		  iterations, proc_ticks2, total_us2, total_us2);
 
-
-
-
-
-
+  printf("trying to break HW with ridiculous node numbers\n");
+  run_dijkstra_withCache(0xffffe,0xfffff,3,float_in_ptr,dma);
+  printf("exiting properly\n");
 
   return 0;
 }

@@ -874,8 +874,8 @@
    kind="dijkstra32_float"
    version="2"
    enabled="1">
-  <parameter name="INDEX_WIDTH" value="4" />
-  <parameter name="MAX_NODES" value="16" />
+  <parameter name="INDEX_WIDTH" value="7" />
+  <parameter name="MAX_NODES" value="128" />
   <parameter name="VALUE_WIDTH" value="32" />
  </module>
  <module name="dma_0" kind="altera_avalon_dma" version="20.1" enabled="1">

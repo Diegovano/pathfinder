@@ -1,0 +1,10 @@
+*_bsp/*
+!*_bsp/settings.bsp
+
+*/obj
+
+*/*.objdump
+
+*/.*
+
+.vscode/
