@@ -326,6 +326,14 @@
          type = "String";
       }
    }
+   element nios2_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
    element pio
    {
       datum _sortIndex
@@ -441,7 +449,7 @@
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
  <interface name="sdram_wire" internal="sdram.wire" type="conduit" dir="end" />
  <interface name="spi_external" internal="spi.external" type="conduit" dir="end" />
- <module name="astar_accel" kind="astar_accel" version="1.0" enabled="1">
+ <module name="astar_accel" kind="astar_accel" version="1.1" enabled="1">
   <parameter name="ADDRESS_WIDTH" value="4" />
   <parameter name="VECTOR_SIZE" value="2" />
  </module>

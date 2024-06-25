@@ -1,0 +1,106 @@
+#include "StarAccelerator.h"
+
+StarAccelerator::StarAccelerator(unsigned int base, unsigned int span)
+: _base{base},
+  _span{span}
+{
+  input = (float*)alt_uncached_malloc(16);
+  res = (float*)alt_uncached_malloc(4);
+  reset();
+}
+
+int StarAccelerator::irq_reg(unsigned int interrupt_controller_id, unsigned int irq)
+{
+    if(alt_ic_isr_register(interrupt_controller_id, irq, isr, this, NULL) != 0)
+    {
+       return 1;
+    }
+    return 0;
+}
+
+void StarAccelerator::isr(void *context)
+{
+  StarAccelerator *accel = (StarAccelerator*)context;
+  //printf("CUSTOM HARDWARE COMPLETED\n\n");
+  accel->write(0,0);  /*clear the interrupt*/
+  accel->done++;
+}
+
+void StarAccelerator::check()
+{
+  //printf("ACCELERATOR INTERNAL MEMORY\n");
+  for (int i=0; i < _span; i+=4)
+  {
+    int val = IORD_32DIRECT(_base, i);
+    printf("OFFSET %d = decimal %d, hex %x\n", i, val, val);
+  }
+  //printf("\n");
+}
+
+void StarAccelerator::reset()
+{
+  //printf("CUSTOM RESET\n");
+  //CUSTOM_WR_CTRL(_base, 0);
+  for (int i=0; i < _span; i+=4)
+  {
+    IOWR_32DIRECT(_base, i, 0);
+  }
+  //printf("\n");
+
+}
+
+void StarAccelerator::write(unsigned int word_offset, int data)
+{
+  unsigned int byte_offset = word_offset << 2;
+  if (byte_offset > _span)
+  {
+    //printf("ERROR: out of range register");
+    return;
+  }
+  else if (byte_offset == 0)
+  {
+    //printf("WARNING: writing to CTRL register\n");
+  }
+  else if (byte_offset == 4)
+  {
+    //printf("WARNING: writing to RES register\n");
+  }
+  IOWR_32DIRECT(_base, byte_offset, data);
+}
+
+int StarAccelerator::read(unsigned int word_offset)
+{
+  unsigned int byte_offset = word_offset << 2;
+  if (byte_offset > _span) {
+    //printf("WARNING: out of range register");
+  }
+  else if (byte_offset == 0)
+  {
+    //printf("INFO: reading from CTRL register\n");
+  }
+  else if (byte_offset == 1)
+  {
+    //printf("INFO: reading from RES register\n");
+  }
+  return IORD_32DIRECT(_base, byte_offset);
+}
+
+void StarAccelerator::exec()
+{
+  write(0,0x00000001);
+
+  while (!done);
+  done = 0;
+}
+
+StarAccelerator::~StarAccelerator()
+{
+  alt_uncached_free(input);
+  alt_uncached_free(res);
+}
+
+const unsigned int StarAccelerator::base() const
+{
+  return _base;
+}
+

@@ -1,4 +1,26 @@
-#include "includes_and_settings.h"
+#include <cstdio>
+#include <cstddef>
+#include <vector>
+#include <cmath>
+#include <queue>
+#include <iostream>
+#include <set>
+#include <algorithm>
+#include <cstdio>
+#include "system.h"
+#include "io.h"
+#include "sys/alt_irq.h"
+#include "alt_types.h"
+#include "sys/alt_timestamp.h"
+#include "sys/alt_cache.h"
+#include <unistd.h>
+#include "DMA/DMA.h"
+#include "Accelerator/Accelerator.h"
+
+#define EUCLID_DIST_BASE 0x1001000
+#define EUCLID_DIST_SPAN 64
+#define EUCLID_DIST_IRQ 5
+#define EUCLID_DIST_IRQ_INTERRUPT_CONTROLLER_ID 0
 
 constexpr double PI = 3.14159265358979323846;
 const float MAX_FLOAT = 3.40282e+38;
@@ -17,18 +39,18 @@ struct Edge {
 
 float get_distance(DMA& dma, Accelerator& accel, const Node& n1, const Node& n2)
 {
-	accel.input[0] = n1.x;
-	accel.input[1] = n2.x;
-	accel.input[2] = n1.y;
-	accel.input[3] = n2.y;
+    accel.input[0] = n1.x;
+    accel.input[1] = n2.x;
+    accel.input[2] = n1.y;
+    accel.input[3] = n2.y;
 
-	dma.copy((void*)(accel.input), (void*)(EUCLID_DIST_BASE+4), 16);
+    dma.copy((void*)(accel.input), (void*)(accel.base()+4), 16);
 
-	accel.exec();
+    accel.exec();
 
-	dma.copy((void*)(EUCLID_DIST_BASE+36), (void*)(accel.res), 4);
+    dma.copy((void*)(EUCLID_DIST_BASE+36), (void*)(accel.res), 4);
 
-	return *(accel.res);
+    return *(accel.res);
 }
 
 std::vector<int> findPath(DMA& dma, Accelerator& accel, const std::vector<Node>& nodes, const std::vector<std::vector<Edge>>& adjList, int source, int target) {
@@ -79,15 +101,15 @@ std::vector<int> findPath(DMA& dma, Accelerator& accel, const std::vector<Node>&
 
             // calculate the tentative g value
 //            float temp_g_score = g_value[current_node]+edge.length;
-            float temp_g_score = addf(g_value[current_node],edge.length);
+            float temp_g_score = g_value[current_node] + edge.length;
 
             // if the tentative g value is less than the g value of the neighbour node
-            if (ltf(temp_g_score,g_value[neighbour])) {
+            if (temp_g_score < g_value[neighbour]) {
                 // update the came from, g value and f value of the neighbour node
                 came_from[neighbour] = current_node;
                 g_value[neighbour] = temp_g_score;
 //                f_value[neighbour] = temp_g_score+get_distance(dma, accel, nodes[neighbour], nodes[target]);
-                f_value[neighbour] = addf(temp_g_score,get_distance(dma, accel, nodes[neighbour], nodes[target]));
+                f_value[neighbour] = temp_g_score + get_distance(dma, accel, nodes[neighbour], nodes[target]);
                 // push the f value and the neighbour node to the queue
                 queue.push({f_value[neighbour], neighbour});
             }
@@ -106,26 +128,23 @@ std::vector<int> findPath(DMA& dma, Accelerator& accel, const std::vector<Node>&
 }
 
 int main(){
-	printf("Pathfinding\n");
-	//INITIALISE DMA
-	printf("INITIALISE DMA\n");
-	int ctrl = DMA_WORD | DMA_LEEN | DMA_IRQ_E_BIT;
-	DMA dma(DMA_BASE, ctrl);
-	if (dma.irq_reg(DMA_IRQ_INTERRUPT_CONTROLLER_ID,DMA_IRQ))
-	{
-		printf("ERROR failed to register dma isr\n");
-	}
+    printf("Pathfinding\n");
+    //INITIALISE DMA
+    printf("INITIALISE DMA\n");
+    int ctrl = DMA_WORD | DMA_LEEN | DMA_IRQ_E_BIT;
+    DMA dma(DMA_BASE, ctrl);
+    if (dma.irq_reg(DMA_IRQ_INTERRUPT_CONTROLLER_ID,DMA_IRQ))
+    {
+        printf("ERROR failed to register dma isr\n");
+    }
 
-	//INITIALISE ACCELERATOR
-	printf("INITIALISE ACCELERATOR\n");
-	Accelerator accel(EUCLID_DIST_BASE, EUCLID_DIST_SPAN);
-	if (accel.irq_reg(EUCLID_DIST_IRQ_INTERRUPT_CONTROLLER_ID,EUCLID_DIST_IRQ))
-	{
-		printf("ERROR failed to register custom isr\n");
-	}
-
-	printf("8 + 3 = %f\n",addf(8.,3.));
-	printf("8 < 7 = %d\n",ltf(8.,7.));
+    //INITIALISE ACCELERATOR
+    printf("INITIALISE ACCELERATOR\n");
+    Accelerator accel(EUCLID_DIST_BASE, EUCLID_DIST_SPAN);
+    if (accel.irq_reg(EUCLID_DIST_IRQ_INTERRUPT_CONTROLLER_ID,EUCLID_DIST_IRQ))
+    {
+        printf("ERROR failed to register custom isr\n");
+    }
 
     // create nodes list which is a vector of Node objects
     std::vector<Node> nodes(109);
@@ -398,21 +417,21 @@ int main(){
     //clock_t exec_t1, exec_t2, total_time = 0;
 
     alt_64 proc_ticks = 0;
-	alt_u64 time1 = 0;
-	alt_u64 time3 = 0;
+    alt_u64 time1 = 0;
+    alt_u64 time3 = 0;
 
-	alt_timestamp_start();
+    alt_timestamp_start();
 
     for (int i = 0; i < iterations; ++i) {
         //exec_t1 = times(NULL);
-    	alt_icache_flush_all();
-    	alt_dcache_flush_all();
+        alt_icache_flush_all();
+        alt_dcache_flush_all();
 
-    	time1 = alt_timestamp();
-    	result = findPath(dma, accel, nodes, adjList, source, target);
-    	time3 = alt_timestamp();
-    	//exec_t2 = times(NULL);
-    	//total_time += (exec_t2 - exec_t1);
+        time1 = alt_timestamp();
+        result = findPath(dma, accel, nodes, adjList, source, target);
+        time3 = alt_timestamp();
+        //exec_t2 = times(NULL);
+        //total_time += (exec_t2 - exec_t1);
         proc_ticks += (time3 - time1);
     }
 

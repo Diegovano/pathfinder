@@ -96,6 +96,7 @@ CXX_SRCS += src/json/json.cpp
 CXX_SRCS += src/main.cpp
 CXX_SRCS += src/spi_isr/spi_isr.cpp
 CXX_SRCS += src/DMA/DMA.cpp
+CXX_SRCS += src/StarAccelerator/StarAccelerator.cpp
 ASM_SRCS :=
 
 

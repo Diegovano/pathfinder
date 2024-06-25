@@ -1,5 +1,4 @@
-#ifndef _DMA_H_
-#define _DMA_H_
+#pragma once
 
 extern int __builtin_ldwio(const volatile void* src);
 extern void __builtin_stwio(volatile void* dst, int data);
@@ -50,5 +49,3 @@ public:
 	void check();
 	void reset();
 };
-
-#endif

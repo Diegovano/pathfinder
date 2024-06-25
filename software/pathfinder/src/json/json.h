@@ -33,6 +33,8 @@ struct GraphFormat
     // for (int i = 0; i < size; i++) if(adj[i]) delete[] adj[i];
     // delete[] adj;
   }
+
+  void matrixReshapeHWDijkstra(float *HWDijkstra_uncached_matrix);
 };
 
 struct ResultFormat
@@ -47,5 +49,3 @@ std::string deserialiseGraph(std::string &input, GraphFormat &graph);
 
 // if return not "", then returns error details
 std::string serialiseResult(ResultFormat res, std::string &output);
-
-void GraphFormat::Full_HW_dijkstra_reshape(float* HWDijkstra_uncached_matrix);

@@ -7,7 +7,7 @@
 #include "sys/alt_stdio.h" // for alt_printf
 #include "sys/alt_cache.h" // for alt_dcache_flush, alt_icacheflush
 #include "unistd.h" // for usleep
-// #include "system.h" // useful MACRO_DEFS
+#include "system.h" // useful MACRO_DEFS
 
 #include <string> // for string
 #include <sstream> // for stringstream
@@ -24,8 +24,10 @@
 
 #define DEBUG true
 #define TIMING true
-#define DIJKSTRA true
+#define DIJKSTRA false
 #define FULL_HW_DIJKSTRA false
+#define DELTA false
+#define ASTAR true
 
 int main () 
 {
@@ -47,8 +49,14 @@ int main ()
 
   float* HW_Dijkstra_float_pointer = (float*)alt_uncached_malloc(65536);
   unsigned int ctrl = DMA_IRQ_E_BIT | DMA_LEEN | DMA_WORD;
-  DMA dma(DMA_0_BASE, ctrl);
-  dma.irq_reg(DMA_0_IRQ_INTERRUPT_CONTROLLER_ID, DMA_0_IRQ);
+  DMA dma(DMA_BASE, ctrl);
+  dma.irq_reg(DMA_IRQ_INTERRUPT_CONTROLLER_ID, DMA_IRQ);
+
+  StarAccelerator myPrecious(ASTAR_ACCEL_BASE, ASTAR_ACCEL_SPAN);
+  if (myPrecious.irq_reg(ASTAR_ACCEL_IRQ_INTERRUPT_CONTROLLER_ID, ASTAR_ACCEL_IRQ))
+  {
+      printf("ERROR failed to register custom isr\n");
+  }
   
   while (true)
   {
@@ -91,7 +99,7 @@ int main ()
         }
 
         // delete myGraph; // this line breaks SPI
-        graphf.Full_HW_dijkstra_reshape(HW_Dijkstra_float_pointer);
+        graphf.matrixReshapeHWDijkstra(HW_Dijkstra_float_pointer);
         myGraph = new Graph((float**)graphf.adj, NUM_VERTICES, graphf.start, graphf.end); // NEED TO DELETE BUT DELETE CAUSES PROBLEMS
 
         res.pathfindAvg = 0;
@@ -120,11 +128,14 @@ int main ()
             
             #if DIJKSTRA
             myGraph->dijkstra();
+            #elif FULL_HW_DIJKSTRA
+            myGraph->HW_dijkstra(HW_Dijkstra_float_pointer,dma);
+            #elif DELTA
+            myGraph->delta(150);
+            #elif ASTAR
+            myGraph->astar(dma, myPrecious);
             #else
-            if(FULL_HW_DIJKSTRA)
-              myGraph->HW_dijkstra(HW_Dijkstra_float_pointer,dma);
-            else
-              myGraph->delta(150);
+            printf("make up your mind");
             #endif
 
             time3 = alt_timestamp();
@@ -218,6 +229,9 @@ int main ()
 
       default:
         printf("\nPathfinder in unknown state.\n");
+
+
+      delete myGraph;
     }
   }
 }

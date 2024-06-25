@@ -124,6 +124,96 @@ void Graph::relax(request req)
   }
 }
 
+float Graph::getDistance(DMA& dma, StarAccelerator& accel, const Node& n1, const Node& n2)
+{
+  accel.input[0] = n1.x;
+  accel.input[1] = n2.x;
+  accel.input[2] = n1.y;
+  accel.input[3] = n2.y;
+
+  dma.copy((void*)(accel.input), (void*)(accel.base() + 4), 16);
+
+  accel.exec();
+
+  dma.copy((void*)(accel.base() + 36), (void*)(accel.res), 4);
+
+  return *(accel.res);
+}
+
+void Graph::astar(DMA& dma, StarAccelerator& accel)
+{
+
+  // g_value is a vector of floats which stores the cost of the cheapest path to a node
+  std::vector<float> g_value(NUM_VERTICES, INFINITY);
+
+  // f_value is a vector of floats which stores the estimated total cost from the start node to the goal node
+  std::vector<float> f_value(NUM_VERTICES, INFINITY);
+
+  // came_from is a vector of ints which stores the parent node of a node
+  std::vector<int> came_from(NUM_VERTICES, -1);
+
+  // closed_nodes is a set of ints which stores the nodes that have been visited
+  std::set<int> closed_nodes;
+
+  // initialise the g value of the source node to 0
+  g_value[start] = 0;
+  // initialise the f value of the source node to the heuristic value
+  f_value[start] = getDistance(dma, accel, nodes[start], nodes[end]);
+
+  // create a priority queue of pairs of floats and ints which represents the f value and the node
+  std::priority_queue<std::pair<float, int>, std::vector<std::pair<float, int>>, std::greater<std::pair<float, int>>> queue;
+  // push the source node onto the queue
+  queue.push({0.0f, start});
+
+  while (!queue.empty())
+  {
+    // get the node with the smallest f value
+    int current_node = queue.top().second;
+    queue.pop();
+
+    // if the node is in the closed nodes set, skip the rest of the loop
+    if (closed_nodes.count(current_node)) continue;
+    // if the node is the target node, we have found the path
+    if (current_node == end) break;
+
+    // add the node to the closed nodes set
+    closed_nodes.insert(current_node);
+
+    // for each neighbour of the current node
+    for (int i = 0; i < NUM_VERTICES; i++)
+    {
+      // if the neighbour node is in the closed nodes set, skip the rest of the loop
+      if (closed_nodes.count(i)) continue;
+
+      // calculate the tentative g value
+//            float temp_g_score = g_value[current_node]+edge.length;
+      float temp_g_score = g_value[current_node] + graph[current_node][i];
+
+      // if the tentative g value is less than the g value of the neighbour node
+      if (temp_g_score < g_value[i])
+      {
+          // update the came from, g value and f value of the neighbour node
+          came_from[i] = current_node;
+          g_value[i] = temp_g_score;
+//                f_value[neighbour] = temp_g_score+get_distance(dma, accel, nodes[neighbour], nodes[target]);
+          f_value[i] = temp_g_score + getDistance(dma, accel, nodes[i], nodes[end]);
+          // push the f value and the neighbour node to the queue
+          queue.push({f_value[i], i});
+      }
+    }
+  }
+
+  // reconstruct the path
+  std::vector<int> path;
+  // start from the target node
+  for (int current_node = end; current_node != -1; current_node = came_from[current_node]) {
+    path.push_back(current_node);
+  }
+  // std::reverse(path.begin(), path.end());
+  
+  predecessor = path.data();
+}
+
 void Graph::reset()
 {
   delete[] dist;
@@ -195,13 +285,14 @@ int* Graph::shortest() const
   return predecessor;
 }
 
-void Graph::HW_dijkstra(float *mem_address, DMA &dma){
-  const unsigned int cache_address = HW_DIJKSTRA_0_BASE;
+void Graph::HW_dijkstra(float *mem_address, DMA &dma)
+{
+  // const unsigned int cache_address = HW_DIJKSTRA_0_BASE;
 
- 	dma.copy((void*)mem_address, (void*)(cache_address), 65536);
+  //  dma.copy((void*)mem_address, (void*)(cache_address), 65536);
 
- 	ALT_CI_HW_DIJKSTRA_2(2,0,0); //a manual software reset cuz hardware reset buggy
-	long dataa = (end <<16) + start;
-	long datab = NUM_VERTICES;
-	ALT_CI_HW_DIJKSTRA_2(2,dataa,datab);
+ 	// ALT_CI_HW_DIJKSTRA_2(2, 0, 0); //a manual software reset cuz hardware reset buggy
+	// long dataa = (end << 16) + start;
+	// long datab = NUM_VERTICES;
+	// ALT_CI_HW_DIJKSTRA_2(2, dataa, datab);
 }
