@@ -10,6 +10,7 @@ std::string deserialiseGraph(std::string &input, GraphFormat &graph)
 {
   StaticJsonDocument<2 * CAPACITY> inDoc; // 2x capacity to play it safe
 
+
   printf("%s\n\n\n", input.c_str());
   DeserializationError err = deserializeJson(inDoc, input.c_str());
 
@@ -19,13 +20,23 @@ std::string deserialiseGraph(std::string &input, GraphFormat &graph)
     return err.c_str();
   }
 
+  const int SIZE = inDoc["size"] | 219;
+
+  graph.size = SIZE;
+
+  graph.x = new float[SIZE];
+  graph.y = new float[SIZE];
+
+  graph.adj = new float*[SIZE];
+  for (int i = 0; i < SIZE; i++) graph.adj[i] = new float[SIZE]; 
+
   graph.averageOver = std::min(inDoc["avgCount"] | 0, MAX_AVG_OVER);
 
-  if (graph.size != (inDoc["size"] | 219)) 
-  {
-    std::string errMsg = "graph size mismatch, expected " + std::to_string(graph.size) + " got " + std::to_string((int)inDoc["size"]);
-    return errMsg;
-  }
+  // if (graph.size != ()) 
+  // {
+  //   std::string errMsg = "graph size mismatch, expected " + std::to_string(graph.size) + " got " + std::to_string((int)inDoc["size"]);
+  //   return errMsg;
+  // }
 
   graph.start = inDoc["start"] | 73;
   graph.end = inDoc["end"] | 113;
