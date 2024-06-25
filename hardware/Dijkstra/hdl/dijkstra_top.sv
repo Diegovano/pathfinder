@@ -6,48 +6,44 @@ module DijkstraTop
 #(
 	parameter MAX_NODES=`DEFAULT_MAX_NODES,
 	parameter INDEX_WIDTH=`DEFAULT_INDEX_WIDTH,
-	parameter VALUE_WIDTH=`DEFAULT_VALUE_WIDTH,
-	parameter MADDR_WIDTH=`DEFAULT_MADDR_WIDTH,
-	parameter MDATA_WIDTH=`DEFAULT_MDATA_WIDTH
+	parameter VALUE_WIDTH=`DEFAULT_VALUE_WIDTH
 )
 (
-	input wire reset,
+	input wire reset, //acts as start for the algorithm, 
+					  //doesn't change any memory
 	input wire clock,
 	input wire enable,
 
 	input wire[INDEX_WIDTH-1:0] source,
 	input wire[INDEX_WIDTH-1:0] destination,
-
 	input wire[INDEX_WIDTH-1:0] number_of_nodes,
-	input wire[MADDR_WIDTH-1:0] base_address,
 
-	output wire mem_read_enable,
-	output wire mem_write_enable,
-
-	input wire mem_write_ready,
-	input wire mem_read_ready,
-
-	output wire [MADDR_WIDTH-1:0] mem_addr,
-	input wire [MDATA_WIDTH-1:0] mem_read_data,
-	output wire [MDATA_WIDTH-1:0] mem_write_data,
+	input reg ec_ready,
+	input reg[VALUE_WIDTH-1:0] ec_edge_value,
+	output reg ec_query,
+	output reg[INDEX_WIDTH-1:0] ec_from_node,
+	output reg[INDEX_WIDTH-1:0] ec_to_node,
 
 	output wire[VALUE_WIDTH-1:0] shortest_distance,
-
 	output reg ready,
-	input wire wait_request
+
+	//used to read value from the visit vector, to write back to memory when n = 4
+	//previous node for a given node found by dijkstra
+	input wire[INDEX_WIDTH-1:0] visited_vector_read_address, 
+	output wire[INDEX_WIDTH-1:0] visited_vector_data 
+	
+	
 );
 
-// Reset components at our will
-reg controlled_ec_reset;
-reg controlled_pq_reset;
 
 // Keep track of paths
 reg [INDEX_WIDTH-1:0] prev_vector[MAX_NODES-1:0];
+assign visited_vector_data = prev_vector[visited_vector_read_address];
 
 // States for the FSM
 typedef enum {RESET_STATE, READY_STATE, V0, V1, V2, V3, V4, V5, WRITE_STATE, FINAL_STATE} State ;
-State state;
-State next_state;
+State state = FINAL_STATE;
+State next_state = FINAL_STATE;
 
 // Visited nodes
 integer number_of_unvisited_nodes;
@@ -68,6 +64,7 @@ reg[VALUE_WIDTH-1:0] current_node_value;
 //reg[VALUE_WIDTH-1:0] alt;
 
 
+reg controlled_pq_reset;
 reg pq_set_distance;
 reg[INDEX_WIDTH-1:0] pq_index;
 reg[VALUE_WIDTH-1:0] pq_distance_to_set;
@@ -80,7 +77,7 @@ PriorityQueue #(.MAX_NODES(MAX_NODES), .INDEX_WIDTH(INDEX_WIDTH), .VALUE_WIDTH(V
 	priority_queue (
 		controlled_pq_reset,
 		clock,
-		pq_set_distance,
+		pq_set_distance, //pq set_en
 		pq_index,
 		visited_vector,
 		pq_distance_to_set,
@@ -90,66 +87,21 @@ PriorityQueue #(.MAX_NODES(MAX_NODES), .INDEX_WIDTH(INDEX_WIDTH), .VALUE_WIDTH(V
 		min_ready,
 		dist_vector,
 		visit_vector_true
-	);
+	); 
 
-
-reg ec_query;
-reg[INDEX_WIDTH-1:0] ec_from_node;
-reg[INDEX_WIDTH-1:0] ec_to_node;
-wire ec_ready;
-wire [VALUE_WIDTH-1:0] ec_edge_value;
-
-EdgeCache
-#(
-	.MAX_NODES(MAX_NODES),
-	.INDEX_WIDTH(INDEX_WIDTH),
-	.VALUE_WIDTH(VALUE_WIDTH),
-	.MADDR_WIDTH(MADDR_WIDTH),
-	.MDATA_WIDTH(MDATA_WIDTH)
-)
-	edge_cache(
-		controlled_ec_reset,
-		clock,
-		base_address,
-		number_of_nodes,
-		ec_query,
-		ec_from_node,
-		ec_to_node,
-		mem_addr,
-		mem_read_data,
-		mem_read_enable,
-		mem_read_ready,
-		ec_ready,
+wire [VALUE_WIDTH-1:0] next_node_distance;
+fp_adder next_node_value_adder (
 		ec_edge_value,
-		wait_request
+		current_node_value,
+		next_node_distance
 	);
 
-reg writer_enable;
-wire writer_ready;
-reg[MADDR_WIDTH-1:0] writer_address;
-
-Writer 
-#(
-	.MAX_NODES(MAX_NODES),
-	.INDEX_WIDTH(INDEX_WIDTH),
-	.VALUE_WIDTH(VALUE_WIDTH),
-	.MADDR_WIDTH(MADDR_WIDTH),
-	.MDATA_WIDTH(MDATA_WIDTH)
-)writer
-(
-	reset,
-	clock,
-	writer_enable,
-	writer_address,
-	prev_vector,
-	number_of_nodes,
-	mem_write_enable,
-	mem_write_ready,
-	mem_addr,
-	mem_write_data,
-	writer_ready,
-	wait_request
-);
+wire new_distance_shorter;
+fp_comparator next_node_value_comparator (
+		next_node_distance,
+		pq_distance_read,
+		new_distance_shorter
+	);
 
 always_comb begin : state_machine
 	next_state = state;
@@ -188,8 +140,7 @@ always_comb begin : state_machine
 			else
 				next_state = V2;
 		WRITE_STATE:
-			if(writer_ready)
-				next_state = FINAL_STATE;
+			next_state = FINAL_STATE;
 		FINAL_STATE:
 			next_state = FINAL_STATE;
 		endcase
@@ -199,7 +150,7 @@ end
 
 always @(posedge clock)
 begin
-	state <= next_state; //TODO: change to non-blocking
+	state <= next_state;
 	case(next_state)
 		// Reset components
 		RESET_STATE:
@@ -217,18 +168,13 @@ begin
 				prev_vector[i] <= `NO_PREVIOUS_NODE;
 			end
 			controlled_pq_reset <= 1;
-			controlled_ec_reset <= 1;
-			writer_enable <= 0;
 			current_node <= source;
 		end
 		// Wait for us to be enabled
 		READY_STATE:
 		begin
 			controlled_pq_reset <= 0;
-			controlled_ec_reset <= 0;
-
 		end
-
 		// New node to be visited
 		V0:
 		begin
@@ -245,7 +191,6 @@ begin
 			// Mark as visited
 			visit_vector_true <= 1;
 			visited_vector[current_node] <= `VISITED;
-
 		end
 		V2:
 		begin
@@ -257,11 +202,11 @@ begin
 			if(ec_ready)
 			begin
 				// Check if we need to reduce
-				if(current_node_value + ec_edge_value < pq_distance_read)
+				if(next_node_distance < pq_distance_read) 
 				begin
 					// Reduce
 					prev_vector[pq_index] <= current_node;
-					pq_distance_to_set <= current_node_value + ec_edge_value;
+					pq_distance_to_set <= next_node_distance;
 					pq_set_distance <= 1;
 				end
 			end
@@ -270,7 +215,6 @@ begin
 		begin
 			pq_set_distance<=0;
 		end
-		
 		V5:
 		begin
 			pq_index <= pq_index + 1;
@@ -280,13 +224,11 @@ begin
 		WRITE_STATE:
 		begin
 			ec_query <= 0;
-			writer_enable <= 1;
-			writer_address <= base_address + (number_of_nodes**2)*MADDR_WIDTH/8;
+			ready <= 1;
 		end
 		FINAL_STATE:
 		begin
-			ready <= 1;
-			writer_enable <= 0;
+			ready <= 0;
 		end
 	endcase
 end

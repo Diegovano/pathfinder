@@ -40,20 +40,39 @@ integer i;
 // Output value if get_en is set
 assign read_value = dist_vector[index];
 
-MinHeap minheap(reset, clock, set_en, visited_vector, min_index, min_value, min_ready, dist_vector, visit_vector_true);
+MinHeap minheap(reset, 
+			clock, 
+			set_en, 
+			visited_vector, 
+			min_index, 
+			min_value, 
+			min_ready, 
+			dist_vector, 
+			visit_vector_true);
 
-always @ (posedge clock) begin
-	// All distances but source should start as INFINITY
-	if(reset)
-	begin
-		for(i=0;i<MAX_NODES;i=i+1)
-			dist_vector[i] <= `INFINITY;
-		dist_vector[index] <= 0;
+always_ff @ (posedge clock) begin
+	if(reset) begin
+		// All distances but source should start as INFINITY
+		for(i=0;i<MAX_NODES;i=i+1) begin
+			if(i != index)
+				dist_vector[i] <= `INFINITY;
+			else
+				dist_vector[i] <= 0;
+		end
 	end
-
 	// Set value
 	if(set_en)
 		dist_vector[index] <= write_value;
 end
+
+// always_ff @(posedge reset) begin
+// 	// All distances but source should start as INFINITY
+// 		for(i=0;i<MAX_NODES;i=i+1) begin
+// 			if(i != index)
+// 				dist_vector[i] <= `INFINITY;
+// 			else
+// 				dist_vector[i] <= 0;
+// 		end
+// 	end
 	
 endmodule

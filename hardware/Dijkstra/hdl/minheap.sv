@@ -45,35 +45,53 @@ generate
 		genvar i;
 		for(i=start;i<start+`ITEMS;i=i+2)
 		begin: find_min2
+
+			wire lt;
+			fp_comparator heap_lt(
+				.lt(lt),
+				.a(dist_vector[heap[i]]),
+				.b(dist_vector[heap[i+1]])
+			);
 			assign heap[MAX_NODES+i/2] =
 				visited_vector[heap[i]] != `UNVISITED?
 					heap[i+1]:
 					visited_vector[heap[i+1]] != `UNVISITED?
 						heap[i]:
-						dist_vector[heap[i]] < dist_vector[heap[i+1]]?
+						lt? 
 							heap[i]:
 							heap[i+1];
 		end
 	end
 endgenerate
 
-assign min_index = heap[2*MAX_NODES-2];
-assign min_value = dist_vector[min_index];
+// Clock divider by 4
+logic [1:0] clk_div = 2'b00;
 
 
 integer countdown;
+reg heap_ready=0;//signal to communicate between clock domains
 
-`define CYCLES_TO_WAIT 2
+
+`define CYCLES_TO_WAIT 5 
+//don't change this arbitrarily, 
+//it's the number of cycles to wait before setting the ready signal
+// which need to match with the difference between clock domains
 
 
 always @(posedge clock) begin
+	if(reset || set_en || visit_vector_true) begin
+		clk_div <= 2'b00;
+	end
+	else begin
+		clk_div <= clk_div + 1;
+	end
 	if(reset || set_en || visit_vector_true)
 		begin
-			min_ready = 0; //blocking assignment: TODO: change to non-blocking
-			countdown <= `CYCLES_TO_WAIT; 
 			
-			sc_min_index <= 'z;
-			sc_min_value <= 'z;
+			heap_ready	<= 0;
+			min_ready <= 0; //blocking assignment: TODO: change to non-blocking
+			countdown <= `CYCLES_TO_WAIT; 
+
 		end
 	else if(countdown > 0)
 		begin
@@ -81,9 +99,21 @@ always @(posedge clock) begin
 		end
 	else
 		begin
-			min_ready <= 1; //TODO: might cause problems, check
-			sc_min_index <= min_index;
-			sc_min_value <= min_value;
+			heap_ready <= 1;
+			min_ready <= 1;
+
 		end
+	
+end
+
+wire clock_divided4 = clk_div[1];
+
+always @(posedge clock_divided4) begin
+	if(heap_ready)
+		begin
+			sc_min_index <= heap[2*MAX_NODES-2];
+			sc_min_value <= dist_vector[heap[2*MAX_NODES-2]];
+		end
+
 end
 endmodule
