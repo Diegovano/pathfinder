@@ -8,9 +8,8 @@
 #include <vector>
 
 #define SKIP_RX false
-#define WIFI false
-#define ADJ_MATX false
-
+#define WIFI true
+#define NO_FPGA true
 const int SPI_CS = D2; // Slave select is active-low
 const int BUF_LEN = 4;
 
@@ -28,13 +27,15 @@ State state;
 
 // WPA2 Personal Authentication
 
-const char *PER_SSID = "LAPTOP-GLC7SFN7-8537";
-const char *PER_PASSWORD = "U00#10s0";
+const char *PER_SSID = "Vincenzo's Laptop";
+const char *PER_PASSWORD = "0D9}558z";
 
 // Server declaration
 WiFiServer server(80);
 WiFiClient client;
-std::string request;
+//std::string request;
+char request[75000];
+char* request_end = request;
 std::string response;
 
 // LED states
@@ -46,7 +47,7 @@ unsigned long currentTime = millis();
 // Previous time
 unsigned long previousTime = 0;
 // Define timeout time in milliseconds (example: 2000ms = 2s)
-const long timeoutTime = 2000;
+const long timeoutTime = 60000;
 
 Slave FPGA(SPI_CS, BUF_LEN);
 
@@ -258,7 +259,8 @@ void loop()
 
         char c = client.read(); // read a byte, then
         Serial.write(c);        // print it out the serial monitor
-        request += c;
+        *request_end = c;
+        request_end++;
         if (c == '\n')
         {
           // if the byte is a newline character
@@ -266,7 +268,11 @@ void loop()
           // that's the end of the client HTTP request, so send a response:
           if (currentLine.length() == 0)
           {
+            #if NO_FPGA
+            state = HOST_TX;
+            #else
             state = FPGA_TX;
+            #endif
             break;
           }
           else
@@ -286,8 +292,8 @@ void loop()
   case FPGA_TX:
   {
     Serial.println("FPGA_TX");
-    FPGA.spi_tx_string(request);
-    Serial.println(request.c_str());
+    //FPGA.spi_tx_string(request);
+    // Serial.println(request.c_str());
     #if SKIP_RX
     state = RESET;
     #else
@@ -312,6 +318,9 @@ void loop()
 
   case HOST_TX:
   {
+    #if NO_FPGA
+    response = "{\"sht\": [113,15,112,156,61,60,63,68,71,162,108,73], \"max_iterations\":0,\"iCache\":2048, \"dCache\":2048,\"algorithm\":\"delta\",\"time\": 56, \"note\":\"\"}";
+    #endif
     Serial.println("HOST_TX");
     client.println(response.c_str());
     Serial.println("SUCCESSFUL EXCHANGE! moving to RESET\n");
@@ -323,7 +332,8 @@ void loop()
   {
     Serial.println("RESET");
     // clear request and response
-    request = "";
+    //request = "";
+    request_end = request;
     response = "";
 
     // Close the connection
