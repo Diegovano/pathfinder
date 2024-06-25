@@ -16,7 +16,6 @@ module dijkstra_check_step
   fp_add adder
   (
     .clk(clk),
-    .en(clk_en),
     .areset(reset),
     .a(dataa),
     .b(datab),

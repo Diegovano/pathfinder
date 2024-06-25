@@ -18,11 +18,7 @@ void Graph::dijkstra()
 
     for (int i = 0; i < NUM_VERTICES; i++)
     {
-      #if HW_ACCEL
-      if (!inShortestPath[i] && ALT_CI_LEF_1(dist[i], min))
-      #else
       if (!inShortestPath[i] && dist[i] <= min)
-      #endif
       {
         min = dist[i], min_index = i;
       }
@@ -37,7 +33,7 @@ void Graph::dijkstra()
       float newDist = ALT_CI_DIJKSTRA_CHECK_STEP_1(dist[min_index], graph[min_index][i]);
 
       // if (!inShortestPath[i] && newDist < dist[i]) 
-      if (!inShortestPath[i] && ALT_CI_LTF_1(newDist, dist[i]))
+      if (!inShortestPath[i] && newDist < dist[i])
       #else
       if(!inShortestPath[i] && graph[min_index][i] > 0 && dist[min_index] != INFINITY && dist[min_index] + graph[min_index][i] < dist[i])
       #endif

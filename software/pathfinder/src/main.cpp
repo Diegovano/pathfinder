@@ -24,7 +24,7 @@
 
 #define DEBUG true
 #define TIMING true
-#define DIJKSTRA false
+#define DIJKSTRA true
 
 int main () 
 {

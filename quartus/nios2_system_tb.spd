@@ -6,7 +6,7 @@
    library="altera_common_sv_packages"
    systemVerilogPackageName="avalon_vip_verbosity_pkg" />
  <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_avalon_st_adapter_006_error_adapter_0.sv"
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_avalon_st_adapter_005_error_adapter_0.sv"
    type="SYSTEM_VERILOG"
    library="error_adapter_0" />
  <file
@@ -14,9 +14,9 @@
    type="SYSTEM_VERILOG"
    library="error_adapter_0" />
  <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_avalon_st_adapter_006.v"
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_avalon_st_adapter_005.v"
    type="VERILOG"
-   library="avalon_st_adapter_006" />
+   library="avalon_st_adapter_005" />
  <file
    path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_avalon_st_adapter.v"
    type="VERILOG"
@@ -34,14 +34,6 @@
    type="SYSTEM_VERILOG"
    library="sdram_s1_rsp_width_adapter" />
  <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_rsp_mux_002.sv"
-   type="SYSTEM_VERILOG"
-   library="rsp_mux_002" />
- <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/altera_merlin_arbitrator.sv"
-   type="SYSTEM_VERILOG"
-   library="rsp_mux_002" />
- <file
    path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_rsp_mux_001.sv"
    type="SYSTEM_VERILOG"
    library="rsp_mux_001" />
@@ -58,21 +50,33 @@
    type="SYSTEM_VERILOG"
    library="rsp_mux" />
  <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_rsp_demux_006.sv"
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_rsp_demux_007.sv"
    type="SYSTEM_VERILOG"
-   library="rsp_demux_006" />
+   library="rsp_demux_007" />
  <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_rsp_demux_003.sv"
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_rsp_demux_005.sv"
    type="SYSTEM_VERILOG"
-   library="rsp_demux_003" />
+   library="rsp_demux_005" />
  <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_cmd_mux_006.sv"
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_rsp_demux.sv"
    type="SYSTEM_VERILOG"
-   library="cmd_mux_006" />
+   library="rsp_demux" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_cmd_mux_007.sv"
+   type="SYSTEM_VERILOG"
+   library="cmd_mux_007" />
  <file
    path="nios2_system/testbench/nios2_system_tb/simulation/submodules/altera_merlin_arbitrator.sv"
    type="SYSTEM_VERILOG"
-   library="cmd_mux_006" />
+   library="cmd_mux_007" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_cmd_mux_005.sv"
+   type="SYSTEM_VERILOG"
+   library="cmd_mux_005" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/altera_merlin_arbitrator.sv"
+   type="SYSTEM_VERILOG"
+   library="cmd_mux_005" />
  <file
    path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_cmd_mux_003.sv"
    type="SYSTEM_VERILOG"
@@ -158,21 +162,25 @@
    type="SYSTEM_VERILOG"
    library="cpu_data_master_limiter" />
  <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_router_011.sv"
+   type="SYSTEM_VERILOG"
+   library="router_011" />
+ <file
    path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_router_009.sv"
    type="SYSTEM_VERILOG"
    library="router_009" />
  <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_router_006.sv"
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_router_007.sv"
    type="SYSTEM_VERILOG"
-   library="router_006" />
+   library="router_007" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_router_004.sv"
+   type="SYSTEM_VERILOG"
+   library="router_004" />
  <file
    path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_router_003.sv"
    type="SYSTEM_VERILOG"
    library="router_003" />
- <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_router_002.sv"
-   type="SYSTEM_VERILOG"
-   library="router_002" />
  <file
    path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0_router_001.sv"
    type="SYSTEM_VERILOG"
@@ -205,6 +213,82 @@
    path="nios2_system/testbench/nios2_system_tb/simulation/submodules/altera_merlin_master_translator.sv"
    type="SYSTEM_VERILOG"
    library="cpu_data_master_translator" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/fpoint2_multi.vhd"
+   type="VHDL"
+   library="fpci_multi" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/fpoint2_multi_datapath.vhd"
+   type="VHDL"
+   library="fpci_multi" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/fpoint2_multi_dspba_library_package.vhd"
+   type="VHDL"
+   library="fpci_multi" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/fpoint2_multi_dspba_library.vhd"
+   type="VHDL"
+   library="fpci_multi" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/FPAddSub/FPAddSub.vhd"
+   type="VHDL"
+   library="fpci_multi" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/FPDiv/FPDiv.vhd"
+   type="VHDL"
+   library="fpci_multi" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/FPMult/FPMult.vhd"
+   type="VHDL"
+   library="fpci_multi" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/IntToFloat/IntToFloat.vhd"
+   type="VHDL"
+   library="fpci_multi" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/FloatToInt/FloatToInt.vhd"
+   type="VHDL"
+   library="fpci_multi" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/FPSqrt/FPSqrt_safe_path.vhd"
+   type="VHDL"
+   library="fpci_multi" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/FPSqrt/FPSqrt.vhd"
+   type="VHDL"
+   library="fpci_multi" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/FPSqrt/FPSqrt_memoryC0_uid59_sqrtTableGenerator_lutmem.hex"
+   type="HEX"
+   library="fpci_multi" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/FPSqrt/FPSqrt_memoryC1_uid60_sqrtTableGenerator_lutmem.hex"
+   type="HEX"
+   library="fpci_multi" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/FPSqrt/FPSqrt_memoryC2_uid61_sqrtTableGenerator_lutmem.hex"
+   type="HEX"
+   library="fpci_multi" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/fpoint2_combi.vhd"
+   type="VHDL"
+   library="fpci_combi" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/FPMinMaxFused/FPMinMaxFused.vhd"
+   type="VHDL"
+   library="fpci_combi" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/FPCompareFused/FPCompareFused.vhd"
+   type="VHDL"
+   library="fpci_combi" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/FPNeg_Abs/FPNeg.vhd"
+   type="VHDL"
+   library="fpci_combi" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/FPNeg_Abs/FPAbs.vhd"
+   type="VHDL"
+   library="fpci_combi" />
  <file
    path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_cpu_cpu_ic_tag_ram.mif"
    type="MIF"
@@ -342,10 +426,6 @@
    type="SYSTEM_VERILOG"
    library="irq_mapper" />
  <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_1.v"
-   type="VERILOG"
-   library="mm_interconnect_1" />
- <file
    path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_mm_interconnect_0.v"
    type="VERILOG"
    library="mm_interconnect_0" />
@@ -370,10 +450,6 @@
    type="VERILOG"
    library="timestamp_timer" />
  <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_timer.v"
-   type="VERILOG"
-   library="timer" />
- <file
    path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_sysid.v"
    type="VERILOG"
    library="sysid" />
@@ -390,69 +466,37 @@
    type="VERILOG"
    library="sdram" />
  <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_pio_debug.v"
-   type="VERILOG"
-   library="pio_debug" />
- <file
    path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_pio.v"
    type="VERILOG"
    library="pio" />
- <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/direct_dijkstra.sv"
-   type="SYSTEM_VERILOG"
-   library="mem_access" />
- <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/dspba_library_package.vhd"
-   type="VHDL"
-   library="ltf" />
- <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/ltf.v"
-   type="VERILOG"
-   library="ltf" />
- <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/ltf_0002.vhd"
-   type="VHDL"
-   library="ltf" />
- <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/dspba_library_package.vhd"
-   type="VHDL"
-   library="lef" />
- <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/lef.v"
-   type="VERILOG"
-   library="lef" />
- <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/lef_0002.vhd"
-   type="VHDL"
-   library="lef" />
  <file
    path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_jtag_uart.v"
    type="VERILOG"
    library="jtag_uart" />
  <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_fp_ops.v"
+   type="VERILOG"
+   library="fp_ops" />
+ <file
    path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_dma.v"
    type="VERILOG"
    library="dma" />
  <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/dspba_library_package.vhd"
-   type="VHDL"
-   library="dijkstra_check_step" />
- <file
    path="nios2_system/testbench/nios2_system_tb/simulation/submodules/dijkstra_check_step.sv"
    type="SYSTEM_VERILOG"
-   library="dijkstra_check_step" />
- <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/fp_add.v"
-   type="VERILOG"
-   library="dijkstra_check_step" />
- <file
-   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/fp_add_0002.vhd"
-   type="VHDL"
-   library="dijkstra_check_step" />
+   library="dijkstra_accel" />
  <file
    path="nios2_system/testbench/nios2_system_tb/simulation/submodules/nios2_system_cpu.v"
    type="VERILOG"
    library="cpu" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/euclid_top.sv"
+   type="SYSTEM_VERILOG"
+   library="astar_accel" />
+ <file
+   path="nios2_system/testbench/nios2_system_tb/simulation/submodules/euclid_dist.v"
+   type="VERILOG"
+   library="astar_accel" />
  <file
    path="nios2_system/testbench/nios2_system_tb/simulation/submodules/altera_sdram_partner_module.v"
    type="VERILOG"
