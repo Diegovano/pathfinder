@@ -43,7 +43,8 @@ struct ResultFormat
   int *swDijkstraShortest = nullptr, *dijkstraShortest = nullptr, *swAstarShortest = nullptr, *astarShortest = nullptr, *deltaShortest = nullptr;
   int start, end;
   float pathfindAvg;
-  float swDijkstraAvg = 0, dijkstraAvg = 0, swAstarAvg = 0, astarAvg = 0, deltaAvg = 0;
+  float swDijkstraAvg = 0, dijkstraAvg = 0, swAstarAvg = 0, astarAvg = 0, deltaAvg = 0, hwDijkstraAvg = 0;
+  float distance;
 };
 
 // if return not "", then returns error details

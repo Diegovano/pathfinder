@@ -148,6 +148,9 @@ int main ()
                 case 3:
                   myGraph->delta();
                   break;
+                case 4:
+                  myGraph->HW_dijkstra(HW_Dijkstra_float_pointer,dma);
+                  break;
 
               }
             #else
@@ -185,6 +188,7 @@ int main ()
             case 0:
               res.swDijkstraAvg = proc_us;
               res.swDijkstraShortest = cpyArray(myGraph->shortest(), graphf->size);
+              res.distance = myGraph->distance(graphf->end);
               break;
             case 1:
               res.dijkstraAvg = proc_us;
@@ -198,6 +202,8 @@ int main ()
               res.deltaAvg = proc_us;
               res.deltaShortest = cpyArray(myGraph->shortest(), graphf->size);
               break;
+            case 4:
+              res.hwDijkstraAvg = proc_us;
           }
           #else
           res.pathfindAvg = proc_us;

@@ -472,7 +472,7 @@
   <parameter name="cpuArchRev" value="1" />
   <parameter name="cpuID" value="0" />
   <parameter name="cpuReset" value="false" />
-  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="hw_dijkstra_0" baseAddress="0" addressSpan="16" clockCycleType="VARIABLE" /><slave name="nios_custom_instr_floating_point_2_0" baseAddress="224" addressSpan="16" clockCycleType="COMBINATORIAL" /><slave name="dijkstra_accel_0" baseAddress="16" addressSpan="1" clockCycleType="VARIABLE" /><slave name="nios_custom_instr_floating_point_2_0_1" baseAddress="248" addressSpan="8" clockCycleType="VARIABLE" /></info>]]></parameter>
+  <parameter name="customInstSlavesSystemInfo"><![CDATA[<info><slave name="nios_custom_instr_floating_point_2_0" baseAddress="224" addressSpan="16" clockCycleType="COMBINATORIAL" /><slave name="dijkstra_accel_0" baseAddress="0" addressSpan="1" clockCycleType="VARIABLE" /><slave name="nios_custom_instr_floating_point_2_0_1" baseAddress="248" addressSpan="8" clockCycleType="VARIABLE" /><slave name="hw_dijkstra_0" baseAddress="16" addressSpan="16" clockCycleType="VARIABLE" /></info>]]></parameter>
   <parameter name="customInstSlavesSystemInfo_nios_a" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_b" value="&lt;info/&gt;" />
   <parameter name="customInstSlavesSystemInfo_nios_c" value="&lt;info/&gt;" />
@@ -947,35 +947,35 @@
    version="20.1"
    start="cpu.irq"
    end="hw_dijkstra_0.interrupt_sender">
-  <parameter name="irqNumber" value="5" />
+  <parameter name="irqNumber" value="0" />
  </connection>
  <connection kind="interrupt" version="20.1" start="cpu.irq" end="jtag_uart.irq">
-  <parameter name="irqNumber" value="0" />
+  <parameter name="irqNumber" value="1" />
  </connection>
  <connection
    kind="interrupt"
    version="20.1"
    start="cpu.irq"
    end="timestamp_timer.irq">
-  <parameter name="irqNumber" value="1" />
- </connection>
- <connection kind="interrupt" version="20.1" start="cpu.irq" end="dma.irq">
   <parameter name="irqNumber" value="2" />
  </connection>
- <connection kind="interrupt" version="20.1" start="cpu.irq" end="astar_accel.irq">
+ <connection kind="interrupt" version="20.1" start="cpu.irq" end="dma.irq">
   <parameter name="irqNumber" value="3" />
  </connection>
- <connection kind="interrupt" version="20.1" start="cpu.irq" end="spi.irq">
+ <connection kind="interrupt" version="20.1" start="cpu.irq" end="astar_accel.irq">
   <parameter name="irqNumber" value="4" />
+ </connection>
+ <connection kind="interrupt" version="20.1" start="cpu.irq" end="spi.irq">
+  <parameter name="irqNumber" value="5" />
  </connection>
  <connection
    kind="nios_custom_instruction"
    version="20.1"
    start="cpu.custom_instruction_master"
-   end="hw_dijkstra_0.dijkstra">
+   end="hw_dijkstra_0.nios_custom_instruction_slave">
   <parameter name="CIName" value="hw_dijkstra_0" />
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0" />
+  <parameter name="baseAddress" value="16" />
  </connection>
  <connection
    kind="nios_custom_instruction"
@@ -993,7 +993,7 @@
    end="dijkstra_accel.s1">
   <parameter name="CIName" value="dijkstra_accel_0" />
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="16" />
+  <parameter name="baseAddress" value="0" />
  </connection>
  <connection
    kind="nios_custom_instruction"

@@ -21,6 +21,7 @@
 extern float __builtin_custom_fnff(int a, float b, float c);
 extern int __builtin_custom_inff(int a, float b, float c);
 extern int __builtin_custom_inii(int a, int b, int c);
+extern float __builtin_custom_fnii(int a, int b, int c);
 
 
 // #pragma GCC target("custom-fcmpnes=226")
@@ -128,4 +129,5 @@ class Graph
   void print() const;
 
   int* shortest() const;
+  float distance(int index) const;
 };

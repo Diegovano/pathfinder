@@ -137,6 +137,7 @@ std::string serialiseResult(ResultFormat res, std::string &output)
     if(res.swAstarAvg) outDoc["sw_astar_time"] = res.swAstarAvg;
     if(res.astarAvg) outDoc["hybrid_astar_time"] = res.astarAvg;
     if(res.deltaAvg) outDoc["delta_time"] = res.deltaAvg;
+    if(res.hwDijkstraAvg) outDoc["hw_dj_time"] = res.hwDijkstraAvg;
   }
   else
   {
@@ -180,6 +181,8 @@ std::string serialiseResult(ResultFormat res, std::string &output)
   // outDoc["algorithm"] = "dijkstra";
   outDoc["algorithm"] = "delta";
   outDoc["note"] = "";
+  if (res.distance) outDoc["total_distance"] = res.distance;
+  else outDoc["total_distance"] = 0;
   
   serializeJson(outDoc, output);
 
@@ -189,11 +192,11 @@ std::string serialiseResult(ResultFormat res, std::string &output)
 #define MAX_HARDWARE_NODES 128
 void GraphFormat::matrixReshapeHWDijkstra(float* HWDijkstra_uncached_matrix)
 {
-  // *float temp = HWDijkstra_uncached_matrix;
-  // for(int from = 0; from<MAX_HARDWARE_NODES;from++){
-  //  	 for (int column = 0; column <MAX_HARDWARE_NODES ; column++){
-  //  		 	 *temp = (graph.adj[column][from] == -1) ? 0x7f800000 : graph.adj[column][from];
-  //  		 	 temp++;
-  //    }
-  // }
+  float *temp = HWDijkstra_uncached_matrix;
+  for(int from = 0; from < MAX_HARDWARE_NODES; from++){
+   	 for (int column = 0; column < MAX_HARDWARE_NODES ;column++){
+   		 	 *temp = (adj[column][from] == -1) ? 0x7f800000 : adj[column][from];
+   		 	 temp++;
+     }
+  }
 }
