@@ -122,21 +122,21 @@ std::string serialiseResult(ResultFormat res, std::string &output)
   {
     JsonArray swDijkstraSht = outDoc["sw_dj_sht"].to<JsonArray>();
     JsonArray dijkstraSht = outDoc["hybrid_dj_sht"].to<JsonArray>();
-    JsonArray deltaSht = outDoc["delta_sht"].to<JsonArray>();
-    JsonArray swAstarSht = outDoc["sw_astar_sht"].to<JsonArray>();
-    JsonArray astarSht = outDoc["hybrid_astar_sht"].to<JsonArray>();
+    // JsonArray deltaSht = outDoc["delta_sht"].to<JsonArray>();
+    // JsonArray swAstarSht = outDoc["sw_astar_sht"].to<JsonArray>();
+    // JsonArray astarSht = outDoc["hybrid_astar_sht"].to<JsonArray>();
 
     swDijkstraSht = addSht(swDijkstraSht, res.swDijkstraShortest, res.start, res.end);
     dijkstraSht = addSht(dijkstraSht, res.dijkstraShortest, res.start, res.end);
-    deltaSht = addSht(deltaSht, res.deltaShortest, res.start, res.end);
-    swAstarSht = addSht(swAstarSht, res.swAstarShortest, res.start, res.end);
-    astarSht = addSht(astarSht, res.astarShortest, res.start, res.end);
+    // deltaSht = addSht(deltaSht, res.deltaShortest, res.start, res.end);
+    // swAstarSht = addSht(swAstarSht, res.swAstarShortest, res.start, res.end);
+    // astarSht = addSht(astarSht, res.astarShortest, res.start, res.end);
 
     if(res.swDijkstraAvg) outDoc["sw_dj_time"] = res.swDijkstraAvg;
     if(res.dijkstraAvg) outDoc["hybrid_dj_time"] = res.dijkstraAvg;
-    if(res.swAstarAvg) outDoc["sw_astar_time"] = res.swAstarAvg;
-    if(res.astarAvg) outDoc["hybrid_astar_time"] = res.astarAvg;
-    if(res.deltaAvg) outDoc["delta_time"] = res.deltaAvg;
+    // if(res.swAstarAvg) outDoc["sw_astar_time"] = res.swAstarAvg;
+    // if(res.astarAvg) outDoc["hybrid_astar_time"] = res.astarAvg;
+    // if(res.deltaAvg) outDoc["delta_time"] = res.deltaAvg;
     if(res.hwDijkstraAvg) outDoc["hw_dj_time"] = res.hwDijkstraAvg;
   }
   else

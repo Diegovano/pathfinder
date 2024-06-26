@@ -672,7 +672,7 @@
   <parameter name="deviceFamily" value="Cyclone V" />
   <parameter name="root_present" value="false" />
  </module>
- <module name="hw_dijkstra_0" kind="hw_dijkstra" version="1.0" enabled="1">
+ <module name="hw_dijkstra_0" kind="hw_dijkstra" version="1.1" enabled="1">
   <parameter name="INDEX_WIDTH" value="7" />
   <parameter name="MAX_NODES" value="128" />
   <parameter name="VALUE_WIDTH" value="32" />
