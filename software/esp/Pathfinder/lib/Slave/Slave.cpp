@@ -22,15 +22,13 @@ void Slave::spi_tx_string(char* tx_str, unsigned int size)
 
     const uint8_t NULL_BUF[BUF_LEN] = {0};
 
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < size; i+=4)
     {
 
         // Assert slave select -> begin transfer
         digitalWrite(SPI_CS, LOW);
         
         SPI.transferBytes((uint8_t*)(tx_str+i), NULL, BUF_LEN);
-
-        digitalWrite(SPI_CS, HIGH);
 
         // De-assert slave select -> end of transfer
         digitalWrite(SPI_CS, HIGH);
@@ -52,7 +50,7 @@ bool Slave::spi_rx_string(std::string &rx_str)
     const uint8_t NULL_BUF[BUF_LEN] = {0};
 
     unsigned long startTime;
-    const long timeoutTime = 5000; // in ms
+    const long timeoutTime = 60000; // in ms
 
     rx_str = "";
     char RX_BUF[4];

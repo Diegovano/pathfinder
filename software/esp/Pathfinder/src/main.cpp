@@ -29,8 +29,8 @@ State state;
 
 // WPA2 Personal Authentication
 
-const char *PER_SSID = "LAPTOP-GLC7SFN7-8537";
-const char *PER_PASSWORD = "U00#10s0";
+const char *PER_SSID = "Vincenzo's Laptop";
+const char *PER_PASSWORD = "0D9}558z";
 
 // Server declaration
 WiFiServer server(80);
@@ -48,7 +48,7 @@ unsigned long currentTime = millis();
 // Previous time
 unsigned long previousTime = 0;
 // Define timeout time in milliseconds (example: 2000ms = 2s)
-const long timeoutTime = 2000;
+const long timeoutTime = 60000;
 
 Slave FPGA(SPI_CS, BUF_LEN);
 
