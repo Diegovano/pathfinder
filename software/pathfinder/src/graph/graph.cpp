@@ -7,7 +7,7 @@ bool operator< (const request& a, const request& b) // required for std::set<req
   return a.target < b.target;
 }
 
-void Graph::dijkstra()
+void Graph::swDijkstra()
 {
   for (int step = 0; step < NUM_VERTICES - 1; step++)
   {
@@ -29,21 +29,45 @@ void Graph::dijkstra()
 
     for (int i = 0; i < NUM_VERTICES; i++)
     {
-      #if HW_ACCEL
+      if(!inShortestPath[i] && graph[min_index][i] > 0 && dist[min_index] != INFINITY && dist[min_index] + graph[min_index][i] < dist[i])
+      {
+        // printf("new dist[%d]: dist[%d] %f + graph[%d][%d] %f\n", i, min_index, dist[min_index], min_index, i, graph[min_index][i]);
+        dist[i] = dist[min_index] + graph[min_index][i];
+        predecessor[i] = min_index;
+      }
+    }
+  }
+}
+
+void Graph::dijkstra()
+{
+  for (int step = 0; step < NUM_VERTICES - 1; step++)
+  {
+    // for (int i = 0; i < NUM_VERTICES; i++) printf("%d:\t%c %f\t", i, inShortestPath[i] ? 'y' : 'n', dist[i]);    // get min distance node
+
+    float min = INFINITY;
+    int min_index = -1;
+
+    for (int i = 0; i < NUM_VERTICES; i++)
+    {
+      if (!inShortestPath[i] && ALT_CI_LEF(dist[i], min))
+      {
+        min = dist[i], min_index = i;
+      }
+    }
+    if (min_index == -1) return;
+
+    inShortestPath[min_index] = true;
+
+    for (int i = 0; i < NUM_VERTICES; i++)
+    {
       float newDist = ALT_CI_DIJKSTRA_CHECK_STEP_1(dist[min_index], graph[min_index][i]);
 
       // if (!inShortestPath[i] && newDist < dist[i]) 
-      if (!inShortestPath[i] && newDist < dist[i])
-      #else
-      if(!inShortestPath[i] && graph[min_index][i] > 0 && dist[min_index] != INFINITY && dist[min_index] + graph[min_index][i] < dist[i])
-      #endif
+      if (!inShortestPath[i] && ALT_CI_LTF(newDist, dist[i]))
       {
         // printf("new dist[%d]: dist[%d] %f + graph[%d][%d] %f\n", i, min_index, dist[min_index], min_index, i, graph[min_index][i]);
-        #if HW_ACCEL
         dist[i] = newDist;
-        #else
-        dist[i] = dist[min_index] + graph[min_index][i];
-        #endif
         predecessor[i] = min_index;
       }
     }
@@ -58,11 +82,8 @@ void Graph::delta(int p_delta)
 
   predecessor[start] = start;
 
-  int iter = 0;
-
   while (true)
   {
-    printf("Starting iteration %d\n", ++iter);
     std::set<int> del;
 
     int firstNonEmpty = -1;
@@ -187,16 +208,16 @@ void Graph::astar(DMA& dma, StarAccelerator& accel)
 
       // calculate the tentative g value
 //            float temp_g_score = g_value[current_node]+edge.length;
-      float temp_g_score = g_value[current_node] + graph[current_node][i];
+      float temp_g_score = ALT_CI_ADDF(g_value[current_node], graph[current_node][i]);
 
       // if the tentative g value is less than the g value of the neighbour node
-      if (temp_g_score < g_value[i])
+      if (ALT_CI_LTF(temp_g_score, g_value[i]))
       {
           // update the came from, g value and f value of the neighbour node
           came_from[i] = current_node;
           g_value[i] = temp_g_score;
 //                f_value[neighbour] = temp_g_score+get_distance(dma, accel, nodes[neighbour], nodes[target]);
-          f_value[i] = temp_g_score + getDistance(dma, accel, nodes[i], nodes[end]);
+          f_value[i] = ALT_CI_ADDF(temp_g_score, getDistance(dma, accel, nodes[i], nodes[end]));
           // push the f value and the neighbour node to the queue
           queue.push({f_value[i], i});
       }

@@ -27,6 +27,8 @@ enum State
 
 State state;
 
+int state_change = 0;
+
 // WPA2 Personal Authentication
 
 const char *PER_SSID = "Vincenzo's Laptop";
@@ -35,7 +37,7 @@ const char *PER_PASSWORD = "0D9}558z";
 // Server declaration
 WiFiServer server(80);
 WiFiClient client;
-char request[70000];
+char request[80000];
 unsigned int offset;
 std::string response;
 
@@ -664,6 +666,7 @@ void setup()
   // Initiate state
   #if WIFI
   state = HOST_LISTEN;
+  state_change = 1;
   #else
   state = FPGA_TX;
   request = message;
@@ -682,7 +685,11 @@ void loop()
     state = FPGA_TX;
     break;
     #endif
-    Serial.println("HOST_LISTEN");
+    if (state_change)
+    {
+      Serial.println("HOST_LISTEN");
+      state_change = 0;
+    }
     client = server.available(); // Listen for incoming clients
 
     if (client)
@@ -692,13 +699,18 @@ void loop()
       Serial.print(" PORT ");
       Serial.println(client.localPort());
       state = HOST_RX;
+      state_change = 1;
     }
     break;
   }
 
   case HOST_RX:
   {
-    Serial.println("HOST_RX");
+    if (state_change)
+    {
+      Serial.println("HOST_RX");
+      state_change = 0;
+    }
     currentTime = millis();
     previousTime = currentTime;
 
@@ -711,7 +723,7 @@ void loop()
       { // if there's bytes to read from the client,
 
         char c = client.read(); // read a byte, then
-        Serial.write(c);        // print it out the serial monitor
+        //Serial.write(c);        // print it out the serial monitor
         request[offset] = c;
         offset++;
         if (c == '\n')
@@ -721,7 +733,9 @@ void loop()
           // that's the end of the client HTTP request, so send a response:
           if (currentLine.length() == 0)
           {
+            request[offset] = '\0';
             state = FPGA_TX;
+            state_change = 1;
             break;
           }
           else
@@ -740,13 +754,19 @@ void loop()
 
   case FPGA_TX:
   {
-    Serial.println("FPGA_TX");
+    if (state_change)
+    {
+      Serial.println("FPGA_TX");
+      state_change = 0;
+    }
+    
     FPGA.spi_tx_string(request, offset+1);
-    Serial.println(request);
+    //Serial.println(request);
     #if SKIP_RX
     state = RESET;
     #else
     state = FPGA_RX;
+    state_change = 1;
     // state = FPGA_TX;
     #endif
     break;
@@ -754,12 +774,17 @@ void loop()
 
   case FPGA_RX:
   {
-    Serial.println("FPGA_RX");
+        if (state_change)
+    {
+      Serial.println("FPGA_RX");
+      state_change = 0;
+    }
+    
     FPGA.spi_rx_string(response);
     #if WIFI
     state = HOST_TX;
+    //Serial.println(response.c_str());
     #else
-    Serial.println(response.c_str());
     state = FPGA_TX;
     #endif
     break;
@@ -785,6 +810,7 @@ void loop()
     client.stop();
     Serial.println("Client disconnected, moving to HOST_LISTEN");
     state = HOST_LISTEN;
+    state_change = 1;
     break;
   }
 
@@ -792,7 +818,6 @@ void loop()
     Serial.println("default");
     Serial.println("ERROR! moving to RESET");
     state = RESET;
+    state_change = 1;
   }
-
-  sleep(2);
 }

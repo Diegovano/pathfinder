@@ -20,23 +20,30 @@
 
 extern float __builtin_custom_fnff(int a, float b, float c);
 extern int __builtin_custom_inff(int a, float b, float c);
+extern int __builtin_custom_inii(int a, int b, int c);
 
-#pragma GCC target("custom-fcmpnes=226")
-#pragma GCC target("custom-fcmpeqs=227")
-#pragma GCC target("custom-fcmpges=228")
-#pragma GCC target("custom-fcmpgts=229")
-#pragma GCC target("custom-fcmples=230")
-#pragma GCC target("custom-fcmplts=231")
-#pragma GCC target("custom-fmuls=252")
-#pragma GCC target("custom-fadds=253")
-#pragma GCC target("custom-fsubs=254")
-#pragma GCC target("custom-fdivs=255")
+
+// #pragma GCC target("custom-fcmpnes=226")
+// #pragma GCC target("custom-fcmpeqs=227")
+// #pragma GCC target("custom-fcmpges=228")
+// #pragma GCC target("custom-fcmpgts=229")
+// #pragma GCC target("custom-fcmples=230")
+// #pragma GCC target("custom-fcmplts=231")
+// #pragma GCC target("custom-fmuls=252")
+// #pragma GCC target("custom-fadds=253")
+// #pragma GCC target("custom-fsubs=254")
+// #pragma GCC target("custom-fdivs=255")
 
 #define ALT_CI_HW_DIJKSTRA_2(n,A,B) __builtin_custom_fnii(ALT_CI_HW_DIJKSTRA_0_N+(n&ALT_CI_HW_DIJKSTRA_0_N_MASK),(A),(B))
 #define ALT_CI_HW_DIJKSTRA_2_N 0x0
 #define ALT_CI_HW_DIJKSTRA_2_N_MASK ((1<<4)-1)
 
 #define ALT_CI_DIJKSTRA_CHECK_STEP_1(A,B) __builtin_custom_fnff(ALT_CI_DIJKSTRA_ACCEL_0_N,(A),(B))
+
+#define ALT_CI_LEF(A,B) __builtin_custom_fnff(ALT_CI_NIOS_CUSTOM_INSTR_FLOATING_POINT_2_0_N+(6&ALT_CI_NIOS_CUSTOM_INSTR_FLOATING_POINT_2_0_N_MASK),(A),(B))
+#define ALT_CI_LTF(A,B) __builtin_custom_fnff(ALT_CI_NIOS_CUSTOM_INSTR_FLOATING_POINT_2_0_N+(7&ALT_CI_NIOS_CUSTOM_INSTR_FLOATING_POINT_2_0_N_MASK),(A),(B))
+
+#define ALT_CI_ADDF(A,B) __builtin_custom_inii(ALT_CI_NIOS_CUSTOM_INSTR_FLOATING_POINT_2_0_1_N+(5&ALT_CI_NIOS_CUSTOM_INSTR_FLOATING_POINT_2_0_1_N_MASK),(A),(B))
 
 struct request
 {
@@ -74,13 +81,14 @@ class Graph
   float getDistance(DMA& dma, StarAccelerator& accel, const Node& n1, const Node& n2);
 
   public:
-  Graph(float **inArr, int p_NUM_VERTICES, int p_start, int p_end) : NUM_VERTICES(p_NUM_VERTICES), start(p_start), end(p_end), deltaVal(1)
+  Graph(float **inArr, float *x, float *y, int p_NUM_VERTICES, int p_start, int p_end) : NUM_VERTICES(p_NUM_VERTICES), start(p_start), end(p_end), deltaVal(1)
   {
     graph = new float*[NUM_VERTICES];
     for (int i = 0; i < NUM_VERTICES; i++) graph[i] = new float[NUM_VERTICES];
 
     for (int i = 0; i < NUM_VERTICES; i++)
     {
+      nodes.push_back({x[i], y[i]});
       for (int j = 0; j < NUM_VERTICES; j++) graph[i][j] = inArr[i][j] < 0 ? INFINITY : inArr[i][j];
     }
 
@@ -100,7 +108,7 @@ class Graph
 
   ~Graph()
   {
-    for (int i = 0; i < NUM_VERTICES; i++) delete[] graph[i];
+    if (graph) for (int i = 0; i < NUM_VERTICES; i++) delete[] graph[i];
     delete[] graph;
 
     delete[] dist;
@@ -108,6 +116,7 @@ class Graph
     delete[] predecessor;
   }
 
+  void swDijkstra();
   void dijkstra();
   void HW_dijkstra(float *mem_address, DMA &dma);
   void delta(int p_delta = 1);

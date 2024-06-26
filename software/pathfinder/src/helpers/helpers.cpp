@@ -25,3 +25,11 @@ std::string decToBinary(int n)
     return myStr.str();
 }
 
+int* cpyArray(int *src, int size)
+{
+    int *cpy = new int[size];
+
+    for (int i = 0; i < size; i++) cpy[i] = src[i];
+
+    return cpy;
+}

@@ -22,6 +22,11 @@ void Slave::spi_tx_string(char* tx_str, unsigned int size)
 
     const uint8_t NULL_BUF[BUF_LEN] = {0};
 
+    digitalWrite(SPI_CS, LOW);
+    SPI.transferBytes(NULL_BUF,NULL,BUF_LEN);
+    digitalWrite(SPI_CS, HIGH);
+    usleep(delay);
+
     for (int i = 0; i < size; i+=4)
     {
 
@@ -50,7 +55,7 @@ bool Slave::spi_rx_string(std::string &rx_str)
     const uint8_t NULL_BUF[BUF_LEN] = {0};
 
     unsigned long startTime;
-    const long timeoutTime = 60000; // in ms
+    const long timeoutTime = 5000; // in ms
 
     rx_str = "";
     char RX_BUF[4];
@@ -73,7 +78,7 @@ bool Slave::spi_rx_string(std::string &rx_str)
         for (int i=0; i<BUF_LEN; i++) 
         {
             char rx_c = RX_BUF[i];
-            // Serial.println(rx_c);
+            Serial.println(rx_c);
             //Serial.print("\tWAIT: ");
             //Serial.println(WAIT);
             if (!WAIT)
@@ -122,7 +127,7 @@ bool Slave::spi_rx_string(std::string &rx_str)
             }
         }
 
-        usleep(20 * delay);
+        usleep(delay);
     }
 
     SPI.endTransaction();

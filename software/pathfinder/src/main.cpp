@@ -24,16 +24,16 @@
 
 #define DEBUG true
 #define TIMING true
-#define DIJKSTRA false
+#define DIJKSTRA true
 #define FULL_HW_DIJKSTRA false
 #define DELTA false
-#define ASTAR true
+#define ASTAR false
+
+#define MULTI true
 
 int main () 
 {
   printf("Starting Pathfinder!\n");
-
-  const int NUM_VERTICES = 219;
 
   std::queue<char> TX_QUEUE;
   States state, nextState = States::IDLE;
@@ -89,7 +89,7 @@ int main ()
         #if DEBUG
         if (stateChange) printf("\nPATHFINDING:\n");
         #endif
-        GraphFormat graphf;
+        GraphFormat *graphf = new GraphFormat;
         std::string err = deserialiseGraph(context.response, graphf);
         if (err != "") 
         {
@@ -99,13 +99,20 @@ int main ()
         }
 
         // delete myGraph; // this line breaks SPI
-        graphf.matrixReshapeHWDijkstra(HW_Dijkstra_float_pointer);
-        myGraph = new Graph((float**)graphf.adj, NUM_VERTICES, graphf.start, graphf.end); // NEED TO DELETE BUT DELETE CAUSES PROBLEMS
+        graphf->matrixReshapeHWDijkstra(HW_Dijkstra_float_pointer);
+        myGraph = new Graph((float**)graphf->adj, graphf->x, graphf->y, graphf->size, graphf->start, graphf->end); // NEED TO DELETE BUT DELETE CAUSES PROBLEMS
 
         res.pathfindAvg = 0;
         #if TIMING
-        if (graphf.averageOver != 0)
+        int multi = 0;
+        if (graphf->averageOver != 0)
         {
+          #if MULTI
+          for (int multi = 0; multi < 2; multi++) 
+          {
+          printf("Starting algorithm %d:\n\n", multi + 1);
+          #endif
+
           alt_64 proc_ticks = 0;
           alt_u64 time1 = 0;
           // alt_u64 overhead = 0;
@@ -115,7 +122,7 @@ int main ()
           // The code that you want to time goes here
           alt_timestamp_start();
 
-          for (int i=0; i<graphf.averageOver; i++)
+          for (int i=0; i<graphf->averageOver; i++)
           {
             // printf("Starting iteration %d of %d\n", i, graphf.averageOver);
             // myGraph->reset();
@@ -126,16 +133,35 @@ int main ()
             time1 = alt_timestamp();
             // overhead = alt_timestamp() - time1;
             
-            #if DIJKSTRA
-            myGraph->dijkstra();
-            #elif FULL_HW_DIJKSTRA
-            myGraph->HW_dijkstra(HW_Dijkstra_float_pointer,dma);
-            #elif DELTA
-            myGraph->delta(150);
-            #elif ASTAR
-            myGraph->astar(dma, myPrecious);
+            #if MULTI
+              switch (multi)
+              {
+                case 0:
+                  myGraph->swDijkstra();
+                  break;
+                case 1:
+                  myGraph->dijkstra();
+                  break;
+                case 2:
+                  myGraph->astar(dma, myPrecious);
+                  break;
+                case 3:
+                  myGraph->delta();
+                  break;
+
+              }
             #else
-            printf("make up your mind");
+              #if DIJKSTRA
+              myGraph->dijkstra();
+              #elif FULL_HW_DIJKSTRA
+              myGraph->HW_dijkstra(HW_Dijkstra_float_pointer,dma);
+              #elif DELTA
+              myGraph->delta(150);
+              #elif ASTAR
+              myGraph->astar(dma, myPrecious);
+              #else
+              printf("make up your mind");
+              #endif
             #endif
 
             time3 = alt_timestamp();
@@ -146,13 +172,39 @@ int main ()
 
           // ticks = alt_timestamp();
 
-          int k = alt_timestamp_freq() * 1e-6 * graphf.averageOver; // ticks per ms
+          int k = alt_timestamp_freq() * 1e-6 * graphf->averageOver; // ticks per ms
           double proc_us = (double)proc_ticks / (double)k;
 
           printf("Profiling Results: %i iteration(s), \nproc_ticks: %lld,\tproc_us: %f\tavg: %f\n",
-            graphf.averageOver, proc_ticks, proc_us, proc_us);
+            graphf->averageOver, proc_ticks, proc_us, proc_us);
 
+
+          #if MULTI
+          switch(multi)
+          {
+            case 0:
+              res.swDijkstraAvg = proc_us;
+              res.swDijkstraShortest = cpyArray(myGraph->shortest(), graphf->size);
+              break;
+            case 1:
+              res.dijkstraAvg = proc_us;
+              res.dijkstraShortest = cpyArray(myGraph->shortest(), graphf->size);
+              break;
+            case 2:
+              res.astarAvg = proc_us;
+              res.astarShortest = cpyArray(myGraph->shortest(), graphf->size);
+              break;
+            case 3:
+              res.deltaAvg = proc_us;
+              res.deltaShortest = cpyArray(myGraph->shortest(), graphf->size);
+              break;
+          }
+          #else
           res.pathfindAvg = proc_us;
+          #endif
+          #if MULTI
+          }
+          #endif
         }
         else
           #if DIJKSTRA
@@ -172,14 +224,16 @@ int main ()
         #endif
         #endif
 
+        #if !MULTI
         const int *shortest = myGraph->shortest();
 
-        res.shortest = new int[NUM_VERTICES];
+        res.shortest = new int[graphf.size];
 
-        for (int i = 0; i < NUM_VERTICES; i++) res.shortest[i] = shortest[i];
+        for (int i = 0; i < graphf.size; i++) res.shortest[i] = shortest[i];
+        #endif
 
-        res.start = graphf.start;
-        res.end = graphf.end;
+        res.start = graphf->start;
+        res.end = graphf->end;
 
         nextState = States::ENQUEUE_RESPONSE;
       }
@@ -225,13 +279,15 @@ int main ()
         #if DEBUG
         if (stateChange) printf("\nRESPONDING:\n");
       #endif
+
+      // delete myGraph;
+      
       break;
 
       default:
         printf("\nPathfinder in unknown state.\n");
 
 
-      delete myGraph;
     }
   }
 }
