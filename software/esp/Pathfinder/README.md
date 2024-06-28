@@ -20,3 +20,5 @@ Class `Slave` was written as a wrapper for functions provided by the `SPI` libra
 Serialization of objects was achieved with the help of `ArduinoJson` library. Objects are encoded as a dictionary data structure, where variables are represented using key-value pairs. The dictionary can then be decoded at the other endpoint into an equivalent object, irrespective of programming language.
 
 The ESP32 deserializes and serializes incoming strings to validate the contents of transmissions. The `Graph` class was developed to validate Host->FPGA transmissions. A corresponding class could be developed for FPGA->Host transmission as a means to validate shortest path response.
+
+[repo](../../../README.md)
