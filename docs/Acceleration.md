@@ -4,6 +4,100 @@
 
 Intially, when thinking of how to accelerate Dijkstra's Algorithm, we started by inspecting the dissasembly of the software implementation of the algorithm.
 
+The dissassembly of the program shows how the compiler converts each line of our program into lines of assembly. Each assembly instruction is executed in one cycle, so seeing which lines need the most assembly instruction was a good way to get an idea of which parts of the algorithm were most ripe for optimisation. In this, case the following line was the most computationally complex:
+
+```
+      if (!inShortestPath[i] && graph[min_index][i] > 0 && dist[min_index] != __INT_MAX__ && dist[min_index] + graph[min_index][i] < dist[i]) 
+  8003bc:	e0bff917 	ldw	r2,-28(fp)
+  8003c0:	10c00217 	ldw	r3,8(r2)
+  8003c4:	e0bffa17 	ldw	r2,-24(fp)
+  8003c8:	1885883a 	add	r2,r3,r2
+  8003cc:	10800003 	ldbu	r2,0(r2)
+  8003d0:	1080005c 	xori	r2,r2,1
+  8003d4:	10803fcc 	andi	r2,r2,255
+  8003d8:	10005526 	beq	r2,zero,800530 <_ZN5Graph8dijkstraEv+0x288>
+  8003dc:	e0bff917 	ldw	r2,-28(fp)
+  8003e0:	10c00017 	ldw	r3,0(r2)
+  8003e4:	e0bffc17 	ldw	r2,-16(fp)
+  8003e8:	100490ba 	slli	r2,r2,2
+  8003ec:	1885883a 	add	r2,r3,r2
+  8003f0:	10c00017 	ldw	r3,0(r2)
+  8003f4:	e0bffa17 	ldw	r2,-24(fp)
+  8003f8:	100490ba 	slli	r2,r2,2
+  8003fc:	1885883a 	add	r2,r3,r2
+  800400:	10c00017 	ldw	r3,0(r2)
+  800404:	000b883a 	mov	r5,zero
+  800408:	1809883a 	mov	r4,r3
+  80040c:	08c12a40 	call	8c12a4 <__gesf2>
+  800410:	0080470e 	bge	zero,r2,800530 <_ZN5Graph8dijkstraEv+0x288>
+  800414:	e0bff917 	ldw	r2,-28(fp)
+  800418:	10c00117 	ldw	r3,4(r2)
+  80041c:	e0bffc17 	ldw	r2,-16(fp)
+  800420:	100490ba 	slli	r2,r2,2
+  800424:	1885883a 	add	r2,r3,r2
+  800428:	10c00017 	ldw	r3,0(r2)
+  80042c:	0153c034 	movhi	r5,20224
+  800430:	1809883a 	mov	r4,r3
+  800434:	08c12340 	call	8c1234 <__eqsf2>
+  800438:	10003d26 	beq	r2,zero,800530 <_ZN5Graph8dijkstraEv+0x288>
+  80043c:	e0bff917 	ldw	r2,-28(fp)
+  800440:	10c00117 	ldw	r3,4(r2)
+  800444:	e0bffc17 	ldw	r2,-16(fp)
+  800448:	100490ba 	slli	r2,r2,2
+  80044c:	1885883a 	add	r2,r3,r2
+  800450:	11000017 	ldw	r4,0(r2)
+  800454:	e0bff917 	ldw	r2,-28(fp)
+  800458:	10c00017 	ldw	r3,0(r2)
+  80045c:	e0bffc17 	ldw	r2,-16(fp)
+  800460:	100490ba 	slli	r2,r2,2
+  800464:	1885883a 	add	r2,r3,r2
+  800468:	10c00017 	ldw	r3,0(r2)
+  80046c:	e0bffa17 	ldw	r2,-24(fp)
+  800470:	100490ba 	slli	r2,r2,2
+  800474:	1885883a 	add	r2,r3,r2
+  800478:	10c00017 	ldw	r3,0(r2)
+  80047c:	180b883a 	mov	r5,r3
+  800480:	08c0dc80 	call	8c0dc8 <__addsf3>
+  800484:	1007883a 	mov	r3,r2
+  800488:	1809883a 	mov	r4,r3
+  80048c:	e0bff917 	ldw	r2,-28(fp)
+  800490:	10c00117 	ldw	r3,4(r2)
+  800494:	e0bffa17 	ldw	r2,-24(fp)
+  800498:	100490ba 	slli	r2,r2,2
+  80049c:	1885883a 	add	r2,r3,r2
+  8004a0:	10c00017 	ldw	r3,0(r2)
+  8004a4:	180b883a 	mov	r5,r3
+  8004a8:	08c135c0 	call	8c135c <__lesf2>
+  8004ac:	1000200e 	bge	r2,zero,800530 <_ZN5Graph8dijkstraEv+0x288>
+```
+
+This is the step in Dijkstra's algorithm where we check if a candidate node is connected to the current node, and whether the path through this node to the candidate is shorter than the current shortest distance recorded.
+
+The assembly highlights the numerous operations required, including several calls to software emulation for floating point operations, these are formatted as `<__*f*>`. For instance, `<__addsf3>` is a function which itself contains 282 assembly instructions, `<__lesf2>` 44 instructions, `<__eqsf2>` 27 instructions and finally, `<__gesf2>` 45 instructions.
+
+Therefore, one single execution of this function could, depending on the values at runtime, take up to around 450 cycles. Reducing this number by exploiting hardware was a key strategy for the development of the Hybrid Dijkstra optimisation.
+
+As a point of comparaison, the Intel Floating Point IP blocks can perform floating point addition (replacing `<__addsf3>`) in 2 cycles at 50 MHz. Furthermore, the comparaisons are done combinationally.
+
+Therefore, the `dijkstra_check_step` block was developed.
+
+This block is implmented as a Nios II Custom Instruction. The framework is such that the custom hardware block has two 32-bit inputs `dataa` and `datab`, and allows for multiple latency options, including a fixed cycle latency for known delays, or a flexible latency, where the block signals to the CPU completion of computation by setting a `done` output flag to high. There is only one 32-bit output, `result`.
+
+The hard limit of two 32-bit inputs was challenging, because the line to accelerate has three distinct data values. In the end, `dist[min_index]` and `graph[min_index][i]` were selected, in part because of their role in the addition.
+
+Using Intel Floating Point IP, the comparaison and addition operations were accelerated using dedicated hardware. The next step in the algorithm is to write the distance to the candiate node as the new computed distance (the floating point addition) in the case the new route is shorter. 
+
+Here, the original `if` statement first checks wether the candidate node is even worth considering, by checking if the node is connected to the current node (`graph[min_index][i] > 0` as negative indices, or infinity both represent disconnected nodes). When it is, then the addition is performed.
+
+One of the advantages of hardware is that it is possible to perform multiple operations in parallel, therefore, time could be saved if the addition could be started before the connectedness of the candidate node can even be checked.
+
+Therefore, designing the custom block to compute the new potential distance could allow us to start the addition immediately, then if the candiadate is invalid, return infinity as the new distance, and if not, then one cycle out of two required for the addition will have elapsed, with the new distance via the candidate reported during the next cycle. The next step in software would use Floating Point Hardware to determine whether this new distance is better than the existing distance.
+
+In the end, even though Floating Point Addition emulation is far more costly, the sheer number of times comparaisons are made, it seems that most performance uplift was linked to the use of custom hardware to accelerate the comparaisons.
+
+## Full Hardware Dijkstra
+See documenation on this [branch](https://github.com/Diegovano/pathfinder/tree/h-dijkstra-mem_debug) for details on Full Hardware Dijkstra implementation. 
+
 ## Direct Memory Access Controller
 
 One of the limitations of the custom system is the latency of the CPU's data path. In early iterations, custom hardware accelerators were connected to the CPU through the custom instruction interface. The custom instruction interface assigns an op-code to a user-defined multi-cycle instruction and provides buses to connect the CPU to a peripheral.
@@ -129,8 +223,12 @@ Custom floating point hardware is also utilised to provide acceleration and is r
 
 ![Block Diagram of Custom Hardware](ADD LINK HERE "Block Diagram of Custom Hardware")
 
-## Accelerating Dijkstra Algorithm
+## Delta Algorithm
 
-### Full Hardware Dijkstra
-See documenation on this [branch](https://github.com/Diegovano/pathfinder/tree/h-dijkstra-mem_debug) for details on Full Hardware Dijkstra implementation. 
+All of the above described algorithms are sequential algorithms, and it is difficult to paralellise them due to data interdependency between executions of the loop body. To further leverage the advantages of hardware, we also wanted to consider a parallel pathfinding algorithm. During our research, we learned about the Delta Stepping algorithm, detailed [here](https://www.sciencedirect.com/science/article/pii/S0196677403000762).
 
+The fundamental advantage of this algorithm is that it is constructed in such a fashion that multiple edges are split into buckets where they can be "relaxed" in parallel, this means that the tentative distances can be updated in parallel.
+
+Challenges with this algorithm include selecting the value of Delta. Delta determines the size of each bucket as well as whether nodes will be considered "light" or "heavy", essentially separating the work to be done into simpler operations (light) and more involved operations (heavy).
+
+Although we were able to implement the Delta-Stepping algorithm in software, we did not have enough time to integrate it, experiment with different delta values, and developping hardware to perform parallel computation, although all of the infrastructure to facilitate this is now in place, and any desired pathfinding algorithms can be added to `graph.cpp`.
