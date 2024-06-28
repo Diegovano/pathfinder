@@ -14,3 +14,8 @@ A [custom software driver](../software/pathfinder/src/DMA/DMA.h) was written for
 
 ## Accelerating A* Algorithm
 
+## Accelerating Dijkstra Algorithm
+
+### Full Hardware Dijkstra
+See documenation on this [branch](https://github.com/Diegovano/pathfinder/tree/h-dijkstra-mem_debug) for details on Full Hardware Dijkstra implementation. 
+
