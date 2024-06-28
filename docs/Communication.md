@@ -6,7 +6,7 @@ The following dataflow diagram (DFD) describes the operating framework of the ha
 
 # Wi-Fi
 
-The ESP32 was selected to act as an interface between the host PC and FPGA as it has wireless capabilities. A PC and ESP32 connected to the same WLAN can communicate employing a TCP/IP socket. Byte-streams can be sent bidirectionally.
+The ESP32 was selected to act as an interface between the host PC and FPGA because it has a wireless network interface card. A PC and ESP32 connected to the same WLAN can communicate employing a TCP/IP socket. Byte-streams can be sent bidirectionally
 
 ## Connecting ESP32 to Host
 
@@ -29,8 +29,12 @@ The ESP32 can be connected to the DE1-SoC board via its GPIO pins. There are 4 p
 
 The GPIO diagram below illustrates the layout of the FPGA header pins, which are made available for external devices to connect. Each of the GPIO pins has a symbolic name, as well as a physical pin from the DE1-SoC chip that it is connected to (RED). The SPI pin labels (BLUE) represent the arbitrary assignments made within the Quartus project on the shared git repository.
 
-![FPGA GPIO diagram](.\images\FPGA_GPIO_diagram.png)
+![FPGA GPIO diagram](./images/FPGA_GPIO_diagram.png)
 
 These must be connected to the corresponding pins on the DFRobot FireBeetle ESP32 board, e.g. MISO to MISO, MOSI to MOSI. As defined in the esp project on git, the CS input was assigned to IO25/D2.
 
-![ESP32 diagram](.\images\ESP32_diagram.png)
+![ESP32 diagram](./images/ESP32_diagram.png)
+
+# JSON Serialization
+
+JavaSctript Object Notation (JSON) is a standardized serial representation of objects, employed by web applications. JSON was utilised to transmit objects such as the adjancency list and shortest path array between the various devices in the system. Python has an in-built package `JSON` to deal with serialization and deserialization, but C++ required the additional library `ArduinoJSON`. Deserialization in C++ is more complex due to the static type system, hence custom converters had to be written to retrieve data from JSON string with correct type casting into the correct data structures.
