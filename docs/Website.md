@@ -13,7 +13,7 @@
 - [Note](#note)
 
 
-This project is a Flask web application that provides an interface for pathfinding on a map, using geographical data. The application uses Folium for map rendering and OSMnx for obtaining street network data. It includes functionality for processing coordinates, creating a map, formatting data for algorithms, and communicating with an ESP32 device.
+This documentation supports a Flask web application that provides an interface for pathfinding on a map, using geographical data. The application uses Folium for map rendering and OSMnx for obtaining street network data. It includes functionality for processing coordinates, creating a map, formatting data, and communicating with an ESP32 device.
 
 ### Key Features
 
@@ -37,10 +37,10 @@ python3 --version
 If you do not have Python 3.12.4 or higher, please visit [Python's official website](https://www.python.org/downloads/) to download and install the latest version.
 
 ## Installation
-This installation guide assumes that the repositry has already been cloned. 
+This installation guide assumes that the repository has already been cloned. 
 ## Install Dependencies
 
-Before running the application, you need to install the necessary Python libraries. Use the following commands in your terminal:
+Before you run the application, you'll need to install the necessary Python libraries. Use the following commands in your terminal:
 
 ```bash
 # Use pip or pip3 depending on your Python installation
@@ -107,7 +107,7 @@ import socket
 coordinates_array = []
 ```
 
-This variable is used to store coordinates inputted on the frontend.
+This variable is used to store coordinates inputted on the front-end.
 
 #### Flask App Initialisation
 
@@ -121,7 +121,7 @@ app = Flask(__name__)
     ### Explanation
 
     1. **Initialise Map**:
-        - The function initialises a Folium map centered at the specified coordinates with a given zoom level.
+        - The function initialises a Folium map centred at the specified coordinates with a given zoom level.
         ```python
         folium_map = folium.Map(location=[51.4988, -0.1749], zoom_start=14)
         ```
