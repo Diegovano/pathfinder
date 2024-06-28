@@ -57,7 +57,6 @@ Here are the links to the official documentation for each library, which you mig
 - [Socket](https://docs.python.org/3/library/socket.html) - Low-level networking interface (note: `socket` is part of Python's standard library, so no installation is required for this one).
 
 Ensure you have these libraries installed to proceed with running the application.
-```
 
 ## Running the Application
 
