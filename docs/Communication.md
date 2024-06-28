@@ -1,16 +1,16 @@
 # Communication
 
-The following dataflow diagram (DFD) describes the operating framework of the hardware accelerated pathfinder.
+The following dataflow diagram (DFD) describes the operating framework of the hardware accelerated pathfinder. The system is comprised of 3 principal devices: a PC, an ESP32 and an FPGA. These 3 devices were connected employing serial protocols over different media. This document details how these communication channels were implemented and how to emulate the communication setup achieved in the final stable product.
 
-![Slice 5DFD2.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a274f64f-7d43-4fa8-bc47-cab5a7073be2/74587c48-3d38-4b37-92aa-9e7ec4ebb265/Slice_5DFD2.png)
+![DFD.png](./images/DFD.png)
 
 ## Wi-Fi
 
-The ESP32 was selected to act as an interface between the host PC and FPGA because it has a wireless network interface card. A PC and ESP32 connected to the same WLAN can communicate employing a TCP/IP socket. Byte-streams can be sent bidirectionally
+The ESP32 was selected to act as an interface between the host PC and FPGA because it has a wireless network interface card. A PC and ESP32 connected to the same WLAN can communicate employing a TCP/IP socket. 
 
 ### Connecting ESP32 to Host
 
-The ESP32 must be connected to the same LAN as the host. It has not been possible to connect the ESP32 to Imperial-WPA due to WPA2 Enterprise authentication. Instead, the most practical method has been enabling host PC’s hotspot and connecting ESP32 to its LAN via normal WPA2 authentication. In future, credentials such as SSID and password will be environment variables in a separate file. Do not push credentials onto repo.
+The ESP32 must be connected to the same LAN as the host. It has not been possible to connect the ESP32 to Imperial-WPA due to WPA2 Enterprise authentication. Instead, the most practical method has been enabling host PC’s hotspot and connecting ESP32 to its LAN via normal WPA2 authentication. The IP address variable must be adjusted in server script [map.py](../software/python/map_final/map.py). Likewise, the SSID and password variables must be adjusted in the ESP32 code [main.cpp](../software/esp/Pathfinder/src/main.cpp).
 
 ## SPI Protocol
 
@@ -27,7 +27,7 @@ The ESP32 microprocessor has fixed SPI hardware, whilst the FPGA can synthesize 
 
 The ESP32 can be connected to the DE1-SoC board via its GPIO pins. There are 4 pins involved in the SPI interface. Additionally, the ground pins of each device must be connected to each other, providing the same reference.
 
-The GPIO diagram below illustrates the layout of the FPGA header pins, which are made available for external devices to connect. Each of the GPIO pins has a symbolic name, as well as a physical pin from the DE1-SoC chip that it is connected to (RED). The SPI pin labels (BLUE) represent the arbitrary assignments made within the Quartus project on the shared git repository.
+The GPIO diagram below illustrates the layout of the FPGA header pins, which are made available for external devices to connect. Each of the GPIO pins has a symbolic name, as well as a physical pin from the DE1-SoC chip that it is connected to (RED). The SPI pin labels (BLUE) represent the arbitrary assignments made within the pin assignment menu in Quartus.
 
 <img src="./images/FPGA_GPIO_diagram.png" style="display: block; margin: 0 auto" width="500" />
 
