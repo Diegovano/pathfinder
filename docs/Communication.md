@@ -29,11 +29,13 @@ The ESP32 can be connected to the DE1-SoC board via its GPIO pins. There are 4 p
 
 The GPIO diagram below illustrates the layout of the FPGA header pins, which are made available for external devices to connect. Each of the GPIO pins has a symbolic name, as well as a physical pin from the DE1-SoC chip that it is connected to (RED). The SPI pin labels (BLUE) represent the arbitrary assignments made within the Quartus project on the shared git repository.
 
-![FPGA GPIO diagram](./images/FPGA_GPIO_diagram.png)
+<img src="./images/FPGA_GPIO_diagram.png" style="display: block; margin: 0 auto" width="500" />
 
-These must be connected to the corresponding pins on the DFRobot FireBeetle ESP32 board, e.g. MISO to MISO, MOSI to MOSI. As defined in the esp project on git, the CS input was assigned to IO25/D2.
+These must be connected to the corresponding pins on the DFRobot FireBeetle ESP32 board, e.g. MISO to MISO, MOSI to MOSI. As defined in the [platform.io project](../software/esp/Pathfinder/src/main.cpp), the CS input was assigned to IO25/D2.
 
-![ESP32 diagram](./images/ESP32_diagram.png)
+
+<img src="./images/ESP32_diagram.png" style="display: block; margin: 0 auto" width="500" />
+
 
 ## JSON Serialization
 

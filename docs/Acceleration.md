@@ -2,15 +2,17 @@
 
 ## Direct Memory Access Controller
 
-One of the limitations of the custom system is the bandwidth of the CPU's data path. In early iterations, custom hardware accelerators were connected to the CPU through the custom instruction interface. The custom instruction interface assigns an op-code to a user-defined multi-cycle instruction and provides buses to connect the CPU to a peripheral.
+One of the limitations of the custom system is the latency of the CPU's data path. In early iterations, custom hardware accelerators were connected to the CPU through the custom instruction interface. The custom instruction interface assigns an op-code to a user-defined multi-cycle instruction and provides buses to connect the CPU to a peripheral.
 
 When the custom instruction is called, the ALU is bypassed and the 2 32-bit operands are sent to a custom peripheral hardware block (the accelerator). The 32-bit result is retrieved and stored in a CPU register after an arbitrary number of cycles or after the flipping of a hardware flag.
 
 There are 2 principal issues with this interface. Firstly, input data has to pass through the CPU on its journey between SDRAM and peripherals, increasing latency. Secondly, only 2 inputs can be fed to the accelerator per instruction call. These 2 factors act as bottlenecks for the throughput of the accelerator block.
 
-The Direct Memory Access Controller is a module that can carry out the transfer of data from one contiguous memory array to another, bypassing the CPU. The DMA controller does not only reduce the latency of read/write operations between peripherals and the SDRAM but also allows for more than 2 inputs and outputs. The CPU only needs to trigger the DMA transfer and is then free to begin other processes.
+The Direct Memory Access Controller is a module that can carry out the transfer of data from one contiguous memory array to another, bypassing the CPU. The DMA controller does not only reduce the latency of read/write operations between peripherals and the SDRAM but also allows for more than 2 inputs and outputs. The CPU only needs to trigger the DMA transfer and is then free to begin other processes. Furthermore, a single DMA Controller module can be connected to the SDRAM and all the memory-mapped peripherals thanks to the avalon bus' addressing.
 
-A [custom software driver](../software/pathfinder/src/DMA/DMA.h) was written for the DMA controller.
+A [custom software driver](../software/pathfinder/src/DMA/DMA.h) was written for the DMA controller. After initialising a `DMA` object, an interrupt mechanism is available to perform procedures upon the completion of a DMA transfer, for example starting an accelerator block's state machine. A memory-to-peripheral copy can be performed with the simple function `DMA::copy`.
+
+By instantiating a small register file within the custom hardware accelerator blocks, an array of inputs can be taken and processed to calculate complex functions with more than 2 inputs, for example the euclidian distance between 2 points in 2D space. Similarly, Same Instruction Multiple Data (SIMD) instructions can be accelerated by reading a full input vector with the DMA controller. This can reduce the time complexity of the algorithm by computing vector operations in parallel rather than through 1 or more nested loops in software.
 
 ## Accelerating A* Algorithm
 The A* Algorithm is a pathfinding algorithm used to find the shortest path between nodes in a weighted graph. Unlike other algorithms, such as Dijkstra's, it utilises a heuristic function to 'guide' the algorithm towards the goal more efficiently. The heuristic function estimates the cost to reach the goal from the current node, allowing A* to prioritise paths that appear more promising.
