@@ -1,5 +1,9 @@
 # Acceleration
 
+## Accelerating Dijkstra's Algorithm
+
+Intially, when thinking of how to accelerate Dijkstra's Algorithm, we started by inspecting the dissasembly of the software implementation of the algorithm.
+
 ## Direct Memory Access Controller
 
 One of the limitations of the custom system is the latency of the CPU's data path. In early iterations, custom hardware accelerators were connected to the CPU through the custom instruction interface. The custom instruction interface assigns an op-code to a user-defined multi-cycle instruction and provides buses to connect the CPU to a peripheral.

@@ -18,6 +18,7 @@ All software files, this includes Python prototyping, and `C/C++` code for execu
 ### Documentation
 
 Set of markdown files providing operating instructions and insight on methods used within the project.
+For initial setup, see [setup](./docs/Setup.md).
 
 - [Website](./docs/Website.md)
 - [Communication](./docs/Communication.md)
