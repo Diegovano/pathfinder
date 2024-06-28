@@ -58,6 +58,7 @@ float read_dijkstra_cache(int from_node, int to_node){
 	return ALT_CI_DIJKSTRA32_FLOAT_1(1,dataa,0);
 }
 
+//returns predecessor of the node
 int read_path_vector(int node){
 	long dataa = node;
 	return ALT_CI_DIJKSTRA32_FLOAT_3(3,dataa,0);
@@ -160,9 +161,6 @@ int main()
   adjMatrix[12][2] = 19.803;
 
   full_HW_dijkstra_reshape(float_in_ptr, adjMatrix);
-
-
-
   printf("\nshortest distance: %f \n", run_dijkstra_withCache(1,5,14,float_in_ptr,dma));
 
   for (int i=0; i <14; i++){
