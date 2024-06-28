@@ -119,7 +119,7 @@ float Graph::getDistance(DMA& dma, StarAccelerator& accel, const Node& n1, const
 ```
 This function begins by loading the coordinates of the nodes in the accelerator's input array. The DMA is then used to copy the input array into the accelerators custom memory block, where it is then executed. After the computation, the result is copied from the accelerator's memory to the host where it is then returned. For more information about the DMA, see the [Direct Memory Access Controller](#direct-memory-access-controller) section.
 
-Custom floating point hardware is also utilised to provide acceleration and is referenced by `ALT_CI_ADDF`. As well as this, a hardware block to compare two floats is also used referenced by `ALT_CI_LTF`. Both of these are implemented as Custom Instruction Slaves in the NIOSII processer. 
+Custom floating point hardware is also utilised to provide acceleration and is referenced by `ALT_CI_ADDF` and `ALT_CI_LTF` used for addition and comparison, respectively. These hardware components are implemented as Custom Instruction Slaves on the NIOSII processer. 
 
 ![Block Diagram of Custom Hardware](ADD LINK HERE "Block Diagram of Custom Hardware")
 
