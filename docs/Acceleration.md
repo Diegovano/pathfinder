@@ -1,4 +1,6 @@
-# Direct Memory Access Controller
+# Acceleration
+
+## Direct Memory Access Controller
 
 One of the limitations of the custom system is the bandwidth of the CPU's data path. In early iterations, custom hardware accelerators were connected to the CPU through the custom instruction interface. The custom instruction interface assigns an op-code to a user-defined multi-cycle instruction and provides buses to connect the CPU to a peripheral.
 
@@ -10,5 +12,5 @@ The Direct Memory Access Controller is a module that can carry out the transfer 
 
 A [custom software driver](../software/pathfinder/src/DMA/DMA.h) was written for the DMA controller.
 
-# Accelerating A* Algorithm
+## Accelerating A* Algorithm
 

@@ -1,18 +1,18 @@
-# Overview
+# Communication
 
 The following dataflow diagram (DFD) describes the operating framework of the hardware accelerated pathfinder.
 
 ![Slice 5DFD2.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a274f64f-7d43-4fa8-bc47-cab5a7073be2/74587c48-3d38-4b37-92aa-9e7ec4ebb265/Slice_5DFD2.png)
 
-# Wi-Fi
+## Wi-Fi
 
 The ESP32 was selected to act as an interface between the host PC and FPGA because it has a wireless network interface card. A PC and ESP32 connected to the same WLAN can communicate employing a TCP/IP socket. Byte-streams can be sent bidirectionally
 
-## Connecting ESP32 to Host
+### Connecting ESP32 to Host
 
 The ESP32 must be connected to the same LAN as the host. It has not been possible to connect the ESP32 to Imperial-WPA due to WPA2 Enterprise authentication. Instead, the most practical method has been enabling host PC’s hotspot and connecting ESP32 to its LAN via normal WPA2 authentication. In future, credentials such as SSID and password will be environment variables in a separate file. Do not push credentials onto repo.
 
-# SPI Protocol
+## SPI Protocol
 
 The ESP32 communicates with the FPGA through the Serial Port Interface (SPI) protocol. SPI protocol is common for interfacing hardware components together, where one acts as a master to one or more slaves. In the chosen architecture, the ESP32 acts as master and FPGA acts as slave.
 
@@ -23,7 +23,7 @@ The ESP32 communicates with the FPGA through the Serial Port Interface (SPI) pro
 
 The ESP32 microprocessor has fixed SPI hardware, whilst the FPGA can synthesize an SPI module in its fabric. Altera provides a ready-made SPI IP that can be added into the platform designer; the module must be connected to the NIOS2 processor and configured as a slave.
 
-## Connecting to ESP32 to FPGA
+### Connecting to ESP32 to FPGA
 
 The ESP32 can be connected to the DE1-SoC board via its GPIO pins. There are 4 pins involved in the SPI interface. Additionally, the ground pins of each device must be connected to each other, providing the same reference.
 
@@ -35,6 +35,6 @@ These must be connected to the corresponding pins on the DFRobot FireBeetle ESP3
 
 ![ESP32 diagram](./images/ESP32_diagram.png)
 
-# JSON Serialization
+## JSON Serialization
 
 JavaSctript Object Notation (JSON) is a standardized serial representation of objects, employed by web applications. JSON was utilised to transmit objects such as the adjancency list and shortest path array between the various devices in the system. Python has an in-built package `JSON` to deal with serialization and deserialization, but C++ required the additional library `ArduinoJSON`. Deserialization in C++ is more complex due to the static type system, hence custom converters had to be written to retrieve data from JSON string with correct type casting into the correct data structures.

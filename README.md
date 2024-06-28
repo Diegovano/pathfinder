@@ -13,7 +13,15 @@ The Quartus Project, mainly relating to synthesis
 
 ### Software
 
-All software files, this includes Python prototyping, and `C` code for execution on NIOS.
+All software files, this includes Python prototyping, and `C/C++` code for execution on NIOS.
+
+### Documentation
+
+Set of markdown files providing operating instructions and insight on methods used within the project.
+
+- [Website](./docs/Website.md)
+- [Communication](./docs/Communication.md)
+- [Acceleration](./docs/Acceleration.md)
 
 ## Commit Messages
 
