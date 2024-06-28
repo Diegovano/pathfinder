@@ -12,4 +12,4 @@ The reset of the path vector and distance vector are not working properly such t
 
 It is identified that the first run after a full system reset is always wrong. 
 
-This error is bypassable by initating a pathfinding for a size 1 matrix from a node to itself before running actual pathfinding on the full matrix, acting as a manual reset. This action is expected to only take 1 clock cycle and hence shoud not have a performance overhead.  
+This error is bypassable by initating a pathfinding for a size 1 matrix from a node to itself before running actual pathfinding on the full matrix, acting as a manual reset. This action is expected to only take 1 clock cycle and hence shoud not have a noticable performance overhead.  

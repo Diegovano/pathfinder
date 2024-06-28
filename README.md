@@ -40,4 +40,4 @@ Any questions, please ask me (Diego).
 
 ## Credits
 
-the original verilog used for this part of the project is thanks to the work done by ___ on this [repository](https://github.com/Property404/dijkstra-verilog/tree/master)
+the original verilog used for this part of the project is thanks to the work done on this [repository](https://github.com/Property404/dijkstra-verilog/tree/master)
